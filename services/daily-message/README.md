@@ -1,22 +1,23 @@
 # Daily Message
 
-Every morning at **8:00 AM**, send a warm, AI-written note to **Sigma Boy** on WhatsApp — free, personal, from your own account.
+Every morning at **8:00 AM** (your local time), send a warm AI-written note to **Sigma Boy** on WhatsApp.
 
-No paid APIs. No Twilio. No WhatsApp Cloud API. No driving WhatsApp Desktop with a browser. This uses:
+**Free. Personal. Your own account. $0.**
 
-- **Local Ollama** on your PC to write the message (`qwen3.5:4b`, fallback `llama3.2:3b`)
-- **Baileys** (WhatsApp Web protocol) to send it — scan a QR code once, session stays on disk
+No paid APIs. No Twilio. No WhatsApp Cloud API. No clicking WhatsApp Desktop. This uses:
 
-One machine, one account, **$0**.
+1. **Ollama** on your PC to write the message
+2. **Baileys** (WhatsApp linked-device protocol) to send it — scan a QR code once
+3. **Windows Task Scheduler** to run it every day at 8:00 AM
 
 ## What you need
 
-- **Windows 10/11**
-- **Node.js 18+**
-- **Ollama** running locally (`http://127.0.0.1:11434`) with `qwen3.5:4b` pulled
+- Windows 10/11
+- Node.js 18+
+- [Ollama](https://ollama.com) running on your PC
 - Your phone with WhatsApp (to scan QR once)
 
-## Setup (5 steps)
+## Setup
 
 ### 1. Install
 
@@ -27,9 +28,13 @@ cd services\daily-message
 npm install
 ```
 
-### 2. Edit the prompt (optional)
+### 2. Check everything
 
-Open `config.json`. The defaults are already set for Sigma Boy at 8:00 AM. Change the `prompt` field to whatever you like — topics, tone, length.
+```powershell
+node cli.js doctor
+```
+
+You should see what's missing (Ollama, WhatsApp session, etc.).
 
 ### 3. Link WhatsApp (one time)
 
@@ -37,69 +42,85 @@ Open `config.json`. The defaults are already set for Sigma Boy at 8:00 AM. Chang
 node cli.js link-whatsapp
 ```
 
-Scan the QR code with your phone: **WhatsApp → Linked Devices → Link a Device**.
+On your phone: **WhatsApp → Linked Devices → Link a Device** → scan the QR code.
 
-The session is saved in `data/whatsapp-auth/`. You only do this once (unless you log out).
+The session is saved in `data/whatsapp-auth/`. You only do this once.
 
-### 4. Test a send now
+### 4. Edit the prompt (optional)
 
-Make sure Ollama is running, then:
+Open `config.json`. Change `prompt` to whatever you like. Defaults are set for Sigma Boy.
+
+### 5. Test a send now
+
+Make sure Ollama is running:
 
 ```powershell
 node cli.js run-now
 ```
 
-You should see Ollama generate a message and send it to Sigma Boy.
+Sigma Boy should receive a message.
 
-### 5. Install the 8:00 AM daily task
+### 6. Install the daily 8:00 AM task
 
 ```powershell
 node cli.js install-schedule
 ```
 
-This creates a Windows Scheduled Task named `effortless-daily-message` that runs every day at 8:00 AM local time.
+Creates a Windows task named `effortless-daily-message`.
 
-## Config file (`config.json`)
+## Config (`config.json`)
 
-| Field | What it does |
-|-------|-------------|
-| `to` | WhatsApp chat name (default: `Sigma Boy`) |
-| `schedule` | Human-readable schedule (default: `daily at 8:00 AM`) |
-| `hour` / `minute` | Backup time if schedule text can't be parsed |
-| `model` | Primary Ollama model (default: `qwen3.5:4b`) |
-| `modelFallback` | Fallback model (default: `llama3.2:3b`) |
-| `ollamaUrls` | Try `11434` first, then `8817` (your existing router — not modified) |
-| `prompt` | Instructions for what Ollama should write |
+| Field | Default | Meaning |
+|-------|---------|---------|
+| `to` | `Sigma Boy` | WhatsApp chat name |
+| `schedule` | `08:00` | Local time, 24-hour format |
+| `model` | `qwen3.5:4b` | Primary Ollama model |
+| `modelFallback` | `llama3.2:3b` | Fallback if primary unavailable |
+| `ollamaUrls` | `11434`, then `8817` | Tries direct Ollama first, then your existing router (not modified) |
+| `prompt` | (see file) | What Ollama should write |
 
 ## Commands
 
 | Command | What it does |
 |---------|-------------|
-| `node cli.js link-whatsapp` | Scan QR, save session, find Sigma Boy chat |
-| `node cli.js run-now` | Generate + send one message right now |
-| `node cli.js install-schedule` | Create Windows daily 8 AM task |
+| `node cli.js doctor` | Check config, Ollama, session, recipient |
+| `node cli.js link-whatsapp` | Scan QR, save session, find Sigma Boy |
+| `node cli.js run-now` | Generate + send one message now |
+| `node cli.js install-schedule` | Create daily Windows task at configured time |
+
+### Optional HTTP (localhost only)
+
+```powershell
+npm start
+```
+
+- `GET http://127.0.0.1:8770/health` — same as `doctor`
+- `POST http://127.0.0.1:8770/run-now` — trigger one send
+
+## Exit codes
+
+| Code | Meaning |
+|------|---------|
+| 0 | Success |
+| 2 | Usage error (wrong command) |
+| 3 | Config error |
+| 4 | Ollama not reachable |
+| 5 | Ollama generation failed |
+| 6 | WhatsApp not linked |
+| 7 | WhatsApp send failed |
+| 8 | Chat not found |
+| 9 | Schedule install failed |
+| 10 | Internal error |
 
 ## Troubleshooting
 
 | Problem | Fix |
 |---------|-----|
-| Ollama not reachable | Start Ollama app or run `ollama serve` |
-| Model not found | Run `ollama pull qwen3.5:4b` |
-| Chat not found | Make sure "Sigma Boy" matches the exact WhatsApp chat name, then re-run `link-whatsapp` |
-| Session expired | Run `link-whatsapp` again and scan QR |
-| Task didn't run | Open Task Scheduler → `effortless-daily-message` → check Last Run Result |
-
-## How it works
-
-```
-8:00 AM Task Scheduler
-        ↓
-   run-now (cli.js)
-        ↓
-   Ollama (local) writes message from prompt
-        ↓
-   Baileys sends to Sigma Boy via saved session
-```
+| `doctor` shows Ollama FAIL | Start Ollama or run `ollama serve` |
+| Model not found | `ollama pull qwen3.5:4b` |
+| WhatsApp session FAIL | `node cli.js link-whatsapp` |
+| Chat not found | Check exact chat name matches `config.json` `to` field |
+| Task didn't run | Task Scheduler → `effortless-daily-message` → Last Run Result |
 
 ## Tests
 
@@ -107,11 +128,10 @@ This creates a Windows Scheduled Task named `effortless-daily-message` that runs
 npm test
 ```
 
-Tests cover config validation and Ollama client logic (mocked — no live Ollama or WhatsApp in CI).
+Tests config validation and Ollama client logic (mocked — no live WhatsApp or Ollama in CI).
 
 ## What this is NOT
 
-- Not a cloud service
-- Not WhatsApp Business API
-- Not driving WhatsApp Desktop UI
-- Not modifying your Ollama router at port 8817 (only calls it as fallback)
+- Not UI automation or Desktop clicking
+- Not a cloud service or paid API
+- Not modifying your Ollama router at port 8817

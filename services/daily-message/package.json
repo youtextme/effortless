@@ -8,8 +8,10 @@
     "daily-message": "./cli.js"
   },
   "scripts": {
+    "start": "node server.js",
     "link": "node cli.js link-whatsapp",
     "run": "node cli.js run-now",
+    "doctor": "node cli.js doctor",
     "install-schedule": "node cli.js install-schedule",
     "test": "node --test tests/*.test.js"
   },

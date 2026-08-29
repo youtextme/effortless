@@ -3,6 +3,7 @@ import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { resolveSchedule } from './config.js';
 import { SERVICE_ROOT } from './paths.js';
+import { EXIT } from './exit-codes.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const INSTALL_SCRIPT = join(__dirname, '..', 'install-schedule.ps1');
@@ -13,7 +14,9 @@ const INSTALL_SCRIPT = join(__dirname, '..', 'install-schedule.ps1');
  */
 export async function installSchedule(config) {
   if (process.platform !== 'win32') {
-    throw new Error('install-schedule requires Windows Task Scheduler.');
+    const err = new Error('install-schedule requires Windows Task Scheduler.');
+    err.exitCode = EXIT.SCHEDULE_FAIL;
+    throw err;
   }
 
   const { hour, minute } = resolveSchedule(config);
@@ -55,7 +58,9 @@ export async function installSchedule(config) {
       if (code === 0) {
         resolve({ ok: true, output: output.trim(), hour, minute });
       } else {
-        reject(new Error(output.trim() || `install-schedule.ps1 exited with code ${code}`));
+        const err = new Error(output.trim() || `install-schedule.ps1 exited with code ${code}`);
+        err.exitCode = EXIT.SCHEDULE_FAIL;
+        reject(err);
       }
     });
 

@@ -1,8 +1,6 @@
 {
   "to": "Sigma Boy",
-  "schedule": "daily at 8:00 AM",
-  "hour": 8,
-  "minute": 0,
+  "schedule": "08:00",
   "model": "qwen3.5:4b",
   "modelFallback": "llama3.2:3b",
   "ollamaUrls": [

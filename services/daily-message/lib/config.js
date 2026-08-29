@@ -4,9 +4,7 @@ import { CONFIG_PATH, STATE_PATH } from './paths.js';
 
 const DEFAULT_CONFIG = {
   to: 'Sigma Boy',
-  schedule: 'daily at 8:00 AM',
-  hour: 8,
-  minute: 0,
+  schedule: '08:00',
   model: 'qwen3.5:4b',
   modelFallback: 'llama3.2:3b',
   ollamaUrls: ['http://127.0.0.1:11434', 'http://127.0.0.1:8817'],
@@ -31,16 +29,13 @@ export function validateConfig(config) {
   if (!config.model || typeof config.model !== 'string') {
     return 'Config "model" must be a string.';
   }
-  if (config.hour !== undefined) {
-    const h = Number(config.hour);
-    if (!Number.isInteger(h) || h < 0 || h > 23) {
-      return 'Config "hour" must be an integer 0–23.';
+  if (config.schedule !== undefined) {
+    const { hour, minute } = parseScheduleString(config.schedule);
+    if (hour === null) {
+      return 'Config "schedule" must be like "08:00" (24-hour local time).';
     }
-  }
-  if (config.minute !== undefined) {
-    const m = Number(config.minute);
-    if (!Number.isInteger(m) || m < 0 || m > 59) {
-      return 'Config "minute" must be an integer 0–59.';
+    if (minute < 0 || minute > 59) {
+      return 'Config schedule minutes must be 0–59.';
     }
   }
   if (config.ollamaUrls !== undefined) {
@@ -78,22 +73,46 @@ export async function loadConfig(configPath = CONFIG_PATH) {
 }
 
 /**
- * Parse schedule string like "daily at 8:00 AM" into hour/minute.
- * Falls back to config.hour/minute when parse fails.
- * @param {object} config
+ * Parse schedule string "08:00" or "daily at 8:00 AM" into hour/minute.
+ * @param {string} text
+ * @returns {{ hour: number|null, minute: number }}
  */
-export function resolveSchedule(config) {
-  const text = (config.schedule || '').toLowerCase();
-  const match = text.match(/(\d{1,2})(?::(\d{2}))?\s*(am|pm)?/i);
-  if (match) {
-    let hour = parseInt(match[1], 10);
-    const minute = match[2] ? parseInt(match[2], 10) : 0;
-    const ampm = match[3]?.toLowerCase();
+export function parseScheduleString(text) {
+  const s = String(text || '').trim();
+
+  // 24-hour: 08:00, 8:00, 20:30
+  const h24 = s.match(/^(\d{1,2}):(\d{2})$/);
+  if (h24) {
+    const hour = parseInt(h24[1], 10);
+    const minute = parseInt(h24[2], 10);
+    if (hour >= 0 && hour <= 23 && minute >= 0 && minute <= 59) {
+      return { hour, minute };
+    }
+    return { hour: null, minute: 0 };
+  }
+
+  // 12-hour: daily at 8:00 AM
+  const h12 = s.toLowerCase().match(/(\d{1,2})(?::(\d{2}))?\s*(am|pm)/i);
+  if (h12) {
+    let hour = parseInt(h12[1], 10);
+    const minute = h12[2] ? parseInt(h12[2], 10) : 0;
+    const ampm = h12[3].toLowerCase();
     if (ampm === 'pm' && hour < 12) hour += 12;
     if (ampm === 'am' && hour === 12) hour = 0;
     return { hour, minute };
   }
-  return { hour: config.hour ?? 8, minute: config.minute ?? 0 };
+
+  return { hour: null, minute: 0 };
+}
+
+/**
+ * Resolve schedule from config.
+ * @param {object} config
+ */
+export function resolveSchedule(config) {
+  const { hour, minute } = parseScheduleString(config.schedule);
+  if (hour !== null) return { hour, minute };
+  return { hour: 8, minute: 0 };
 }
 
 /**

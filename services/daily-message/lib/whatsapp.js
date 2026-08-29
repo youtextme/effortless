@@ -9,8 +9,15 @@ import pino from 'pino';
 import { mkdir } from 'node:fs/promises';
 import { AUTH_DIR } from './paths.js';
 import { saveRecipientJid } from './config.js';
+import { EXIT } from './exit-codes.js';
 
 const logger = pino({ level: 'silent' });
+
+function fail(code, message) {
+  const err = new Error(message);
+  err.exitCode = code;
+  return err;
+}
 
 /**
  * Create a Baileys socket with persisted auth.
@@ -67,7 +74,7 @@ export async function createSocket({
       const code = lastDisconnect?.error?.output?.statusCode;
       const loggedOut = code === DisconnectReason.loggedOut;
       if (loggedOut && rejectOpen) {
-        rejectOpen(new Error('WhatsApp session logged out. Run link-whatsapp again.'));
+        rejectOpen(fail(EXIT.WHATSAPP_NOT_LINKED, 'WhatsApp session logged out. Run link-whatsapp again.'));
       }
     }
   });
@@ -77,7 +84,7 @@ export async function createSocket({
     await Promise.race([
       openPromise,
       new Promise((_, rej) =>
-        setTimeout(() => rej(new Error('Timed out waiting for WhatsApp connection.')), 120_000)
+        setTimeout(() => rej(fail(EXIT.WHATSAPP_FAIL, 'Timed out waiting for WhatsApp connection.')), 120_000)
       ),
     ]);
     return sockWithStore;
@@ -156,7 +163,8 @@ export async function linkWhatsApp(recipientName) {
       .filter(Boolean)
       .slice(0, 20);
     sock.end(undefined);
-    throw new Error(
+    throw fail(
+      EXIT.CHAT_NOT_FOUND,
       `Chat "${recipientName}" not found. Recent chats: ${names.join(', ') || '(none loaded)'}`
     );
   }
@@ -184,7 +192,7 @@ export async function sendWhatsAppMessage({ text, jid, name }) {
     const found = await findChatByName(sock, name);
     if (!found) {
       sock.end(undefined);
-      throw new Error(`Chat "${name}" not found. Run link-whatsapp first.`);
+      throw fail(EXIT.CHAT_NOT_FOUND, `Chat "${name}" not found. Run link-whatsapp first.`);
     }
     targetJid = found.jid;
     targetName = found.name;
@@ -193,7 +201,7 @@ export async function sendWhatsAppMessage({ text, jid, name }) {
 
   if (!targetJid) {
     sock.end(undefined);
-    throw new Error('No recipient JID. Run link-whatsapp first.');
+    throw fail(EXIT.WHATSAPP_NOT_LINKED, 'No recipient JID. Run link-whatsapp first.');
   }
 
   const result = await sock.sendMessage(targetJid, { text });

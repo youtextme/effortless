@@ -2,27 +2,30 @@
 
 A self-realization and effortless living platform.
 
-## Daily message (first capability)
+## Daily message
 
 Every morning at **8:00 AM**, send a warm AI-written note to **Sigma Boy** on WhatsApp — free, personal, from your own account.
 
-- **Local Ollama** writes the message (`qwen3.5:4b`)
-- **Baileys** sends it via your WhatsApp (scan QR once)
-- **Windows Task Scheduler** runs it daily
+| Piece | What |
+|-------|------|
+| **Ollama** | Writes the message locally (`qwen3.5:4b`) |
+| **Baileys** | Sends via your WhatsApp (scan QR once) |
+| **Task Scheduler** | Runs daily at 8:00 AM |
 
-One machine, one account, **$0**. No Twilio, no cloud API keys, no paid services.
+One machine, one account, **$0**. No Twilio, no Cloud API, no Desktop UI clicking.
 
 ### Quick start
 
 ```powershell
 cd services\daily-message
 npm install
+node cli.js doctor           # see what's missing
 node cli.js link-whatsapp    # scan QR once
 node cli.js run-now          # test a send
 node cli.js install-schedule # 8:00 AM daily task
 ```
 
-Edit `config.json` to change the prompt, recipient, or model.
+Edit `config.json` to change the prompt, recipient, or schedule.
 
 Full guide: [services/daily-message/README.md](services/daily-message/README.md)
 
@@ -31,8 +34,4 @@ Full guide: [services/daily-message/README.md](services/daily-message/README.md)
 - Windows 10/11
 - Node.js 18+
 - Ollama running locally
-- WhatsApp on your phone (for one-time QR link)
-
-### Legacy: WhatsApp Desktop CDP bridge
-
-An experimental Desktop CDP bridge exists at [services/whatsapp-send/](services/whatsapp-send/) but is **not recommended** for daily unattended sends. Use `daily-message` instead.
+- WhatsApp on your phone (one-time QR link)
