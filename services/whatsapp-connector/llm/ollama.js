@@ -1,21 +1,10 @@
 /**
- * Ollama client with URL and model fallbacks.
- * Does not modify the router at 127.0.0.1:8817 — only calls it as a fallback endpoint.
+ * Ollama LLM adapter. Calls local Ollama only — does not modify the router at 8817.
  */
 
 const DEFAULT_TIMEOUT_MS = 120_000;
 
-/**
- * Try generating text from Ollama.
- * @param {object} opts
- * @param {string[]} opts.urls - Ollama base URLs to try in order
- * @param {string} opts.model - Primary model
- * @param {string} [opts.modelFallback] - Fallback model if primary fails
- * @param {string} opts.prompt
- * @param {typeof fetch} [opts.fetchImpl]
- * @param {number} [opts.timeoutMs]
- */
-export async function generateMessage({
+export async function generate({
   urls,
   model,
   modelFallback,
@@ -43,13 +32,6 @@ export async function generateMessage({
   throw new Error(`Ollama generation failed:\n${errors.join('\n')}`);
 }
 
-/**
- * @param {string} baseUrl
- * @param {string} model
- * @param {string} prompt
- * @param {typeof fetch} fetchImpl
- * @param {number} timeoutMs
- */
 export async function callGenerate(baseUrl, model, prompt, fetchImpl, timeoutMs) {
   const url = `${baseUrl.replace(/\/$/, '')}/api/generate`;
   const res = await fetchImpl(url, {
@@ -68,12 +50,7 @@ export async function callGenerate(baseUrl, model, prompt, fetchImpl, timeoutMs)
   return data.response ?? '';
 }
 
-/**
- * Check if any Ollama endpoint responds.
- * @param {string[]} urls
- * @param {typeof fetch} [fetchImpl]
- */
-export async function probeOllama(urls, fetchImpl = fetch) {
+export async function probe(urls, fetchImpl = fetch) {
   for (const baseUrl of urls) {
     try {
       const res = await fetchImpl(`${baseUrl.replace(/\/$/, '')}/api/tags`, {

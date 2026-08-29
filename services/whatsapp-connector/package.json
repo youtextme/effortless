@@ -1,18 +1,16 @@
 {
-  "name": "@effortless/daily-message",
+  "name": "@effortless/whatsapp-connector",
   "version": "1.0.0",
-  "description": "Daily warm message for Sigma Boy — local Ollama + Baileys WhatsApp, $0",
+  "description": "Pluggable LLM → WhatsApp connector: define jobs, schedule, send via Baileys ($0)",
   "private": true,
   "type": "module",
   "bin": {
-    "daily-message": "./cli.js"
+    "whatsapp-connector": "./cli.js"
   },
   "scripts": {
     "start": "node server.js",
     "link": "node cli.js link-whatsapp",
-    "run": "node cli.js run-now",
     "doctor": "node cli.js doctor",
-    "install-schedule": "node cli.js install-schedule",
     "test": "node --test tests/*.test.js"
   },
   "engines": {
