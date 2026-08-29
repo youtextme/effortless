@@ -1,0 +1,13 @@
+{
+  "to": "Sigma Boy",
+  "schedule": "daily at 8:00 AM",
+  "hour": 8,
+  "minute": 0,
+  "model": "qwen3.5:4b",
+  "modelFallback": "llama3.2:3b",
+  "ollamaUrls": [
+    "http://127.0.0.1:11434",
+    "http://127.0.0.1:8817"
+  ],
+  "prompt": "Write a warm, fun, motivating note for a 10-year-old named in the chat. About 100–400 words. Pick one topic for today: growth mindset and trying hard things; bike safety and how to fall and get back up; being kind to friends; curiosity and asking good questions; patience when something is hard. Keep it lovely and readable — like a caring older sibling, not preachy. No bullet lists. End with something encouraging they can remember today. Do not mention that you are an AI."
+}

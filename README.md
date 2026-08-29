@@ -2,29 +2,37 @@
 
 A self-realization and effortless living platform.
 
-## WhatsApp send (first capability)
+## Daily message (first capability)
 
-Send a WhatsApp message from your own computer, for free, using the WhatsApp Desktop app already logged in on your Windows PC.
+Every morning at **8:00 AM**, send a warm AI-written note to **Sigma Boy** on WhatsApp — free, personal, from your own account.
 
-This is a **personal bridge**: one machine, one account, $0. No Twilio, no cloud API keys, no paid services. It drives WhatsApp Desktop over localhost CDP — the same technique already proven with verified sends.
+- **Local Ollama** writes the message (`qwen3.5:4b`)
+- **Baileys** sends it via your WhatsApp (scan QR once)
+- **Windows Task Scheduler** runs it daily
+
+One machine, one account, **$0**. No Twilio, no cloud API keys, no paid services.
 
 ### Quick start
 
-1. Open PowerShell in `services/whatsapp-send`
-2. Run `npm install`
-3. Run `powershell -File start-whatsapp-cdp.ps1` (starts WhatsApp with debugging)
-4. Run `npm start` (HTTP service on http://127.0.0.1:8765)
-5. POST a message:
-
-```json
-POST http://127.0.0.1:8765/send
-{ "name": "Contact Name", "message": "Hello!" }
+```powershell
+cd services\daily-message
+npm install
+node cli.js link-whatsapp    # scan QR once
+node cli.js run-now          # test a send
+node cli.js install-schedule # 8:00 AM daily task
 ```
 
-See [services/whatsapp-send/README.md](services/whatsapp-send/README.md) for full setup, CLI usage, troubleshooting, and exit codes.
+Edit `config.json` to change the prompt, recipient, or model.
+
+Full guide: [services/daily-message/README.md](services/daily-message/README.md)
 
 ### Requirements
 
 - Windows 10/11
-- WhatsApp Desktop (Microsoft Store) logged in
 - Node.js 18+
+- Ollama running locally
+- WhatsApp on your phone (for one-time QR link)
+
+### Legacy: WhatsApp Desktop CDP bridge
+
+An experimental Desktop CDP bridge exists at [services/whatsapp-send/](services/whatsapp-send/) but is **not recommended** for daily unattended sends. Use `daily-message` instead.

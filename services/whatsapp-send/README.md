@@ -1,5 +1,7 @@
 # WhatsApp Send Bridge
 
+> **Legacy / not recommended for daily use.** The conversation composer does not reliably appear when driving WhatsApp Desktop via CDP. Use **[daily-message](../daily-message/)** instead (Baileys + Ollama, scan QR once).
+
 Send WhatsApp messages from your own Windows PC — **free**, **personal**, **localhost only**.
 
 This is a bridge, not a cloud API. One machine, one WhatsApp account, $0. It drives the **WhatsApp Desktop** app you already have logged in, using the same WebView2 CDP technique that has been proven with verified sends.
