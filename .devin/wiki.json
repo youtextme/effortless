@@ -1,0 +1,9 @@
+{
+  "knowledge": [
+    ".devin/knowledge/prompt-os.md"
+  ],
+  "rules": [
+    ".devin/global_rules.md"
+  ],
+  "playbooks": []
+}
