@@ -1,0 +1,45 @@
+default_platform(:android)
+
+platform :android do
+  PREPROD_PACKAGE = "com.youtextme.effortless.preprod"
+  PROD_PACKAGE = "com.youtextme.effortless"
+
+  desc "Deploy preprod AAB to Play internal testing track"
+  lane :preprod do
+    aab_path = lane_context[SharedValues::GRADLE_AAB_OUTPUT_PATH] ||
+      "../app/build/outputs/bundle/preprodRelease/app-preprod-release.aab"
+
+    upload_to_play_store(
+      package_name: PREPROD_PACKAGE,
+      aab: aab_path,
+      track: "internal",
+      release_status: "completed",
+      skip_upload_metadata: true,
+      skip_upload_images: true,
+      skip_upload_screenshots: true,
+    )
+  end
+
+  desc "Deploy production AAB to Play production track"
+  lane :production do
+    aab_path = lane_context[SharedValues::GRADLE_AAB_OUTPUT_PATH] ||
+      "../app/build/outputs/bundle/prodRelease/app-prod-release.aab"
+
+    upload_to_play_store(
+      package_name: PROD_PACKAGE,
+      aab: aab_path,
+      track: "production",
+      release_status: "completed",
+      skip_upload_metadata: true,
+      skip_upload_images: true,
+      skip_upload_screenshots: true,
+    )
+  end
+
+  desc "Run local CI checks (lint + unit tests + dev debug build)"
+  lane :ci do
+    gradle(
+      task: "lintDevDebug testDevDebugUnitTest assembleDevDebug",
+    )
+  end
+end
