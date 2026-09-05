@@ -409,6 +409,9 @@ body {
 .passage-item:active, .word-row:active { background: var(--bg); }
 .passage-item.done .passage-item-title { color: var(--text); }
 .passage-item:not(.done) .passage-item-title { color: #bdbdbd; }
+.passage-item { flex-wrap: wrap; }
+.passage-item-title { flex: 1; font-weight: 500; min-width: 50%; }
+.passage-item-theme { width: 100%; font-size: 0.75rem; color: var(--text-secondary); }
 
 .word-row.learned .word-text { color: var(--text); font-weight: 500; }
 .word-row.upcoming .word-text { color: #bdbdbd; }

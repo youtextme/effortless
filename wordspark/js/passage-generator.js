@@ -23,11 +23,12 @@ function wordParagraph(wordData) {
 
 export function generatePassagePages(passageData) {
   const words = passageData.words;
-  const h1 = passageData.theme;
+  const h1 = words.slice(0, 2).map((w) => w.word.charAt(0).toUpperCase() + w.word.slice(1)).join(' & ');
+  const themeLabel = passageData.theme;
 
   const intro = {
-    h2: 'Before You Read',
-    body: `This passage is called "${passageData.theme}." ${passageData.takeaway} You will meet ten powerful words — tap any highlighted word to hear it and learn how to use it with friends and family.`,
+    h2: themeLabel,
+    body: `${passageData.takeaway} You will learn ten words in this passage — tap any highlighted word to hear it and learn how to use it with friends and family.`,
   };
 
   const wordGroups = [];

@@ -305,8 +305,10 @@ function renderPassageList() {
   const p = loadProgress();
   $('#passage-list').innerHTML = VOCABULARY.map((d) => {
     const done = p.completedPassages.includes(d.day);
+    const title = d.words.slice(0, 2).map((w) => w.word).join(' & ');
     return `<div class="passage-item ${done ? 'done' : ''}" data-n="${d.day}">
-      <span class="passage-item-title">${d.theme}</span>
+      <span class="passage-item-title">${title}</span>
+      <span class="passage-item-theme">${d.theme}</span>
       <span>${done ? '✓' : ''}</span>
     </div>`;
   }).join('');
