@@ -4,6 +4,7 @@
   "reader": "Ayaan",
   "grade": "4th",
   "minutes": 3,
+  "hook": "That earthy smell after rain has a real name.",
   "screens": [
     {
       "heading": "Dry ground waits",
@@ -27,30 +28,5 @@
       "heading": "Try it next time",
       "body": "Next time it rains, take one slow breath. That good smell? You know its name now."
     }
-  ],
-  "comprehension": [
-    {
-      "question": "What is petrichor?",
-      "choices": [
-        "The earthy smell when rain hits dry ground",
-        "A type of thunder",
-        "Water frozen in clouds"
-      ],
-      "answer": 0
-    },
-    {
-      "question": "What happens when raindrops hit dry ground?",
-      "choices": [
-        "Tiny earthy bits splash into the air",
-        "The ground turns to ice",
-        "All smell disappears"
-      ],
-      "answer": 0
-    }
-  ],
-  "video": {
-    "prompt": "Watch a short clip of rain on dry pavement. What do you see and smell in your mind?",
-    "url": "https://www.youtube.com/watch?v=Gm6dHTRVLAI",
-    "minChars": 12
-  }
+  ]
 }

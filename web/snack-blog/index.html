@@ -3,135 +3,89 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="theme-color" content="#FFF8F0" />
+    <meta name="theme-color" content="#faf9f7" />
     <meta
       name="description"
-      content="Effortless — snackable blog bites for Ayaan and curious 4th graders."
+      content="Effortless — a quiet blog snack for curious readers."
     />
     <title>Effortless — Blog snack</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div class="app-shell">
-      <header class="app-header">
-        <p class="app-logo">Effortless · Cognitive Mirror</p>
-        <nav id="progress-chips" class="progress-chips" aria-label="Your progress"></nav>
-      </header>
+    <div class="page">
+      <div id="read-progress" class="read-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Reading progress">
+        <span id="read-progress-fill" class="read-progress-fill"></span>
+      </div>
 
-      <!-- Discover (Home) — kid path: Start reading → rain -->
-      <section id="floor-discover" class="floor" aria-labelledby="discover-title">
-        <span class="reader-badge">For Ayaan · 4th grade · English</span>
-        <h1 id="discover-title" class="floor-title">Pick a snack</h1>
-        <p class="floor-lead">Small bites — one idea per screen. Tap <strong>Start reading</strong> and go.</p>
+      <!-- 1. Read — scroll the essay -->
+      <main id="step-read" class="step step-read">
+        <article id="article" class="article" aria-live="polite"></article>
+        <footer class="step-footer">
+          <p id="read-gate-hint" class="gate-hint">Scroll to the end to continue.</p>
+          <button type="button" class="btn-continue" id="btn-read-done" disabled>Continue</button>
+        </footer>
+      </main>
 
-        <article class="snack-card snack-card-featured">
-          <span class="time-chip">~3 min</span>
-          <h2 class="snack-card-title">Why rain smells good</h2>
-          <p class="snack-card-hook">That earthy smell after rain has a real name.</p>
-          <button type="button" class="btn btn-primary" id="btn-start-reading">Start reading</button>
-        </article>
-
-        <article class="snack-card">
-          <span class="time-chip">~3 min</span>
-          <h2 class="snack-card-title">How a mirror helps you notice yourself</h2>
-          <p class="snack-card-hook">A quiet look can show you more than your face.</p>
-          <button
-            type="button"
-            class="btn btn-secondary snack-start-btn"
-            data-snack-path="content/sample-mirror.json"
-          >
-            Start reading
-          </button>
-        </article>
-
-        <details class="parent-builder">
-          <summary>Parent: create or generate a topic</summary>
-          <label class="field-label" for="topic-input">Topic</label>
-          <input
-            id="topic-input"
-            class="field-input"
-            type="text"
-            value="Why rain smells good"
-            autocomplete="off"
-            maxlength="120"
-          />
-          <div id="create-status" class="status-msg info" hidden role="status"></div>
-          <div class="parent-actions">
-            <button type="button" class="btn btn-secondary" id="btn-try-sample">Try sample (rain)</button>
-            <button type="button" class="btn btn-secondary" id="btn-generate">Generate with Ollama</button>
-          </div>
-        </details>
+      <!-- 2. Comprehension -->
+      <section id="step-comprehension" class="step" hidden aria-labelledby="comp-title">
+        <h2 id="comp-title" class="step-heading">Questions</h2>
+        <p class="step-lead">Answer from what you read. No tricks.</p>
+        <form id="comprehension-form" class="comprehension-form"></form>
+        <footer class="step-footer">
+          <button type="submit" form="comprehension-form" class="btn-continue" id="btn-comp-done">Continue</button>
+        </footer>
       </section>
 
-      <!-- Read — forward only -->
-      <section id="floor-read" class="floor floor-reader" hidden aria-labelledby="read-title">
-        <h2 id="read-title" class="visually-hidden">Read</h2>
-        <div id="read-progress" class="read-progress" role="presentation" aria-hidden="true"></div>
-
-        <div id="reader-pane" class="card reader-card" aria-live="polite">
-          <p id="reader-snack-title" class="reader-snack-title"></p>
-          <h3 id="reader-heading" class="reader-heading">…</h3>
-          <p id="reader-body" class="reader-body">…</p>
-        </div>
-        <p id="reader-counter" class="reader-meta">Screen 1 of 1</p>
-
-        <div class="actions">
-          <button type="button" class="btn btn-primary btn-forward" id="btn-read-next">Forward</button>
-        </div>
+      <!-- 3. Video observations -->
+      <section id="step-video" class="step" hidden aria-labelledby="video-title">
+        <h2 id="video-title" class="step-heading">Observations</h2>
+        <p id="video-prompt" class="step-lead"></p>
+        <div id="video-link" class="video-link" hidden></div>
+        <label class="field-label" for="video-observations">What did you notice?</label>
+        <textarea
+          id="video-observations"
+          class="field-textarea"
+          rows="6"
+          placeholder="Write a few plain sentences."
+          autocomplete="off"
+          aria-describedby="video-hint"
+        ></textarea>
+        <p id="video-hint" class="gate-hint">At least a sentence or two.</p>
+        <footer class="step-footer">
+          <button type="button" class="btn-continue" id="btn-video-done">Continue</button>
+        </footer>
       </section>
 
-      <!-- Done -->
-      <section id="floor-done" class="floor celebrate" hidden aria-labelledby="done-title">
-        <p class="celebrate-emoji" aria-hidden="true">✨</p>
-        <h1 id="done-title" class="floor-title">You finished this snack!</h1>
-        <p class="floor-lead">You read the whole thing — nice focus, Ayaan.</p>
-        <p class="floor-lead">You finished <strong id="done-snack-title">your snack</strong>.</p>
-        <div class="actions">
-          <button type="button" class="btn btn-primary" id="btn-next-snack">Next snack</button>
-          <button type="button" class="btn btn-secondary" id="btn-done-for-now">Done for now</button>
-        </div>
+      <!-- 4. Share -->
+      <section id="step-share" class="step" hidden aria-labelledby="share-title">
+        <h2 id="share-title" class="step-heading">Finished</h2>
+        <p class="step-lead" id="share-message">You read the snack, answered the questions, and wrote your observations.</p>
+        <footer class="step-footer">
+          <button type="button" class="btn-continue" id="btn-share">Share</button>
+          <p id="share-status" class="share-status" hidden role="status"></p>
+        </footer>
+        <nav class="more-snacks" aria-label="More snacks">
+          <span class="more-label">Another snack</span>
+          <a href="?snack=rain" data-snack="rain">Why rain smells good</a>
+          <span class="sep" aria-hidden="true">·</span>
+          <a href="?snack=mirror" data-snack="mirror">How a mirror helps you notice yourself</a>
+        </nav>
       </section>
 
-      <!-- Next — sample picker -->
-      <section id="floor-next" class="floor" hidden aria-labelledby="next-title">
-        <h1 id="next-title" class="floor-title">Try another snack</h1>
-        <p class="floor-lead">Same calm rules — big type, one idea per screen.</p>
-
-        <p class="field-label">Pick one</p>
-        <div class="sample-picker">
-          <button type="button" class="sample-card" data-snack-path="content/sample-rain.json">
-            <span class="time-chip">~3 min</span>
-            <span class="sample-card-title">Why rain smells good</span>
-          </button>
-          <button
-            type="button"
-            class="sample-card sample-card-highlight"
-            id="sample-mirror-card"
-            data-snack-path="content/sample-mirror.json"
-          >
-            <span class="time-chip">~3 min</span>
-            <span class="sample-card-title">How a mirror helps you notice yourself</span>
-          </button>
+      <details class="parent-tools">
+        <summary>Parent tools</summary>
+        <label class="field-label" for="topic-input">Topic</label>
+        <input id="topic-input" class="field-input" type="text" maxlength="120" autocomplete="off" />
+        <div id="create-status" class="status-msg" hidden role="status"></div>
+        <div class="parent-actions">
+          <button type="button" class="btn-quiet" id="btn-try-sample">Load rain sample</button>
+          <button type="button" class="btn-quiet" id="btn-generate">Generate with Ollama</button>
         </div>
+      </details>
 
-        <div class="actions">
-          <button type="button" class="btn btn-secondary" id="btn-back-home">Back to Home</button>
-        </div>
-      </section>
+      <nav id="version-switcher" class="version-switcher" aria-label="Prototype version"></nav>
     </div>
 
-    <style>
-      .visually-hidden {
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        padding: 0;
-        margin: -1px;
-        overflow: hidden;
-        clip: rect(0, 0, 0, 0);
-        border: 0;
-      }
-    </style>
     <script src="app.js" type="module"></script>
   </body>
 </html>

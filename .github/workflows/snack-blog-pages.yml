@@ -1,0 +1,51 @@
+name: Deploy snack-blog to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "web/snack-blog/**"
+      - ".github/workflows/snack-blog-pages.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: snack-blog-pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Fetch gh-pages
+        run: git fetch origin gh-pages --depth=1
+
+      - name: Prepare snack payload
+        run: |
+          rm -rf /tmp/snack-deploy
+          mkdir -p /tmp/snack-deploy
+          cp -R web/snack-blog/. /tmp/snack-deploy/
+
+      - name: Merge into gh-pages
+        run: |
+          git checkout gh-pages
+          mkdir -p snack
+          rsync -a --delete /tmp/snack-deploy/ snack/
+          touch .nojekyll
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add snack .nojekyll
+          if git diff --staged --quiet; then
+            echo "No snack-blog changes to deploy."
+            exit 0
+          fi
+          git commit -m "deploy(snack): update snack-blog at /snack/"
+          git push origin gh-pages

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Capture mobile screenshots — run from /tmp/cap with puppeteer-core installed.
+ * Capture mobile screenshots of the minimal snack flow.
  */
 import puppeteer from "puppeteer-core";
 import { mkdir } from "node:fs/promises";
@@ -26,21 +26,28 @@ const page = await browser.newPage();
 await page.setViewport({ width: 390, height: 844, deviceScaleFactor: 2 });
 await page.goto(BASE, { waitUntil: "networkidle0" });
 
-await shot(page, "01-discover");
-await page.click("#btn-start-reading");
-await page.waitForFunction(() => !document.getElementById("floor-read")?.hidden, { timeout: 5000 });
-await shot(page, "02-read");
+await shot(page, "v2-01-read");
 
-for (let i = 0; i < 3; i += 1) {
-  await page.click("#btn-read-next");
-  await new Promise((r) => setTimeout(r, 120));
-}
-await page.click("#btn-read-next");
-await page.waitForFunction(() => !document.getElementById("floor-done")?.hidden, { timeout: 3000 });
-await shot(page, "03-done");
+await page.evaluate(() => {
+  window.scrollTo(0, document.documentElement.scrollHeight);
+});
+await new Promise((r) => setTimeout(r, 200));
+await page.click("#btn-read-done");
+await page.waitForFunction(() => !document.getElementById("step-comprehension")?.hidden, { timeout: 5000 });
+await shot(page, "v2-02-comprehension");
 
-await page.click("#btn-next-snack");
-await page.waitForFunction(() => !document.getElementById("floor-next")?.hidden, { timeout: 3000 });
-await shot(page, "04-next");
+await page.evaluate(() => {
+  document.querySelectorAll('input[type="radio"]').forEach((el, i) => {
+    if (i % 3 === 0) el.checked = true;
+  });
+});
+await page.click("#btn-comp-done");
+await page.waitForFunction(() => !document.getElementById("step-video")?.hidden, { timeout: 3000 });
+await page.type("#video-observations", "I noticed the rain hitting the dry ground.");
+await shot(page, "v2-03-video");
+
+await page.click("#btn-video-done");
+await page.waitForFunction(() => !document.getElementById("step-share")?.hidden, { timeout: 3000 });
+await shot(page, "v2-04-share");
 
 await browser.close();

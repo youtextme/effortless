@@ -1,39 +1,41 @@
 # Snack Blog — flow map
 
-One-page floor map. Prototype: **`web/snack-blog/`** · branch `cursor/snack-blog-ux-7e6b` · PR #4.
-
-**Handoff:** All UX under `web/snack-blog/`. Docs in `docs/`. No parallel workspace-only tree.
+Prototype: **`web/snack-blog/`** · live: https://youtextme.github.io/effortless/snack/
 
 ---
 
-## Kid happy path (zero-preach)
+## Kid path (one thing at a time)
 
-**Discover → Start reading → Read → Done → Next**
+**Read → Comprehension → Video observations → Share**
 
-| Chip | Floor | What happens |
-|------|-------|--------------|
-| **Discover** | Home | Snack cards. **Start reading** on rain (default) jumps straight to Read — no Create step. |
-| **Read** | Reader | ≤80 words/screen, segment progress, Forward only. |
-| **Done** | Celebrate | Process praise. **Next snack** or **Done for now**. |
-| **Next** | Picker | Rain + mirror sample cards. |
+| Step | Gate | What happens |
+|------|------|--------------|
+| **Read** | Scroll to end | Single scrolling essay. Text only. Subtle top progress bar |
+| **Comprehension** | Answer questions | Radio questions from `comprehension[]` |
+| **Video observations** | Write observations | Plain prompt + optional video link + textarea |
+| **Share** | — | Web Share or clipboard. Quiet links to another snack |
 
-Parent builder (Ollama generate) lives in collapsed `<details>` — never blocks kid.
+Default snack: **Why rain smells good** (`?snack=rain`). Alternate: `?snack=mirror`.
 
----
-
-## Sample snacks
-
-| File | Title |
-|------|--------|
-| `content/sample-rain.json` | Why rain smells good (**default**) |
-| `content/sample-mirror.json` | How a mirror helps you notice yourself |
+Parent tools (Ollama generate) live in collapsed **Parent tools** at the bottom — never blocks the kid path.
 
 ---
 
-## Open prototype
+## Version museum
+
+| Version | URL |
+|---------|-----|
+| v2 · latest | `/snack/` |
+| v1 · stitch-cream | `/snack/versions/v1-stitch-cream/` |
+
+Manifest: `web/snack-blog/versions/manifest.json`
+
+---
+
+## Open locally
 
 ```bash
 npx --yes serve web/snack-blog -p 5173
 ```
 
-Design: [web/snack-blog/DESIGN.md](../web/snack-blog/DESIGN.md) · Stitch: [stitch-prompts-snack-blog.md](./stitch-prompts-snack-blog.md)
+Design law: [web/snack-blog/DESIGN.md](../web/snack-blog/DESIGN.md)
