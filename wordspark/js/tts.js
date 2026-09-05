@@ -32,16 +32,37 @@ export function speakWord(word) {
 }
 
 export function speakSequence(text, onEnd) {
-  if (!isTTSAvailable()) return false;
+  return speakParts([text], { onEnd });
+}
+
+export function speakParts(parts, { rate = 0.88, onEnd } = {}) {
+  if (!isTTSAvailable() || !parts.length) return false;
   stopSpeaking();
-  const u = new SpeechSynthesisUtterance(text);
-  u.lang = 'en-US';
-  u.rate = 0.88;
-  const voice = getVoice();
-  if (voice) u.voice = voice;
-  u.onend = () => { speaking = false; onEnd?.(); };
-  speechSynthesis.speak(u);
-  speaking = true;
+
+  let index = 0;
+  const speakNext = () => {
+    if (index >= parts.length) {
+      speaking = false;
+      onEnd?.();
+      return;
+    }
+
+    const text = parts[index];
+    const isWord = index === 0 && parts.length > 1 && !text.includes(' ');
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = 'en-US';
+    u.rate = isWord ? 0.78 : rate;
+    const voice = getVoice();
+    if (voice) u.voice = voice;
+    u.onend = () => {
+      index += 1;
+      speakNext();
+    };
+    speechSynthesis.speak(u);
+    speaking = true;
+  };
+
+  speakNext();
   return true;
 }
 

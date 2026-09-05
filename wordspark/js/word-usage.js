@@ -1,88 +1,39 @@
 /**
- * Teach words in context — pronunciation + real-life upgrade, not templates.
+ * Parent-voice word explanations — pronounce, then two practical examples.
  */
 
-const SIMPLE_ALTERNATIVES = {
-  analyze: 'look at carefully',
-  hypothesis: 'a guess',
-  investigate: 'check',
-  observe: 'watch',
-  discover: 'find out',
-  explore: 'look around',
-  curious: 'interested',
-  phenomenon: 'a strange thing',
-  evidence: 'proof',
-  conclude: 'decide',
-  articulate: 'say clearly',
-  persuade: 'convince',
-  convey: 'show',
-  communicate: 'talk',
-  evaluate: 'judge',
-  logical: 'sensible',
-  ecosystem: 'nature system',
-  democracy: 'people voting',
-  resilience: 'bouncing back',
-  influence: 'changing minds',
-  chlorophyll: 'the green stuff in leaves',
-  negotiate: 'work out a deal',
-  empathize: 'understand how someone feels',
-};
+import { WORD_EXPLANATIONS } from './data/word-explanations.js';
 
-function simplerWord(word) {
-  return SIMPLE_ALTERNATIVES[word.toLowerCase()] || 'something simpler';
+export function getWordExplanation(wordData) {
+  const key = wordData.word.toLowerCase();
+  const found = WORD_EXPLANATIONS[key];
+  if (found) return found;
+
+  return {
+    intro: `${wordData.word} means ${wordData.meaning}. Listen to how it sounds, then try it in your own sentences.`,
+    examples: [
+      {
+        title: 'In your own words',
+        story: `Think of a moment from today — school, home, or with friends — where this idea showed up.`,
+        say: wordData.example.replace(/^"/, '').replace(/"$/, ''),
+        note: 'Using a new word in your own story is how it becomes yours.',
+      },
+      {
+        title: 'Say it out loud',
+        story: `Say "${wordData.word}" slowly. Then use it once in a sentence about your life.`,
+        say: `"${wordData.example.replace(/^"/, '').replace(/"$/, '')}"`,
+        note: 'Practice once now, and you will remember it when you need it.',
+      },
+    ],
+  };
 }
 
-const SCENARIO_POOL = [
-  {
-    who: 'With a friend',
-    build(w, simple, data) {
-      const setups = [
-        `Your friend is upset after losing a match and says, "I don't know what went wrong."`,
-        `At lunch, your friend says, "This topic is confusing — can you explain it?"`,
-        `Your friend wants to convince the class to try a new idea but doesn't know how to start.`,
-      ];
-      const setup = setups[w.length % setups.length];
-      return {
-        setup,
-        upgrade: `You could say "${simple}," but now you know "${w}" — it sounds more confident and grown-up.`,
-        line: data.example || `"Let's ${w} this together before we give up."`,
-      };
-    },
-  },
-  {
-    who: 'At home',
-    build(w, simple, data) {
-      const setups = [
-        `Your parent asks what you learned at school today.`,
-        `At dinner, someone mentions the news and asks what you think.`,
-        `A younger sibling asks you a hard question and you want to answer well.`,
-      ];
-      const setup = setups[(w.length + 1) % setups.length];
-      return {
-        setup,
-        upgrade: `Instead of "${simple}," you can say "${w}." It means: ${data.meaning}. Same idea — better word.`,
-        line: data.example.replace(/^"/, '').replace(/"$/, '') || `"I want to ${w} this properly."`,
-      };
-    },
-  },
-];
-
-export function generateUsageScenarios(wordData) {
-  const w = wordData.word;
-  const simple = simplerWord(w);
-  return SCENARIO_POOL.map((pool) => ({
-    who: pool.who,
-    ...pool.build(w, simple, wordData),
-  }));
-}
-
-export function usageToSpeech(word, scenarios) {
-  const parts = [
-    word,
-    "Let's see how you can use this word in your daily life.",
-  ];
-  for (const s of scenarios) {
-    parts.push(`${s.setup} ${s.upgrade} For example, you could say: ${s.line}`);
-  }
+export function explanationToSpeech(word, explanation) {
+  const parts = [word, explanation.intro];
+  explanation.examples.forEach((ex, i) => {
+    parts.push(
+      `Example ${i + 1}. ${ex.title}. ${ex.story} You could say: ${ex.say.replace(/^"/, '').replace(/"$/, '')}`
+    );
+  });
   return parts;
 }

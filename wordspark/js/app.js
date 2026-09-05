@@ -6,8 +6,8 @@ import {
   setReadingPassage, resetProgress, verifyRefreshPassword,
 } from './storage.js';
 import { generateQuestions, PASS_THRESHOLD } from './questions.js';
-import { speakSequence, stopSpeaking } from './tts.js';
-import { generateUsageScenarios, usageToSpeech } from './word-usage.js';
+import { speakParts, stopSpeaking } from './tts.js';
+import { getWordExplanation, explanationToSpeech } from './word-usage.js';
 import { generateCertificate, shareCertificate } from './certificate.js';
 
 let currentPassageData = null;
@@ -178,18 +178,19 @@ function setupWordTaps() {
 }
 
 function openWordSheet(data) {
-  const scenarios = generateUsageScenarios(data);
+  const explanation = getWordExplanation(data);
   $('#sheet-word').textContent = data.word;
-  $('#sheet-scenarios').innerHTML = scenarios.map((s) => `
+  $('#sheet-intro').textContent = explanation.intro;
+  $('#sheet-scenarios').innerHTML = explanation.examples.map((ex, i) => `
     <div class="scenario">
-      <span class="scenario-who">${s.who}</span>
-      <p class="scenario-setup">${s.setup}</p>
-      <p class="scenario-upgrade">${s.upgrade}</p>
-      <p class="scenario-line">${s.line}</p>
+      <span class="scenario-who">Example ${i + 1} · ${ex.title}</span>
+      <p class="scenario-setup">${ex.story}</p>
+      <p class="scenario-line">${ex.say}</p>
+      <p class="scenario-note">${ex.note}</p>
     </div>
   `).join('');
   $('#word-sheet').hidden = false;
-  speakSequence(usageToSpeech(data.word, scenarios).join(' '));
+  speakParts(explanationToSpeech(data.word, explanation));
 }
 
 function closeWordSheet() {
