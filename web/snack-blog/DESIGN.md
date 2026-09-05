@@ -69,9 +69,20 @@ Pick Blog + topic live on **Discover** (no separate chips).
 
 1. **≤80 words per screen**
 2. **One idea per screen**
-3. **6 screens** default arc (4–8 acceptable)
+3. **4–8 screens** per snack (mirror sample = 4; rain = 6)
 4. **Kid-safe** — no commerce, ads, creepy tracking
 5. **English only** in v1
+
+---
+
+## Sample snacks (bundled JSON)
+
+| File | Title | Default? |
+|------|-------|----------|
+| `content/why-rain-smells-good.json` | Why rain smells good | **Yes** — Discover “Read this snack” |
+| `content/how-a-mirror-helps-you-notice-yourself.json` | How a mirror helps you notice yourself | Alternate — Next floor chips |
+
+Both target **Ayaan** (~10 / 4th grade). Mirror snack is a light Cognitive Mirror nod — blog snack only, not Haptic Mirror costume.
 
 ---
 
@@ -123,7 +134,7 @@ No gamified chest or coins.
 ```
 Mobile screen, Next pill active, cream background.
 Headline "Pick your next bite" in serif.
-Three rounded topic chips: "Why rain smells good", "How birds learn to fly", "What makes lightning".
+Two rounded topic chips: "Why rain smells good" and "How a mirror helps you notice yourself".
 Buttons: "Start fresh in Discover" (primary), "Read rain snack again" (secondary).
 Minimal, calm, kid-safe.
 ```

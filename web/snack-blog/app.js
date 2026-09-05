@@ -11,6 +11,7 @@ const STEPS = [
 ];
 
 const DEFAULT_SNACK_PATH = "content/why-rain-smells-good.json";
+const MIRROR_SNACK_PATH = "content/how-a-mirror-helps-you-notice-yourself.json";
 const DEFAULT_TOPIC = "Why rain smells good";
 const MAX_WORDS_PER_SCREEN = 80;
 const READER_NAME = "Ayaan";
@@ -285,14 +286,9 @@ document.getElementById("btn-reread-rain")?.addEventListener("click", () => {
 
 document.querySelectorAll(".topic-chip-btn").forEach((btn) => {
   btn.addEventListener("click", () => {
-    const topic = btn.getAttribute("data-topic");
-    if (topic) {
-      topicInput.value = topic;
-      if (topic === DEFAULT_TOPIC) {
-        loadDefaultSnack();
-      } else {
-        generateSnack();
-      }
+    const path = btn.getAttribute("data-snack-path");
+    if (path) {
+      loadSnackFromPath(path);
     }
   });
 });
