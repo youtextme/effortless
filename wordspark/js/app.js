@@ -2,7 +2,7 @@ import { VOCABULARY, WORDS_PER_DAY, TOTAL_WORDS } from './data/words.js';
 import { generatePassagePages, sectionToHtml } from './passage-generator.js';
 import {
   loadProgress, completePassage, setChildName, getActivePassage,
-  markPageVisited, allPagesVisited, setReadingPassage, resetProgress,
+  getPageProgress, markPageVisited, allPagesVisited, setReadingPassage, resetProgress,
   verifyRefreshPassword,
 } from './storage.js';
 import { generateQuestions, PASS_THRESHOLD } from './questions.js';
@@ -114,8 +114,8 @@ function loadPassage(n) {
   passagePages = sections;
   $('#passage-title').textContent = h1;
 
-  const pp = markPageVisited(n, 0, sections.length);
-  currentPage = pp.currentPage || 0;
+  const pp = getPageProgress(n);
+  currentPage = Math.min(pp.currentPage || 0, sections.length - 1);
   renderPage();
   setReadingPassage(n);
   updateParentProgress();
@@ -132,7 +132,7 @@ function renderPage() {
 
   $('#btn-prev-page').disabled = currentPage === 0;
   $('#btn-next-page').disabled = currentPage >= total - 1;
-  $('#btn-next-page').textContent = currentPage >= total - 1 ? 'Done reading' : 'Next →';
+  $('#btn-next-page').textContent = currentPage >= total - 1 ? 'Last page' : 'Next →';
 
   renderPageDots(total);
   updateReadButton(total);
