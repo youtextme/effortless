@@ -1,46 +1,56 @@
-# Snack Blog — design spec
+# Snack Blog — design spec & Stitch prompts
 
-Design tokens, screen inventory, copy tone, and snack rules for the Effortless Blog snack prototype (`web/snack-blog/`).
+Design tokens, screen inventory, copy tone, snack rules, and **Google Stitch** prompts for the Effortless Blog snack prototype.
+
+**Flow map (tree of truth):** [FLOW-MAP.md](./FLOW-MAP.md)
 
 ---
 
-## Design tokens
+## Product locks
 
-Aligned with the Android Effortless theme (calm green, soft background).
+| Lock | Value |
+|------|--------|
+| First snack | **Why rain smells good** |
+| Reader | **Ayaan**, ~10 / 4th grade |
+| Not for | 3yo |
+| Language | English |
+| Palette | **Cream + ink** |
+| Macro flow | Discover → Read → Done → Next |
+| Forbidden | Login, buy/cart, tracking |
+
+---
+
+## Design tokens (cream + ink)
 
 | Token | Value | Use |
 |-------|-------|-----|
-| `--color-primary` | `#1B5E20` | Buttons, active chips, headings accent |
-| `--color-primary-soft` | `#33691E` | Secondary actions, borders |
-| `--color-bg` | `#F1F8E9` | Page background |
-| `--color-surface` | `#FFFFFF` | Cards, reader pane |
-| `--color-text` | `#1A2E1A` | Body copy |
-| `--color-text-muted` | `#4A5D4A` | Hints, subtitles |
-| `--color-chip-inactive` | `#C8E6C9` | Progress chip idle |
-| `--font-family` | `"Segoe UI", system-ui, sans-serif` | All UI |
-| `--text-hero` | `clamp(1.75rem, 5vw, 2.25rem)` | Floor titles |
-| `--text-body` | `clamp(1.125rem, 3.5vw, 1.375rem)` | Reader body (large for kids) |
-| `--text-label` | `0.8125rem` | Chips, screen counter |
-| `--space-page` | `1.25rem` | Mobile padding |
-| `--radius-card` | `1rem` | Cards |
-| `--radius-button` | `999px` | Pill buttons |
-| `--max-width` | `28rem` | Phone-first column |
+| `--color-cream` | `#FAF7F0` | Page background |
+| `--color-cream-deep` | `#F3EDE3` | Badges, subtle fills |
+| `--color-ink` | `#1A1814` | Headlines, primary buttons |
+| `--color-ink-muted` | `#5C564E` | Body secondary, hints |
+| `--color-ink-soft` | `#8A8278` | Labels |
+| `--color-surface` | `#FFFDF8` | Cards |
+| `--color-border` | `#DDD5C8` | Card borders |
+| `--font-family` | Georgia, Palatino, serif | Reader headings & body |
+| `--font-ui` | Segoe UI, system-ui | Buttons, chips, labels |
+| `--text-hero` | `clamp(1.875rem, 5.5vw, 2.375rem)` | Floor titles |
+| `--text-body` | `clamp(1.1875rem, 3.8vw, 1.4375rem)` | Reader (large for kids) |
+| `--max-width` | `28rem` | Mobile column |
 
-**Signature:** Soft green wash + pill progress chips + one emoji anchor per floor (no stock-photo clutter).
+**Signature:** Warm cream paper, ink typography, uppercase progress chips, no purple AI gradients.
 
 ---
 
 ## Screen inventory
 
-| ID | Floor | Route step | Primary copy (hero) |
-|----|-------|------------|---------------------|
-| S1 | Discover | `discover` | “Tiny reading snacks for curious minds” |
-| S2 | Pick | `pick` | “Pick a snack type” |
-| S3 | Create | `create` | “Create your blog snack” |
-| S4 | Read | `read` | Dynamic: screen heading from JSON |
-| S5 | Done | `done` | “You finished this snack!” |
+| ID | Chip | Hero copy |
+|----|------|-----------|
+| S1 | Discover | “Hi Ayaan — ready for a snack?” |
+| S2 | Read | Dynamic heading from JSON |
+| S3 | Done | “You finished this snack!” |
+| S4 | Next | “Pick your next bite” |
 
-Progress chip bar visible on all floors except full-screen read (compact bar retained).
+Pick Blog + topic live on **Discover** (no separate chips).
 
 ---
 
@@ -48,26 +58,75 @@ Progress chip bar visible on all floors except full-screen read (compact bar ret
 
 | Do | Don’t |
 |----|--------|
-| Short sentences, warm and calm | ALL CAPS hype, slang that ages badly |
-| “You” and “we” | Shame (“You should know this”) |
-| Growth language: yet, try, notice | Fixed mindset: “smart vs dumb” |
-| One emoji max per floor | Emoji spam |
-| Plain English floor names | Internal jargon (“CMS”, “pipeline”) |
-
-**Audience:** ~10-year-old reader with parent co-navigating. Parent-facing hints in smaller muted text where needed.
+| Calm, curious, 4th-grade vocabulary | Toddler baby-talk (3yo OUT) |
+| “You” speaking to Ayaan | Shame or hype |
+| Short sentences | Walls of text |
+| Plain floor names | Jargon |
 
 ---
 
-## Snack rules (Blog type)
+## Snack rules
 
-These rules apply to **generated** and **sample** content.
+1. **≤80 words per screen**
+2. **One idea per screen**
+3. **6 screens** default arc (4–8 acceptable)
+4. **Kid-safe** — no commerce, ads, creepy tracking
+5. **English only** in v1
 
-1. **≤80 words per screen** — enforced in generator prompt and validated in `app.js` before display.
-2. **One idea per screen** — no bullet lists longer than 3 items; prefer prose.
-3. **6–8 screens** per snack — enough arc, not a novel.
-4. **Title** ≤ 8 words — kid can say it aloud.
-5. **Kid-safe** — no purchases, ads, scary content, or personal data collection UI.
-6. **No wall of text** — if a draft exceeds word limit, split into another screen.
+---
+
+## Stitch prompts
+
+Use these verbatim (or with Stitch “Redesign”) for visual comps. Style: **mobile 390×844, cream #FAF7F0 background, ink #1A1814 text, serif reader, no login, no cart.**
+
+### S1 — Discover
+
+```
+Mobile app screen, cream paper background #FAF7F0, ink typography.
+Header: small caps "EFFORTLESS · COGNITIVE MIRROR".
+Progress pills: Discover (filled black), Read, Done, Next (outlined tan).
+Badge: "For Ayaan · 4th grade · English".
+Hero: "Hi Ayaan — ready for a snack?" in large serif.
+Subtext: blog snack = tiny story bites, one idea per screen.
+Card with black pill label "BLOG" and subtitle "Short readable chunks".
+Text field prefilled "Why rain smells good".
+Primary black pill button "Read this snack".
+Secondary outlined button "Generate new topic".
+Calm, kid-safe, no shopping icons, no login.
+```
+
+### S2 — Read (example screen)
+
+```
+Mobile reader screen, cream background, progress pills with Read active.
+Small label "WHY RAIN SMELLS GOOD".
+Serif heading "Tiny helpers in soil" in ink.
+Body paragraph large readable serif, max 5 lines, warm educational tone.
+Footer "Screen 4 of 6".
+Bottom: Previous (outline) and Next screen (filled black) buttons.
+No ads, no nav bar clutter.
+```
+
+### S3 — Done
+
+```
+Mobile celebration screen, cream background, Done pill active.
+Sparkle emoji subtle, serif headline "You finished this snack!"
+Subtext "Nice work, Ayaan. You read Why rain smells good."
+Italic reflection prompt.
+Single primary button "Next snack".
+No gamified chest or coins.
+```
+
+### S4 — Next
+
+```
+Mobile screen, Next pill active, cream background.
+Headline "Pick your next bite" in serif.
+Three rounded topic chips: "Why rain smells good", "How birds learn to fly", "What makes lightning".
+Buttons: "Start fresh in Discover" (primary), "Read rain snack again" (secondary).
+Minimal, calm, kid-safe.
+```
 
 ---
 
@@ -75,33 +134,33 @@ These rules apply to **generated** and **sample** content.
 
 | Pattern | Behavior |
 |---------|----------|
-| Primary button | Full-width pill at bottom safe area |
-| Progress chips | 5 labels; current step filled primary |
-| Reader | Previous / Next; swipe optional via touch handlers |
-| Create | Topic field + “Try sample” + “Generate” (calls Ollama when available) |
-| Done | “Another snack” resets to Pick; “Start over” → Discover |
+| Progress chips | 4 macro steps; `aria-current="step"` on active |
+| Discover | Blog fixed; topic field; Read / Generate |
+| Reader | Swipe + Previous/Next; ≤80 words enforced |
+| Done → Next | No streak pressure |
+| Next | Topic chips loop to Discover or Read |
 
 ---
 
 ## Accessibility
 
-- Minimum touch target 44×44px
-- Focus rings on interactive elements
-- `aria-current="step"` on active chip
-- Reader: `aria-live="polite"` on screen change
+- 44×44px touch targets
+- Focus rings on ink
+- `aria-live="polite"` on reader pane
 
 ---
 
-## AI-slop checklist (pre-ship)
+## AI-slop checklist
 
-- [ ] No generic purple-gradient “AI app” palette — uses Effortless green
-- [ ] No lorem ipsum — sample snack is real curiosity copy
-- [ ] Floor labels match flow map doc exactly
-- [ ] Progress always visible during multi-step flow
+- [x] Cream + ink (not generic purple gradient)
+- [x] Real sample: Why rain smells good
+- [x] Floor labels match FLOW-MAP.md
+- [x] Progress visible entire flow
+- [x] No login / buy UI
 
 ---
 
-## Related docs
+## Related
 
-- Flow map: [docs/snack-blog-flow.md](../../docs/snack-blog-flow.md)
-- Local LLM: [docs/local-llm-blog-snack.md](../../docs/local-llm-blog-snack.md)
+- [FLOW-MAP.md](./FLOW-MAP.md)
+- [docs/local-llm-blog-snack.md](../../docs/local-llm-blog-snack.md)

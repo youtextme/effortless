@@ -4,13 +4,14 @@ A self-realization and effortless living platform (Cognitive Mirror).
 
 ## Blog snack prototype (web)
 
-Kid-friendly flow to **create and read snackable blog bites** — Discover → Pick → Create → Read → Done.
+Kid-friendly flow for **Ayaan (~10 / 4th grade)** — default snack **Why rain smells good**.  
+Macro flow: **Discover → Read → Done → Next** (cream + ink, no login/buy).
 
 | Action | Command |
 |--------|---------|
-| Open prototype | Open [`web/snack-blog/index.html`](web/snack-blog/index.html) in a browser, or `npx --yes serve web/snack-blog -p 5173` → http://localhost:5173 |
-| Flow map | [docs/snack-blog-flow.md](docs/snack-blog-flow.md) |
-| Design + snack rules | [web/snack-blog/DESIGN.md](web/snack-blog/DESIGN.md) |
+| Open prototype | Open [`web/snack-blog/index.html`](web/snack-blog/index.html), or `npx --yes serve web/snack-blog -p 5173` → http://localhost:5173 |
+| Flow map (canonical) | [web/snack-blog/FLOW-MAP.md](web/snack-blog/FLOW-MAP.md) |
+| Design + Stitch prompts | [web/snack-blog/DESIGN.md](web/snack-blog/DESIGN.md) |
 | Generate via Ollama | [docs/local-llm-blog-snack.md](docs/local-llm-blog-snack.md) |
 
 ## Android app

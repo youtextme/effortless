@@ -57,7 +57,7 @@ Validation enforces **6–8 screens**, **≤80 words/screen**, required fields.
 
 ## Prototype — in-browser generate
 
-The web prototype (`web/snack-blog/`) calls the same Ollama HTTP API when you tap **Generate snack** on the Create floor:
+The web prototype (`web/snack-blog/`) calls the same Ollama HTTP API when you tap **Generate new topic** on Discover:
 
 - `POST http://127.0.0.1:11434/api/generate`
 - `format: "json"`, `stream: false`
@@ -73,10 +73,10 @@ If Ollama is not reachable (CORS/network/offline), the UI falls back to built-in
 
 1. Parent runs CLI with kid’s topic → JSON file  
 2. Optional: copy into `web/snack-blog/content/`  
-3. Open prototype → Create → **Try sample** (or wire custom loader later)  
+3. Open prototype → Discover → **Read this snack** (default: *Why rain smells good*)
 4. Kid reads screen-by-screen with progress chips  
 
-For v1, the sample path demonstrates the read experience; CLI demonstrates the LLM path.
+For v1, the bundled rain snack demonstrates the read experience; CLI demonstrates the LLM path.
 
 ---
 

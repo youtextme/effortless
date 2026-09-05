@@ -38,7 +38,7 @@ Environment:
 Example:
   ollama pull llama3.2
   ollama serve
-  node scripts/generate-blog-snack.mjs "Curiosity and asking questions" --out web/snack-blog/content/my-snack.json
+  node scripts/generate-blog-snack.mjs "Why rain smells good" --out web/snack-blog/content/why-rain-smells-good.json
 `);
 }
 
@@ -93,14 +93,15 @@ function validateSnack(snack) {
 }
 
 function buildPrompt(topic) {
-  return `You write kid-safe blog snacks for a ~10 year old reader.
+  const prompt = `You write kid-safe blog snacks for Ayaan, a 4th grade student (~10 years old). NOT for 3 year olds.
 Topic: ${topic}
-
 Return ONLY valid JSON with this shape (no markdown fences):
 {
   "title": "short catchy title",
   "topic": "${topic.replace(/"/g, '\\"')}",
-  "audience": "kid ~10",
+  "reader": "Ayaan",
+  "grade": "4th",
+  "audience": "kid ~10, 4th grade — not for 3yo",
   "screens": [
     { "heading": "3-6 words", "body": "one idea, max 80 words, calm encouraging tone" }
   ]
@@ -109,8 +110,9 @@ Return ONLY valid JSON with this shape (no markdown fences):
 Rules:
 - Exactly ${MIN_SCREENS} to ${MAX_SCREENS} screens
 - One idea per screen, ≤80 words each
-- Growth mindset, curiosity, no shopping, no scary content
+- Curiosity, calm English, no shopping, no scary content
 - Plain English, short sentences`;
+  return prompt;
 }
 
 async function generate(topic, host, model) {

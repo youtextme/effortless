@@ -3,12 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="theme-color" content="#1B5E20" />
+    <meta name="theme-color" content="#FAF7F0" />
     <meta
       name="description"
-      content="Effortless — create and read snackable blog bites for curious kids."
+      content="Effortless — snackable blog bites for Ayaan and curious 4th graders."
     />
-    <title>Effortless — Blog Snack</title>
+    <title>Effortless — Why rain smells good</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -18,88 +18,50 @@
         <nav id="progress-chips" class="progress-chips" aria-label="Your progress"></nav>
       </header>
 
-      <!-- Floor 1: Discover -->
+      <!-- Discover: pick Blog + topic (single floor) -->
       <section id="floor-discover" class="floor" aria-labelledby="discover-title">
-        <p class="floor-emoji" aria-hidden="true">🌱</p>
-        <h1 id="discover-title" class="floor-title">Tiny reading snacks for curious minds</h1>
+        <span class="reader-badge">For Ayaan · 4th grade · English</span>
+        <p class="floor-emoji" aria-hidden="true">🌧️</p>
+        <h1 id="discover-title" class="floor-title">Hi Ayaan — ready for a snack?</h1>
         <p class="floor-lead">
-          Effortless helps you grow through small, calm reading bites — not long homework walls.
-          Each <strong>blog snack</strong> is one idea per screen, easy to read together.
+          A <strong>blog snack</strong> is a tiny story in small bites — one idea per screen.
+          No long walls of text. Just calm reading you can finish.
         </p>
-        <div class="card">
-          <p class="card-sub">
-            <strong>Discover</strong> → <strong>Pick</strong> → <strong>Create</strong> →
-            <strong>Read</strong> → <strong>Done</strong>. The chips above always show where you are.
-          </p>
-        </div>
-        <div class="actions">
-          <button type="button" class="btn btn-primary" id="btn-discover-next">
-            Let’s pick a snack type
-          </button>
-        </div>
-      </section>
 
-      <!-- Floor 2: Pick snack type -->
-      <section id="floor-pick" class="floor" hidden aria-labelledby="pick-title">
-        <p class="floor-emoji" aria-hidden="true">📚</p>
-        <h1 id="pick-title" class="floor-title">Pick a snack type</h1>
-        <p class="floor-lead">What kind of snack do we want today?</p>
-
-        <button type="button" class="card card-selectable selected" id="btn-pick-blog">
-          <p class="card-title">Blog</p>
-          <p class="card-sub">Short story bites — one idea per screen. Perfect for reading together.</p>
-        </button>
-
-        <div class="card card-selectable" disabled aria-disabled="true">
-          <p class="card-title">Story</p>
-          <p class="card-sub">Chapter snacks with characters.</p>
-          <span class="badge-soon">Coming soon</span>
+        <div class="card card-inline">
+          <span class="snack-type-pill">Blog</span>
+          <div>
+            <p class="card-title">Short readable chunks</p>
+            <p class="card-sub">First snack type — more coming later.</p>
+          </div>
         </div>
 
-        <div class="card card-selectable" disabled aria-disabled="true">
-          <p class="card-title">Quiz</p>
-          <p class="card-sub">Gentle questions to check what you learned.</p>
-          <span class="badge-soon">Coming soon</span>
-        </div>
-
-        <div class="actions">
-          <button type="button" class="btn btn-primary" id="btn-pick-blog-continue">
-            Continue with Blog
-          </button>
-        </div>
-      </section>
-
-      <!-- Floor 3: Create -->
-      <section id="floor-create" class="floor" hidden aria-labelledby="create-title">
-        <p class="floor-emoji" aria-hidden="true">✏️</p>
-        <h1 id="create-title" class="floor-title">Create your blog snack</h1>
-        <p class="floor-lead">What should this snack be about?</p>
-
-        <label class="field-label" for="topic-input">Your topic</label>
+        <label class="field-label" for="topic-input">Snack topic</label>
         <input
           id="topic-input"
           class="field-input"
           type="text"
-          placeholder="e.g. Why do stars twinkle?"
+          value="Why rain smells good"
           autocomplete="off"
           maxlength="120"
         />
-        <p class="hint">Parent tip: type the topic, then Generate — or try our sample curiosity snack.</p>
+        <p class="hint">Parent: tap <strong>Read this snack</strong> for the default story, or edit the topic and Generate.</p>
 
         <div id="create-status" class="status-msg info" hidden role="status"></div>
 
         <div class="actions">
-          <button type="button" class="btn btn-primary" id="btn-generate">Generate snack</button>
-          <button type="button" class="btn btn-secondary" id="btn-load-sample">Try sample snack</button>
+          <button type="button" class="btn btn-primary" id="btn-read-snack">Read this snack</button>
+          <button type="button" class="btn btn-secondary" id="btn-generate">Generate new topic</button>
         </div>
       </section>
 
-      <!-- Floor 4: Read -->
+      <!-- Read -->
       <section id="floor-read" class="floor" hidden aria-labelledby="read-title">
         <h2 id="read-title" class="visually-hidden">Read together</h2>
         <p class="hint" style="text-align: center; margin-top: 0">Read this screen. Tap Next when ready.</p>
 
         <div id="reader-pane" class="card reader-card" aria-live="polite">
+          <p id="reader-snack-title" class="reader-snack-title"></p>
           <h3 id="reader-heading" class="reader-heading">…</h3>
           <p id="reader-body" class="reader-body">…</p>
         </div>
@@ -111,15 +73,33 @@
         </div>
       </section>
 
-      <!-- Floor 5: Done -->
+      <!-- Done -->
       <section id="floor-done" class="floor celebrate" hidden aria-labelledby="done-title">
-        <p class="celebrate-emoji" aria-hidden="true">🎉</p>
+        <p class="celebrate-emoji" aria-hidden="true">✨</p>
         <h1 id="done-title" class="floor-title">You finished this snack!</h1>
-        <p class="floor-lead">Great reading. You completed <strong id="done-snack-title">your snack</strong>.</p>
+        <p class="floor-lead">Nice work, Ayaan. You read <strong id="done-snack-title">your snack</strong>.</p>
         <p class="reflection">What was one new thing you learned?</p>
         <div class="actions">
-          <button type="button" class="btn btn-primary" id="btn-another">Another snack</button>
-          <button type="button" class="btn btn-secondary" id="btn-start-over">Back to start</button>
+          <button type="button" class="btn btn-primary" id="btn-next-snack">Next snack</button>
+        </div>
+      </section>
+
+      <!-- Next -->
+      <section id="floor-next" class="floor" hidden aria-labelledby="next-title">
+        <p class="floor-emoji" aria-hidden="true">📖</p>
+        <h1 id="next-title" class="floor-title">Pick your next bite</h1>
+        <p class="floor-lead">Same calm rules — one idea per screen, big type, no rush.</p>
+
+        <p class="field-label">Try a topic</p>
+        <div class="topic-suggestions">
+          <button type="button" class="topic-chip-btn" data-topic="Why rain smells good">Why rain smells good</button>
+          <button type="button" class="topic-chip-btn" data-topic="How birds learn to fly">How birds learn to fly</button>
+          <button type="button" class="topic-chip-btn" data-topic="What makes lightning">What makes lightning</button>
+        </div>
+
+        <div class="actions">
+          <button type="button" class="btn btn-primary" id="btn-next-fresh">Start fresh in Discover</button>
+          <button type="button" class="btn btn-secondary" id="btn-reread-rain">Read rain snack again</button>
         </div>
       </section>
     </div>
@@ -137,10 +117,5 @@
       }
     </style>
     <script src="app.js" type="module"></script>
-    <script>
-      document.getElementById("btn-pick-blog-continue")?.addEventListener("click", () => {
-        document.getElementById("btn-pick-blog")?.click();
-      });
-    </script>
   </body>
 </html>

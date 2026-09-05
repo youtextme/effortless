@@ -1,17 +1,19 @@
 /**
  * Effortless — Blog snack prototype
- * Step flow: discover → pick → create → read → done
+ * Macro flow: discover → read → done → next
  */
 
 const STEPS = [
   { id: "discover", label: "Discover" },
-  { id: "pick", label: "Pick" },
-  { id: "create", label: "Create" },
   { id: "read", label: "Read" },
   { id: "done", label: "Done" },
+  { id: "next", label: "Next" },
 ];
 
+const DEFAULT_SNACK_PATH = "content/why-rain-smells-good.json";
+const DEFAULT_TOPIC = "Why rain smells good";
 const MAX_WORDS_PER_SCREEN = 80;
+const READER_NAME = "Ayaan";
 
 /** @type {{ title: string; topic: string; screens: { heading: string; body: string }[] } | null} */
 let activeSnack = null;
@@ -20,15 +22,15 @@ let currentStep = "discover";
 
 const floors = {
   discover: document.getElementById("floor-discover"),
-  pick: document.getElementById("floor-pick"),
-  create: document.getElementById("floor-create"),
   read: document.getElementById("floor-read"),
   done: document.getElementById("floor-done"),
+  next: document.getElementById("floor-next"),
 };
 
 const chipsEl = document.getElementById("progress-chips");
 const topicInput = document.getElementById("topic-input");
 const createStatus = document.getElementById("create-status");
+const readerSnackTitle = document.getElementById("reader-snack-title");
 const readerHeading = document.getElementById("reader-heading");
 const readerBody = document.getElementById("reader-body");
 const readerCounter = document.getElementById("reader-counter");
@@ -87,61 +89,74 @@ function setCreateStatus(message, type = "info") {
   createStatus.className = `status-msg ${type}`;
 }
 
-async function loadSampleSnack() {
-  setCreateStatus("Loading sample snack…", "info");
+async function loadSnackFromPath(path, successLabel) {
+  setCreateStatus("Loading snack…", "info");
   try {
-    const res = await fetch("content/sample-curiosity.json");
+    const res = await fetch(path);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const snack = await res.json();
     const err = validateSnack(snack);
     if (err) throw new Error(err);
     activeSnack = snack;
     readIndex = 0;
-    setCreateStatus(`Loaded “${snack.title}” — ${snack.screens.length} screens ready.`, "success");
-    setTimeout(() => showStep("read"), 600);
+    if (topicInput && snack.topic) {
+      topicInput.value = snack.topic;
+    }
+    setCreateStatus(successLabel || `Loaded “${snack.title}”.`, "success");
+    setTimeout(() => showStep("read"), 400);
   } catch (e) {
-    setCreateStatus(`Could not load sample: ${e.message}. Open via a local server (see README).`, "warn");
+    setCreateStatus(
+      `Could not load snack: ${e.message}. Use a local server — npx serve web/snack-blog -p 5173`,
+      "warn",
+    );
   }
 }
 
+async function loadDefaultSnack() {
+  await loadSnackFromPath(DEFAULT_SNACK_PATH, `“Why rain smells good” is ready for ${READER_NAME}.`);
+}
+
 function fallbackSnack(topic) {
-  const clean = topic.trim() || "being curious";
+  const clean = topic.trim() || DEFAULT_TOPIC;
   return {
-    title: `Wondering about ${clean}`,
+    title: clean,
     topic: clean,
+    reader: READER_NAME,
     screens: [
       {
-        heading: "Your topic",
-        body: `Today we explore ${clean}. You do not need to know everything right away. Curiosity means enjoying the questions.`,
+        heading: "Your question",
+        body: `Today we wonder about ${clean}. You do not need every answer right now. Good readers stay curious and take one bite at a time.`,
       },
       {
-        heading: "Look closer",
-        body: "Notice one small detail about this topic. What do you see, hear, or feel? Writing it down helps your brain remember.",
+        heading: "Look and listen",
+        body: "What do you notice about this topic around you? One small detail is enough to start. Write it down or tell a grown-up.",
       },
       {
-        heading: "Ask one more",
-        body: "Think of a follow-up question. Who could help you find an answer — a book, a grown-up, or a quiet search?",
+        heading: "Ask again",
+        body: "What follow-up question pops into your head? Strong thinkers ask more than once. That is how ideas grow.",
       },
       {
-        heading: "What stuck?",
-        body: "Tell someone one fact or idea you liked. Teaching others is a secret way to learn twice.",
+        heading: "Share it",
+        body: "Tell someone one thing you learned. When you explain it out loud, your brain remembers it better.",
       },
     ],
   };
 }
 
 async function tryOllamaGenerate(topic) {
-  const prompt = `You write kid-safe blog snacks for a ~10 year old.
+  const prompt = `You write kid-safe blog snacks for Ayaan, a 4th grade student (~10 years old). NOT for 3 year olds.
 Topic: ${topic}
 Return ONLY valid JSON (no markdown):
 {
   "title": "short title",
   "topic": "${topic.replace(/"/g, '\\"')}",
+  "reader": "Ayaan",
+  "grade": "4th",
   "screens": [
     { "heading": "3-6 words", "body": "one idea, max 80 words, calm tone" }
   ]
 }
-Rules: 6 screens, one idea each, growth mindset, no shopping, no scary content.`;
+Rules: 6 screens, one idea each, curiosity, no shopping, no scary content, English only.`;
 
   const res = await fetch("http://127.0.0.1:11434/api/generate", {
     method: "POST",
@@ -168,37 +183,35 @@ Rules: 6 screens, one idea each, growth mindset, no shopping, no scary content.`
 async function generateSnack() {
   const topic = topicInput.value.trim();
   if (!topic) {
-    setCreateStatus("Type a topic first — e.g. “Why do stars twinkle?”", "warn");
+    setCreateStatus("Type a topic first.", "warn");
     topicInput.focus();
     return;
   }
 
-  setCreateStatus("Generating with local Ollama… (or using offline fallback)", "info");
+  setCreateStatus("Generating with local Ollama… (or offline fallback)", "info");
 
   try {
     activeSnack = await tryOllamaGenerate(topic);
-    setCreateStatus(`Generated “${activeSnack.title}” locally.`, "success");
+    setCreateStatus(`Generated “${activeSnack.title}” for ${READER_NAME}.`, "success");
   } catch {
     activeSnack = fallbackSnack(topic);
-    setCreateStatus(
-      "Ollama not reachable — used built-in fallback text. See docs/local-llm-blog-snack.md.",
-      "warn",
-    );
+    setCreateStatus("Ollama offline — used built-in fallback. See docs/local-llm-blog-snack.md.", "warn");
   }
 
   readIndex = 0;
-  setTimeout(() => showStep("read"), 500);
+  setTimeout(() => showStep("read"), 400);
 }
 
 function renderReadScreen() {
   if (!activeSnack?.screens?.length) {
-    showStep("create");
+    showStep("discover");
     return;
   }
 
   const screen = activeSnack.screens[readIndex];
   const total = activeSnack.screens.length;
 
+  readerSnackTitle.textContent = activeSnack.title;
   readerHeading.textContent = screen.heading;
   readerBody.textContent = screen.body;
   readerCounter.textContent = `Screen ${readIndex + 1} of ${total}`;
@@ -226,7 +239,6 @@ function prevReadScreen() {
   }
 }
 
-// Touch swipe on reader
 let touchStartX = 0;
 const readerPane = document.getElementById("reader-pane");
 if (readerPane) {
@@ -249,28 +261,40 @@ if (readerPane) {
   );
 }
 
-// Wire buttons
-document.getElementById("btn-discover-next")?.addEventListener("click", () => showStep("pick"));
+document.getElementById("btn-read-snack")?.addEventListener("click", () => {
+  topicInput.value = DEFAULT_TOPIC;
+  loadDefaultSnack();
+});
 
-document.getElementById("btn-pick-blog")?.addEventListener("click", () => showStep("create"));
-
-document.getElementById("btn-load-sample")?.addEventListener("click", loadSampleSnack);
 document.getElementById("btn-generate")?.addEventListener("click", generateSnack);
 
 document.getElementById("btn-read-prev")?.addEventListener("click", prevReadScreen);
 document.getElementById("btn-read-next")?.addEventListener("click", nextReadScreen);
 
-document.getElementById("btn-another")?.addEventListener("click", () => {
-  readIndex = 0;
-  showStep("pick");
-});
+document.getElementById("btn-next-snack")?.addEventListener("click", () => showStep("next"));
 
-document.getElementById("btn-start-over")?.addEventListener("click", () => {
-  activeSnack = null;
-  readIndex = 0;
-  topicInput.value = "";
+document.getElementById("btn-next-fresh")?.addEventListener("click", () => {
   setCreateStatus("");
   showStep("discover");
+});
+
+document.getElementById("btn-reread-rain")?.addEventListener("click", () => {
+  topicInput.value = DEFAULT_TOPIC;
+  loadDefaultSnack();
+});
+
+document.querySelectorAll(".topic-chip-btn").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    const topic = btn.getAttribute("data-topic");
+    if (topic) {
+      topicInput.value = topic;
+      if (topic === DEFAULT_TOPIC) {
+        loadDefaultSnack();
+      } else {
+        generateSnack();
+      }
+    }
+  });
 });
 
 renderChips();
