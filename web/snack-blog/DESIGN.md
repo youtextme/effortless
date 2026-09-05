@@ -1,98 +1,45 @@
-# Snack Blog — design law
+# Snack blog — book-plain DESIGN / flow (1 page)
 
-Minimal book-like reading for `web/snack-blog/`. **This file is the guardrail** — future PRs must not reintroduce candy UI without an explicit version bump and Girish sign-off.
+**Law (BarRaiser 2026-09-06):** Extreme minimalism + classy. Feels like reading a plain blog / book page. No images, no fancy color, no decorative chrome. One verb: **scroll and finish**.
 
-**Flow map:** [docs/snack-blog-flow.md](../docs/snack-blog-flow.md)  
-**Version museum:** [versions/manifest.json](./versions/manifest.json) · live at https://youtextme.github.io/effortless/snack/
+**Kill:** cream/coral palettes as product chrome, Stitch-style cards, progress pill theaters, streaks, shop, bottom tab bars, “Storyhaven” costumes, create-first menus.
 
----
-
-## Product law (non-negotiable)
-
-| Law | Rule |
-|-----|------|
-| **Reading surface** | Text only — no hero images, illustrations, emoji walls, colored cards, coral/cream brand theater, glassmorphism, gradients, or big CTAs beside the text |
-| **Typography** | High-contrast near-black on off-white; ~65ch measure; serif or calm editorial body; generous leading; quiet margins |
-| **One thing at a time** | Read → Comprehension → Video observations → Share. Gate each step before the next |
-| **Read gate** | Scroll to end before Continue. Optional 2px progress bar — must not steal focus |
-| **Chrome** | No decorative nav chips, streak counters, confetti, or Stitch screenshot frames in the reading path |
-| **Share** | Plain text share / clipboard — no carnival |
+**HTML / Pages = source of truth.** This note guides builders only.
 
 ---
 
-## Flow
+## Flow (only these floors)
 
-| Step | What happens |
-|------|----------------|
-| **Read** | Single scrolling essay. Sections from `screens[]`. Hard words use `<dfn>` — no colored tip buttons |
-| **Comprehension** | `comprehension[]` radio questions. Plain form |
-| **Video observations** | `video.prompt` + optional `video.url` link. Textarea only — no embedded player chrome in the reading step |
-| **Share** | Web Share API or clipboard. Quiet “another snack” text links |
+| # | Floor | What the kid does | UI |
+|---|--------|-------------------|-----|
+| 1 | **Read** | Scroll the snack text to the end | Title + body. System text. Black/near-black on white or soft off-white. No hero image. |
+| 2 | **Comprehension** | Answer short reading questions | Plain questions + choices or short write-in. No gamification. |
+| 3 | **Video observations** | Watch / note what they notice | Link or embed + a few observation prompts. No decorative video chrome. |
+| 4 | **Share** | Share (parent/device share sheet) | One quiet share control. No cart, no social feed. |
 
-Parent tools live in collapsed `<details>` at the bottom — never block the kid path.
-
----
-
-## Tokens (v2 — minimal)
-
-| Token | Value | Use |
-|-------|-------|-----|
-| Paper | `#FAF9F7` | Page background |
-| Ink | `#111111` | Body, headings |
-| Ink muted | `#4A4A4A` | Labels, hints |
-| Rule | `#D8D4CC` | Dividers, borders |
-| Measure | `65ch` | Article width |
-| Body | `1.125rem` / `1.7` leading | Reading comfort |
-
-**Forbidden in v2:** coral `#FF6B4A`, mint `#3DCF9F`, cream cards, rounded CTA pills, progress chips.
+Optional **version museum** (parent/builder): latest default; prior versions clickable. Not on the kid read path.
 
 ---
 
-## Content schema
+## Visual rules
 
-```json
-{
-  "title": "...",
-  "screens": [{ "heading": "...", "body": "...", "tips": { "word": { "meaning": "...", "example": "..." } } }],
-  "comprehension": [{ "question": "...", "choices": ["...", "..."], "answer": 0 }],
-  "video": { "prompt": "...", "url": "optional", "minChars": 12 }
-}
-```
-
-- ≤80 words per `screens[].body` (enforced in `validateSnack()`)
-- At least one comprehension question required
+- Typography: readable serif or system text; body ≥16–18px; generous line-height.
+- Color: ink on paper only (e.g. `#111` on `#FFF` or `#FAFAF8`). One link color max if needed.
+- Layout: single column, max ~40rem, page margins. No cards-as-apps, no chips row for “Discover · Read · Done · Next”.
+- Motion: none required. Scroll is the interaction.
+- No illustrations, stock photos, or emoji decoration in the reading surface.
 
 ---
 
-## Version museum
+## Content rules (blog snack)
 
-| Version | Path | Era |
-|---------|------|-----|
-| **v2 · latest** | `/snack/` | Minimal book flow (this spec) |
-| **v1 · stitch-cream** | `/snack/versions/v1-stitch-cream/` | Cream/coral Stitch polish — archived |
-
-Before replacing latest, snapshot the current UI under `versions/vN-<slug>/` and add to `versions/manifest.json`.
-
-Stitch comps in `docs/screenshots/snack-blog/stitch/` are **historical reference only** — not source of truth.
+- One idea, short paragraphs; finishable in one sitting for Ayaan (~10).
+- English. 3yo out of scope.
+- Comprehension checks understanding of *this* text — not a quiz game.
+- Video observations ask what they *noticed*, not how they feel.
 
 ---
 
-## Samples
+## Done when
 
-| File | Title |
-|------|-------|
-| `content/sample-rain.json` | Why rain smells good (**default**) |
-| `content/sample-mirror.json` | How a mirror helps you notice yourself |
-
----
-
-## Android palette (unchanged)
-
-Android app keeps green theme (`#1B5E20` / `#F1F8E9`) — web minimalism does not replace app tokens.
-
----
-
-## Related
-
-- [docs/snack-blog-flow.md](../docs/snack-blog-flow.md)
-- [docs/stitch-prompts-snack-blog.md](../docs/stitch-prompts-snack-blog.md) — archived prompts; do not apply to v2
+Kid can open latest Pages version → scroll text to end → answer comprehension → do video observations → share — without hunting menus or decorative UI.

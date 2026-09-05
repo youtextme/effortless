@@ -13,7 +13,7 @@ Flow: **Read → Comprehension → Video observations → Share** (minimal book 
 | Live (GitHub Pages) | https://youtextme.github.io/effortless/snack/ |
 | Prior UI (v1 stitch-cream) | https://youtextme.github.io/effortless/snack/versions/v1-stitch-cream/ |
 | Flow map | [docs/snack-blog-flow.md](docs/snack-blog-flow.md) |
-| Design law | [web/snack-blog/DESIGN.md](web/snack-blog/DESIGN.md) |
+| Design law (book-plain) | [web/snack-blog/DESIGN.md](web/snack-blog/DESIGN.md) |
 | Generate via Ollama | [docs/local-llm-blog-snack.md](docs/local-llm-blog-snack.md) |
 
 ## Android app

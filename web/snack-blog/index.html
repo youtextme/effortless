@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="theme-color" content="#faf9f7" />
+    <meta name="theme-color" content="#fafaf8" />
     <meta
       name="description"
       content="Effortless — a quiet blog snack for curious readers."
@@ -13,10 +13,6 @@
   </head>
   <body>
     <div class="page">
-      <div id="read-progress" class="read-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Reading progress">
-        <span id="read-progress-fill" class="read-progress-fill"></span>
-      </div>
-
       <!-- 1. Read — scroll the essay -->
       <main id="step-read" class="step step-read">
         <article id="article" class="article" aria-live="polite"></article>
@@ -74,6 +70,7 @@
 
       <details class="parent-tools">
         <summary>Parent tools</summary>
+        <nav id="version-switcher" class="version-switcher" aria-label="Prototype version"></nav>
         <label class="field-label" for="topic-input">Topic</label>
         <input id="topic-input" class="field-input" type="text" maxlength="120" autocomplete="off" />
         <div id="create-status" class="status-msg" hidden role="status"></div>
@@ -82,8 +79,6 @@
           <button type="button" class="btn-quiet" id="btn-generate">Generate with Ollama</button>
         </div>
       </details>
-
-      <nav id="version-switcher" class="version-switcher" aria-label="Prototype version"></nav>
     </div>
 
     <script src="app.js" type="module"></script>
