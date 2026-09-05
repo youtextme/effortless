@@ -3,12 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="theme-color" content="#FAF7F0" />
+    <meta name="theme-color" content="#FFF8F0" />
     <meta
       name="description"
       content="Effortless — snackable blog bites for Ayaan and curious 4th graders."
     />
-    <title>Effortless — Why rain smells good</title>
+    <title>Effortless — Blog snack</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -18,47 +18,55 @@
         <nav id="progress-chips" class="progress-chips" aria-label="Your progress"></nav>
       </header>
 
-      <!-- Discover: pick Blog + topic (single floor) -->
+      <!-- Discover (Home) — kid path: Start reading → rain -->
       <section id="floor-discover" class="floor" aria-labelledby="discover-title">
         <span class="reader-badge">For Ayaan · 4th grade · English</span>
-        <p class="floor-emoji" aria-hidden="true">🌧️</p>
-        <h1 id="discover-title" class="floor-title">Hi Ayaan — ready for a snack?</h1>
-        <p class="floor-lead">
-          A <strong>blog snack</strong> is a tiny story in small bites — one idea per screen.
-          No long walls of text. Just calm reading you can finish.
-        </p>
+        <h1 id="discover-title" class="floor-title">Pick a snack</h1>
+        <p class="floor-lead">Small bites — one idea per screen. Tap <strong>Start reading</strong> and go.</p>
 
-        <div class="card card-inline">
-          <span class="snack-type-pill">Blog</span>
-          <div>
-            <p class="card-title">Short readable chunks</p>
-            <p class="card-sub">First snack type — more coming later.</p>
+        <article class="snack-card snack-card-featured">
+          <span class="time-chip">~3 min</span>
+          <h2 class="snack-card-title">Why rain smells good</h2>
+          <p class="snack-card-hook">That earthy smell after rain has a real name.</p>
+          <button type="button" class="btn btn-primary" id="btn-start-reading">Start reading</button>
+        </article>
+
+        <article class="snack-card">
+          <span class="time-chip">~3 min</span>
+          <h2 class="snack-card-title">How a mirror helps you notice yourself</h2>
+          <p class="snack-card-hook">A quiet look can show you more than your face.</p>
+          <button
+            type="button"
+            class="btn btn-secondary snack-start-btn"
+            data-snack-path="content/sample-mirror.json"
+          >
+            Start reading
+          </button>
+        </article>
+
+        <details class="parent-builder">
+          <summary>Parent: create or generate a topic</summary>
+          <label class="field-label" for="topic-input">Topic</label>
+          <input
+            id="topic-input"
+            class="field-input"
+            type="text"
+            value="Why rain smells good"
+            autocomplete="off"
+            maxlength="120"
+          />
+          <div id="create-status" class="status-msg info" hidden role="status"></div>
+          <div class="parent-actions">
+            <button type="button" class="btn btn-secondary" id="btn-try-sample">Try sample (rain)</button>
+            <button type="button" class="btn btn-secondary" id="btn-generate">Generate with Ollama</button>
           </div>
-        </div>
-
-        <label class="field-label" for="topic-input">Snack topic</label>
-        <input
-          id="topic-input"
-          class="field-input"
-          type="text"
-          value="Why rain smells good"
-          autocomplete="off"
-          maxlength="120"
-        />
-        <p class="hint">Parent: tap <strong>Read this snack</strong> for the default story, or edit the topic and Generate.</p>
-
-        <div id="create-status" class="status-msg info" hidden role="status"></div>
-
-        <div class="actions">
-          <button type="button" class="btn btn-primary" id="btn-read-snack">Read this snack</button>
-          <button type="button" class="btn btn-secondary" id="btn-generate">Generate new topic</button>
-        </div>
+        </details>
       </section>
 
-      <!-- Read -->
-      <section id="floor-read" class="floor" hidden aria-labelledby="read-title">
-        <h2 id="read-title" class="visually-hidden">Read together</h2>
-        <p class="hint" style="text-align: center; margin-top: 0">Read this screen. Tap Next when ready.</p>
+      <!-- Read — forward only -->
+      <section id="floor-read" class="floor floor-reader" hidden aria-labelledby="read-title">
+        <h2 id="read-title" class="visually-hidden">Read</h2>
+        <div id="read-progress" class="read-progress" role="presentation" aria-hidden="true"></div>
 
         <div id="reader-pane" class="card reader-card" aria-live="polite">
           <p id="reader-snack-title" class="reader-snack-title"></p>
@@ -67,9 +75,8 @@
         </div>
         <p id="reader-counter" class="reader-meta">Screen 1 of 1</p>
 
-        <div class="reader-nav actions" style="padding-top: 0.5rem">
-          <button type="button" class="btn btn-secondary" id="btn-read-prev">Previous</button>
-          <button type="button" class="btn btn-primary" id="btn-read-next">Next screen</button>
+        <div class="actions">
+          <button type="button" class="btn btn-primary btn-forward" id="btn-read-next">Forward</button>
         </div>
       </section>
 
@@ -77,36 +84,38 @@
       <section id="floor-done" class="floor celebrate" hidden aria-labelledby="done-title">
         <p class="celebrate-emoji" aria-hidden="true">✨</p>
         <h1 id="done-title" class="floor-title">You finished this snack!</h1>
-        <p class="floor-lead">Nice work, Ayaan. You read <strong id="done-snack-title">your snack</strong>.</p>
-        <p class="reflection">What was one new thing you learned?</p>
+        <p class="floor-lead">You read the whole thing — nice focus, Ayaan.</p>
+        <p class="floor-lead">You finished <strong id="done-snack-title">your snack</strong>.</p>
         <div class="actions">
           <button type="button" class="btn btn-primary" id="btn-next-snack">Next snack</button>
+          <button type="button" class="btn btn-secondary" id="btn-done-for-now">Done for now</button>
         </div>
       </section>
 
-      <!-- Next -->
+      <!-- Next — sample picker -->
       <section id="floor-next" class="floor" hidden aria-labelledby="next-title">
-        <p class="floor-emoji" aria-hidden="true">📖</p>
-        <h1 id="next-title" class="floor-title">Pick your next bite</h1>
-        <p class="floor-lead">Same calm rules — one idea per screen, big type, no rush.</p>
+        <h1 id="next-title" class="floor-title">Try another snack</h1>
+        <p class="floor-lead">Same calm rules — big type, one idea per screen.</p>
 
-        <p class="field-label">Try a topic</p>
-        <div class="topic-suggestions">
-          <button type="button" class="topic-chip-btn" data-snack-path="content/why-rain-smells-good.json">
-            Why rain smells good
+        <p class="field-label">Pick one</p>
+        <div class="sample-picker">
+          <button type="button" class="sample-card" data-snack-path="content/sample-rain.json">
+            <span class="time-chip">~3 min</span>
+            <span class="sample-card-title">Why rain smells good</span>
           </button>
           <button
             type="button"
-            class="topic-chip-btn"
-            data-snack-path="content/how-a-mirror-helps-you-notice-yourself.json"
+            class="sample-card sample-card-highlight"
+            id="sample-mirror-card"
+            data-snack-path="content/sample-mirror.json"
           >
-            How a mirror helps you notice yourself
+            <span class="time-chip">~3 min</span>
+            <span class="sample-card-title">How a mirror helps you notice yourself</span>
           </button>
         </div>
 
         <div class="actions">
-          <button type="button" class="btn btn-primary" id="btn-next-fresh">Start fresh in Discover</button>
-          <button type="button" class="btn btn-secondary" id="btn-reread-rain">Read rain snack again</button>
+          <button type="button" class="btn btn-secondary" id="btn-back-home">Back to Home</button>
         </div>
       </section>
     </div>
