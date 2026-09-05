@@ -6,8 +6,6 @@
 
 **HTML / Pages = source of truth.** This note guides builders only.
 
----
-
 ## Flow (only these floors)
 
 | # | Floor | What the kid does | UI |
@@ -19,8 +17,6 @@
 
 Optional **version museum** (parent/builder): latest default; prior versions clickable. Not on the kid read path.
 
----
-
 ## Visual rules
 
 - Typography: readable serif or system text; body ≥16–18px; generous line-height.
@@ -29,16 +25,12 @@ Optional **version museum** (parent/builder): latest default; prior versions cli
 - Motion: none required. Scroll is the interaction.
 - No illustrations, stock photos, or emoji decoration in the reading surface.
 
----
-
 ## Content rules (blog snack)
 
 - One idea, short paragraphs; finishable in one sitting for Ayaan (~10).
 - English. 3yo out of scope.
 - Comprehension checks understanding of *this* text — not a quiz game.
 - Video observations ask what they *noticed*, not how they feel.
-
----
 
 ## Done when
 

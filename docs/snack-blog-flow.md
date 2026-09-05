@@ -2,7 +2,7 @@
 
 Prototype: **`web/snack-blog/`** · live: https://youtextme.github.io/effortless/snack/
 
-**Product law:** [web/snack-blog/DESIGN.md](../web/snack-blog/DESIGN.md) (book-plain, locked)
+**Product law:** [web/snack-blog/DESIGN.md](../web/snack-blog/DESIGN.md) (book-plain, locked) · [docs/snack-blog-book-plain.md](./snack-blog-book-plain.md) (pointer)
 
 ---
 
