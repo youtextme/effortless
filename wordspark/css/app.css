@@ -74,6 +74,42 @@ body {
 
 .passage .vocab-word:active { background: #fde293; }
 
+.scroll-sentinel {
+  height: 2px;
+  width: 100%;
+}
+
+/* Continue — fixed bottom-right, icon only */
+.fab {
+  position: fixed;
+  bottom: 1.25rem;
+  right: 1.25rem;
+  z-index: 100;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--blue);
+  color: #fff;
+  border: none;
+  box-shadow: 0 4px 14px rgba(26, 115, 232, 0.45);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.15s, opacity 0.2s, box-shadow 0.2s;
+}
+
+.fab:disabled {
+  opacity: 0.32;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.fab:not(:disabled):active {
+  transform: scale(0.94);
+  background: #1557b0;
+}
+
 /* Page navigation */
 .page-nav {
   display: flex;
@@ -191,6 +227,13 @@ body {
 }
 
 .sheet-word { font-size: 1.75rem; font-weight: 700; margin-bottom: 0.35rem; }
+
+.sheet-lead {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+}
+
 .sheet-meaning { font-size: 1.05rem; margin-bottom: 1.25rem; color: var(--text-secondary); }
 
 .sheet-scenarios { display: flex; flex-direction: column; gap: 1rem; }
@@ -216,10 +259,20 @@ body {
   margin: 0.35rem 0;
 }
 
-.scenario-say {
+.scenario-say,
+.scenario-line {
   font-size: 1rem;
   font-weight: 500;
   color: var(--text);
+  font-style: italic;
+  margin-top: 0.5rem;
+}
+
+.scenario-upgrade {
+  font-size: 0.95rem;
+  color: var(--text);
+  line-height: 1.55;
+  margin: 0.35rem 0;
 }
 
 /* Modals */
@@ -440,6 +493,7 @@ body {
 
 @supports (padding: env(safe-area-inset-bottom)) {
   .reading-main { padding-bottom: calc(5rem + env(safe-area-inset-bottom)); }
+  .fab { bottom: calc(1.25rem + env(safe-area-inset-bottom)); }
   .parent-footer { padding-bottom: env(safe-area-inset-bottom); }
   .word-sheet-panel { padding-bottom: calc(2.5rem + env(safe-area-inset-bottom)); }
 }

@@ -1,23 +1,24 @@
 import { VOCABULARY, WORDS_PER_DAY, TOTAL_WORDS } from './data/words.js';
+import { getTopicTitle } from './data/topics.js';
 import { generatePassagePages, sectionToHtml } from './passage-generator.js';
 import {
   loadProgress, completePassage, setChildName, getActivePassage,
-  getPageProgress, markPageVisited, allPagesVisited, setReadingPassage, resetProgress,
-  verifyRefreshPassword,
+  setReadingPassage, resetProgress, verifyRefreshPassword,
 } from './storage.js';
 import { generateQuestions, PASS_THRESHOLD } from './questions.js';
 import { speakSequence, stopSpeaking } from './tts.js';
-import { generateUsageScenarios, scenariosToSpeech } from './word-usage.js';
+import { generateUsageScenarios, usageToSpeech } from './word-usage.js';
 import { generateCertificate, shareCertificate } from './certificate.js';
 
 let currentPassageData = null;
 let currentPassageNum = 1;
-let passagePages = [];
-let currentPage = 0;
+let passageSections = [];
 let quizQuestions = [];
 let quizIndex = 0;
 let quizScore = 0;
 let wordMap = {};
+let hasScrolledToEnd = false;
+let scrollObserver = null;
 
 const $ = (sel) => document.querySelector(sel);
 const $$ = (sel) => document.querySelectorAll(sel);
@@ -28,22 +29,12 @@ function init() {
   hideModal('refresh-modal');
   setupListeners();
   const p = loadProgress();
-  if (!p.onboarded || !p.childName) {
-    showModal('name-modal');
-  } else {
-    loadPassage(getActivePassage());
-  }
+  if (!p.onboarded || !p.childName) showModal('name-modal');
+  else loadPassage(getActivePassage());
 }
 
-function showModal(id) {
-  const el = $(`#${id}`);
-  if (el) el.hidden = false;
-}
-
-function hideModal(id) {
-  const el = $(`#${id}`);
-  if (el) el.hidden = true;
-}
+function showModal(id) { const el = $(`#${id}`); if (el) el.hidden = false; }
+function hideModal(id) { const el = $(`#${id}`); if (el) el.hidden = true; }
 
 function setupListeners() {
   $('#btn-save-name')?.addEventListener('click', () => {
@@ -54,8 +45,6 @@ function setupListeners() {
     loadPassage(getActivePassage());
   });
 
-  $('#btn-prev-page')?.addEventListener('click', () => goPage(currentPage - 1));
-  $('#btn-next-page')?.addEventListener('click', () => goPage(currentPage + 1));
   $('#btn-done-reading')?.addEventListener('click', startQuiz);
   $('#btn-next-passage')?.addEventListener('click', () => {
     hideOverlay('screen-complete');
@@ -83,8 +72,7 @@ function setupListeners() {
   });
 
   $('#btn-confirm-refresh')?.addEventListener('click', () => {
-    const pw = $('#refresh-password')?.value;
-    if (!verifyRefreshPassword(pw)) {
+    if (!verifyRefreshPassword($('#refresh-password')?.value)) {
       showToast('Wrong password');
       return;
     }
@@ -92,7 +80,6 @@ function setupListeners() {
     hideModal('refresh-modal');
     $('#refresh-password').value = '';
     showModal('name-modal');
-    showToast('Progress reset');
   });
 
   $('#btn-cancel-refresh')?.addEventListener('click', () => {
@@ -125,72 +112,59 @@ function loadPassage(n) {
   stopSpeaking();
   currentPassageNum = n;
   currentPassageData = getPassageData(n);
+  hasScrolledToEnd = false;
 
   wordMap = {};
   currentPassageData.words.forEach((w) => { wordMap[w.word.toLowerCase()] = w; });
 
   const { h1, sections } = generatePassagePages(currentPassageData);
-  passagePages = sections;
+  passageSections = sections;
   $('#passage-title').textContent = h1;
 
-  const pp = getPageProgress(n);
-  currentPage = Math.min(pp.currentPage || 0, sections.length - 1);
-  renderPage();
+  $('#passage-content').innerHTML = sections
+    .map((s) => sectionToHtml(s, currentPassageData.words))
+    .join('');
+
+  setupWordTaps();
+  setupScrollUnlock();
   setReadingPassage(n);
   updateParentProgress();
+  updateFab();
   window.scrollTo(0, 0);
 }
 
-function renderPage() {
-  const section = passagePages[currentPage];
-  $('#passage-content').innerHTML = sectionToHtml(section, currentPassageData.words);
-  setupWordTaps();
+function setupScrollUnlock() {
+  if (scrollObserver) scrollObserver.disconnect();
 
-  const total = passagePages.length;
-  markPageVisited(currentPassageNum, currentPage, total);
+  const sentinel = $('#scroll-sentinel');
+  const fab = $('#btn-done-reading');
+  if (!sentinel) return;
 
-  $('#btn-prev-page').disabled = currentPage === 0;
-  $('#btn-next-page').disabled = currentPage >= total - 1;
-  $('#btn-next-page').textContent = currentPage >= total - 1 ? 'Last page' : 'Next →';
+  scrollObserver = new IntersectionObserver(
+    (entries) => {
+      if (entries[0]?.isIntersecting) {
+        hasScrolledToEnd = true;
+        updateFab();
+      }
+    },
+    { root: null, threshold: 0.5 }
+  );
+  scrollObserver.observe(sentinel);
 
-  renderPageDots(total);
-  updateReadButton(total);
+  // Also unlock if content fits on one screen (short viewport)
+  requestAnimationFrame(() => {
+    const docH = document.documentElement.scrollHeight;
+    const winH = window.innerHeight;
+    if (docH <= winH + 40) {
+      hasScrolledToEnd = true;
+      updateFab();
+    }
+  });
 }
 
-function renderPageDots(total) {
-  const dots = $('#page-dots');
-  const pp = markPageVisited(currentPassageNum, currentPage, total);
-  dots.innerHTML = Array.from({ length: total }, (_, i) => {
-    const visited = pp.visited.includes(i);
-    const active = i === currentPage;
-    return `<span class="dot ${visited ? 'visited' : ''} ${active ? 'active' : ''}"></span>`;
-  }).join('');
-}
-
-function goPage(n) {
-  if (n < 0 || n >= passagePages.length) {
-    if (n >= passagePages.length) updateReadButton(passagePages.length);
-    return;
-  }
-  currentPage = n;
-  renderPage();
-  window.scrollTo(0, 0);
-}
-
-function updateReadButton(total) {
-  const allVisited = allPagesVisited(currentPassageNum, total);
-  const btn = $('#btn-done-reading');
-  const hint = $('#read-hint');
-  btn.disabled = !allVisited;
-  if (allVisited) {
-    hint.textContent = 'Great! Now tap the button below.';
-    hint.classList.add('ready');
-  } else {
-    const pp = markPageVisited(currentPassageNum, currentPage, total);
-    const remaining = total - pp.visited.length;
-    hint.textContent = `Keep reading — ${remaining} page${remaining > 1 ? 's' : ''} left`;
-    hint.classList.remove('ready');
-  }
+function updateFab() {
+  const fab = $('#btn-done-reading');
+  if (fab) fab.disabled = !hasScrolledToEnd;
 }
 
 function setupWordTaps() {
@@ -206,18 +180,16 @@ function setupWordTaps() {
 function openWordSheet(data) {
   const scenarios = generateUsageScenarios(data);
   $('#sheet-word').textContent = data.word;
-  $('#sheet-meaning').textContent = data.meaning;
-
   $('#sheet-scenarios').innerHTML = scenarios.map((s) => `
     <div class="scenario">
       <span class="scenario-who">${s.who}</span>
       <p class="scenario-setup">${s.setup}</p>
-      <p class="scenario-say">${s.say}</p>
+      <p class="scenario-upgrade">${s.upgrade}</p>
+      <p class="scenario-line">${s.line}</p>
     </div>
   `).join('');
-
   $('#word-sheet').hidden = false;
-  speakSequence(scenariosToSpeech(data.word, scenarios));
+  speakSequence(usageToSpeech(data.word, scenarios).join(' '));
 }
 
 function closeWordSheet() {
@@ -226,7 +198,7 @@ function closeWordSheet() {
 }
 
 function startQuiz() {
-  if (!allPagesVisited(currentPassageNum, passagePages.length)) return;
+  if (!hasScrolledToEnd) return;
   stopSpeaking();
   quizQuestions = generateQuestions(currentPassageData);
   quizIndex = 0;
@@ -241,7 +213,7 @@ function renderQuestion() {
   $('#quiz-counter').textContent = `Question ${quizIndex + 1} of ${quizQuestions.length}`;
   $('#quiz-question').textContent = q.prompt;
   $('#quiz-choices').innerHTML = q.choices
-    .map((c, i) => `<button class="quiz-choice" data-correct="${c.correct}">${c.text}</button>`)
+    .map((c) => `<button class="quiz-choice" data-correct="${c.correct}">${c.text}</button>`)
     .join('');
   $$('.quiz-choice').forEach((btn) => btn.addEventListener('click', () => handleAnswer(btn)));
 }
@@ -265,8 +237,7 @@ function finishQuiz() {
   hideOverlay('screen-quiz');
   if (quizScore >= PASS_THRESHOLD) {
     const p = completePassage(currentPassageNum, WORDS_PER_DAY);
-    $('#complete-msg').textContent =
-      `${p.childName}, you learned 10 words! ${p.totalWordsLearned} of ${TOTAL_WORDS} total.`;
+    $('#complete-msg').textContent = `You finished "${getTopicTitle(currentPassageNum)}". ${p.totalWordsLearned} words learned so far.`;
     showOverlay('screen-complete');
     updateParentProgress();
   } else {
@@ -279,7 +250,7 @@ async function handleShare() {
   const p = loadProgress();
   const canvas = await generateCertificate({
     childName: p.childName,
-    dayData: currentPassageData,
+    dayData: { ...currentPassageData, theme: getTopicTitle(currentPassageNum) },
     progress: { ...p, streak: p.completedPassages.length, completedDays: p.completedPassages },
   });
   await shareCertificate(canvas, currentPassageData);
@@ -288,27 +259,19 @@ async function handleShare() {
 function updateParentProgress() {
   const p = loadProgress();
   $('#parent-progress').textContent =
-    `${p.completedPassages.length}/100 passages · ${p.totalWordsLearned}/1000 words`;
+    `${p.completedPassages.length}/100 topics · ${p.totalWordsLearned}/1000 words`;
 }
 
-function openPanel(id, fn) {
-  closePanels();
-  $(`#${id}`).hidden = false;
-  fn();
-}
-
-function closePanels() {
-  $$('.sub-panel').forEach((p) => { p.hidden = true; });
-}
+function openPanel(id, fn) { closePanels(); $(`#${id}`).hidden = false; fn(); }
+function closePanels() { $$('.sub-panel').forEach((p) => { p.hidden = true; }); }
 
 function renderPassageList() {
   const p = loadProgress();
   $('#passage-list').innerHTML = VOCABULARY.map((d) => {
     const done = p.completedPassages.includes(d.day);
-    const title = d.words.slice(0, 2).map((w) => w.word).join(' & ');
+    const title = getTopicTitle(d.day);
     return `<div class="passage-item ${done ? 'done' : ''}" data-n="${d.day}">
       <span class="passage-item-title">${title}</span>
-      <span class="passage-item-theme">${d.theme}</span>
       <span>${done ? '✓' : ''}</span>
     </div>`;
   }).join('');
@@ -346,14 +309,13 @@ async function renderCerts() {
     return;
   }
   $('#certs-empty').hidden = true;
-  $('#certs-gallery').innerHTML = completed.map((n) => {
-    const d = getPassageData(n);
-    return `<div class="cert-card"><strong>${d.theme}</strong><div id="cert-${n}"></div></div>`;
-  }).join('');
+  $('#certs-gallery').innerHTML = completed.map((n) =>
+    `<div class="cert-card"><strong>${getTopicTitle(n)}</strong><div id="cert-${n}"></div></div>`
+  ).join('');
   for (const n of completed) {
     const canvas = await generateCertificate({
       childName: p.childName,
-      dayData: getPassageData(n),
+      dayData: { ...getPassageData(n), theme: getTopicTitle(n) },
       progress: { ...p, streak: p.completedPassages.length, completedDays: p.completedPassages },
     });
     canvas.style.width = '100%';

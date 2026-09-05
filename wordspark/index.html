@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#ffffff">
-  <meta name="description" content="Read passages. Learn 1000 words. Tap any word to hear it and learn how to use it.">
+  <meta name="description" content="Read topics that matter. Understand the world. Enjoy reading.">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <title>WordSpark</title>
@@ -18,23 +18,16 @@
 </head>
 <body>
   <div id="app">
-    <main class="reading-main">
+    <main class="reading-main" id="reading-scroll">
       <h1 id="passage-title" class="passage-h1"></h1>
       <article id="passage-content" class="passage"></article>
-
-      <div class="page-nav">
-        <button id="btn-prev-page" class="btn-page" disabled>← Back</button>
-        <div id="page-dots" class="page-dots"></div>
-        <button id="btn-next-page" class="btn-page">Next →</button>
-      </div>
-
-      <button id="btn-done-reading" class="btn-primary" disabled>
-        I've read everything
-      </button>
-      <p id="read-hint" class="read-hint">Read all pages to continue</p>
+      <div id="scroll-sentinel" class="scroll-sentinel" aria-hidden="true"></div>
     </main>
 
-    <!-- Quiz -->
+    <button id="btn-done-reading" class="fab" disabled aria-label="Continue">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+
     <section id="screen-quiz" class="overlay" hidden>
       <div class="quiz-container">
         <div class="quiz-progress"><div class="quiz-progress-bar" id="quiz-progress-bar"></div></div>
@@ -44,56 +37,51 @@
       </div>
     </section>
 
-    <!-- Complete -->
     <section id="screen-complete" class="overlay" hidden>
       <div class="complete-container">
         <div class="complete-icon">✓</div>
         <h2>Well done!</h2>
         <p id="complete-msg"></p>
-        <button id="btn-next-passage" class="btn-primary">Read next passage</button>
+        <button id="btn-next-passage" class="btn-primary">Keep reading</button>
         <button id="btn-share-complete" class="btn-text">Share with parents</button>
       </div>
     </section>
   </div>
 
-  <!-- Name onboarding -->
   <div id="name-modal" class="modal" hidden>
     <div class="modal-panel">
       <h2>Welcome to WordSpark</h2>
       <p>What's your name?</p>
       <input type="text" id="child-name" placeholder="Your name" maxlength="30" autocomplete="name">
-      <button id="btn-save-name" class="btn-primary">Let's read!</button>
+      <button id="btn-save-name" class="btn-primary">Let's read</button>
     </div>
   </div>
 
-  <!-- Word sheet -->
   <div id="word-sheet" class="word-sheet" hidden>
     <div class="word-sheet-backdrop" id="word-sheet-backdrop"></div>
     <div class="word-sheet-panel">
       <h3 id="sheet-word" class="sheet-word"></h3>
-      <p id="sheet-meaning" class="sheet-meaning"></p>
+      <p id="sheet-lead" class="sheet-lead">How to use this in daily life</p>
       <div id="sheet-scenarios" class="sheet-scenarios"></div>
     </div>
   </div>
 
-  <!-- Parent footer -->
   <footer id="parent-footer" class="parent-footer">
     <button id="btn-parent-toggle" class="parent-toggle">Parents</button>
     <div id="parent-panel" class="parent-panel" hidden>
       <span id="parent-progress" class="parent-stat"></span>
-      <button class="parent-link" data-action="passages">Passages</button>
+      <button class="parent-link" data-action="passages">Topics</button>
       <button class="parent-link" data-action="words">Words</button>
       <button class="parent-link" data-action="certificates">Certificates</button>
       <button class="parent-link" data-action="install" id="btn-install" hidden>Install</button>
-      <button class="parent-link parent-danger" data-action="refresh">Reset progress</button>
+      <button class="parent-link parent-danger" data-action="refresh">Reset</button>
     </div>
   </footer>
 
-  <!-- Parent sub-panels -->
   <section id="panel-passages" class="sub-panel" hidden>
     <header class="sub-header">
       <button class="icon-btn btn-back-panel" data-back>←</button>
-      <h2>Passages</h2>
+      <h2>Topics</h2>
     </header>
     <div id="passage-list" class="passage-list"></div>
   </section>
@@ -101,7 +89,7 @@
   <section id="panel-words" class="sub-panel" hidden>
     <header class="sub-header">
       <button class="icon-btn btn-back-panel" data-back>←</button>
-      <h2>1000 Words</h2>
+      <h2>Words</h2>
     </header>
     <div id="words-list" class="words-list"></div>
   </section>
@@ -115,11 +103,10 @@
     <p id="certs-empty" class="empty-state" hidden>No certificates yet.</p>
   </section>
 
-  <!-- Refresh password modal -->
   <div id="refresh-modal" class="modal" hidden>
     <div class="modal-panel">
       <h2>Reset all progress?</h2>
-      <p class="modal-warning">⚠️ All passages, words, and certificates will be lost forever.</p>
+      <p class="modal-warning">All progress will be lost forever.</p>
       <p class="modal-hint">Password hint: jbomb bday</p>
       <input type="password" id="refresh-password" placeholder="Enter password" inputmode="numeric">
       <button id="btn-confirm-refresh" class="btn-danger">Reset everything</button>

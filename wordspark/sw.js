@@ -1,4 +1,4 @@
-const CACHE_NAME = 'wordspark-v5';
+const CACHE_NAME = 'wordspark-v6';
 const ASSETS = [
   './',
   './index.html',
@@ -8,6 +8,7 @@ const ASSETS = [
   './js/storage.js',
   './js/certificate.js',
   './js/data/words.js',
+  './js/data/topics.js',
   './js/tts.js',
   './js/questions.js',
   './js/word-usage.js',

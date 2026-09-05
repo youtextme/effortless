@@ -1,70 +1,88 @@
 /**
- * Practical usage scenarios — how a kid actually uses each word.
+ * Teach words in context — pronunciation + real-life upgrade, not templates.
  */
 
-const FRIEND_SETUPS = [
-  'Your friend asks what new word you learned today.',
-  'Your friend says they don\'t understand something in class.',
-  'Your friend asks you to explain something simply.',
-  'Your friend is curious about a topic you just read about.',
-];
+const SIMPLE_ALTERNATIVES = {
+  analyze: 'look at carefully',
+  hypothesis: 'a guess',
+  investigate: 'check',
+  observe: 'watch',
+  discover: 'find out',
+  explore: 'look around',
+  curious: 'interested',
+  phenomenon: 'a strange thing',
+  evidence: 'proof',
+  conclude: 'decide',
+  articulate: 'say clearly',
+  persuade: 'convince',
+  convey: 'show',
+  communicate: 'talk',
+  evaluate: 'judge',
+  logical: 'sensible',
+  ecosystem: 'nature system',
+  democracy: 'people voting',
+  resilience: 'bouncing back',
+  influence: 'changing minds',
+  chlorophyll: 'the green stuff in leaves',
+  negotiate: 'work out a deal',
+  empathize: 'understand how someone feels',
+};
 
-const MOTHER_SETUPS = [
-  'Your mother asks what you read today.',
-  'Your mother asks you to tell her about your day at school.',
-  'Your mother wants you to explain something from the news.',
-  'Your mother asks what a difficult word means.',
-];
-
-const GRANDFATHER_SETUPS = [
-  'Your grandfather asks you to share something interesting you learned.',
-  'Your grandfather wants to hear you use a new word in a sentence.',
-  'Your grandfather asks what you are studying these days.',
-  'Your grandfather loves when you explain things clearly.',
-];
-
-function pick(arr) {
-  return arr[Math.floor(Math.random() * arr.length)];
+function simplerWord(word) {
+  return SIMPLE_ALTERNATIVES[word.toLowerCase()] || 'something simpler';
 }
 
-function buildSay(word, meaning, who) {
-  const w = word.word;
-  const m = meaning.toLowerCase();
-  const templates = [
-    `You can say: "I learned the word ${w} — it means ${m}."`,
-    `You can say: "Let me ${w} this for you."`,
-    `You can say: "The word ${w} means ${m}, and I used it in my reading today."`,
-    `You can say: "When we ${w}, we understand things better."`,
-    `You can say: "My passage taught me '${w}' — ${m}."`,
-  ];
-  if (who === 'friend') {
-    return `You can say: "I just learned '${w}' — it means ${m}. Want me to explain?"`;
-  }
-  if (who === 'mother') {
-    return `You can say: "Mom, I read about '${w}'. It means ${m}."`;
-  }
-  return `You can say: "Grandpa, listen to this word — '${w}'. It means ${m}."`;
-}
+const SCENARIO_POOL = [
+  {
+    who: 'With a friend',
+    build(w, simple, data) {
+      const setups = [
+        `Your friend is upset after losing a match and says, "I don't know what went wrong."`,
+        `At lunch, your friend says, "This topic is confusing — can you explain it?"`,
+        `Your friend wants to convince the class to try a new idea but doesn't know how to start.`,
+      ];
+      const setup = setups[w.length % setups.length];
+      return {
+        setup,
+        upgrade: `You could say "${simple}," but now you know "${w}" — it sounds more confident and grown-up.`,
+        line: data.example || `"Let's ${w} this together before we give up."`,
+      };
+    },
+  },
+  {
+    who: 'At home',
+    build(w, simple, data) {
+      const setups = [
+        `Your parent asks what you learned at school today.`,
+        `At dinner, someone mentions the news and asks what you think.`,
+        `A younger sibling asks you a hard question and you want to answer well.`,
+      ];
+      const setup = setups[(w.length + 1) % setups.length];
+      return {
+        setup,
+        upgrade: `Instead of "${simple}," you can say "${w}." It means: ${data.meaning}. Same idea — better word.`,
+        line: data.example.replace(/^"/, '').replace(/"$/, '') || `"I want to ${w} this properly."`,
+      };
+    },
+  },
+];
 
 export function generateUsageScenarios(wordData) {
-  return [
-    {
-      who: 'Friend',
-      setup: pick(FRIEND_SETUPS),
-      say: buildSay(wordData, wordData.meaning, 'friend'),
-    },
-    {
-      who: 'Mother',
-      setup: pick(MOTHER_SETUPS),
-      say: buildSay(wordData, wordData.meaning, 'mother'),
-    },
-  ];
+  const w = wordData.word;
+  const simple = simplerWord(w);
+  return SCENARIO_POOL.map((pool) => ({
+    who: pool.who,
+    ...pool.build(w, simple, wordData),
+  }));
 }
 
-export function scenariosToSpeech(word, scenarios) {
-  const parts = [word];
+export function usageToSpeech(word, scenarios) {
+  const parts = [
+    word,
+    "Let's see how you can use this word in your daily life.",
+  ];
   for (const s of scenarios) {
-    parts.push(`${s.setup} ${s.say}`);
+    parts.push(`${s.setup} ${s.upgrade} For example, you could say: ${s.line}`);
   }
-  return parts.join('. ');
+  return parts;
 }
