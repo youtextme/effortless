@@ -27,8 +27,6 @@ const stepEls = {
 };
 
 const articleEl = document.getElementById("article");
-const readProgressFill = document.getElementById("read-progress-fill");
-const readProgressBar = document.getElementById("read-progress");
 const readGateHint = document.getElementById("read-gate-hint");
 const btnReadDone = document.getElementById("btn-read-done");
 const comprehensionForm = document.getElementById("comprehension-form");
@@ -80,7 +78,6 @@ function showStep(stepId) {
     const el = stepEls[id];
     if (el) el.hidden = id !== stepId;
   });
-  readProgressBar.hidden = stepId !== "read";
   window.scrollTo(0, 0);
 }
 
@@ -148,7 +145,6 @@ function renderArticle(snack) {
   document.title = `${snack.title} — Effortless`;
   readScrollComplete = false;
   updateReadGate();
-  updateReadProgress();
 }
 
 function getScrollMetrics() {
@@ -157,30 +153,26 @@ function getScrollMetrics() {
   const viewport = window.innerHeight;
   const fullHeight = doc.scrollHeight;
   const remaining = fullHeight - (scrollTop + viewport);
-  const progress = fullHeight <= viewport
-    ? 100
-    : Math.min(100, Math.round((scrollTop / (fullHeight - viewport)) * 100));
-  return { scrollTop, remaining, progress };
-}
-
-function updateReadProgress() {
-  if (!readProgressFill || !readProgressBar) return;
-  const { progress, remaining } = getScrollMetrics();
-  readProgressFill.style.width = `${progress}%`;
-  readProgressBar.setAttribute("aria-valuenow", String(progress));
-
-  if (remaining <= SCROLL_THRESHOLD) {
-    readScrollComplete = true;
-  }
-  updateReadGate();
+  return { remaining };
 }
 
 function updateReadGate() {
+  const doc = document.documentElement;
+  const fullHeight = doc.scrollHeight;
+  const viewport = window.innerHeight;
+  const { remaining } = getScrollMetrics();
+  if (fullHeight <= viewport + SCROLL_THRESHOLD || remaining <= SCROLL_THRESHOLD) {
+    readScrollComplete = true;
+  }
   if (!btnReadDone || !readGateHint) return;
   btnReadDone.disabled = !readScrollComplete;
   readGateHint.textContent = readScrollComplete
     ? "You reached the end."
     : "Scroll to the end to continue.";
+}
+
+function onScroll() {
+  updateReadGate();
 }
 
 function renderComprehension(snack) {
@@ -426,8 +418,8 @@ async function renderVersionSwitcher() {
   }
 }
 
-window.addEventListener("scroll", updateReadProgress, { passive: true });
-window.addEventListener("resize", updateReadProgress);
+window.addEventListener("scroll", onScroll, { passive: true });
+window.addEventListener("resize", onScroll);
 
 btnReadDone?.addEventListener("click", () => {
   if (!readScrollComplete) return;

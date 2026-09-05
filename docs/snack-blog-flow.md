@@ -2,22 +2,24 @@
 
 Prototype: **`web/snack-blog/`** · live: https://youtextme.github.io/effortless/snack/
 
+**Product law:** [web/snack-blog/DESIGN.md](../web/snack-blog/DESIGN.md) (book-plain, locked)
+
 ---
 
-## Kid path (one thing at a time)
+## Kid path (only these floors)
 
 **Read → Comprehension → Video observations → Share**
 
 | Step | Gate | What happens |
 |------|------|--------------|
-| **Read** | Scroll to end | Single scrolling essay. Text only. Subtle top progress bar |
-| **Comprehension** | Answer questions | Radio questions from `comprehension[]` |
-| **Video observations** | Write observations | Plain prompt + optional video link + textarea |
-| **Share** | — | Web Share or clipboard. Quiet links to another snack |
+| **Read** | Scroll to end | Title + body. Text only. Scroll is the interaction |
+| **Comprehension** | Answer questions | Plain questions + choices |
+| **Video observations** | Write observations | Link or embed + observation prompts |
+| **Share** | — | One quiet share control |
 
 Default snack: **Why rain smells good** (`?snack=rain`). Alternate: `?snack=mirror`.
 
-Parent tools (Ollama generate) live in collapsed **Parent tools** at the bottom — never blocks the kid path.
+Parent tools + version museum live in collapsed **Parent tools** — not on the kid read path.
 
 ---
 
@@ -37,5 +39,3 @@ Manifest: `web/snack-blog/versions/manifest.json`
 ```bash
 npx --yes serve web/snack-blog -p 5173
 ```
-
-Design law: [web/snack-blog/DESIGN.md](../web/snack-blog/DESIGN.md)
