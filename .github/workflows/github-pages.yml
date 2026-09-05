@@ -1,0 +1,75 @@
+name: Deploy GitHub Pages
+
+# Deploys snack-blog to /snack/ while preserving the WordSpark root (and vice versa).
+# Never use force_orphan — that wipes sibling apps on gh-pages.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "web/snack-blog/**"
+      - "wordspark/**"
+      - ".github/workflows/github-pages.yml"
+      - ".github/workflows/snack-blog-pages.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: github-pages-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Assemble and push gh-pages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+
+          REPO="https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git"
+          WORK="/tmp/gh-pages-work"
+          rm -rf "$WORK"
+          mkdir -p "$WORK"
+
+          if git ls-remote --heads "$REPO" gh-pages | grep -q gh-pages; then
+            git clone --branch gh-pages --depth 1 "$REPO" "$WORK"
+          else
+            git -C "$WORK" init
+            git -C "$WORK" checkout -b gh-pages
+            git -C "$WORK" remote add origin "$REPO"
+          fi
+
+          cd "$WORK"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          # Snack blog → /snack/
+          mkdir -p snack
+          rsync -a --delete "${{ github.workspace }}/web/snack-blog/" snack/
+
+          # WordSpark → site root (when present on this branch)
+          if [ -d "${{ github.workspace }}/wordspark" ]; then
+            rsync -a --delete \
+              --exclude snack \
+              "${{ github.workspace }}/wordspark/" ./
+          fi
+
+          touch .nojekyll
+          git add -A
+
+          if git diff --staged --quiet; then
+            echo "No Pages changes to deploy."
+            exit 0
+          fi
+
+          git commit -m "deploy(pages): snack-blog at /snack/ (+ preserve root)"
+          git push origin gh-pages
