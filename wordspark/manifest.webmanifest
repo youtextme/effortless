@@ -1,31 +1,16 @@
 {
-  "name": "WordSpark — Master 1000 Words",
+  "name": "WordSpark",
   "short_name": "WordSpark",
-  "description": "Learn 1000 advanced English words in 100 days. Read daily passages and share certificates with parents.",
+  "description": "Read 100 passages. Learn 1000 advanced English words. Tap any word to hear it.",
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#0d0d1a",
-  "theme_color": "#1a1a2e",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
   "orientation": "portrait-primary",
-  "categories": ["education", "books"],
+  "categories": ["education"],
   "icons": [
-    {
-      "src": "icons/icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "icons/icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "icons/icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "maskable"
-    }
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
   ]
 }

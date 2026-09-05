@@ -1,19 +1,32 @@
 const STORAGE_KEY = 'wordspark_progress';
 
 const defaultProgress = () => ({
-  currentDay: 1,
-  completedDays: [],
-  streak: 0,
-  lastCompletedDate: null,
+  currentPassage: 1,
+  completedPassages: [],
   totalWordsLearned: 0,
   childName: '',
+  scrollPositions: {},
+  lastReadPassage: 1,
 });
+
+function migrate(raw) {
+  const p = { ...defaultProgress(), ...raw };
+  if (raw.completedDays && !raw.completedPassages) {
+    p.completedPassages = [...raw.completedDays];
+    delete p.completedDays;
+  }
+  if (raw.currentDay && !raw.currentPassage) {
+    p.currentPassage = raw.currentDay;
+  }
+  if (!p.scrollPositions) p.scrollPositions = {};
+  return p;
+}
 
 export function loadProgress() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return defaultProgress();
-    return { ...defaultProgress(), ...JSON.parse(raw) };
+    return migrate(JSON.parse(raw));
   } catch {
     return defaultProgress();
   }
@@ -23,33 +36,23 @@ export function saveProgress(progress) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
 }
 
-export function completeDay(day, wordsCount = 10) {
-  const progress = loadProgress();
-  const today = new Date().toISOString().split('T')[0];
+export function getActivePassage() {
+  const p = loadProgress();
+  if (p.completedPassages.length >= 100) return 100;
+  for (let i = 1; i <= 100; i++) {
+    if (!p.completedPassages.includes(i)) return i;
+  }
+  return p.currentPassage;
+}
 
-  if (!progress.completedDays.includes(day)) {
-    progress.completedDays.push(day);
+export function completePassage(passageNum, wordsCount = 10) {
+  const progress = loadProgress();
+  if (!progress.completedPassages.includes(passageNum)) {
+    progress.completedPassages.push(passageNum);
     progress.totalWordsLearned += wordsCount;
   }
-
-  if (progress.lastCompletedDate) {
-    const last = new Date(progress.lastCompletedDate);
-    const now = new Date(today);
-    const diffDays = Math.floor((now - last) / (1000 * 60 * 60 * 24));
-    if (diffDays === 1) {
-      progress.streak += 1;
-    } else if (diffDays > 1) {
-      progress.streak = 1;
-    }
-  } else {
-    progress.streak = 1;
-  }
-
-  progress.lastCompletedDate = today;
-  if (day >= progress.currentDay) {
-    progress.currentDay = Math.min(day + 1, 100);
-  }
-
+  progress.currentPassage = Math.min(passageNum + 1, 100);
+  delete progress.scrollPositions[passageNum];
   saveProgress(progress);
   return progress;
 }
@@ -61,11 +64,23 @@ export function setChildName(name) {
   return progress;
 }
 
-export function isDayCompleted(day) {
-  return loadProgress().completedDays.includes(day);
+export function isPassageCompleted(n) {
+  return loadProgress().completedPassages.includes(n);
 }
 
-export function getCurrentDay() {
+export function saveScrollPosition(passageNum, y) {
   const progress = loadProgress();
-  return progress.currentDay;
+  progress.scrollPositions[passageNum] = y;
+  progress.lastReadPassage = passageNum;
+  saveProgress(progress);
+}
+
+export function getScrollPosition(passageNum) {
+  return loadProgress().scrollPositions[passageNum] || 0;
+}
+
+export function setReadingPassage(n) {
+  const progress = loadProgress();
+  progress.lastReadPassage = n;
+  saveProgress(progress);
 }

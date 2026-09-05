@@ -3,210 +3,140 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="theme-color" content="#1a1a2e">
-  <meta name="description" content="Learn 1000 advanced English words in 100 days. Read daily passages, master vocabulary, and share certificates with parents on WhatsApp.">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="Read 100 passages. Learn 1000 advanced English words. Tap any word to hear it.">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <title>WordSpark — Master 1000 Words in 100 Days</title>
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <title>WordSpark</title>
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" type="image/svg+xml" href="icons/icon.svg">
   <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@8..144,400;8..144,500;8..144,700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/app.css">
 </head>
 <body>
+  <!-- Reading — the hero screen -->
   <div id="app">
-    <!-- Home Screen -->
-    <section id="screen-home" class="screen active">
-      <header class="hero">
-        <div class="hero-badge">📚 1000 Words · 100 Days · 10 Life Agents</div>
-        <h1>WordSpark</h1>
-        <p class="hero-sub">Book smart. Street smart. Ready for the world.</p>
-      </header>
+    <header class="topbar">
+      <button id="btn-menu" class="icon-btn" aria-label="Menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+      <span id="passage-label" class="passage-label">Passage 1 of 100</span>
+      <button id="btn-listen" class="icon-btn" aria-label="Listen to passage">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M11 5L6 9H2v6h4l5 4V5z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M15.54 8.46a5 5 0 010 7.07M19.07 4.93a10 10 0 010 14.14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </header>
 
-      <div class="name-section">
-        <p id="welcome-msg">What's your name?</p>
-        <div class="name-input-row">
-          <input type="text" id="child-name" placeholder="Enter your name" maxlength="30" autocomplete="name">
-          <button id="btn-save-name" class="btn btn-small">Save</button>
-        </div>
-      </div>
-
-      <div class="progress-card">
-        <div class="progress-stats">
-          <div class="stat">
-            <span class="stat-num" id="progress-words">0</span>
-            <span class="stat-label">Words Learned</span>
-          </div>
-          <div class="stat">
-            <span class="stat-num" id="progress-streak">0</span>
-            <span class="stat-label">Day Streak 🔥</span>
-          </div>
-          <div class="stat">
-            <span class="stat-num" id="progress-days">0</span>
-            <span class="stat-label">of <span id="progress-total">100</span> Days</span>
-          </div>
-        </div>
-        <div class="progress-bar-wrap">
-          <div class="progress-bar" id="progress-bar"></div>
-        </div>
-        <p class="progress-pct"><span id="progress-pct">0</span>% complete — <span id="total-words-label">1000</span> words to mastery!</p>
-      </div>
-
-      <div id="agent-card" class="agent-card"></div>
-
-      <div class="today-card">
-        <div class="today-label">Today's Lesson</div>
-        <h2>Day <span id="home-day-num">1</span></h2>
-        <h3 id="home-theme">Discovery & Curiosity</h3>
-        <div id="home-skills" class="skill-tags"></div>
-        <p id="home-takeaway" class="takeaway"></p>
-        <button id="btn-start-reading" class="btn btn-primary btn-large">📖 Start Reading — Day 1</button>
-        <button id="btn-mark-done-home" class="btn btn-done btn-large" hidden>✅ Mark Day as Done</button>
-      </div>
-
-      <details class="day-picker">
-        <summary>📅 Jump to Any Day (1–100)</summary>
-        <div id="day-grid" class="day-grid"></div>
-      </details>
-
-      <button id="btn-install" class="btn btn-install" hidden>📲 Install App on Phone</button>
-    </section>
-
-    <!-- Reading Screen -->
-    <section id="screen-reading" class="screen">
-      <header class="reading-header">
-        <div class="reading-meta">
-          <span class="day-badge">Day <span id="reading-day">1</span></span>
-          <span id="reading-theme" class="theme-badge"></span>
-        </div>
-        <div class="reading-nav">
-          <button id="btn-prev-day" class="btn btn-small">← Prev</button>
-          <button id="btn-next-day" class="btn btn-small">Next →</button>
-        </div>
-      </header>
-
-      <div id="reading-agent" class="agent-banner"></div>
-      <div id="reading-skills" class="skill-tags"></div>
-
-      <div class="reading-tip">
-        💡 Read slowly. Highlighted words are your 10 new words — each appears many times!
-      </div>
-
+    <main id="reading-main" class="reading-main">
       <article id="passage-content" class="passage"></article>
+      <button id="btn-done-reading" class="btn-primary btn-done-reading">I've finished reading</button>
+    </main>
 
-      <div class="word-stats" id="word-stats"></div>
-
-      <details class="word-reference">
-        <summary>📖 Word Meanings (10 words)</summary>
-        <div id="word-cards" class="word-cards"></div>
-      </details>
-
-      <button id="btn-finish-reading" class="btn btn-done btn-large btn-finish">
-        ✅ Mark as Done — Get Certificate & Save Progress
-      </button>
-    </section>
-
-    <!-- Certificate Screen -->
-    <section id="screen-certificate" class="screen">
-      <header class="cert-header">
-        <h2>🎉 Day Complete!</h2>
-        <p>Day <span id="cert-day">1</span> — Certificate Ready</p>
-      </header>
-
-      <div class="cert-summary">
-        <p><strong id="cert-name">Young Scholar</strong> learned 10 new words today!</p>
-        <p class="cert-theme">📚 <span id="cert-theme"></span></p>
-        <p class="cert-takeaway" id="cert-takeaway"></p>
-        <ul id="cert-word-list" class="cert-words"></ul>
-        <p class="cert-progress">
-          Total: <strong id="cert-words-learned">10</strong> words ·
-          Streak: <strong id="cert-streak">1</strong> days 🔥
-        </p>
-      </div>
-
-      <div id="cert-preview" class="cert-preview"></div>
-
-      <button id="btn-share-cert" class="btn btn-whatsapp btn-large">
-        💬 Share Certificate on WhatsApp
-      </button>
-      <button id="btn-view-all-certs" class="btn btn-secondary">📜 View All Certificates</button>
-    </section>
-
-    <!-- Words List Screen -->
-    <section id="screen-words" class="screen">
-      <header class="page-header">
-        <h2>📖 All 1000 Words</h2>
-        <p class="page-sub">Black = learned · Grey = coming up</p>
-      </header>
-      <div class="words-legend">
-        <span class="legend-item"><span class="dot learned"></span> Learned</span>
-        <span class="legend-item"><span class="dot upcoming"></span> Upcoming</span>
-      </div>
-      <div class="words-filter">
-        <input type="search" id="words-search" placeholder="Search words..." autocomplete="off">
-      </div>
-      <div id="words-list" class="words-list"></div>
-    </section>
-
-    <!-- Certificates Gallery -->
-    <section id="screen-certificates" class="screen">
-      <header class="page-header">
-        <h2>📜 My Certificates</h2>
-        <p class="page-sub">All your completed days in one place</p>
-      </header>
-      <div id="certs-gallery" class="certs-gallery"></div>
-      <p id="certs-empty" class="empty-state" hidden>No certificates yet. Complete your first day!</p>
-    </section>
-
-    <!-- Journey / Agents Screen -->
-    <section id="screen-journey" class="screen">
-      <header class="page-header">
-        <h2>🗺️ Your 100-Day Journey</h2>
-        <p class="page-sub">10 Life Agents — MECE & complete</p>
-      </header>
-
-      <div class="mece-card">
-        <h3>Why 100 Days? Why 10 Agents?</h3>
-        <p id="mece-intro"></p>
-        <div class="mece-points">
-          <div class="mece-point">
-            <strong>Mutually Exclusive</strong>
-            <p id="mece-exclusive"></p>
-          </div>
-          <div class="mece-point">
-            <strong>Collectively Exhaustive</strong>
-            <p id="mece-exhaustive"></p>
-          </div>
+    <!-- Quiz overlay -->
+    <section id="screen-quiz" class="overlay" hidden>
+      <div class="quiz-container">
+        <div class="quiz-progress">
+          <div class="quiz-progress-bar" id="quiz-progress-bar"></div>
         </div>
-        <p id="mece-outcome" class="mece-outcome"></p>
+        <p class="quiz-counter" id="quiz-counter">Question 1 of 5</p>
+        <h2 id="quiz-question" class="quiz-question"></h2>
+        <div id="quiz-choices" class="quiz-choices"></div>
+        <p id="quiz-feedback" class="quiz-feedback" hidden></p>
       </div>
+    </section>
 
-      <div id="agents-list" class="agents-list"></div>
+    <!-- Complete overlay -->
+    <section id="screen-complete" class="overlay" hidden>
+      <div class="complete-container">
+        <div class="complete-icon">✓</div>
+        <h2>Passage complete!</h2>
+        <p id="complete-msg">You learned 10 new words.</p>
+        <button id="btn-next-passage" class="btn-primary">Read next passage</button>
+        <button id="btn-share-complete" class="btn-text">Share with parents</button>
+      </div>
     </section>
   </div>
 
-  <!-- Bottom Navigation -->
-  <nav id="bottom-nav" class="bottom-nav">
-    <button class="nav-btn active" data-screen="screen-home">
-      <span class="nav-icon">🏠</span>
-      <span class="nav-label">Home</span>
-    </button>
-    <button class="nav-btn" data-screen="screen-words">
-      <span class="nav-icon">📖</span>
-      <span class="nav-label">Words</span>
-    </button>
-    <button class="nav-btn" data-screen="screen-certificates">
-      <span class="nav-icon">📜</span>
-      <span class="nav-label">Certs</span>
-    </button>
-    <button class="nav-btn" data-screen="screen-journey">
-      <span class="nav-icon">🗺️</span>
-      <span class="nav-label">Journey</span>
-    </button>
-  </nav>
+  <!-- Menu drawer -->
+  <aside id="menu-drawer" class="drawer" hidden>
+    <div class="drawer-backdrop" id="drawer-backdrop"></div>
+    <nav class="drawer-panel">
+      <div class="drawer-header">
+        <h2>WordSpark</h2>
+        <button id="btn-close-menu" class="icon-btn" aria-label="Close">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+
+      <div class="drawer-progress">
+        <div class="progress-ring-wrap">
+          <svg class="progress-ring" viewBox="0 0 36 36">
+            <circle class="ring-bg" cx="18" cy="18" r="15.9"/>
+            <circle class="ring-fill" id="ring-fill" cx="18" cy="18" r="15.9"/>
+          </svg>
+          <span id="menu-passage-count" class="ring-text">0/100</span>
+        </div>
+        <div class="progress-labels">
+          <strong id="menu-words-count">0</strong> of 1000 words learned
+        </div>
+      </div>
+
+      <div class="drawer-name">
+        <input type="text" id="child-name" placeholder="Your name" maxlength="30" autocomplete="name">
+      </div>
+
+      <div class="drawer-actions">
+        <button class="drawer-btn" data-action="passages">All 100 passages</button>
+        <button class="drawer-btn" data-action="words">All 1000 words</button>
+        <button class="drawer-btn" data-action="certificates">My certificates</button>
+        <button class="drawer-btn" data-action="install" id="btn-install" hidden>Install app</button>
+      </div>
+    </nav>
+  </aside>
+
+  <!-- Sub-panels (from menu) -->
+  <section id="panel-passages" class="sub-panel" hidden>
+    <header class="sub-header">
+      <button class="icon-btn btn-back-panel" data-back><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+      <h2>100 Passages</h2>
+    </header>
+    <div id="passage-list" class="passage-list"></div>
+  </section>
+
+  <section id="panel-words" class="sub-panel" hidden>
+    <header class="sub-header">
+      <button class="icon-btn btn-back-panel" data-back><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+      <h2>1000 Words</h2>
+    </header>
+    <div id="words-list" class="words-list"></div>
+  </section>
+
+  <section id="panel-certificates" class="sub-panel" hidden>
+    <header class="sub-header">
+      <button class="icon-btn btn-back-panel" data-back><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+      <h2>Certificates</h2>
+    </header>
+    <div id="certs-gallery" class="certs-gallery"></div>
+    <p id="certs-empty" class="empty-state" hidden>No certificates yet.</p>
+  </section>
+
+  <!-- Word tap sheet -->
+  <div id="word-sheet" class="word-sheet" hidden>
+    <div class="word-sheet-backdrop" id="word-sheet-backdrop"></div>
+    <div class="word-sheet-panel">
+      <h3 id="sheet-word" class="sheet-word"></h3>
+      <p id="sheet-meaning" class="sheet-meaning"></p>
+      <p id="sheet-example" class="sheet-example"></p>
+      <button id="btn-speak-word" class="btn-speak">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M11 5L6 9H2v6h4l5 4V5z" fill="currentColor"/><path d="M15.54 8.46a5 5 0 010 7.07" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        Hear pronunciation
+      </button>
+    </div>
+  </div>
 
   <div id="toast" class="toast"></div>
-
   <script type="module" src="js/app.js"></script>
 </body>
 </html>
