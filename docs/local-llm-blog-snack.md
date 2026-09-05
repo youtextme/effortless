@@ -39,7 +39,7 @@ node scripts/generate-blog-snack.mjs "Why do stars twinkle?" --out web/snack-blo
 | `--host url` | Override Ollama URL (or `OLLAMA_HOST`) |
 | `--help` | Usage |
 
-**Output shape** matches `web/snack-blog/content/sample-curiosity.json`:
+**Output shape** matches `web/snack-blog/content/sample-rain.json`:
 
 ```json
 {

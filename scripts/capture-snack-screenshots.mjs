@@ -1,8 +1,6 @@
 #!/usr/bin/env node
 /**
- * Capture mobile screenshots — run from repo root:
- * cd /tmp/cap && npm init -y && npm install puppeteer-core@23.11.1
- * CHROME=/usr/local/bin/google-chrome node /workspace/scripts/capture-snack-screenshots.mjs
+ * Capture mobile screenshots — run from /tmp/cap with puppeteer-core installed.
  */
 import puppeteer from "puppeteer-core";
 import { mkdir } from "node:fs/promises";
@@ -19,30 +17,25 @@ async function shot(page, name) {
 }
 
 await mkdir(OUT, { recursive: true });
-
 const browser = await puppeteer.launch({
   executablePath: CHROME,
   headless: true,
   args: ["--no-sandbox", "--disable-setuid-sandbox", "--disable-gpu"],
 });
-
 const page = await browser.newPage();
 await page.setViewport({ width: 390, height: 844, deviceScaleFactor: 2 });
-
 await page.goto(BASE, { waitUntil: "networkidle0" });
-await shot(page, "01-discover");
 
-await page.click("#btn-read-snack");
+await shot(page, "01-discover");
+await page.click("#btn-start-reading");
 await page.waitForFunction(() => !document.getElementById("floor-read")?.hidden, { timeout: 5000 });
 await shot(page, "02-read");
 
-await page.click("#btn-read-next");
-await shot(page, "02-read-screen-2");
-
-for (let i = 0; i < 5; i += 1) {
+for (let i = 0; i < 3; i += 1) {
   await page.click("#btn-read-next");
   await new Promise((r) => setTimeout(r, 120));
 }
+await page.click("#btn-read-next");
 await page.waitForFunction(() => !document.getElementById("floor-done")?.hidden, { timeout: 3000 });
 await shot(page, "03-done");
 
