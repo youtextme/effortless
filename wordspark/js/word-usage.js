@@ -38,10 +38,10 @@ function buildSay(word, meaning, who) {
     `You can say: "My passage taught me '${w}' — ${m}."`,
   ];
   if (who === 'friend') {
-    return `You can say: "Dude, I learned '${w}' today — it means ${m}. Want me to explain?"`;
+    return `You can say: "I just learned '${w}' — it means ${m}. Want me to explain?"`;
   }
   if (who === 'mother') {
-    return `You can say: "Mom, I read about '${w}' today. It means ${m}."`;
+    return `You can say: "Mom, I read about '${w}'. It means ${m}."`;
   }
   return `You can say: "Grandpa, listen to this word — '${w}'. It means ${m}."`;
 }

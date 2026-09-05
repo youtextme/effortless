@@ -24,13 +24,25 @@ const $$ = (sel) => document.querySelectorAll(sel);
 
 function init() {
   if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js').catch(() => {});
+  hideModal('name-modal');
+  hideModal('refresh-modal');
   setupListeners();
   const p = loadProgress();
   if (!p.onboarded || !p.childName) {
-    $('#name-modal').hidden = false;
+    showModal('name-modal');
   } else {
     loadPassage(getActivePassage());
   }
+}
+
+function showModal(id) {
+  const el = $(`#${id}`);
+  if (el) el.hidden = false;
+}
+
+function hideModal(id) {
+  const el = $(`#${id}`);
+  if (el) el.hidden = true;
 }
 
 function setupListeners() {
@@ -38,7 +50,7 @@ function setupListeners() {
     const name = $('#child-name')?.value?.trim();
     if (!name) return;
     setChildName(name);
-    $('#name-modal').hidden = true;
+    hideModal('name-modal');
     loadPassage(getActivePassage());
   });
 
@@ -62,7 +74,7 @@ function setupListeners() {
     btn.addEventListener('click', () => {
       const action = btn.dataset.action;
       $('#parent-panel').hidden = true;
-      if (action === 'refresh') $('#refresh-modal').hidden = false;
+      if (action === 'refresh') showModal('refresh-modal');
       else if (action === 'passages') openPanel('panel-passages', renderPassageList);
       else if (action === 'words') openPanel('panel-words', renderWordsList);
       else if (action === 'certificates') openPanel('panel-certificates', renderCerts);
@@ -77,15 +89,22 @@ function setupListeners() {
       return;
     }
     resetProgress();
-    $('#refresh-modal').hidden = true;
+    hideModal('refresh-modal');
     $('#refresh-password').value = '';
-    $('#name-modal').hidden = false;
+    showModal('name-modal');
     showToast('Progress reset');
   });
 
   $('#btn-cancel-refresh')?.addEventListener('click', () => {
-    $('#refresh-modal').hidden = true;
+    hideModal('refresh-modal');
     $('#refresh-password').value = '';
+  });
+
+  $('#refresh-modal')?.addEventListener('click', (e) => {
+    if (e.target.id === 'refresh-modal') {
+      hideModal('refresh-modal');
+      $('#refresh-password').value = '';
+    }
   });
 
   $$('[data-back]').forEach((btn) => btn.addEventListener('click', closePanels));

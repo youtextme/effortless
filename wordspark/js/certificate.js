@@ -40,7 +40,7 @@ export async function generateCertificate({ childName, dayData, progress }) {
 
   ctx.fillStyle = '#cccccc';
   ctx.font = '32px Arial, sans-serif';
-  ctx.fillText(`completed Day ${dayData.day} of 100`, width / 2, 410);
+  ctx.fillText(`completed passage ${dayData.day} of 100`, width / 2, 410);
 
   ctx.fillStyle = '#ffd700';
   ctx.font = 'bold 40px Georgia, serif';
@@ -52,7 +52,7 @@ export async function generateCertificate({ childName, dayData, progress }) {
 
   ctx.fillStyle = '#ffd700';
   ctx.font = 'bold 36px Arial, sans-serif';
-  ctx.fillText('✨ 10 Advanced Words Learned Today', width / 2, 700);
+  ctx.fillText('✨ 10 Advanced Words Learned', width / 2, 700);
 
   ctx.fillStyle = '#ffffff';
   ctx.font = '28px Arial, sans-serif';
@@ -86,9 +86,8 @@ export async function generateCertificate({ childName, dayData, progress }) {
   ctx.textAlign = 'center';
   ctx.fillStyle = '#cccccc';
   ctx.font = '26px Arial, sans-serif';
-  ctx.fillText(`📊 Progress: ${progress.totalWordsLearned} words learned`, width / 2, 1220);
-  ctx.fillText(`🔥 Streak: ${progress.streak} day${progress.streak !== 1 ? 's' : ''}`, width / 2, 1260);
-  ctx.fillText(`📅 Day ${dayData.day} of 100 — ${100 - dayData.day} days to mastery!`, width / 2, 1300);
+  ctx.fillText(`📊 ${progress.totalWordsLearned} of 1000 words learned`, width / 2, 1220);
+  ctx.fillText(`📖 ${dayData.day} of 100 passages complete`, width / 2, 1260);
 
   ctx.fillStyle = '#ffd700';
   ctx.font = 'bold 28px Arial, sans-serif';
@@ -133,8 +132,8 @@ export async function shareCertificate(canvas, dayData) {
       if (navigator.share && navigator.canShare?.({ files: [file] })) {
         try {
           await navigator.share({
-            title: `WordSpark Day ${dayData.day} Certificate`,
-            text: `I completed Day ${dayData.day} and learned 10 new words! 🎉`,
+            title: `WordSpark — ${dayData.theme}`,
+            text: `I finished "${dayData.theme}" and learned 10 new words! 🎉`,
             files: [file],
           });
           resolve({ method: 'share', success: true });

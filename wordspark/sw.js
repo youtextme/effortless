@@ -1,4 +1,4 @@
-const CACHE_NAME = 'wordspark-v4';
+const CACHE_NAME = 'wordspark-v5';
 const ASSETS = [
   './',
   './index.html',

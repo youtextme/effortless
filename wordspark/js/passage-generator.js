@@ -27,7 +27,7 @@ export function generatePassagePages(passageData) {
 
   const intro = {
     h2: 'Before You Read',
-    body: `${passageData.takeaway} In this passage you will meet ten powerful words. Tap any highlighted word to hear it and learn how to use it with your friends and family. Take your time — there is no rush.`,
+    body: `This passage is called "${passageData.theme}." ${passageData.takeaway} You will meet ten powerful words — tap any highlighted word to hear it and learn how to use it with friends and family.`,
   };
 
   const wordGroups = [];
