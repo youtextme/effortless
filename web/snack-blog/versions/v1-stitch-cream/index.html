@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#FFF8F0" />
+    <meta
+      name="description"
+      content="Effortless — snackable blog bites for Ayaan and curious 4th graders."
+    />
+    <title>Effortless — Blog snack</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="app-header">
+        <p class="app-logo">Effortless · Cognitive Mirror</p>
+        <nav id="progress-chips" class="progress-chips" aria-label="Your progress"></nav>
+      </header>
+
+      <!-- Discover (Home) — kid path: Start reading → rain -->
+      <section id="floor-discover" class="floor" aria-labelledby="discover-title">
+        <span class="reader-badge">For Ayaan · 4th grade · English</span>
+        <h1 id="discover-title" class="floor-title">Pick a snack</h1>
+        <p class="floor-lead">Small bites — one idea per screen. Tap <strong>Start reading</strong> and go.</p>
+
+        <article class="snack-card snack-card-featured">
+          <span class="time-chip">~3 min</span>
+          <h2 class="snack-card-title">Why rain smells good</h2>
+          <p class="snack-card-hook">That earthy smell after rain has a real name.</p>
+          <button type="button" class="btn btn-primary" id="btn-start-reading">Start reading</button>
+        </article>
+
+        <article class="snack-card">
+          <span class="time-chip">~3 min</span>
+          <h2 class="snack-card-title">How a mirror helps you notice yourself</h2>
+          <p class="snack-card-hook">A quiet look can show you more than your face.</p>
+          <button
+            type="button"
+            class="btn btn-secondary snack-start-btn"
+            data-snack-path="content/sample-mirror.json"
+          >
+            Start reading
+          </button>
+        </article>
+
+        <details class="parent-builder">
+          <summary>Parent: create or generate a topic</summary>
+          <label class="field-label" for="topic-input">Topic</label>
+          <input
+            id="topic-input"
+            class="field-input"
+            type="text"
+            value="Why rain smells good"
+            autocomplete="off"
+            maxlength="120"
+          />
+          <div id="create-status" class="status-msg info" hidden role="status"></div>
+          <div class="parent-actions">
+            <button type="button" class="btn btn-secondary" id="btn-try-sample">Try sample (rain)</button>
+            <button type="button" class="btn btn-secondary" id="btn-generate">Generate with Ollama</button>
+          </div>
+        </details>
+      </section>
+
+      <!-- Read — forward only -->
+      <section id="floor-read" class="floor floor-reader" hidden aria-labelledby="read-title">
+        <h2 id="read-title" class="visually-hidden">Read</h2>
+        <div id="read-progress" class="read-progress" role="presentation" aria-hidden="true"></div>
+
+        <div id="reader-pane" class="card reader-card" aria-live="polite">
+          <p id="reader-snack-title" class="reader-snack-title"></p>
+          <h3 id="reader-heading" class="reader-heading">…</h3>
+          <p id="reader-body" class="reader-body">…</p>
+        </div>
+        <p id="reader-counter" class="reader-meta">Screen 1 of 1</p>
+
+        <div class="actions">
+          <button type="button" class="btn btn-primary btn-forward" id="btn-read-next">Forward</button>
+        </div>
+      </section>
+
+      <!-- Done -->
+      <section id="floor-done" class="floor celebrate" hidden aria-labelledby="done-title">
+        <p class="celebrate-emoji" aria-hidden="true">✨</p>
+        <h1 id="done-title" class="floor-title">You finished this snack!</h1>
+        <p class="floor-lead">You read the whole thing — nice focus, Ayaan.</p>
+        <p class="floor-lead">You finished <strong id="done-snack-title">your snack</strong>.</p>
+        <div class="actions">
+          <button type="button" class="btn btn-primary" id="btn-next-snack">Next snack</button>
+          <button type="button" class="btn btn-secondary" id="btn-done-for-now">Done for now</button>
+        </div>
+      </section>
+
+      <!-- Next — sample picker -->
+      <section id="floor-next" class="floor" hidden aria-labelledby="next-title">
+        <h1 id="next-title" class="floor-title">Try another snack</h1>
+        <p class="floor-lead">Same calm rules — big type, one idea per screen.</p>
+
+        <p class="field-label">Pick one</p>
+        <div class="sample-picker">
+          <button type="button" class="sample-card" data-snack-path="content/sample-rain.json">
+            <span class="time-chip">~3 min</span>
+            <span class="sample-card-title">Why rain smells good</span>
+          </button>
+          <button
+            type="button"
+            class="sample-card sample-card-highlight"
+            id="sample-mirror-card"
+            data-snack-path="content/sample-mirror.json"
+          >
+            <span class="time-chip">~3 min</span>
+            <span class="sample-card-title">How a mirror helps you notice yourself</span>
+          </button>
+        </div>
+
+        <div class="actions">
+          <button type="button" class="btn btn-secondary" id="btn-back-home">Back to Home</button>
+        </div>
+      </section>
+    </div>
+
+    <nav class="version-switcher" aria-label="Prototype version" style="margin-top:2rem;padding-top:1rem;border-top:1px solid #e8dfd4;font-family:system-ui,sans-serif;font-size:0.75rem;color:#5c5c5c;display:flex;gap:0.65rem;">
+      <a href="../.." style="color:#5c5c5c;text-decoration:none;border-bottom:1px solid transparent;">v2 · latest</a>
+      <span style="color:#1a1a1a;">v1 · stitch-cream</span>
+    </nav>
+
+    <style>
+      .visually-hidden {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        border: 0;
+      }
+    </style>
+    <script src="app.js" type="module"></script>
+  </body>
+</html>

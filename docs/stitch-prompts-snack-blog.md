@@ -1,8 +1,8 @@
 # Stitch prompts — Snack Blog prototype
 
-**HTML is source of truth.** Stitch is polish only — pending Google Stitch session.
+**Archived (v1 stitch-cream era).** v2 minimal book flow is source of truth — see [web/snack-blog/DESIGN.md](../web/snack-blog/DESIGN.md).
 
-Ship gate: clickable prototype at `web/snack-blog/index.html` on branch `cursor/snack-blog-ux-7e6b` (PR #4).
+These prompts document the cream/coral Stitch polish that shipped as **v1** and remains at `/snack/versions/v1-stitch-cream/`. Do not apply to v2 latest.
 
 Canvas: **390×844**, English, kid-safe, no login/cart.
 

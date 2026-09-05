@@ -4,6 +4,7 @@
   "reader": "Ayaan",
   "grade": "4th",
   "minutes": 3,
+  "hook": "A quiet look can show you more than your face.",
   "screens": [
     {
       "heading": "What a mirror does",
@@ -21,29 +22,5 @@
       "heading": "Remember this",
       "body": "Later, if the day feels loud, you can remember: noticing is already a kind of strength."
     }
-  ],
-  "comprehension": [
-    {
-      "question": "What does a mirror actually do?",
-      "choices": [
-        "Shows what is in front of it",
-        "Tells you who to be",
-        "Gives you a score"
-      ],
-      "answer": 0
-    },
-    {
-      "question": "What can happen when you pause and notice your face?",
-      "choices": [
-        "Your breath often slows",
-        "You must talk louder",
-        "The mirror changes your face"
-      ],
-      "answer": 0
-    }
-  ],
-  "video": {
-    "prompt": "Watch a quiet clip of someone taking a calm breath in front of a mirror. What did you notice?",
-    "minChars": 12
-  }
+  ]
 }

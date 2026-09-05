@@ -1,75 +1,50 @@
 /**
- * Effortless — Blog snack prototype
- * Kid path: Discover → Read → Done → Next
+ * Effortless — Blog snack (minimal book flow)
+ * Read → Comprehension → Video observations → Share
  */
 
-const STEPS = [
-  { id: "discover", label: "Discover" },
-  { id: "read", label: "Read" },
-  { id: "done", label: "Done" },
-  { id: "next", label: "Next" },
-];
-
-const SAMPLE_RAIN = "content/sample-rain.json";
-const SAMPLE_MIRROR = "content/sample-mirror.json";
-const DEFAULT_TOPIC = "Why rain smells good";
-const MAX_WORDS_PER_SCREEN = 80;
-const READER_NAME = "Ayaan";
-
-/** @type {{ title: string; topic?: string; screens: { heading: string; body: string; tips?: Record<string, { meaning: string; example: string }> }[] } | null} */
-let activeSnack = null;
-let readIndex = 0;
-let currentStep = "discover";
-let lastSnackPath = SAMPLE_RAIN;
-
-const floors = {
-  discover: document.getElementById("floor-discover"),
-  read: document.getElementById("floor-read"),
-  done: document.getElementById("floor-done"),
-  next: document.getElementById("floor-next"),
+const SNACKS = {
+  rain: "content/sample-rain.json",
+  mirror: "content/sample-mirror.json",
 };
 
-const chipsEl = document.getElementById("progress-chips");
-const topicInput = document.getElementById("topic-input");
+const DEFAULT_SNACK = "rain";
+const MAX_WORDS_PER_SCREEN = 80;
+const SCROLL_THRESHOLD = 48;
+
+const STEPS = ["read", "comprehension", "video", "share"];
+
+/** @type {Record<string, unknown> | null} */
+let activeSnack = null;
+let currentStep = "read";
+let readScrollComplete = false;
+
+const stepEls = {
+  read: document.getElementById("step-read"),
+  comprehension: document.getElementById("step-comprehension"),
+  video: document.getElementById("step-video"),
+  share: document.getElementById("step-share"),
+};
+
+const articleEl = document.getElementById("article");
+const readProgressFill = document.getElementById("read-progress-fill");
+const readProgressBar = document.getElementById("read-progress");
+const readGateHint = document.getElementById("read-gate-hint");
+const btnReadDone = document.getElementById("btn-read-done");
+const comprehensionForm = document.getElementById("comprehension-form");
+const videoPrompt = document.getElementById("video-prompt");
+const videoLink = document.getElementById("video-link");
+const videoObservations = document.getElementById("video-observations");
+const shareMessage = document.getElementById("share-message");
+const shareStatus = document.getElementById("share-status");
 const createStatus = document.getElementById("create-status");
-const readerSnackTitle = document.getElementById("reader-snack-title");
-const readerHeading = document.getElementById("reader-heading");
-const readerBody = document.getElementById("reader-body");
-const readerCounter = document.getElementById("reader-counter");
-const readProgressEl = document.getElementById("read-progress");
-const snackTitleEl = document.getElementById("done-snack-title");
-const mirrorCard = document.getElementById("sample-mirror-card");
+const topicInput = document.getElementById("topic-input");
+const versionSwitcher = document.getElementById("version-switcher");
 
-function getStepIndex(stepId) {
-  return STEPS.findIndex((s) => s.id === stepId);
-}
-
-function renderChips() {
-  const currentIdx = getStepIndex(currentStep);
-  chipsEl.innerHTML = STEPS.map((step, idx) => {
-    const isCurrent = step.id === currentStep;
-    const isDone = idx < currentIdx;
-    let attrs = `class="chip${isDone ? " done" : ""}"`;
-    if (isCurrent) {
-      attrs += ' aria-current="step"';
-    }
-    return `<span ${attrs}>${step.label}</span>`;
-  }).join("");
-}
-
-function showStep(stepId) {
-  currentStep = stepId;
-  Object.entries(floors).forEach(([id, el]) => {
-    if (!el) return;
-    el.hidden = id !== stepId;
-  });
-  renderChips();
-  if (stepId === "read") {
-    renderReadScreen();
-  }
-  if (stepId === "next") {
-    highlightNextSuggestion();
-  }
+function getSnackKey() {
+  const params = new URLSearchParams(window.location.search);
+  const key = params.get("snack");
+  return key && SNACKS[key] ? key : DEFAULT_SNACK;
 }
 
 function countWords(text) {
@@ -78,30 +53,195 @@ function countWords(text) {
 
 function validateSnack(snack) {
   if (!snack?.screens?.length) {
-    return "Snack needs at least one screen.";
+    return "Snack needs at least one section.";
   }
   for (let i = 0; i < snack.screens.length; i += 1) {
     const screen = snack.screens[i];
     const words = countWords(screen.body || "");
     if (words > MAX_WORDS_PER_SCREEN) {
-      return `Screen ${i + 1} has ${words} words (max ${MAX_WORDS_PER_SCREEN}).`;
+      return `Section ${i + 1} has ${words} words (max ${MAX_WORDS_PER_SCREEN}).`;
     }
+  }
+  if (!snack.comprehension?.length) {
+    return "Snack needs at least one comprehension question.";
   }
   return null;
 }
 
-function setCreateStatus(message, type = "info") {
+function setStatus(message) {
   if (!createStatus) return;
   createStatus.hidden = !message;
-  createStatus.textContent = message;
-  createStatus.className = `status-msg ${type}`;
+  createStatus.textContent = message || "";
 }
 
-async function loadSnackFromPath(path, options = {}) {
-  const { silent = false } = options;
-  if (!silent) {
-    setCreateStatus("Loading snack…", "info");
+function showStep(stepId) {
+  currentStep = stepId;
+  STEPS.forEach((id) => {
+    const el = stepEls[id];
+    if (el) el.hidden = id !== stepId;
+  });
+  readProgressBar.hidden = stepId !== "read";
+  window.scrollTo(0, 0);
+}
+
+function escapeHtml(text) {
+  return text
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+function renderBodyWithTips(body, tips = {}) {
+  const words = Object.keys(tips);
+  if (!words.length) {
+    return escapeHtml(body);
   }
+
+  const pattern = new RegExp(
+    `\\b(${words.map((w) => w.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|")})\\b`,
+    "gi",
+  );
+  let html = "";
+  let lastIndex = 0;
+  let match;
+  const re = new RegExp(pattern.source, pattern.flags);
+
+  while ((match = re.exec(body)) !== null) {
+    if (match.index > lastIndex) {
+      html += escapeHtml(body.slice(lastIndex, match.index));
+    }
+    const key = match[1].toLowerCase();
+    const tipKey = words.find((w) => w.toLowerCase() === key);
+    if (tipKey && tips[tipKey]) {
+      const tip = tips[tipKey];
+      html += `<dfn title="${escapeHtml(tip.meaning)}">${escapeHtml(match[1])}</dfn>`;
+    } else {
+      html += escapeHtml(match[1]);
+    }
+    lastIndex = match.index + match[1].length;
+  }
+  if (lastIndex < body.length) {
+    html += escapeHtml(body.slice(lastIndex));
+  }
+  return html;
+}
+
+function renderArticle(snack) {
+  if (!articleEl) return;
+
+  const sections = snack.screens
+    .map((screen) => {
+      const bodyHtml = renderBodyWithTips(screen.body || "", screen.tips);
+      const heading = screen.heading
+        ? `<h2>${escapeHtml(screen.heading)}</h2>`
+        : "";
+      return `<section class="article-section">${heading}<p>${bodyHtml}</p></section>`;
+    })
+    .join("");
+
+  articleEl.innerHTML = `
+    <h1 class="article-title">${escapeHtml(snack.title)}</h1>
+    ${sections}
+  `;
+
+  document.title = `${snack.title} — Effortless`;
+  readScrollComplete = false;
+  updateReadGate();
+  updateReadProgress();
+}
+
+function getScrollMetrics() {
+  const doc = document.documentElement;
+  const scrollTop = window.scrollY || doc.scrollTop;
+  const viewport = window.innerHeight;
+  const fullHeight = doc.scrollHeight;
+  const remaining = fullHeight - (scrollTop + viewport);
+  const progress = fullHeight <= viewport
+    ? 100
+    : Math.min(100, Math.round((scrollTop / (fullHeight - viewport)) * 100));
+  return { scrollTop, remaining, progress };
+}
+
+function updateReadProgress() {
+  if (!readProgressFill || !readProgressBar) return;
+  const { progress, remaining } = getScrollMetrics();
+  readProgressFill.style.width = `${progress}%`;
+  readProgressBar.setAttribute("aria-valuenow", String(progress));
+
+  if (remaining <= SCROLL_THRESHOLD) {
+    readScrollComplete = true;
+  }
+  updateReadGate();
+}
+
+function updateReadGate() {
+  if (!btnReadDone || !readGateHint) return;
+  btnReadDone.disabled = !readScrollComplete;
+  readGateHint.textContent = readScrollComplete
+    ? "You reached the end."
+    : "Scroll to the end to continue.";
+}
+
+function renderComprehension(snack) {
+  if (!comprehensionForm) return;
+  comprehensionForm.innerHTML = snack.comprehension
+    .map((q, idx) => {
+      const choices = q.choices
+        .map(
+          (choice, choiceIdx) => `
+            <li>
+              <label>
+                <input type="radio" name="q${idx}" value="${choiceIdx}" required />
+                <span>${escapeHtml(choice)}</span>
+              </label>
+            </li>
+          `,
+        )
+        .join("");
+      return `
+        <fieldset class="question-block">
+          <p class="question-text">${idx + 1}. ${escapeHtml(q.question)}</p>
+          <ul class="choice-list">${choices}</ul>
+        </fieldset>
+      `;
+    })
+    .join("");
+}
+
+function renderVideoStep(snack) {
+  const video = snack.video || {};
+  if (videoPrompt) {
+    videoPrompt.textContent =
+      video.prompt || "Watch the short clip, then write what you noticed.";
+  }
+  if (videoLink) {
+    if (video.url) {
+      videoLink.hidden = false;
+      videoLink.innerHTML = `<a href="${escapeHtml(video.url)}" target="_blank" rel="noopener noreferrer">Open video</a>`;
+    } else {
+      videoLink.hidden = true;
+      videoLink.innerHTML = "";
+    }
+  }
+  if (videoObservations) {
+    videoObservations.value = "";
+  }
+}
+
+function renderShareStep(snack) {
+  if (shareMessage) {
+    shareMessage.textContent = `You finished “${snack.title}”.`;
+  }
+  if (shareStatus) {
+    shareStatus.hidden = true;
+    shareStatus.textContent = "";
+  }
+}
+
+async function loadSnack(key) {
+  const path = SNACKS[key] || SNACKS[DEFAULT_SNACK];
+  setStatus("Loading…");
   try {
     const res = await fetch(path);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -109,143 +249,94 @@ async function loadSnackFromPath(path, options = {}) {
     const err = validateSnack(snack);
     if (err) throw new Error(err);
     activeSnack = snack;
-    readIndex = 0;
-    lastSnackPath = path;
     if (topicInput && snack.topic) {
       topicInput.value = snack.topic;
     }
-    if (!silent) {
-      setCreateStatus(`Loaded “${snack.title}”.`, "success");
-    }
+    renderArticle(snack);
+    renderComprehension(snack);
+    renderVideoStep(snack);
+    renderShareStep(snack);
     showStep("read");
+    setStatus("");
   } catch (e) {
-    setCreateStatus(
-      `Could not load snack: ${e.message}. Run: npx serve web/snack-blog -p 5173`,
-      "warn",
-    );
+    setStatus(`Could not load snack: ${e.message}`);
+    showStep("read");
   }
 }
 
-function highlightNextSuggestion() {
-  if (!mirrorCard) return;
-  const suggestMirror = lastSnackPath === SAMPLE_RAIN;
-  mirrorCard.classList.toggle("sample-card-highlight", suggestMirror);
+function handleComprehensionSubmit(event) {
+  event.preventDefault();
+  if (!comprehensionForm?.reportValidity()) return;
+  showStep("video");
 }
 
-function renderBodyWithTips(screen) {
-  const body = screen.body || "";
-  const tips = screen.tips || {};
-  const words = Object.keys(tips);
-  if (!words.length) {
-    readerBody.textContent = body;
+function handleVideoContinue() {
+  const minChars = activeSnack?.video?.minChars ?? 8;
+  const text = videoObservations?.value.trim() || "";
+  const hint = document.getElementById("video-hint");
+  if (text.length < minChars) {
+    videoObservations?.focus();
+    if (videoObservations) {
+      videoObservations.setAttribute("aria-invalid", "true");
+    }
+    if (hint) {
+      hint.textContent = `Write a bit more (${minChars} characters minimum).`;
+    }
     return;
   }
-
-  const pattern = new RegExp(`\\b(${words.map((w) => w.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|")})\\b`, "gi");
-  readerBody.innerHTML = "";
-  let lastIndex = 0;
-  let match;
-  const re = new RegExp(pattern.source, pattern.flags);
-
-  while ((match = re.exec(body)) !== null) {
-    if (match.index > lastIndex) {
-      readerBody.appendChild(document.createTextNode(body.slice(lastIndex, match.index)));
-    }
-    const key = match[1].toLowerCase();
-    const tipKey = words.find((w) => w.toLowerCase() === key);
-    if (tipKey && tips[tipKey]) {
-      const btn = document.createElement("button");
-      btn.type = "button";
-      btn.className = "hard-word";
-      btn.textContent = match[1];
-      btn.setAttribute("aria-label", `Tip for ${match[1]}`);
-      btn.addEventListener("click", () => showTipSheet(tipKey, tips[tipKey]));
-      readerBody.appendChild(btn);
-    } else {
-      readerBody.appendChild(document.createTextNode(match[1]));
-    }
-    lastIndex = match.index + match[1].length;
+  videoObservations?.removeAttribute("aria-invalid");
+  if (hint) {
+    hint.textContent = "At least a sentence or two.";
   }
-  if (lastIndex < body.length) {
-    readerBody.appendChild(document.createTextNode(body.slice(lastIndex)));
-  }
+  showStep("share");
 }
 
-function showTipSheet(word, tip) {
-  const existing = document.getElementById("tip-sheet");
-  if (existing) existing.remove();
-
-  const sheet = document.createElement("div");
-  sheet.id = "tip-sheet";
-  sheet.className = "tip-sheet";
-  sheet.innerHTML = `
-    <div class="tip-sheet-panel" role="dialog" aria-labelledby="tip-word">
-      <p class="tip-sheet-label">Word tip</p>
-      <h4 id="tip-word" class="tip-sheet-word">${word}</h4>
-      <p class="tip-sheet-meaning">${tip.meaning}</p>
-      <p class="tip-sheet-example"><strong>In life:</strong> ${tip.example}</p>
-      <button type="button" class="btn btn-primary tip-close">Got it</button>
-    </div>
-  `;
-  sheet.querySelector(".tip-close")?.addEventListener("click", () => sheet.remove());
-  sheet.addEventListener("click", (e) => {
-    if (e.target === sheet) sheet.remove();
-  });
-  document.body.appendChild(sheet);
-}
-
-function renderReadProgress(total) {
-  if (!readProgressEl) return;
-  readProgressEl.innerHTML = "";
-  for (let i = 0; i < total; i += 1) {
-    const seg = document.createElement("span");
-    seg.className = `read-progress-seg${i <= readIndex ? " filled" : ""}`;
-    readProgressEl.appendChild(seg);
-  }
-}
-
-function renderReadScreen() {
-  if (!activeSnack?.screens?.length) {
-    showStep("discover");
-    return;
-  }
-
-  const screen = activeSnack.screens[readIndex];
-  const total = activeSnack.screens.length;
-
-  readerSnackTitle.textContent = activeSnack.title;
-  readerHeading.textContent = screen.heading;
-  renderBodyWithTips(screen);
-  readerCounter.textContent = `Screen ${readIndex + 1} of ${total}`;
-  renderReadProgress(total);
-
-  const nextBtn = document.getElementById("btn-read-next");
-  if (nextBtn) {
-    nextBtn.textContent = readIndex === total - 1 ? "Finish snack" : "Forward";
-  }
-}
-
-function nextReadScreen() {
+async function handleShare() {
   if (!activeSnack) return;
-  if (readIndex < activeSnack.screens.length - 1) {
-    readIndex += 1;
-    renderReadScreen();
-  } else {
-    snackTitleEl.textContent = activeSnack.title;
-    showStep("done");
+  const observations = videoObservations?.value.trim() || "";
+  const payload = {
+    title: "Effortless snack",
+    text: `Finished “${activeSnack.title}”. Observations: ${observations}`,
+    url: window.location.href.split("?")[0],
+  };
+
+  if (navigator.share) {
+    try {
+      await navigator.share(payload);
+      if (shareStatus) {
+        shareStatus.hidden = false;
+        shareStatus.textContent = "Shared.";
+      }
+      return;
+    } catch (e) {
+      if (e.name === "AbortError") return;
+    }
+  }
+
+  const fallback = `${payload.text}\n${payload.url}`;
+  try {
+    await navigator.clipboard.writeText(fallback);
+    if (shareStatus) {
+      shareStatus.hidden = false;
+      shareStatus.textContent = "Copied to clipboard.";
+    }
+  } catch {
+    if (shareStatus) {
+      shareStatus.hidden = false;
+      shareStatus.textContent = "Share is not available on this device.";
+    }
   }
 }
 
 function fallbackSnack(topic) {
-  const clean = topic.trim() || DEFAULT_TOPIC;
+  const clean = topic.trim() || "Why rain smells good";
   return {
     title: clean,
     topic: clean,
-    reader: READER_NAME,
     screens: [
       {
         heading: "Your question",
-        body: `Today we wonder about ${clean}. You do not need every answer right now. Good readers stay curious and take one bite at a time.`,
+        body: `Today we wonder about ${clean}. Good readers stay curious and take one idea at a time.`,
       },
       {
         heading: "Look and listen",
@@ -253,18 +344,29 @@ function fallbackSnack(topic) {
       },
       {
         heading: "Share it",
-        body: "Tell someone one thing you learned. When you explain it out loud, your brain remembers it better.",
+        body: "Tell someone one thing you learned. Explaining out loud helps your brain remember.",
       },
     ],
+    comprehension: [
+      {
+        question: "What helps your brain remember what you read?",
+        choices: ["Explaining it out loud", "Skipping the ending", "Reading faster"],
+        answer: 0,
+      },
+    ],
+    video: {
+      prompt: "Watch a short clip about this topic. What did you notice?",
+      minChars: 8,
+    },
   };
 }
 
 async function tryOllamaGenerate(topic) {
-  const prompt = `You write kid-safe blog snacks for Ayaan, 4th grade (~10). NOT for 3 year olds.
+  const prompt = `You write kid-safe blog snacks for a 4th grader (~10).
 Topic: ${topic}
 Return ONLY valid JSON:
-{"title":"...","topic":"...","reader":"Ayaan","screens":[{"heading":"3-6 words","body":"max 80 words"}]}
-Rules: 4-6 screens, one idea each, English, no shopping.`;
+{"title":"...","topic":"...","screens":[{"heading":"3-6 words","body":"max 80 words"}],"comprehension":[{"question":"...","choices":["a","b","c"],"answer":0}],"video":{"prompt":"Watch...","minChars":8}}
+Rules: 3-5 sections, one idea each, 2 comprehension questions, English, no shopping.`;
 
   const res = await fetch("http://127.0.0.1:11434/api/generate", {
     method: "POST",
@@ -283,56 +385,78 @@ Rules: 4-6 screens, one idea each, English, no shopping.`;
 async function generateSnack() {
   const topic = topicInput?.value.trim();
   if (!topic) {
-    setCreateStatus("Type a topic first.", "warn");
+    setStatus("Type a topic first.");
     topicInput?.focus();
     return;
   }
-  setCreateStatus("Generating…", "info");
+  setStatus("Generating…");
   try {
     activeSnack = await tryOllamaGenerate(topic);
-    setCreateStatus(`Generated “${activeSnack.title}”.`, "success");
+    setStatus("Generated.");
   } catch {
     activeSnack = fallbackSnack(topic);
-    setCreateStatus("Ollama offline — used fallback.", "warn");
+    setStatus("Ollama offline — used fallback.");
   }
-  readIndex = 0;
-  lastSnackPath = "";
+  renderArticle(activeSnack);
+  renderComprehension(activeSnack);
+  renderVideoStep(activeSnack);
+  renderShareStep(activeSnack);
   showStep("read");
 }
 
-let touchStartX = 0;
-const readerPane = document.getElementById("reader-pane");
-if (readerPane) {
-  readerPane.addEventListener("touchstart", (e) => {
-    touchStartX = e.changedTouches[0].screenX;
-  }, { passive: true });
-  readerPane.addEventListener("touchend", (e) => {
-    const delta = e.changedTouches[0].screenX - touchStartX;
-    if (delta < -50) nextReadScreen();
-  }, { passive: true });
+async function renderVersionSwitcher() {
+  if (!versionSwitcher) return;
+  try {
+    const res = await fetch("versions/manifest.json");
+    if (!res.ok) throw new Error("manifest missing");
+    const manifest = await res.json();
+    const links = manifest.versions
+      .map((v) => {
+        const isCurrent = v.id === manifest.latest;
+        if (isCurrent) {
+          return `<span class="current">${escapeHtml(v.label)}</span>`;
+        }
+        const href = v.path === "." ? "." : v.path;
+        return `<a href="${escapeHtml(href)}">${escapeHtml(v.label)}</a>`;
+      })
+      .join("");
+    versionSwitcher.innerHTML = links;
+  } catch {
+    versionSwitcher.innerHTML = '<span class="current">v2 · latest</span><a href="versions/v1-stitch-cream/">v1</a>';
+  }
 }
 
-document.getElementById("btn-start-reading")?.addEventListener("click", () => {
-  loadSnackFromPath(SAMPLE_RAIN, { silent: true });
+window.addEventListener("scroll", updateReadProgress, { passive: true });
+window.addEventListener("resize", updateReadProgress);
+
+btnReadDone?.addEventListener("click", () => {
+  if (!readScrollComplete) return;
+  showStep("comprehension");
 });
 
-document.querySelectorAll(".snack-start-btn, .sample-card[data-snack-path]").forEach((el) => {
-  el.addEventListener("click", () => {
-    const path = el.getAttribute("data-snack-path");
-    if (path) loadSnackFromPath(path, { silent: true });
-  });
-});
+comprehensionForm?.addEventListener("submit", handleComprehensionSubmit);
+document.getElementById("btn-video-done")?.addEventListener("click", handleVideoContinue);
+document.getElementById("btn-share")?.addEventListener("click", handleShare);
 
 document.getElementById("btn-try-sample")?.addEventListener("click", () => {
-  if (topicInput) topicInput.value = DEFAULT_TOPIC;
-  loadSnackFromPath(SAMPLE_RAIN);
+  if (topicInput) topicInput.value = "Why rain smells good";
+  loadSnack("rain");
 });
 
 document.getElementById("btn-generate")?.addEventListener("click", generateSnack);
-document.getElementById("btn-read-next")?.addEventListener("click", nextReadScreen);
-document.getElementById("btn-next-snack")?.addEventListener("click", () => showStep("next"));
-document.getElementById("btn-done-for-now")?.addEventListener("click", () => showStep("discover"));
-document.getElementById("btn-back-home")?.addEventListener("click", () => showStep("discover"));
 
-renderChips();
-showStep("discover");
+document.querySelectorAll(".more-snacks a[data-snack]").forEach((link) => {
+  link.addEventListener("click", (e) => {
+    e.preventDefault();
+    const key = link.getAttribute("data-snack");
+    if (key) {
+      const url = new URL(window.location.href);
+      url.searchParams.set("snack", key);
+      window.history.replaceState({}, "", url);
+      loadSnack(key);
+    }
+  });
+});
+
+renderVersionSwitcher();
+loadSnack(getSnackKey());
