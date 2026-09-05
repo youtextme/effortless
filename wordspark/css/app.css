@@ -31,7 +31,7 @@ body {
   max-width: 640px;
   margin: 0 auto;
   padding: 1rem;
-  padding-bottom: 3rem;
+  padding-bottom: 5.5rem;
 }
 
 .screen { display: none; }
@@ -413,6 +413,289 @@ body {
 
 .btn-finish { margin-bottom: 2rem; }
 
+.btn-done {
+  background: linear-gradient(135deg, #25d366, #128c7e);
+  color: white;
+  width: 100%;
+  margin-top: 0.75rem;
+}
+
+/* Agent card */
+.agent-card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+  margin-bottom: 1rem;
+  border-left: 4px solid var(--gold);
+}
+
+.agent-header {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.agent-emoji { font-size: 2rem; }
+.agent-name { font-weight: 700; color: var(--gold); font-size: 1rem; }
+.agent-mission { font-size: 0.85rem; color: var(--muted); }
+.agent-progress { font-size: 0.8rem; color: var(--muted); margin-top: 0.5rem; }
+
+.agent-banner {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--surface);
+  border-left: 4px solid var(--gold);
+  padding: 0.6rem 1rem;
+  border-radius: 0 10px 10px 0;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+}
+
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0.5rem 0 0.75rem;
+}
+
+.skill-tag {
+  background: var(--surface2);
+  color: var(--gold);
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+/* Page headers */
+.page-header {
+  text-align: center;
+  padding: 1rem 0 1.25rem;
+}
+
+.page-header h2 { font-size: 1.6rem; color: var(--gold); }
+.page-sub { color: var(--muted); font-size: 0.9rem; margin-top: 0.25rem; }
+
+/* Words list */
+.words-legend {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  margin-bottom: 1rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.legend-item { display: flex; align-items: center; gap: 0.4rem; }
+.dot { width: 12px; height: 12px; border-radius: 50%; }
+.dot.learned { background: var(--text); }
+.dot.upcoming { background: #444; }
+
+.words-filter { margin-bottom: 1rem; }
+.words-filter input {
+  width: 100%;
+  background: var(--surface);
+  border: 2px solid var(--surface2);
+  border-radius: 10px;
+  padding: 0.7rem 1rem;
+  color: var(--text);
+  font-size: 1rem;
+}
+
+.words-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.word-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 0.75rem;
+  background: var(--surface);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.word-row:active { background: var(--surface2); }
+
+.word-row.learned .word-text { color: var(--text); font-weight: 700; }
+.word-row.upcoming .word-text { color: #555; }
+.word-row.upcoming .word-meaning-short { color: #444; }
+.word-row.upcoming .word-index { color: #444; }
+
+.word-index {
+  font-size: 0.75rem;
+  color: var(--muted);
+  min-width: 2.5rem;
+  text-align: right;
+}
+
+.word-info { flex: 1; min-width: 0; }
+.word-text { display: block; font-size: 1rem; }
+.word-meaning-short {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.word-day {
+  font-size: 0.75rem;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+/* Certificates gallery */
+.certs-gallery {
+  display: grid;
+  gap: 1rem;
+}
+
+.cert-card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 1rem;
+  cursor: pointer;
+}
+
+.cert-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.cert-card-day { font-weight: 700; color: var(--gold); }
+.cert-card-theme { font-size: 0.85rem; color: var(--muted); }
+.cert-card-canvas { margin-bottom: 0.75rem; }
+
+.empty-state {
+  text-align: center;
+  color: var(--muted);
+  padding: 3rem 1rem;
+}
+
+/* Journey / MECE */
+.mece-card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.mece-card h3 { color: var(--gold); margin-bottom: 0.75rem; }
+.mece-card p { color: var(--muted); font-size: 0.95rem; margin-bottom: 0.75rem; }
+
+.mece-points {
+  display: grid;
+  gap: 0.75rem;
+  margin: 1rem 0;
+}
+
+.mece-point {
+  background: var(--bg);
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+}
+
+.mece-point strong { color: var(--accent); display: block; margin-bottom: 0.25rem; }
+.mece-point p { margin: 0; font-size: 0.9rem; }
+.mece-outcome { color: var(--text) !important; font-weight: 500; }
+
+.agents-list { display: flex; flex-direction: column; gap: 1.25rem; }
+
+.agent-block {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 1rem;
+  border-left: 4px solid var(--agent-color, var(--gold));
+}
+
+.agent-block-header {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  margin-bottom: 0.75rem;
+}
+
+.agent-block-header h3 { font-size: 1.1rem; color: var(--gold); }
+.agent-block-header p { font-size: 0.85rem; color: var(--muted); }
+.agent-pct {
+  margin-left: auto;
+  font-weight: 700;
+  color: var(--agent-color, var(--gold));
+  font-size: 0.9rem;
+}
+
+.agent-skills { margin-bottom: 0.75rem; }
+
+.journey-days { display: flex; flex-direction: column; gap: 4px; }
+
+.journey-day {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0.75rem;
+  background: var(--bg);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.journey-day.done { opacity: 1; }
+.journey-day:not(.done) { opacity: 0.7; }
+
+.journey-day-num {
+  font-weight: 700;
+  color: var(--muted);
+  min-width: 2rem;
+}
+
+.journey-day-info { flex: 1; }
+.journey-day-info strong { display: block; font-size: 0.9rem; }
+.journey-skills { font-size: 0.75rem; color: var(--muted); }
+.journey-status { font-size: 1rem; }
+
+/* Bottom nav */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--surface);
+  border-top: 1px solid var(--surface2);
+  display: flex;
+  justify-content: space-around;
+  padding: 0.5rem 0;
+  z-index: 100;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.nav-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+  background: none;
+  border: none;
+  color: var(--muted);
+  cursor: pointer;
+  padding: 0.4rem 1rem;
+  font-family: inherit;
+  transition: color 0.15s;
+}
+
+.nav-btn.active { color: var(--gold); }
+.nav-icon { font-size: 1.3rem; }
+.nav-label { font-size: 0.65rem; font-weight: 600; }
+
 /* Certificate */
 .cert-header {
   text-align: center;
@@ -476,7 +759,9 @@ body {
 
 /* Safe areas for notched phones */
 @supports (padding: env(safe-area-inset-bottom)) {
-  #app { padding-bottom: calc(3rem + env(safe-area-inset-bottom)); }
+  #app { padding-bottom: calc(5.5rem + env(safe-area-inset-bottom)); }
+  .bottom-nav { padding-bottom: env(safe-area-inset-bottom); }
+  .toast { bottom: calc(5rem + env(safe-area-inset-bottom)); }
 }
 
 @media (min-width: 480px) {

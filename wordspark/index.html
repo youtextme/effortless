@@ -18,9 +18,9 @@
     <!-- Home Screen -->
     <section id="screen-home" class="screen active">
       <header class="hero">
-        <div class="hero-badge">📚 1000 Words · 100 Days</div>
+        <div class="hero-badge">📚 1000 Words · 100 Days · 10 Life Agents</div>
         <h1>WordSpark</h1>
-        <p class="hero-sub">Become an advanced English speaker. Read. Learn. Share.</p>
+        <p class="hero-sub">Book smart. Street smart. Ready for the world.</p>
       </header>
 
       <div class="name-section">
@@ -52,20 +52,24 @@
         <p class="progress-pct"><span id="progress-pct">0</span>% complete — <span id="total-words-label">1000</span> words to mastery!</p>
       </div>
 
+      <div id="agent-card" class="agent-card"></div>
+
       <div class="today-card">
         <div class="today-label">Today's Lesson</div>
         <h2>Day <span id="home-day-num">1</span></h2>
         <h3 id="home-theme">Discovery & Curiosity</h3>
+        <div id="home-skills" class="skill-tags"></div>
         <p id="home-takeaway" class="takeaway"></p>
         <button id="btn-start-reading" class="btn btn-primary btn-large">📖 Start Reading — Day 1</button>
+        <button id="btn-mark-done-home" class="btn btn-done btn-large" hidden>✅ Mark Day as Done</button>
       </div>
 
       <details class="day-picker">
-        <summary>📅 Choose a Day</summary>
+        <summary>📅 Jump to Any Day (1–100)</summary>
         <div id="day-grid" class="day-grid"></div>
       </details>
 
-      <button id="btn-install" class="btn btn-install" hidden>📲 Install App</button>
+      <button id="btn-install" class="btn btn-install" hidden>📲 Install App on Phone</button>
     </section>
 
     <!-- Reading Screen -->
@@ -77,10 +81,12 @@
         </div>
         <div class="reading-nav">
           <button id="btn-prev-day" class="btn btn-small">← Prev</button>
-          <button class="btn btn-small btn-back-home">Home</button>
           <button id="btn-next-day" class="btn btn-small">Next →</button>
         </div>
       </header>
+
+      <div id="reading-agent" class="agent-banner"></div>
+      <div id="reading-skills" class="skill-tags"></div>
 
       <div class="reading-tip">
         💡 Read slowly. Highlighted words are your 10 new words — each appears many times!
@@ -91,20 +97,20 @@
       <div class="word-stats" id="word-stats"></div>
 
       <details class="word-reference">
-        <summary>📖 Word Meanings</summary>
+        <summary>📖 Word Meanings (10 words)</summary>
         <div id="word-cards" class="word-cards"></div>
       </details>
 
-      <button id="btn-finish-reading" class="btn btn-primary btn-large btn-finish">
-        ✅ I Finished Reading — Get My Certificate!
+      <button id="btn-finish-reading" class="btn btn-done btn-large btn-finish">
+        ✅ Mark as Done — Get Certificate & Save Progress
       </button>
     </section>
 
     <!-- Certificate Screen -->
     <section id="screen-certificate" class="screen">
       <header class="cert-header">
-        <h2>🎉 Congratulations!</h2>
-        <p>Day <span id="cert-day">1</span> Complete</p>
+        <h2>🎉 Day Complete!</h2>
+        <p>Day <span id="cert-day">1</span> — Certificate Ready</p>
       </header>
 
       <div class="cert-summary">
@@ -123,9 +129,81 @@
       <button id="btn-share-cert" class="btn btn-whatsapp btn-large">
         💬 Share Certificate on WhatsApp
       </button>
-      <button class="btn btn-secondary btn-back-home">🏠 Back to Home</button>
+      <button id="btn-view-all-certs" class="btn btn-secondary">📜 View All Certificates</button>
+    </section>
+
+    <!-- Words List Screen -->
+    <section id="screen-words" class="screen">
+      <header class="page-header">
+        <h2>📖 All 1000 Words</h2>
+        <p class="page-sub">Black = learned · Grey = coming up</p>
+      </header>
+      <div class="words-legend">
+        <span class="legend-item"><span class="dot learned"></span> Learned</span>
+        <span class="legend-item"><span class="dot upcoming"></span> Upcoming</span>
+      </div>
+      <div class="words-filter">
+        <input type="search" id="words-search" placeholder="Search words..." autocomplete="off">
+      </div>
+      <div id="words-list" class="words-list"></div>
+    </section>
+
+    <!-- Certificates Gallery -->
+    <section id="screen-certificates" class="screen">
+      <header class="page-header">
+        <h2>📜 My Certificates</h2>
+        <p class="page-sub">All your completed days in one place</p>
+      </header>
+      <div id="certs-gallery" class="certs-gallery"></div>
+      <p id="certs-empty" class="empty-state" hidden>No certificates yet. Complete your first day!</p>
+    </section>
+
+    <!-- Journey / Agents Screen -->
+    <section id="screen-journey" class="screen">
+      <header class="page-header">
+        <h2>🗺️ Your 100-Day Journey</h2>
+        <p class="page-sub">10 Life Agents — MECE & complete</p>
+      </header>
+
+      <div class="mece-card">
+        <h3>Why 100 Days? Why 10 Agents?</h3>
+        <p id="mece-intro"></p>
+        <div class="mece-points">
+          <div class="mece-point">
+            <strong>Mutually Exclusive</strong>
+            <p id="mece-exclusive"></p>
+          </div>
+          <div class="mece-point">
+            <strong>Collectively Exhaustive</strong>
+            <p id="mece-exhaustive"></p>
+          </div>
+        </div>
+        <p id="mece-outcome" class="mece-outcome"></p>
+      </div>
+
+      <div id="agents-list" class="agents-list"></div>
     </section>
   </div>
+
+  <!-- Bottom Navigation -->
+  <nav id="bottom-nav" class="bottom-nav">
+    <button class="nav-btn active" data-screen="screen-home">
+      <span class="nav-icon">🏠</span>
+      <span class="nav-label">Home</span>
+    </button>
+    <button class="nav-btn" data-screen="screen-words">
+      <span class="nav-icon">📖</span>
+      <span class="nav-label">Words</span>
+    </button>
+    <button class="nav-btn" data-screen="screen-certificates">
+      <span class="nav-icon">📜</span>
+      <span class="nav-label">Certs</span>
+    </button>
+    <button class="nav-btn" data-screen="screen-journey">
+      <span class="nav-icon">🗺️</span>
+      <span class="nav-label">Journey</span>
+    </button>
+  </nav>
 
   <div id="toast" class="toast"></div>
 
