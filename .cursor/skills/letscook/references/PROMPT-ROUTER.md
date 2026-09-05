@@ -205,6 +205,27 @@ Every assistant answer MUST end its substantive body (just before the 💪 healt
 - Research → top 3 links with one-line takeaways
 Never describe an asset without giving its link/path. Evaluator blocks if missing.
 
+## Step 6.6 — CEO Objective Closure (MANDATORY BEFORE OUTPUT)
+
+**Never ship chat with only "PR raised" or "done."** If the bar is not CEO-grade, say you are still researching/iterating — **do not** present output until multiple bar-raising passes land.
+
+End every non-trivial deliverable with **one block, ≤40 words total**:
+
+```markdown
+**Objective met:** <yes/no + one proof>
+**Bar raised:** <what exceeded minimum>
+**Verified:** <how — command, URL, test>
+**Iterations:** <N>
+**Best path:** <why this beats alternatives, ≤10 words>
+```
+
+Rules:
+1. **Objective met** must cite live evidence (URL, screenshot, command exit 0) — not intent.
+2. **Bar raised** must name concrete extras (e.g. TTS, quiz gate, MECE curriculum) — not adjectives.
+3. If **Objective met: no** or bar feels thin → `phase:research|verify`, `Trust:YELLOW`, withhold deliverable; iterate until closure block is honest.
+4. PR links are optional footnotes — never substitute for this block.
+5. Trivial Q&A: skip the block; one-line answer suffices.
+
 ## Compute routing
 
 Frontier: contracts, architecture, eval judgment, adversarial review.  
