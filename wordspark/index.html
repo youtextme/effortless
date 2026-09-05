@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#ffffff">
-  <meta name="description" content="Read 100 passages. Learn 1000 advanced English words. Tap any word to hear it.">
+  <meta name="description" content="Read passages. Learn 1000 words. Tap any word to hear it and learn how to use it.">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <title>WordSpark</title>
@@ -17,97 +17,90 @@
   <link rel="stylesheet" href="css/app.css">
 </head>
 <body>
-  <!-- Reading — the hero screen -->
   <div id="app">
-    <header class="topbar">
-      <button id="btn-menu" class="icon-btn" aria-label="Menu">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-      </button>
-      <span id="passage-label" class="passage-label">Passage 1 of 100</span>
-      <button id="btn-listen" class="icon-btn" aria-label="Listen to passage">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M11 5L6 9H2v6h4l5 4V5z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M15.54 8.46a5 5 0 010 7.07M19.07 4.93a10 10 0 010 14.14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-      </button>
-    </header>
-
-    <main id="reading-main" class="reading-main">
+    <main class="reading-main">
+      <h1 id="passage-title" class="passage-h1"></h1>
       <article id="passage-content" class="passage"></article>
-      <button id="btn-done-reading" class="btn-primary btn-done-reading">I've finished reading</button>
+
+      <div class="page-nav">
+        <button id="btn-prev-page" class="btn-page" disabled>← Back</button>
+        <div id="page-dots" class="page-dots"></div>
+        <button id="btn-next-page" class="btn-page">Next →</button>
+      </div>
+
+      <button id="btn-done-reading" class="btn-primary" disabled>
+        I've read everything
+      </button>
+      <p id="read-hint" class="read-hint">Read all pages to continue</p>
     </main>
 
-    <!-- Quiz overlay -->
+    <!-- Quiz -->
     <section id="screen-quiz" class="overlay" hidden>
       <div class="quiz-container">
-        <div class="quiz-progress">
-          <div class="quiz-progress-bar" id="quiz-progress-bar"></div>
-        </div>
-        <p class="quiz-counter" id="quiz-counter">Question 1 of 5</p>
+        <div class="quiz-progress"><div class="quiz-progress-bar" id="quiz-progress-bar"></div></div>
+        <p class="quiz-counter" id="quiz-counter"></p>
         <h2 id="quiz-question" class="quiz-question"></h2>
         <div id="quiz-choices" class="quiz-choices"></div>
-        <p id="quiz-feedback" class="quiz-feedback" hidden></p>
       </div>
     </section>
 
-    <!-- Complete overlay -->
+    <!-- Complete -->
     <section id="screen-complete" class="overlay" hidden>
       <div class="complete-container">
         <div class="complete-icon">✓</div>
-        <h2>Passage complete!</h2>
-        <p id="complete-msg">You learned 10 new words.</p>
+        <h2>Well done!</h2>
+        <p id="complete-msg"></p>
         <button id="btn-next-passage" class="btn-primary">Read next passage</button>
         <button id="btn-share-complete" class="btn-text">Share with parents</button>
       </div>
     </section>
   </div>
 
-  <!-- Menu drawer -->
-  <aside id="menu-drawer" class="drawer" hidden>
-    <div class="drawer-backdrop" id="drawer-backdrop"></div>
-    <nav class="drawer-panel">
-      <div class="drawer-header">
-        <h2>WordSpark</h2>
-        <button id="btn-close-menu" class="icon-btn" aria-label="Close">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-        </button>
-      </div>
+  <!-- Name onboarding -->
+  <div id="name-modal" class="modal" hidden>
+    <div class="modal-panel">
+      <h2>Welcome to WordSpark</h2>
+      <p>What's your name?</p>
+      <input type="text" id="child-name" placeholder="Your name" maxlength="30" autocomplete="name">
+      <button id="btn-save-name" class="btn-primary">Let's read!</button>
+    </div>
+  </div>
 
-      <div class="drawer-progress">
-        <div class="progress-ring-wrap">
-          <svg class="progress-ring" viewBox="0 0 36 36">
-            <circle class="ring-bg" cx="18" cy="18" r="15.9"/>
-            <circle class="ring-fill" id="ring-fill" cx="18" cy="18" r="15.9"/>
-          </svg>
-          <span id="menu-passage-count" class="ring-text">0/100</span>
-        </div>
-        <div class="progress-labels">
-          <strong id="menu-words-count">0</strong> of 1000 words learned
-        </div>
-      </div>
+  <!-- Word sheet -->
+  <div id="word-sheet" class="word-sheet" hidden>
+    <div class="word-sheet-backdrop" id="word-sheet-backdrop"></div>
+    <div class="word-sheet-panel">
+      <h3 id="sheet-word" class="sheet-word"></h3>
+      <p id="sheet-meaning" class="sheet-meaning"></p>
+      <div id="sheet-scenarios" class="sheet-scenarios"></div>
+    </div>
+  </div>
 
-      <div class="drawer-name">
-        <input type="text" id="child-name" placeholder="Your name" maxlength="30" autocomplete="name">
-      </div>
+  <!-- Parent footer -->
+  <footer id="parent-footer" class="parent-footer">
+    <button id="btn-parent-toggle" class="parent-toggle">Parents</button>
+    <div id="parent-panel" class="parent-panel" hidden>
+      <span id="parent-progress" class="parent-stat"></span>
+      <button class="parent-link" data-action="passages">Passages</button>
+      <button class="parent-link" data-action="words">Words</button>
+      <button class="parent-link" data-action="certificates">Certificates</button>
+      <button class="parent-link" data-action="install" id="btn-install" hidden>Install</button>
+      <button class="parent-link parent-danger" data-action="refresh">Reset progress</button>
+    </div>
+  </footer>
 
-      <div class="drawer-actions">
-        <button class="drawer-btn" data-action="passages">All 100 passages</button>
-        <button class="drawer-btn" data-action="words">All 1000 words</button>
-        <button class="drawer-btn" data-action="certificates">My certificates</button>
-        <button class="drawer-btn" data-action="install" id="btn-install" hidden>Install app</button>
-      </div>
-    </nav>
-  </aside>
-
-  <!-- Sub-panels (from menu) -->
+  <!-- Parent sub-panels -->
   <section id="panel-passages" class="sub-panel" hidden>
     <header class="sub-header">
-      <button class="icon-btn btn-back-panel" data-back><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
-      <h2>100 Passages</h2>
+      <button class="icon-btn btn-back-panel" data-back>←</button>
+      <h2>Passages</h2>
     </header>
     <div id="passage-list" class="passage-list"></div>
   </section>
 
   <section id="panel-words" class="sub-panel" hidden>
     <header class="sub-header">
-      <button class="icon-btn btn-back-panel" data-back><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+      <button class="icon-btn btn-back-panel" data-back>←</button>
       <h2>1000 Words</h2>
     </header>
     <div id="words-list" class="words-list"></div>
@@ -115,24 +108,22 @@
 
   <section id="panel-certificates" class="sub-panel" hidden>
     <header class="sub-header">
-      <button class="icon-btn btn-back-panel" data-back><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+      <button class="icon-btn btn-back-panel" data-back>←</button>
       <h2>Certificates</h2>
     </header>
     <div id="certs-gallery" class="certs-gallery"></div>
     <p id="certs-empty" class="empty-state" hidden>No certificates yet.</p>
   </section>
 
-  <!-- Word tap sheet -->
-  <div id="word-sheet" class="word-sheet" hidden>
-    <div class="word-sheet-backdrop" id="word-sheet-backdrop"></div>
-    <div class="word-sheet-panel">
-      <h3 id="sheet-word" class="sheet-word"></h3>
-      <p id="sheet-meaning" class="sheet-meaning"></p>
-      <p id="sheet-example" class="sheet-example"></p>
-      <button id="btn-speak-word" class="btn-speak">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M11 5L6 9H2v6h4l5 4V5z" fill="currentColor"/><path d="M15.54 8.46a5 5 0 010 7.07" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-        Hear pronunciation
-      </button>
+  <!-- Refresh password modal -->
+  <div id="refresh-modal" class="modal" hidden>
+    <div class="modal-panel">
+      <h2>Reset all progress?</h2>
+      <p class="modal-warning">⚠️ All passages, words, and certificates will be lost forever.</p>
+      <p class="modal-hint">Password hint: jbomb bday</p>
+      <input type="password" id="refresh-password" placeholder="Enter password" inputmode="numeric">
+      <button id="btn-confirm-refresh" class="btn-danger">Reset everything</button>
+      <button id="btn-cancel-refresh" class="btn-text">Cancel</button>
     </div>
   </div>
 
