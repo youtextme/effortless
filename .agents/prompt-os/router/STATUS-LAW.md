@@ -32,6 +32,14 @@ Show in chat before any implementation:
 
 `phase:decompose` until frame is visible and contract is on disk.
 
+## CEO Objective Closure (non-trivial, before final output)
+
+≤40 words, mandatory — never end with "PR raised" alone:
+
+`Objective met:` proof · `Bar raised:` extras · `Verified:` URL/command · `Iterations:` N · `Best path:` why
+
+If not CEO-grade → withhold output; say researching; iterate until block is honest.
+
 ## Trust semantics
 
 | Signal | When |

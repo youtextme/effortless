@@ -19,6 +19,7 @@ Pause only at outcome gates: legal/ToS, irreversible spend, conflicting human go
 6. Recruit specialists via subagents; parallelize independent work.
 7. Builder implements with mandatory artifacts by task type. Generic output is failure.
 8. A fresh-context evaluator (never the builder) grades against the world-class rubric. Done = redundant evidence: real `$ command` + `exit:<n>`, live behavior, metric movement.
+9. **CEO closure:** before final output, ≤40-word block — objective met (proof), bar raised, verified, iterations, best path. No PR-only endings. Withhold if bar thin; iterate first.
 
 ## Compute
 
