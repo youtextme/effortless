@@ -140,6 +140,7 @@ function activateWord(span) {
   scrollToTeleprompter(span);
 }
 
+function buildWordStarts(spans) {
   const starts = [];
   let pos = 0;
   for (let i = 0; i < spans.length; i++) {
@@ -159,13 +160,7 @@ function highlightAtCharIndex(charIndex, spans, wordStarts) {
       break;
     }
   }
-  if (activeHighlightEl) activeHighlightEl.classList.remove('speech-word-active');
-  const next = spans[idx];
-  if (next) {
-    next.classList.add('speech-word-active');
-    activeHighlightEl = next;
-    next.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
-  }
+  activateWord(spans[idx]);
 }
 
 function speakWithSpans(spans, { rate = RATE.normal } = {}) {
@@ -184,6 +179,10 @@ function speakWithSpans(spans, { rate = RATE.normal } = {}) {
     u.rate = rate;
     const voice = getVoice();
     if (voice) u.voice = voice;
+
+    u.onstart = () => {
+      if (spans[0]) activateWord(spans[0]);
+    };
 
     u.onboundary = (event) => {
       if (event.name === 'word' || event.charIndex >= 0) {
@@ -208,10 +207,7 @@ function speakWithSpans(spans, { rate = RATE.normal } = {}) {
 async function speakWordByWord(spans, { rate = RATE.normal } = {}) {
   for (const span of spans) {
     if (!isTTSAvailable()) break;
-    if (activeHighlightEl) activeHighlightEl.classList.remove('speech-word-active');
-    span.classList.add('speech-word-active');
-    activeHighlightEl = span;
-    span.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    activateWord(span);
 
     await new Promise((resolve) => {
       const u = new SpeechSynthesisUtterance(span.textContent);

@@ -172,6 +172,8 @@ function getPassageData(n) {
 
 function loadPassage(n) {
   ctx.tts.stopSpeaking();
+  ctx.tts.clearHighlights($('#passage-content'));
+  ctx.tts.clearHighlights($('#passage-title'));
   currentPassageNum = n;
   currentPassageData = getPassageData(n);
   ctx.reading.resetScroll();
@@ -252,6 +254,8 @@ async function playPassageAloud() {
   const btn = $('#btn-read-aloud');
   if (ctx.tts.isSpeaking()) {
     ctx.tts.stopSpeaking();
+    ctx.tts.clearHighlights($('#passage-content'));
+    ctx.tts.clearHighlights($('#passage-title'));
     btn?.classList.remove('is-playing');
     return;
   }
