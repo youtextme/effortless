@@ -1,7 +1,7 @@
 name: Deploy WordSpark to GitHub Pages
 
 # WordSpark branch deploy — MUST preserve /snack/ (see .github/PAGES-DEPLOY-LAW.md on main).
-# Never force_orphan. Clone gh-pages, rsync WordSpark to root excluding snack/, push.
+# Never force_orphan. Checkout gh-pages, rsync WordSpark to root excluding snack/, push.
 
 on:
   push:
@@ -23,7 +23,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout source
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
@@ -31,30 +31,17 @@ jobs:
       - name: Validate platform
         run: node platform/scripts/validate-platform.mjs
 
+      - name: Checkout gh-pages
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          path: gh-pages-publish
+          fetch-depth: 1
+
       - name: Assemble and push gh-pages (preserve /snack/)
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -euo pipefail
-
-          REPO="https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git"
-          WORK="/tmp/gh-pages-work"
-          rm -rf "$WORK"
-
-          if git ls-remote --heads "$REPO" gh-pages | grep -q gh-pages; then
-            git clone --branch gh-pages --depth 1 "$REPO" "$WORK"
-          else
-            mkdir -p "$WORK"
-            git -C "$WORK" init -b gh-pages
-            git -C "$WORK" remote add origin "$REPO"
-          fi
-
-          if [ ! -d "$WORK/.git" ]; then
-            echo "ERROR: gh-pages worktree is not a git repository after clone/init"
-            exit 1
-          fi
-
-          cd "$WORK"
+          cd gh-pages-publish
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
