@@ -186,12 +186,20 @@ function loadPassage(n) {
   wordMap = {};
   currentPassageData.words.forEach((w) => { wordMap[w.word.toLowerCase()] = w; });
 
-  const { h1, sections } = generatePassagePages(currentPassageData);
+  const targets = getTargetWords(currentPassageData);
+  let title;
+  let contentHtml;
+  if (currentPassageData.body) {
+    title = currentPassageData.title || getTopicTitle(currentPassageNum);
+    contentHtml = sectionToHtml({ h2: '', body: currentPassageData.body }, targets);
+  } else {
+    const { h1, sections } = generatePassagePages(currentPassageData);
+    title = h1;
+    contentHtml = sections.map((s) => sectionToHtml(s, targets)).join('');
+  }
   $('#passage-theme').textContent = currentPassageData.theme || '';
-  $('#passage-title').textContent = h1;
-  $('#passage-content').innerHTML = sections
-    .map((s) => sectionToHtml(s, getTargetWords(currentPassageData)))
-    .join('');
+  $('#passage-title').textContent = title;
+  $('#passage-content').innerHTML = contentHtml;
 
   $('#passage-scroll-wrap')?.classList.remove('at-end');
 
@@ -204,7 +212,7 @@ function loadPassage(n) {
   window.scrollTo(0, 0);
   lastScrollY = 0;
   updateReadingHeader(0);
-  ctx.emit('reading.loaded', 'reading', { passage: n, title: h1 });
+  ctx.emit('reading.loaded', 'reading', { passage: n, title });
 }
 
 function setupReadingChrome() {
