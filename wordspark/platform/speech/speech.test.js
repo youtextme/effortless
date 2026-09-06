@@ -9,7 +9,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { splitSentences, packByChars, joinPieceText, nextMaxChars, rateForQuality, qualityOfVoice, localeFamily, isAbortResult } from './sentences.js';
 import { scoreVoice, pickWarmMother, sessionProfile, documentLocale, listEnglishVoices } from './voice-picker.js';
-import { isSilentFromFlags, flagsFromElement } from './visible-text.js';
+import { isSilentFromFlags, flagsFromElement, coveringScoreFromFlags } from './visible-text.js';
 import { speechPolicy } from './policy.js';
 
 const here = dirname(fileURLToPath(import.meta.url));
@@ -186,7 +186,7 @@ test('story:voices-ready-before-speak engine waits for voices and aborts stale s
   const src = readFileSync(join(here, 'engine.js'), 'utf8');
   assert.match(src, /await ensureVoicesReady\(\)/);
   assert.match(src, /shouldAbortAfterAsyncWait/);
-  assert.match(src, /pickSpeakRoot/);
+  assert.match(src, /planSpeakSession/);
   assert.ok(speechPolicy.timing.voicesWaitMs >= 1000);
 });
 
@@ -196,5 +196,9 @@ test('story:speech-stops-on-surface-change shell startQuiz stops speech before o
   assert.match(src, /ctx\.tts\.stopSpeaking\(\)/);
   const engine = readFileSync(join(here, 'engine.js'), 'utf8');
   assert.match(engine, /shouldStopForSurfaceChange/);
+  const quizScore = coveringScoreFromFlags({ hidden: false, position: 'fixed', zIndex: '150' });
+  const readingScore = coveringScoreFromFlags({ hidden: false, position: 'static', zIndex: 'auto' });
+  assert.ok(quizScore > readingScore, 'quiz overlay must cover the passage for speech lifecycle');
+  assert.equal(coveringScoreFromFlags({ hidden: true, position: 'fixed', zIndex: '150' }), -1);
 });
 

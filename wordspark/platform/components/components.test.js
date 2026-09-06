@@ -8,6 +8,7 @@ import { TtsComponent } from './tts.js';
 import { WordSheetComponent } from './word-sheet.js';
 import { QuizComponent } from './quiz.js';
 import { CertificateComponent } from './certificate.js';
+import { highlightWordsOnce } from '../../js/passage-generator.js';
 import * as bus from '../kernel/bus.js';
 import { createPolicy } from '../kernel/policy.js';
 import { createTelemetry } from '../kernel/telemetry.js';
@@ -118,4 +119,11 @@ test('story:certificate-share-local certificate registers generate/share', async
 test('story:passage-weaves-vocab-once passage generator returns sections', () => {
   const report = PassageComponent.health();
   assert.equal(report.ok, true);
+});
+
+test('story:vocab-highlighted-once each word is marked only the first time', () => {
+  const html = '<p>brave kids stay brave and remain brave</p>';
+  const out = highlightWordsOnce(html, [{ word: 'brave' }]);
+  assert.equal([...out.matchAll(/class="vocab-word"/g)].length, 1);
+  assert.match(out, /data-word="brave"/);
 });

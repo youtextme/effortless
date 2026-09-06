@@ -1,0 +1,42 @@
+{
+  "version": "1.0.0",
+  "journeys": [
+    {
+      "id": "kid-reads-and-proves",
+      "actor": "child",
+      "intent": "Read today's topic, hear it in sync, prove understanding, keep a certificate on this device",
+      "steps": [
+        { "id": "topic-passage", "story": "passage-weaves-vocab-once" },
+        { "id": "vocab-once", "story": "vocab-highlighted-once" },
+        { "id": "voices-first", "story": "voices-ready-before-speak" },
+        { "id": "highlight-sync", "story": "highlight-tracks-spoken-word" },
+        { "id": "no-hidden-headings", "story": "hidden-headings-not-spoken" },
+        { "id": "word-sheet", "story": "word-sheet-uses-speech" },
+        { "id": "scroll-unlock", "story": "reading-unlocks-quiz-after-scroll" },
+        { "id": "speech-stops-on-quiz", "story": "speech-stops-on-surface-change" },
+        { "id": "quiz-pass", "story": "quiz-requires-comprehension-pass" },
+        { "id": "certificate", "story": "certificate-share-local" }
+      ]
+    },
+    {
+      "id": "listen-on-whatever-is-showing",
+      "actor": "child",
+      "intent": "Hear the words on the current screen in one warm voice, then stop when that screen goes away",
+      "steps": [
+        { "id": "dock", "story": "listen-on-every-surface" },
+        { "id": "mother-voice", "story": "warm-mother-voice" },
+        { "id": "steady-rate", "story": "one-rate-per-session" },
+        { "id": "no-restart", "story": "abort-does-not-restart" }
+      ]
+    },
+    {
+      "id": "parent-trust",
+      "actor": "parent",
+      "intent": "Child data stays on the device; the platform cannot init in a cycle",
+      "steps": [
+        { "id": "local-only", "story": "policy-blocks-pii-events" },
+        { "id": "acyclic", "story": "kernel-acyclic-init" }
+      ]
+    }
+  ]
+}

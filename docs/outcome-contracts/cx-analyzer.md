@@ -7,11 +7,11 @@
 ## Outcome Frame
 
 - **Job:** Every customer-visible change is specified as a CX story first; CI fails when the experience is unbound or speech keeps talking after the customer leaves.
-- **North Star:** `npm run ci` fails if any story lacks `story:<id>`, any NFR is orphaned, highlight clock lag > 1 word, or Listen survives a surface change during voice wait.
+- **North Star:** `npm run ci` fails if a journey step is unbound, a story lacks `story:<id>`, an NFR lacks source evidence, highlight clock lags when the engine ignores rate, or Listen survives a surface change during voice wait.
 - **Key Results:**
-  1. `platform/cx/analyzer.mjs` is a CI step (stories + NFRs).
+  1. `platform/cx/analyzer.mjs` is a CI step (journeys + stories + NFRs with source evidence).
   2. Quiz covering the passage aborts in-flight Listen (including during `ensureVoicesReady`).
-  3. Word clock advances highlight when `onboundary` is missing; lag ≤ 1 word in the model.
+  3. Word clock uses a natural-pace floor and observes real utterance speed so highlight cannot stall or lag when Chrome ignores `rate`.
 - **Workback:** contract → analyzer → clock + session gate → stories/tests → CI
 - **Kill experiment:** Highlight stays on word 0 after 2s of predicted speech → fail. Session continues after generation bump during voice wait → fail.
 - **Contract:** `docs/outcome-contracts/cx-analyzer.md`
@@ -29,15 +29,18 @@ No paid CX SaaS. No recording children. Browser TTS voices may be absent in CI �
 ## Definition of Done
 
 - [x] Analyzer in `npm run ci`
+- [x] Journeys bind every story
+- [x] NFR source evidence is checked in the code
 - [x] Stories for highlight tracking and voices-ready
 - [x] Session abort if generation changes while waiting for voices
-- [x] Word clock catch-up when onboundary is missing
+- [x] Word clock catch-up when onboundary is missing or rate is ignored
 
 ## Evaluator
 
 | Claim | Evidence | Grade |
 |---|---|---|
 | Unbound stories fail CI | analyzer.test.js missing-marker case | PASS |
-| Quiz overlap aborts Listen | `shouldAbortAfterAsyncWait` + `pickSpeakRoot` | PASS |
-| Highlight cannot stall on word 0 | word-clock 2s catch-up test | PASS |
+| Orphan stories fail CI | every story must appear on a journey | PASS |
+| Quiz overlap aborts Listen | `planSpeakSession` + overlay covering score | PASS |
+| Highlight cannot stall or lag rate-ignore | word-clock honorRate=false + observe cps | PASS |
 

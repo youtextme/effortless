@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { shouldStopForSurfaceChange, attachSpeechLifecycle, shouldAbortAfterAsyncWait, pickSpeakRoot } from './lifecycle.js';
+import { shouldStopForSurfaceChange, attachSpeechLifecycle, shouldAbortAfterAsyncWait, pickSpeakRoot, planSpeakSession } from './lifecycle.js';
 
 test('story:speech-stops-on-surface-change quiz covering the passage stops speech', () => {
   const passage = { id: 'reading-scroll', contains: () => false };
@@ -75,4 +75,26 @@ test('story:voices-ready-before-speak abort if generation changes while waiting'
   const quiz = { id: 'screen-quiz', contains: () => false };
   assert.equal(pickSpeakRoot(passage, quiz), null);
   assert.equal(pickSpeakRoot(passage, passage), passage);
+  const abortQuiz = planSpeakSession({
+    generationAtStart: 2,
+    generationNow: 2,
+    intendedRoot: passage,
+    liveRoot: quiz,
+  });
+  assert.equal(abortQuiz.action, 'abort');
+  const abortWait = planSpeakSession({
+    generationAtStart: 2,
+    generationNow: 3,
+    intendedRoot: passage,
+    liveRoot: passage,
+  });
+  assert.equal(abortWait.reason, 'generation-changed');
+  const speak = planSpeakSession({
+    generationAtStart: 1,
+    generationNow: 1,
+    intendedRoot: passage,
+    liveRoot: passage,
+  });
+  assert.equal(speak.action, 'speak');
+  assert.equal(speak.root, passage);
 });

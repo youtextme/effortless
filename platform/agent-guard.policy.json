@@ -52,5 +52,6 @@
   "shellPath": "wordspark/platform/shell.js",
   "swPath": "wordspark/sw.js",
   "swRuntimeDir": "wordspark/platform",
-  "nfrPath": "platform/cx/nfr.json"
+  "nfrPath": "platform/cx/nfr.json",
+  "cxJourneysPath": "platform/cx/journeys.json"
 }

@@ -69,6 +69,21 @@ writeFileSync(storiesPath, `${JSON.stringify(stories, null, 2)}\n`);
 
 appendStoryMarker(testFile, storyId);
 
+const journeysPath = join(root, 'platform/cx/journeys.json');
+const journeys = JSON.parse(readFileSync(journeysPath, 'utf8'));
+let scaffold = journeys.journeys.find((j) => j.id === 'scaffolded');
+if (!scaffold) {
+  scaffold = {
+    id: 'scaffolded',
+    actor: 'agent',
+    intent: 'Newly scaffolded components until they join a real customer journey',
+    steps: [],
+  };
+  journeys.journeys.push(scaffold);
+}
+scaffold.steps.push({ id: storyId, story: storyId });
+writeFileSync(journeysPath, `${JSON.stringify(journeys, null, 2)}\n`);
+
 const manifestPath = join(root, 'platform/COMPONENT-MANIFEST.json');
 const manifest = JSON.parse(readFileSync(manifestPath, 'utf8'));
 manifest.components.push({
@@ -84,8 +99,9 @@ console.log(`Scaffolded ${id}.
 Next (required — CI will fail until you do this):
   1. Import ${pascal} in wordspark/platform/shell.js and add it to COMPONENTS
   2. Implement init() for a real customer experience
-  3. Add a CX story test containing story:${storyId}
-  4. Run: npm run ci
+  3. Move the scaffolded CX story onto a real journey in platform/cx/journeys.json
+  4. Bind NFRs in platform/cx/nfr.json when it is customer-visible
+  5. Run: npm run ci
 `);
 
 function appendStoryMarker(file, storyId) {

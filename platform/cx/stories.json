@@ -72,7 +72,8 @@
       "component": "reading",
       "given": "a loaded passage",
       "when": "the reader reaches the end",
-      "then": "hasScrolledToEnd is true so Continue can start the quiz"
+      "then": "hasScrolledToEnd is true so Continue can start the quiz",
+      "nfr": ["continue-gated-until-end"]
     },
     {
       "id": "quiz-requires-comprehension-pass",
@@ -93,21 +94,32 @@
       "component": "certificate",
       "given": "a passed quiz",
       "when": "a certificate is requested",
-      "then": "generate/share functions are registered and child data stays on-device"
+      "then": "generate/share functions are registered and child data stays on-device",
+      "nfr": ["child-data-local"]
     },
     {
       "id": "passage-weaves-vocab-once",
       "component": "passage",
       "given": "a day of vocabulary",
       "when": "a passage is generated",
-      "then": "sections exist so the reading surface has something to show"
+      "then": "sections exist so the reading surface has something to show",
+      "nfr": ["vocab-once"]
+    },
+    {
+      "id": "vocab-highlighted-once",
+      "component": "passage",
+      "given": "a passage body that repeats a vocabulary word",
+      "when": "highlightWordsOnce runs",
+      "then": "only the first occurrence is a tappable mark",
+      "nfr": ["vocab-once"]
     },
     {
       "id": "policy-blocks-pii-events",
       "component": "storage",
       "given": "a component emits pii.* or undeclared network",
       "when": "policy.allowEvent runs",
-      "then": "the event is blocked and child data stays local"
+      "then": "the event is blocked and child data stays local",
+      "nfr": ["child-data-local"]
     }
   ]
 }

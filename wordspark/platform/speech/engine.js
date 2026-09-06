@@ -20,9 +20,14 @@ import {
 import {
   shouldAbortAfterAsyncWait,
   shouldStopForSurfaceChange,
-  pickSpeakRoot,
+  planSpeakSession,
 } from './lifecycle.js';
-import { predictedCharIndex, indexAtChar } from './word-clock.js';
+import {
+  predictedCharIndex,
+  indexAtChar,
+  effectiveCharsPerSecond,
+  observeCharsPerSecond,
+} from './word-clock.js';
 
 const BLOCK_SELECTOR = speechPolicy.blockSelector;
 
@@ -35,6 +40,7 @@ let keepAliveTimer = null;
 let highlightEl = null;
 let unlocked = false;
 let maxChars = speechPolicy.pack.initialMaxChars;
+let observedCps = 0;
 
 function delay(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -276,6 +282,8 @@ function paintSpokenWord(text, spans, lengths, rate, startedAt, boundaryChar, bo
     sinceBoundaryMs: now - (boundaryAt || startedAt),
     boundaryStaleMs: speechPolicy.clock.maxBoundaryStaleMs,
     hasBoundary,
+    honorRate: speechPolicy.clock.honorRate,
+    observedCps,
   });
   activateSpan(spans[indexAtChar(char, lengths)]);
 }
@@ -302,6 +310,14 @@ function speakUtterance(text, spans) {
       if (settled) return;
       settled = true;
       cancelTick(tickId);
+      if (startedAt && result === 'end') {
+        observedCps = observeCharsPerSecond(
+          text.length,
+          nowMs() - startedAt,
+          observedCps,
+          speechPolicy.clock.observeSmoothing,
+        );
+      }
       markChunk(spans, false);
       resolve(result);
     };
@@ -491,13 +507,18 @@ export async function speakRoot(root, { onEnd, teleprompter = true } = {}) {
     return false;
   }
   const gen = session.gen;
-  const target = pickSpeakRoot(root, findActiveSurface());
-  if (!target) {
+  const plan = planSpeakSession({
+    generationAtStart: gen,
+    generationNow: generation,
+    intendedRoot: root,
+    liveRoot: findActiveSurface(),
+  });
+  if (plan.action !== 'speak') {
     stopSpeaking();
     onEnd?.();
     return false;
   }
-  const ok = await speakLiveRoot(target, gen);
+  const ok = await speakLiveRoot(plan.root, gen);
   return endSession(gen, onEnd, ok);
 }
 
@@ -517,6 +538,17 @@ export async function speakWordSheet(panel, onEnd) {
     return false;
   }
   const gen = session.gen;
+  const plan = planSpeakSession({
+    generationAtStart: gen,
+    generationNow: generation,
+    intendedRoot: panel,
+    liveRoot: findActiveSurface(),
+  });
+  if (plan.action !== 'speak') {
+    stopSpeaking();
+    onEnd?.();
+    return false;
+  }
   const lead = panel.querySelector(speechPolicy.wordSheet.leadSelector);
 
   if (lead && visiblePlainText(lead) && gen === generation) {

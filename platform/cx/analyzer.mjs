@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 /**
- * Customer-experience analyzer — stories are the product spec.
- * CI fails if a story is unbound, an NFR is orphaned, or a component has no story.
+ * Customer-experience analyzer — journeys + stories + NFRs are the product spec.
+ * CI fails if a journey step is unbound, a story has no test, an NFR lacks
+ * source evidence, or a customer-facing component has no story.
  */
 
 import { readFileSync, readdirSync, existsSync, statSync } from 'node:fs';
@@ -56,14 +57,65 @@ function validateStory(story, index) {
   if (story.nfr && !Array.isArray(story.nfr)) {
     errors.push(`stories[${index}] nfr must be an array`);
   }
-  if (Array.isArray(story.nfr)) {
-    for (const id of story.nfr) {
-      if (typeof id !== 'string' || !id) {
-        errors.push(`stories[${index}] nfr entries must be strings`);
+  return errors;
+}
+
+function checkSourceEvidence(root, nfr, errors) {
+  for (const ev of nfr.sourceEvidence || []) {
+    const file = join(root, ev.file);
+    if (!existsSync(file)) {
+      errors.push(`NFR ${nfr.id} evidence file missing: ${ev.file}`);
+      continue;
+    }
+    const src = readFileSync(file, 'utf8');
+    for (const needle of ev.includes || []) {
+      if (!src.includes(needle)) {
+        errors.push(`NFR ${nfr.id} missing "${needle}" in ${ev.file}`);
       }
     }
   }
-  return errors;
+  if (nfr.maxLagWords != null) {
+    const policySrc = readFileSync(join(root, 'wordspark/platform/speech/policy.js'), 'utf8');
+    if (!policySrc.includes(`maxLagWords: ${nfr.maxLagWords}`)) {
+      errors.push(`NFR ${nfr.id} maxLagWords ${nfr.maxLagWords} is not in speech policy`);
+    }
+  }
+}
+
+function checkJourneys(journeys, storyIds, errors) {
+  const bound = new Set();
+  if (!Array.isArray(journeys) || journeys.length === 0) {
+    errors.push('CX journeys.json has no journeys');
+    return bound;
+  }
+  const journeyIds = new Set();
+  for (const journey of journeys) {
+    if (!journey?.id || !/^[a-z0-9-]+$/.test(journey.id)) {
+      errors.push(`Journey missing kebab-case id`);
+      continue;
+    }
+    if (journeyIds.has(journey.id)) errors.push(`Duplicate journey id ${journey.id}`);
+    journeyIds.add(journey.id);
+    if (!journey.intent || !journey.actor) {
+      errors.push(`Journey ${journey.id} needs actor and intent`);
+    }
+    const steps = journey.steps || [];
+    if (!steps.length) errors.push(`Journey ${journey.id} has no steps`);
+    const stepIds = new Set();
+    for (const step of steps) {
+      if (!step?.id || !step.story) {
+        errors.push(`Journey ${journey.id} has a step without id/story`);
+        continue;
+      }
+      if (stepIds.has(step.id)) errors.push(`Journey ${journey.id} duplicate step ${step.id}`);
+      stepIds.add(step.id);
+      if (!storyIds.has(step.story)) {
+        errors.push(`Journey ${journey.id} step ${step.id} references unknown story ${step.story}`);
+      }
+      bound.add(step.story);
+    }
+  }
+  return bound;
 }
 
 export function evaluateCx(root = repoRoot, overrides = {}) {
@@ -73,6 +125,8 @@ export function evaluateCx(root = repoRoot, overrides = {}) {
   const stories = pack.stories || [];
   const nfrPack = loadJson(root, policy.nfrPath);
   const nfrs = nfrPack.requirements || [];
+  const journeyPack = loadJson(root, policy.cxJourneysPath);
+  const journeys = journeyPack.journeys || [];
   const manifest = loadJson(root, policy.manifestPath);
   const componentIds = new Set(manifest.components.map((c) => c.id));
   const nfrIds = new Set(nfrs.map((n) => n.id));
@@ -108,6 +162,13 @@ export function evaluateCx(root = repoRoot, overrides = {}) {
     }
   });
 
+  const boundStories = checkJourneys(journeys, seen, errors);
+  for (const id of seen) {
+    if (!boundStories.has(id)) {
+      errors.push(`CX story ${id} is not on any customer journey`);
+    }
+  }
+
   const exempt = new Set(policy.storyExempt || []);
   for (const id of componentIds) {
     if (exempt.has(id)) continue;
@@ -124,6 +185,7 @@ export function evaluateCx(root = repoRoot, overrides = {}) {
     if (!referencedNfr.has(nfr.id)) {
       errors.push(`NFR ${nfr.id} is not bound to any CX story`);
     }
+    checkSourceEvidence(root, nfr, errors);
   }
 
   return {
@@ -131,6 +193,7 @@ export function evaluateCx(root = repoRoot, overrides = {}) {
     errors,
     storyCount: stories.length,
     nfrCount: nfrs.length,
+    journeyCount: journeys.length,
     testFileCount: tests.files.length,
   };
 }
@@ -141,5 +204,7 @@ if (process.argv[1]?.includes('analyzer.mjs')) {
     console.error('CX analyzer FAILED:\n' + result.errors.map((e) => `  ✗ ${e}`).join('\n'));
     process.exit(1);
   }
-  console.log(`CX analyzer OK — ${result.storyCount} stories, ${result.nfrCount} NFRs`);
+  console.log(
+    `CX analyzer OK — ${result.storyCount} stories, ${result.nfrCount} NFRs, ${result.journeyCount} journeys`,
+  );
 }

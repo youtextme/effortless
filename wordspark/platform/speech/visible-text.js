@@ -125,20 +125,25 @@ export function collectSpeechUnits(root) {
   return units;
 }
 
+export function coveringScoreFromFlags({ hidden = false, position = '', zIndex } = {}) {
+  if (hidden) return -1;
+  const z = Number.parseInt(zIndex, 10);
+  const covering = position === 'fixed' || position === 'absolute' ? 1000 : 0;
+  return covering + (Number.isFinite(z) ? z : 0);
+}
+
 function coveringScore(el) {
   const view = winOf(el);
-  let z = 0;
-  let covering = 0;
+  let position = '';
+  let zIndex;
   try {
     const style = view?.getComputedStyle?.(el);
-    const parsed = parseInt(style?.zIndex, 10);
-    if (Number.isFinite(parsed)) z = parsed;
-    if (style?.position === 'fixed' || style?.position === 'absolute') covering = 1000;
+    position = style?.position || '';
+    zIndex = style?.zIndex;
   } catch {
-    z = 0;
+    position = '';
   }
-  if (el.hidden) return -1;
-  return covering + z;
+  return coveringScoreFromFlags({ hidden: Boolean(el.hidden), position, zIndex });
 }
 
 export function findActiveSurface(doc = document) {

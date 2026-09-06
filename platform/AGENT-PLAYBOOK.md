@@ -30,7 +30,7 @@ Then:
 1. Import `MyThingComponent` in `wordspark/platform/shell.js` and add it to `COMPONENTS`
 2. Implement `init(ctx)` — talk through `ctx.emit` / declared dependencies, not cross-imports
 3. Put customer logic in `wordspark/platform/components/` or `wordspark/platform/<domain>/`
-4. Add a CX story in `platform/cx/stories.json` if the scaffold is not enough (bind NFRs from `platform/cx/nfr.json` when the story is a customer-visible requirement)
+4. Add a CX story in `platform/cx/stories.json` if the scaffold is not enough (put it on a journey in `platform/cx/journeys.json`; bind NFRs from `platform/cx/nfr.json` when the story is a customer-visible requirement)
 5. Bind the story with a test title containing `story:<id>` and `component:<id>`
 6. If you added a file under `wordspark/platform/`, add it to `wordspark/sw.js` ASSETS and bump `CACHE_NAME`
 7. Run `npm run ci` until it is green
@@ -55,7 +55,13 @@ Do **not**:
 
 ## CX stories
 
-Customer experience is specified as data in `platform/cx/stories.json` (`given` / `when` / `then`, optional `nfr`). `platform/cx/analyzer.mjs` fails CI if a story has no `story:<id>` test, a component has no story, or an NFR is unbound. When you change Listen, quiz, or navigation, **add/adjust a story first**, then the test, then the code.
+Customer experience is specified as data:
+
+- Journeys: `platform/cx/journeys.json` (who, intent, ordered steps)
+- Stories: `platform/cx/stories.json` (`given` / `when` / `then` + `nfr`)
+- NFRs: `platform/cx/nfr.json` (must include `sourceEvidence` in the code)
+
+`platform/cx/analyzer.mjs` fails CI if a journey step points at a missing story, a story is not on any journey, a story has no `story:<id>` test, or an NFR’s source evidence string is missing. When you change Listen, quiz, or navigation, **add/adjust a journey step and story first**, then the test, then the code.
 
 ## Coverage surface (mechanized)
 

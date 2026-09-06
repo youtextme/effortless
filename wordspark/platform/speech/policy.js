@@ -38,13 +38,15 @@ export const speechPolicy = Object.freeze({
   }),
 
   /**
-   * Highlight clock — used when SpeechSynthesis onboundary is late or missing.
-   * charsPerSecondAtRate1 is English spoken chars/sec at utterance.rate = 1.
+   * Highlight clock. honorRate is false because Chrome often speaks at
+   * natural pace while utterance.rate is < 1 — using rate for the clock lags.
    */
   clock: Object.freeze({
-    charsPerSecondAtRate1: 15,
-    maxBoundaryStaleMs: 160,
+    charsPerSecondAtRate1: 16,
+    honorRate: false,
+    maxBoundaryStaleMs: 120,
     maxLagWords: 1,
+    observeSmoothing: 0.35,
   }),
 
   wordSheet: Object.freeze({

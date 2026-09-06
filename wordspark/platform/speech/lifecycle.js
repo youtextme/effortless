@@ -18,7 +18,21 @@ export function shouldAbortAfterAsyncWait(generationAtStart, generationNow) {
 
 export function pickSpeakRoot(intendedRoot, liveRoot) {
   if (shouldStopForSurfaceChange(intendedRoot, liveRoot)) return null;
-  return liveRoot || intendedRoot;
+  return intendedRoot || liveRoot;
+}
+
+export function planSpeakSession({
+  generationAtStart,
+  generationNow,
+  intendedRoot,
+  liveRoot,
+}) {
+  if (shouldAbortAfterAsyncWait(generationAtStart, generationNow)) {
+    return { action: 'abort', reason: 'generation-changed' };
+  }
+  const root = pickSpeakRoot(intendedRoot, liveRoot);
+  if (!root) return { action: 'abort', reason: 'surface-changed' };
+  return { action: 'speak', root };
 }
 
 export function attachSpeechLifecycle({ doc, stop, findActiveSurface, pollMs = 0 }) {

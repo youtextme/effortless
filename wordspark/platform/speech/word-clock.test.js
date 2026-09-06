@@ -6,6 +6,8 @@ import {
   indexAtChar,
   lagWords,
   predictedCharIndex,
+  effectiveCharsPerSecond,
+  observeCharsPerSecond,
 } from './word-clock.js';
 import { speechPolicy } from './policy.js';
 
@@ -73,4 +75,40 @@ test('charsPerSecond and clampChar are safe for bad inputs', () => {
   assert.equal(clampChar(-4, 10), 0);
   assert.equal(clampChar(99, 10), 10);
   assert.equal(clampChar(3, 0), 0);
+});
+
+test('story:highlight-tracks-spoken-word clock does not lag when the engine ignores rate', () => {
+  const text = 'one two three four five six seven eight';
+  const lengths = text.split(' ').map((w) => w.length);
+  const honored = predictedCharIndex({
+    elapsedMs: 2000,
+    rate: 0.82,
+    charsPerSecondAtRate1: 16,
+    textLength: text.length,
+    hasBoundary: false,
+    honorRate: true,
+  });
+  const cx = predictedCharIndex({
+    elapsedMs: 2000,
+    rate: 0.82,
+    charsPerSecondAtRate1: 16,
+    textLength: text.length,
+    hasBoundary: false,
+    honorRate: false,
+  });
+  assert.ok(indexAtChar(cx, lengths) >= indexAtChar(honored, lengths));
+  assert.ok(indexAtChar(cx, lengths) >= 4);
+  assert.equal(speechPolicy.clock.honorRate, false);
+  assert.ok(
+    effectiveCharsPerSecond({ rate: 0.82, charsPerSecondAtRate1: 16, honorRate: false })
+      >= effectiveCharsPerSecond({ rate: 1, charsPerSecondAtRate1: 16, honorRate: true }),
+  );
+});
+
+test('observeCharsPerSecond learns from a finished utterance', () => {
+  const first = observeCharsPerSecond(160, 8000, 0, 0.35);
+  assert.ok(first > 15 && first < 25);
+  const next = observeCharsPerSecond(160, 5000, first, 0.35);
+  assert.ok(next > first);
+  assert.equal(observeCharsPerSecond(10, 10, 12, 0.35), 12);
 });

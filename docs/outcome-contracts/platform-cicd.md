@@ -54,10 +54,11 @@ exit:0
 Platform validation OK — 9 components
 Agent-guard OK — 7 test files
 CX analyzer OK — 15 stories, 3 NFRs
-tests 52 pass / 0 fail
+tests 55 pass / 0 fail
 coverage lines 100.00% (threshold 95)
-coverage branches 90.28% (threshold 80)
-coverage functions 98.48% (threshold 90)
+coverage branches 89.74% (threshold 80)
+coverage functions 98.55% (threshold 90)
+CX analyzer OK — 16 stories, 6 NFRs, 3 journeys
 ```
 
 ## Evaluator

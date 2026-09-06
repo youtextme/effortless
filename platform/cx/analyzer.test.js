@@ -13,6 +13,7 @@ test('cx analyzer accepts this repo', () => {
   assert.equal(result.ok, true, result.errors.join('\n'));
   assert.ok(result.storyCount >= 13);
   assert.ok(result.nfrCount >= 3);
+  assert.ok(result.journeyCount >= 3);
 });
 
 test('cx analyzer fails when a story has no test marker', () => {

@@ -68,7 +68,7 @@ wordspark/js/                      # Legacy paths + data (components import from
 
 1. `node platform/scripts/new-component.mjs --id <id> --description "<customer outcome>"`
 2. Import and register in `wordspark/platform/shell.js`.
-3. Add/adjust `platform/cx/stories.json` (and NFRs in `platform/cx/nfr.json` when it is a customer requirement) plus a `story:<id>` test.
+3. Add/adjust `platform/cx/stories.json` **and** a step on a journey in `platform/cx/journeys.json` (and NFRs in `platform/cx/nfr.json` when it is a customer requirement) plus a `story:<id>` test.
 4. List every new `wordspark/platform/**/*.js` file in `wordspark/sw.js` and bump `CACHE_NAME`.
 5. Run `npm run ci` (must be green). CI also runs in GitHub Actions; Pages deploy needs it.
 
