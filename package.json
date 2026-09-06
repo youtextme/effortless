@@ -5,6 +5,7 @@
   "scripts": {
     "ci": "node platform/scripts/run-ci.mjs",
     "test": "node platform/scripts/run-ci.mjs",
+    "proof": "node wordspark/scripts/generate-restore-proof.mjs",
     "guard": "node platform/scripts/agent-guard.mjs",
     "cx": "node platform/cx/analyzer.mjs",
     "platform:validate": "node platform/scripts/validate-platform.mjs",

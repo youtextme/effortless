@@ -1,0 +1,394 @@
+# WordSpark restore CI receipt
+generatedAt: 2026-09-06T06:30:46.173Z
+command: node platform/scripts/run-ci.mjs
+exitCode: 0
+green: true
+testsInclude: wordspark/platform/passage/passage-quality.test.js
+workflow: .github/workflows/platform-ci.yml
+
+--- stdout ---
+
+▸ platform validate
+Platform validation OK — 9 components, kernel 1.0.0
+
+▸ agent-guard
+Agent-guard OK — 8 test files
+
+▸ cx analyzer
+CX analyzer OK — 16 stories, 6 NFRs, 3 journeys
+
+▸ tests + coverage
+TAP version 13
+# Subtest: cx analyzer accepts this repo
+ok 1 - cx analyzer accepts this repo
+  ---
+  duration_ms: 3.737512
+  ...
+# Subtest: cx analyzer fails when a story has no test marker
+ok 2 - cx analyzer fails when a story has no test marker
+  ---
+  duration_ms: 0.706025
+  ...
+# Subtest: validate-platform passes on this repo
+ok 3 - validate-platform passes on this repo
+  ---
+  duration_ms: 1.161132
+  ...
+# Subtest: agent-guard passes on this repo
+ok 4 - agent-guard passes on this repo
+  ---
+  duration_ms: 5.67873
+  ...
+# Subtest: cx analyzer is part of the merge law
+ok 5 - cx analyzer is part of the merge law
+  ---
+  duration_ms: 2.133169
+  ...
+# Subtest: every registered runtime component exposes id version health
+ok 6 - every registered runtime component exposes id version health
+  ---
+  duration_ms: 1.66764
+  ...
+# Subtest: component:storage component:passage component:reading component:speech component:tts component:word-sheet component:quiz component:certificate init onto context
+ok 7 - component:storage component:passage component:reading component:speech component:tts component:word-sheet component:quiz component:certificate init onto context
+  ---
+  duration_ms: 0.504717
+  ...
+# Subtest: story:reading-unlocks-quiz-after-scroll reading marks end
+ok 8 - story:reading-unlocks-quiz-after-scroll reading marks end
+  ---
+  duration_ms: 0.262062
+  ...
+# Subtest: story:quiz-requires-comprehension-pass quiz generates questions
+ok 9 - story:quiz-requires-comprehension-pass quiz generates questions
+  ---
+  duration_ms: 0.325539
+  ...
+# Subtest: story:word-sheet-uses-speech word-sheet depends on speech
+ok 10 - story:word-sheet-uses-speech word-sheet depends on speech
+  ---
+  duration_ms: 0.063913
+  ...
+# Subtest: story:certificate-share-local certificate registers generate/share
+ok 11 - story:certificate-share-local certificate registers generate/share
+  ---
+  duration_ms: 0.079325
+  ...
+# Subtest: story:passage-weaves-vocab-once passage generator returns sections
+ok 12 - story:passage-weaves-vocab-once passage generator returns sections
+  ---
+  duration_ms: 0.084452
+  ...
+# Subtest: story:vocab-highlighted-once each word is marked only the first time
+ok 13 - story:vocab-highlighted-once each word is marked only the first time
+  ---
+  duration_ms: 0.248331
+  ...
+# [policy] blocked event pii.export from storage
+# [policy] blocked event external.upload from storage
+# [policy] blocked network to evil.example
+# [bus] handler error on ping Error: boom
+#     at file:///workspace/wordspark/platform/kernel/kernel.test.js:52:32
+#     at Module.emit (file:///workspace/wordspark/platform/kernel/bus.js:18:7)
+#     at TestContext.<anonymous> (file:///workspace/wordspark/platform/kernel/kernel.test.js:53:7)
+#     at Test.runInAsyncScope (node:async_hooks:211:14)
+#     at Test.run (node:internal/test_runner/test:979:25)
+#     at Test.processPendingSubtests (node:internal/test_runner/test:677:18)
+#     at Test.postRun (node:internal/test_runner/test:1090:19)
+#     at Test.run (node:internal/test_runner/test:1018:12)
+#     at async Test.processPendingSubtests (node:internal/test_runner/test:677:7)
+# [bus] handler error on ping Error: boom
+#     at file:///workspace/wordspark/platform/kernel/kernel.test.js:52:32
+#     at Module.emit (file:///workspace/wordspark/platform/kernel/bus.js:18:7)
+#     at TestContext.<anonymous> (file:///workspace/wordspark/platform/kernel/kernel.test.js:57:7)
+#     at Test.runInAsyncScope (node:async_hooks:211:14)
+#     at Test.run (node:internal/test_runner/test:979:25)
+#     at Test.processPendingSubtests (node:internal/test_runner/test:677:18)
+#     at Test.postRun (node:internal/test_runner/test:1090:19)
+#     at Test.run (node:internal/test_runner/test:1018:12)
+#     at async Test.processPendingSubtests (node:internal/test_runner/test:677:7)
+# [policy] blocked event pii.leak from storage
+# Subtest: story:kernel-acyclic-init component:shell dependencies initialize first and cycles throw
+ok 14 - story:kernel-acyclic-init component:shell dependencies initialize first and cycles throw
+  ---
+  duration_ms: 1.640661
+  ...
+# Subtest: story:policy-blocks-pii-events component:storage policy blocks pii and undeclared network
+ok 15 - story:policy-blocks-pii-events component:storage policy blocks pii and undeclared network
+  ---
+  duration_ms: 1.22673
+  ...
+# Subtest: bus delivers and isolates handler errors
+ok 16 - bus delivers and isolates handler errors
+  ---
+  duration_ms: 0.495147
+  ...
+# Subtest: context emit records telemetry when policy allows
+ok 17 - context emit records telemetry when policy allows
+  ---
+  duration_ms: 0.38251
+  ...
+# Subtest: health recovers unhealthy components
+ok 18 - health recovers unhealthy components
+  ---
+  duration_ms: 0.404229
+  ...
+# Subtest: health recovery failure is emitted
+ok 19 - health recovery failure is emitted
+  ---
+  duration_ms: 0.188459
+  ...
+# Subtest: telemetry survives corrupt and quota storage
+ok 20 - telemetry survives corrupt and quota storage
+  ---
+  duration_ms: 0.123384
+  ...
+# Subtest: telemetry uses memory when localStorage is missing
+ok 21 - telemetry uses memory when localStorage is missing
+  ---
+  duration_ms: 0.17974
+  ...
+# Subtest: unknown component health defaults unknown
+ok 22 - unknown component health defaults unknown
+  ---
+  duration_ms: 0.130394
+  ...
+# Subtest: destroyAll runs reverse order
+ok 23 - destroyAll runs reverse order
+  ---
+  duration_ms: 0.174199
+  ...
+# Subtest: register requires id
+ok 24 - register requires id
+  ---
+  duration_ms: 0.07897
+  ...
+# Subtest: missing dependency throws
+ok 25 - missing dependency throws
+  ---
+  duration_ms: 0.081183
+  ...
+# Subtest: fixture database: ≥100 passages in words.js
+ok 26 - fixture database: ≥100 passages in words.js
+  ---
+  duration_ms: 0.728351
+  ...
+# Subtest: every passage: 4 targets, each ≥5 occurrences, ~350–450 words
+ok 27 - every passage: 4 targets, each ≥5 occurrences, ~350–450 words
+  ---
+  duration_ms: 9.651572
+  ...
+# Subtest: target words per passage contract
+ok 28 - target words per passage contract
+  ---
+  duration_ms: 0.106457
+  ...
+# Subtest: read-aloud hook: listen button and speech surface in index.html
+ok 29 - read-aloud hook: listen button and speech surface in index.html
+  ---
+  duration_ms: 0.201603
+  ...
+# Subtest: favicon and app name present
+ok 30 - favicon and app name present
+  ---
+  duration_ms: 0.166525
+  ...
+# Subtest: no login required for first read: name modal only
+ok 31 - no login required for first read: name modal only
+  ---
+  duration_ms: 0.159425
+  ...
+# Subtest: disk receipts exist for fail-closed restore proof
+ok 32 - disk receipts exist for fail-closed restore proof
+  ---
+  duration_ms: 0.216176
+  ...
+# Subtest: story:speech-stops-on-surface-change quiz covering the passage stops speech
+ok 33 - story:speech-stops-on-surface-change quiz covering the passage stops speech
+  ---
+  duration_ms: 0.685963
+  ...
+# Subtest: attachSpeechLifecycle is a no-op without MutationObserver
+ok 34 - attachSpeechLifecycle is a no-op without MutationObserver
+  ---
+  duration_ms: 0.143368
+  ...
+# Subtest: attachSpeechLifecycle stops when the active surface changes
+ok 35 - attachSpeechLifecycle stops when the active surface changes
+  ---
+  duration_ms: 0.164548
+  ...
+# Subtest: attachSpeechLifecycle polls for covering surfaces
+ok 36 - attachSpeechLifecycle polls for covering surfaces
+  ---
+  duration_ms: 36.391515
+  ...
+# Subtest: story:voices-ready-before-speak abort if generation changes while waiting
+ok 37 - story:voices-ready-before-speak abort if generation changes while waiting
+  ---
+  duration_ms: 0.227151
+  ...
+# Subtest: splitSentences keeps a paragraph as readable turns
+ok 38 - splitSentences keeps a paragraph as readable turns
+  ---
+  duration_ms: 1.490292
+  ...
+# Subtest: packByChars never splits a piece and stays under cap when possible
+ok 39 - packByChars never splits a piece and stays under cap when possible
+  ---
+  duration_ms: 0.19765
+  ...
+# Subtest: nextMaxChars shrinks toward min
+ok 40 - nextMaxChars shrinks toward min
+  ---
+  duration_ms: 0.101637
+  ...
+# Subtest: qualityOfVoice classifies neural / network / compact / local
+ok 41 - qualityOfVoice classifies neural / network / compact / local
+  ---
+  duration_ms: 0.198811
+  ...
+# Subtest: rateForQuality uses policy bands only
+ok 42 - rateForQuality uses policy bands only
+  ---
+  duration_ms: 0.098134
+  ...
+# Subtest: localeFamily is mechanized from BCP-47
+ok 43 - localeFamily is mechanized from BCP-47
+  ---
+  duration_ms: 0.128845
+  ...
+# Subtest: story:warm-mother-voice pickWarmMother prefers Google female when network voices exist
+ok 44 - story:warm-mother-voice pickWarmMother prefers Google female when network voices exist
+  ---
+  duration_ms: 0.681004
+  ...
+# Subtest: documentLocale and listEnglishVoices use document/nav when present
+ok 45 - documentLocale and listEnglishVoices use document/nav when present
+  ---
+  duration_ms: 0.368846
+  ...
+# Subtest: pickWarmMother prefers Samantha when only Apple voices exist
+ok 46 - pickWarmMother prefers Samantha when only Apple voices exist
+  ---
+  duration_ms: 0.247605
+  ...
+# Subtest: sticky URI wins so the voice does not rotate
+ok 47 - sticky URI wins so the voice does not rotate
+  ---
+  duration_ms: 0.07805
+  ...
+# Subtest: story:one-rate-per-session sessionProfile uses one rate for the session
+ok 48 - story:one-rate-per-session sessionProfile uses one rate for the session
+  ---
+  duration_ms: 0.111166
+  ...
+# Subtest: story:hidden-headings-not-spoken hidden passage-h2 flags are silent — not spoken
+ok 49 - story:hidden-headings-not-spoken hidden passage-h2 flags are silent — not spoken
+  ---
+  duration_ms: 0.168586
+  ...
+# Subtest: visible paragraph flags are spoken
+ok 50 - visible paragraph flags are spoken
+  ---
+  duration_ms: 0.117137
+  ...
+# Subtest: data-speech-skip and aria-hidden are silent
+ok 51 - data-speech-skip and aria-hidden are silent
+  ---
+  duration_ms: 0.109226
+  ...
+# Subtest: story:listen-on-every-surface index.html has a global listen dock and speech surfaces on every page
+ok 52 - story:listen-on-every-surface index.html has a global listen dock and speech surfaces on every page
+  ---
+  duration_ms: 0.45196
+  ...
+# Subtest: story:abort-does-not-restart component:speech canceled utterances are abort not retry
+ok 53 - story:abort-does-not-restart component:speech canceled utterances are abort not retry
+  ---
+  duration_ms: 0.139724
+  ...
+# Subtest: story:voices-ready-before-speak engine waits for voices and aborts stale sessions
+ok 54 - story:voices-ready-before-speak engine waits for voices and aborts stale sessions
+  ---
+  duration_ms: 0.205979
+  ...
+# Subtest: story:speech-stops-on-surface-change shell startQuiz stops speech before overlay
+ok 55 - story:speech-stops-on-surface-change shell startQuiz stops speech before overlay
+  ---
+  duration_ms: 0.255994
+  ...
+# Subtest: story:highlight-tracks-spoken-word clock catches up when onboundary is missing
+ok 56 - story:highlight-tracks-spoken-word clock catches up when onboundary is missing
+  ---
+  duration_ms: 0.819043
+  ...
+# Subtest: fresh onboundary is trusted and does not snap backward
+ok 57 - fresh onboundary is trusted and does not snap backward
+  ---
+  duration_ms: 0.159308
+  ...
+# Subtest: stale onboundary yields to the elapsed clock so highlight cannot stall
+ok 58 - stale onboundary yields to the elapsed clock so highlight cannot stall
+  ---
+  duration_ms: 0.112842
+  ...
+# Subtest: indexAtChar maps spoken string offsets onto word spans
+ok 59 - indexAtChar maps spoken string offsets onto word spans
+  ---
+  duration_ms: 0.075882
+  ...
+# Subtest: charsPerSecond and clampChar are safe for bad inputs
+ok 60 - charsPerSecond and clampChar are safe for bad inputs
+  ---
+  duration_ms: 0.064377
+  ...
+# Subtest: story:highlight-tracks-spoken-word clock does not lag when the engine ignores rate
+ok 61 - story:highlight-tracks-spoken-word clock does not lag when the engine ignores rate
+  ---
+  duration_ms: 0.118914
+  ...
+# Subtest: observeCharsPerSecond learns from a finished utterance
+ok 62 - observeCharsPerSecond learns from a finished utterance
+  ---
+  duration_ms: 0.110602
+  ...
+1..62
+# tests 62
+# suites 0
+# pass 62
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 165.471318
+# start of coverage report
+# -------------------------------------------------------------------
+# file               | line % | branch % | funcs % | uncovered lines
+# -------------------------------------------------------------------
+# wordspark          |        |          |         | 
+#  platform          |        |          |         | 
+#   kernel           |        |          |         | 
+#    bus.js          | 100.00 |   100.00 |  100.00 | 
+#    context.js      | 100.00 |   100.00 |  100.00 | 
+#    health.js       | 100.00 |   100.00 |   83.33 | 
+#    policy.js       | 100.00 |   100.00 |  100.00 | 
+#    registry.js     | 100.00 |   100.00 |  100.00 | 
+#    telemetry.js    | 100.00 |   100.00 |  100.00 | 
+#   speech           |        |          |         | 
+#    lifecycle.js    | 100.00 |    93.33 |  100.00 | 
+#    policy.js       | 100.00 |   100.00 |  100.00 | 
+#    sentences.js    | 100.00 |    82.05 |  100.00 | 
+#    voice-picker.js | 100.00 |    78.43 |  100.00 | 
+#    word-clock.js   | 100.00 |    88.89 |  100.00 | 
+# -------------------------------------------------------------------
+# all files          | 100.00 |    89.74 |   98.55 | 
+# -------------------------------------------------------------------
+# end of coverage report
+
+CI OK
+
+
+--- stderr ---
+(node:6920) ExperimentalWarning: glob is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)

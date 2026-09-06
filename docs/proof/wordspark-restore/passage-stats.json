@@ -1,0 +1,49 @@
+{
+  "generatedAt": "2026-09-06T06:30:45.852Z",
+  "database": {
+    "path": "wordspark/js/data/words.js",
+    "passageCount": 100,
+    "totalDays": 100,
+    "meetsMinimum100": true
+  },
+  "contract": {
+    "targetWordsPerPassage": 4,
+    "minWordOccurrences": 5,
+    "wordCountRange": [
+      350,
+      450
+    ]
+  },
+  "aggregate": {
+    "passagesValidated": 100,
+    "failures": 0,
+    "wordCountMin": 351,
+    "wordCountMax": 396,
+    "wordCountMean": 379,
+    "allPass": true
+  },
+  "sampleDay1": {
+    "day": 1,
+    "wordCount": 386,
+    "targets": [
+      {
+        "word": "analyze",
+        "occurrences": 7
+      },
+      {
+        "word": "hypothesis",
+        "occurrences": 7
+      },
+      {
+        "word": "investigate",
+        "occurrences": 7
+      },
+      {
+        "word": "observe",
+        "occurrences": 7
+      }
+    ],
+    "ok": true
+  },
+  "failures": []
+}

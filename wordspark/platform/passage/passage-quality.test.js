@@ -58,3 +58,19 @@ test('no login required for first read: name modal only', () => {
   assert.match(html, /id="child-name"/);
   assert.doesNotMatch(html, /sign\s*in|log\s*in|oauth|auth0/i);
 });
+
+test('disk receipts exist for fail-closed restore proof', () => {
+  const proofRoot = join(wordsparkRoot, '..', 'docs', 'proof', 'wordspark-restore');
+  const required = ['baseline.json', 'passage-stats.json', 'snack-protect.json', 'README.md'];
+  for (const name of required) {
+    assert.ok(existsSync(join(proofRoot, name)), `missing receipt: ${name}`);
+  }
+  const stats = JSON.parse(readFileSync(join(proofRoot, 'passage-stats.json'), 'utf8'));
+  assert.equal(stats.aggregate.allPass, true);
+  assert.ok(stats.database.passageCount >= 100);
+  assert.equal(stats.contract.targetWordsPerPassage, 4);
+  assert.equal(stats.contract.minWordOccurrences, 5);
+  const baseline = JSON.parse(readFileSync(join(proofRoot, 'baseline.json'), 'utf8'));
+  assert.equal(baseline.lastGoodCx.teleprompterTts.short, '146fc745');
+  assert.equal(baseline.lastGoodCx.wordRepetitionPedagogy.sha, 'e71afb0');
+});

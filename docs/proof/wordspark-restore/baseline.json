@@ -1,0 +1,37 @@
+{
+  "generatedAt": "2026-09-06T06:30:45.840Z",
+  "pr": 22,
+  "lastGoodCx": {
+    "teleprompterTts": {
+      "sha": "146fc745cb495956e4d380f602adf106359104bc",
+      "short": "146fc745",
+      "message": "Fix Chrome read-aloud: slower pace, no double-speak, timed highlight",
+      "role": "Last good teleprompter / read-aloud UX"
+    },
+    "wordRepetitionPedagogy": {
+      "sha": "e71afb0",
+      "message": "Redesign: passage-first minimal UX with TTS, quiz, single menu",
+      "role": "Last good word-repetition passage templates (scaled to 4×5 in this PR)"
+    },
+    "branchSource": {
+      "ref": "origin/cursor/harden-speech-listen-206f",
+      "role": "Platform speech + shell imported from this branch"
+    }
+  },
+  "badBaseline": {
+    "deploySha": "ab98024fdf6fc7d4a1bb27a02abb3fc5d5a71837",
+    "short": "ab98024",
+    "sourceSha": "146fc745",
+    "message": "Deploy WordSpark PWA — but passage-generator already 600w × 10 words once",
+    "regressionIntroducedBy": "537663f",
+    "regressionMessage": "Topic-first passages — 600+ words, 10 vocabulary words woven in once each"
+  },
+  "snackProtectLaw": {
+    "sha": "364e395",
+    "file": ".github/PAGES-DEPLOY-LAW.md",
+    "rsyncFilters": [
+      "--filter 'protect snack/'",
+      "--filter 'protect snack/***'"
+    ]
+  }
+}
