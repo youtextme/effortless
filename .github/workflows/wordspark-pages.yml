@@ -42,14 +42,18 @@ jobs:
           REPO="https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git"
           WORK="/tmp/gh-pages-work"
           rm -rf "$WORK"
-          mkdir -p "$WORK"
 
           if git ls-remote --heads "$REPO" gh-pages | grep -q gh-pages; then
             git clone --branch gh-pages --depth 1 "$REPO" "$WORK"
           else
-            git -C "$WORK" init
-            git -C "$WORK" checkout -b gh-pages
+            mkdir -p "$WORK"
+            git -C "$WORK" init -b gh-pages
             git -C "$WORK" remote add origin "$REPO"
+          fi
+
+          if [ ! -d "$WORK/.git" ]; then
+            echo "ERROR: gh-pages worktree is not a git repository after clone/init"
+            exit 1
           fi
 
           cd "$WORK"
