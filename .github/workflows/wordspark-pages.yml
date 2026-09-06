@@ -1,5 +1,8 @@
 name: Deploy WordSpark to GitHub Pages
 
+# WordSpark branch deploy — MUST preserve /snack/ (see .github/PAGES-DEPLOY-LAW.md on main).
+# Never force_orphan. Clone gh-pages, rsync WordSpark to root excluding snack/, push.
+
 on:
   push:
     branches: [main, cursor/wordspark-vocab-pwa-206f]
@@ -14,7 +17,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: wordspark-pages
+  group: github-pages-deploy
   cancel-in-progress: false
 
 jobs:
@@ -27,12 +30,44 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Deploy to gh-pages branch
-        uses: peaceiris/actions-gh-pages@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./wordspark
-          publish_branch: gh-pages
-          force_orphan: true
-          commit_message: 'Deploy WordSpark PWA'
+          fetch-depth: 1
+
+      - name: Assemble and push gh-pages (preserve /snack/)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+
+          REPO="https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git"
+          WORK="/tmp/gh-pages-work"
+          rm -rf "$WORK"
+          mkdir -p "$WORK"
+
+          if git ls-remote --heads "$REPO" gh-pages | grep -q gh-pages; then
+            git clone --branch gh-pages --depth 1 "$REPO" "$WORK"
+          else
+            git -C "$WORK" init
+            git -C "$WORK" checkout -b gh-pages
+            git -C "$WORK" remote add origin "$REPO"
+          fi
+
+          cd "$WORK"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          # WordSpark → site root (never delete /snack/)
+          rsync -a --delete \
+            --exclude snack \
+            "${{ github.workspace }}/wordspark/" ./
+
+          touch .nojekyll
+          git add -A
+
+          if git diff --staged --quiet; then
+            echo "No Pages changes to deploy."
+            exit 0
+          fi
+
+          git commit -m "deploy(pages): WordSpark at root (preserve /snack/)"
+          git push origin gh-pages
