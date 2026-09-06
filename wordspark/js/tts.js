@@ -3,8 +3,12 @@
  */
 
 let speaking = false;
+let speechGeneration = 0;
 let activeHighlightEl = null;
 let highlightSpans = [];
+
+/** Active word sits at this fraction from the top of the viewport (teleprompter line). */
+const TELEPROMPTER_RATIO = 0.36;
 
 /** 30% slower than previous defaults */
 const RATE_SCALE = 0.7;
@@ -103,7 +107,39 @@ function buildSpeechText(spans) {
   return spans.map((s) => s.textContent).join(' ');
 }
 
-function buildWordStarts(spans) {
+function setTeleprompterMode(active) {
+  document.body.classList.toggle('teleprompter-active', active);
+  const wrap = document.getElementById('passage-scroll-wrap');
+  if (wrap) wrap.classList.toggle('teleprompter-active', active);
+}
+
+function scrollToTeleprompter(el) {
+  if (!el) return;
+
+  const sheetPanel = el.closest('.word-sheet-panel');
+  if (sheetPanel) {
+    const panelRect = sheetPanel.getBoundingClientRect();
+    const wordRect = el.getBoundingClientRect();
+    const lineY = panelRect.top + panelRect.height * TELEPROMPTER_RATIO;
+    const delta = wordRect.top - lineY;
+    sheetPanel.scrollTop += delta;
+    return;
+  }
+
+  const wordRect = el.getBoundingClientRect();
+  const lineY = window.innerHeight * TELEPROMPTER_RATIO;
+  const targetScroll = window.scrollY + wordRect.top - lineY;
+  window.scrollTo({ top: Math.max(0, targetScroll), behavior: 'auto' });
+}
+
+function activateWord(span) {
+  if (!span) return;
+  if (activeHighlightEl) activeHighlightEl.classList.remove('speech-word-active');
+  span.classList.add('speech-word-active');
+  activeHighlightEl = span;
+  scrollToTeleprompter(span);
+}
+
   const starts = [];
   let pos = 0;
   for (let i = 0; i < spans.length; i++) {
@@ -285,6 +321,7 @@ export function speakParts(parts, { rate = RATE.normal, onEnd } = {}) {
 export async function speakWordWithExamples(word, examples, elements, onEnd) {
   if (!isTTSAvailable()) return false;
   stopSpeaking();
+  const gen = speechGeneration;
   speaking = true;
 
   const wordRoot = elements?.wordEl;
@@ -296,61 +333,67 @@ export async function speakWordWithExamples(word, examples, elements, onEnd) {
   const wordSpans = wrapSingleWordEl(wordRoot);
   for (let i = 0; i < 2; i++) {
     await speakWordByWord(wordSpans, { rate: RATE.word });
+    if (isSpeechAborted(gen)) break;
     if (i === 0) await delay(1000);
   }
   unwrapSpeechWords(wordRoot);
 
-  const lines = exampleRoot?.querySelectorAll('.example-line') || [];
-  if (lines.length) {
-    for (const line of lines) {
-      await speakInRoot(line, { rate: RATE.example });
-      unwrapSpeechWords(line);
-      await delay(300);
-    }
-  } else {
-    for (const sentence of examples.slice(0, 2)) {
-      await speakOnce(sentence, { rate: RATE.example });
-      await delay(300);
+  if (!isSpeechAborted(gen)) {
+    const lines = exampleRoot?.querySelectorAll('.example-line') || [];
+    if (lines.length) {
+      for (const line of lines) {
+        await speakInRoot(line, { rate: RATE.example });
+        unwrapSpeechWords(line);
+        if (isSpeechAborted(gen)) break;
+        await delay(300);
+      }
+    } else {
+      for (const sentence of examples.slice(0, 2)) {
+        await speakOnce(sentence, { rate: RATE.example });
+        if (isSpeechAborted(gen)) break;
+        await delay(300);
+      }
     }
   }
 
   speaking = false;
-  onEnd?.();
-  return true;
+  if (!isSpeechAborted(gen)) onEnd?.();
+  return !isSpeechAborted(gen);
+}
+
+function isSpeechAborted(gen) {
+  return gen !== speechGeneration;
 }
 
 /** Read full passage with highlight following the spoken word. */
 export async function speakLongPassage(title, paragraphs, contentRoot, titleRoot, onEnd) {
   if (!isTTSAvailable()) return false;
   stopSpeaking();
+  const gen = speechGeneration;
   speaking = true;
 
   clearHighlights(contentRoot);
   clearHighlights(titleRoot);
 
   if (titleRoot && title) {
-    const titleSpans = wrapWordsInRoot(titleRoot);
-    if (titleSpans.length) {
-      await speakWithSpans(titleSpans, { rate: RATE.passage });
-      unwrapSpeechWords(titleRoot);
-      await delay(400);
+    await speakInRoot(titleRoot, { rate: RATE.passage });
+    unwrapSpeechWords(titleRoot);
+    if (isSpeechAborted(gen)) {
+      clearHighlights(contentRoot);
+      clearHighlights(titleRoot);
+      speaking = false;
+      return false;
     }
+    await delay(400);
   }
 
   if (contentRoot) {
-    const spans = wrapWordsInRoot(contentRoot);
-    if (spans.length) {
-      const usedBoundary = await speakWithSpans(spans, { rate: RATE.passage });
-      if (!usedBoundary) {
-        speechSynthesis.cancel();
-        await delay(100);
-        await speakWordByWord(spans, { rate: RATE.passage });
-      }
-      unwrapSpeechWords(contentRoot);
-    }
-  } else {
+    await speakInRoot(contentRoot, { rate: RATE.passage });
+    unwrapSpeechWords(contentRoot);
+  } else if (!isSpeechAborted(gen)) {
     for (const chunk of paragraphs.filter(Boolean)) {
       await speakOnce(chunk, { rate: RATE.passage });
+      if (isSpeechAborted(gen)) break;
       await delay(200);
     }
   }
@@ -358,8 +401,8 @@ export async function speakLongPassage(title, paragraphs, contentRoot, titleRoot
   clearHighlights(contentRoot);
   clearHighlights(titleRoot);
   speaking = false;
-  onEnd?.();
-  return true;
+  if (!isSpeechAborted(gen)) onEnd?.();
+  return !isSpeechAborted(gen);
 }
 
 export function speakPassage(text, onEnd) {
@@ -367,6 +410,7 @@ export function speakPassage(text, onEnd) {
 }
 
 export function stopSpeaking() {
+  speechGeneration += 1;
   if (isTTSAvailable()) speechSynthesis.cancel();
   speaking = false;
   if (activeHighlightEl) {
