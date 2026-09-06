@@ -4,13 +4,17 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#fafaf8" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Effortless" />
     <meta
       name="description"
       content="Effortless — a quiet blog snack for curious readers."
     />
     <title>Effortless — Blog snack</title>
+    <link rel="manifest" href="manifest.webmanifest" />
     <link rel="icon" href="favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="favicon.ico" sizes="any" />
+    <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -83,6 +87,7 @@
       </details>
     </div>
 
+    <script src="sw-register.js"></script>
     <script src="app.js" type="module"></script>
   </body>
 </html>
