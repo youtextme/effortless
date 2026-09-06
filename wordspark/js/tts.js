@@ -8,6 +8,8 @@ import {
   applyParentVoice,
   PARENT_RATES,
   refreshVoicePool,
+  ensureVoicesReady,
+  isChrome,
 } from './voices.js';
 
 let speaking = false;
@@ -15,6 +17,7 @@ let speechGeneration = 0;
 let activeHighlightEl = null;
 let highlightSpans = [];
 let currentReader = null;
+let chromeKeepAliveTimer = null;
 
 const TELEPROMPTER_RATIO = 0.36;
 
@@ -161,8 +164,113 @@ function highlightAtCharIndex(charIndex, spans, wordStarts) {
   activateWord(spans[idx]);
 }
 
+function chromeResume() {
+  if (!isChrome() || !isTTSAvailable()) return;
+  try {
+    speechSynthesis.resume();
+  } catch {
+    // ignore
+  }
+}
+
+function startChromeKeepAlive() {
+  if (!isChrome()) return;
+  stopChromeKeepAlive();
+  chromeKeepAliveTimer = setInterval(() => {
+    if (speechSynthesis.speaking) chromeResume();
+  }, 8000);
+}
+
+function stopChromeKeepAlive() {
+  if (chromeKeepAliveTimer) {
+    clearInterval(chromeKeepAliveTimer);
+    chromeKeepAliveTimer = null;
+  }
+}
+
+function queueUtterance(utterance) {
+  chromeResume();
+  speechSynthesis.speak(utterance);
+  speaking = true;
+}
+
+function waitForUtterance(utterance) {
+  return new Promise((resolve) => {
+    const prevEnd = utterance.onend;
+    const prevError = utterance.onerror;
+    utterance.onend = (event) => {
+      prevEnd?.call(utterance, event);
+      resolve('end');
+    };
+    utterance.onerror = (event) => {
+      prevError?.call(utterance, event);
+      resolve('error');
+    };
+    queueUtterance(utterance);
+  });
+}
+
 function configureUtterance(u, rate) {
   applyParentVoice(u, currentReader, rate);
+}
+
+function estimateDurationMs(text, rate) {
+  const chars = Math.max(text.length, 1);
+  // Empirical for Chrome English TTS at parent-reading pace.
+  return chars * (82 / rate);
+}
+
+/** Chrome rarely fires word boundaries — drive highlight from elapsed time instead. */
+function speakWithTimedHighlight(spans, { rate = PARENT_RATES.default } = {}) {
+  return new Promise((resolve) => {
+    if (!isTTSAvailable() || !spans.length) {
+      resolve();
+      return;
+    }
+
+    const text = buildSpeechText(spans);
+    const wordStarts = buildWordStarts(spans);
+    const totalChars = Math.max(text.length, 1);
+    const durationMs = estimateDurationMs(text, rate);
+    let rafId = null;
+    let startedAt = 0;
+
+    const stopTicker = () => {
+      if (rafId) cancelAnimationFrame(rafId);
+      rafId = null;
+    };
+
+    const tick = () => {
+      const elapsed = performance.now() - startedAt;
+      const progress = Math.min(1, elapsed / durationMs);
+      const charIndex = Math.floor(progress * totalChars);
+      highlightAtCharIndex(charIndex, spans, wordStarts);
+      if (progress < 1) rafId = requestAnimationFrame(tick);
+    };
+
+    const u = new SpeechSynthesisUtterance(text);
+    configureUtterance(u, rate);
+
+    u.onstart = () => {
+      startedAt = performance.now();
+      if (spans[0]) activateWord(spans[0]);
+      rafId = requestAnimationFrame(tick);
+    };
+
+    u.onend = () => {
+      stopTicker();
+      activateWord(spans[spans.length - 1]);
+      if (activeHighlightEl) activeHighlightEl.classList.remove('speech-word-active');
+      activeHighlightEl = null;
+      resolve();
+    };
+    u.onerror = () => {
+      stopTicker();
+      resolve();
+    };
+
+    waitForUtterance(u);
+  });
 }
 
 function speakWithSpans(spans, { rate = PARENT_RATES.default } = {}) {
@@ -197,8 +305,7 @@ function speakWithSpans(spans, { rate = PARENT_RATES.default } = {}) {
     };
     u.onerror = () => resolve(boundaryFired);
 
-    speechSynthesis.speak(u);
-    speaking = true;
+    waitForUtterance(u);
   });
 }
 
@@ -206,17 +313,45 @@ async function speakWordByWord(spans, { rate = PARENT_RATES.default } = {}) {
   for (const span of spans) {
     if (!isTTSAvailable()) break;
     activateWord(span);
-    await new Promise((resolve) => {
-      const u = new SpeechSynthesisUtterance(span.textContent);
-      configureUtterance(u, rate);
-      u.onend = resolve;
-      u.onerror = resolve;
-      speechSynthesis.speak(u);
-    });
-    await delay(60);
+    const u = new SpeechSynthesisUtterance(span.textContent);
+    configureUtterance(u, rate);
+    await waitForUtterance(u);
+    await delay(80);
   }
   if (activeHighlightEl) activeHighlightEl.classList.remove('speech-word-active');
   activeHighlightEl = null;
+}
+
+function groupSpansBySentence(spans) {
+  const groups = [];
+  let current = [];
+  for (const span of spans) {
+    current.push(span);
+    if (/[.!?]["']?$/.test(span.textContent.trim())) {
+      groups.push(current);
+      current = [];
+    }
+  }
+  if (current.length) groups.push(current);
+  return groups.length ? groups : [spans];
+}
+
+function chunkSpanGroups(groups, maxSpans = 40) {
+  const chunks = [];
+  let batch = [];
+  for (const group of groups) {
+    if (batch.length + group.length > maxSpans && batch.length) {
+      chunks.push(batch);
+      batch = [];
+    }
+    batch.push(...group);
+    if (batch.length >= maxSpans) {
+      chunks.push(batch);
+      batch = [];
+    }
+  }
+  if (batch.length) chunks.push(batch);
+  return chunks;
 }
 
 async function speakInRoot(root, { rate = PARENT_RATES.default, forceWordByWord = false } = {}) {
@@ -224,16 +359,38 @@ async function speakInRoot(root, { rate = PARENT_RATES.default, forceWordByWord 
   highlightSpans = spans;
   if (!spans.length) return;
 
-  if (forceWordByWord || spans.length <= 12) {
+  if (forceWordByWord || spans.length <= 10) {
     await speakWordByWord(spans, { rate });
     return;
   }
 
-  const usedBoundary = await speakWithSpans(spans, { rate });
-  if (!usedBoundary) {
-    speechSynthesis.cancel();
-    await delay(80);
-    await speakWordByWord(spans, { rate });
+  const sentences = groupSpansBySentence(spans);
+
+  if (isChrome()) {
+    // One sentence per utterance avoids Chrome's ~15s cutoff and broken boundaries.
+    for (const sentenceSpans of sentences) {
+      if (sentenceSpans.length <= 8) {
+        await speakWordByWord(sentenceSpans, { rate });
+      } else {
+        await speakWithTimedHighlight(sentenceSpans, { rate });
+      }
+      await delay(180);
+    }
+    return;
+  }
+
+  const chunks = chunkSpanGroups(sentences, 35);
+
+  for (const chunk of chunks) {
+    if (chunk.length <= 10) {
+      await speakWordByWord(chunk, { rate });
+      continue;
+    }
+    const usedBoundary = await speakWithSpans(chunk, { rate });
+    if (!usedBoundary) {
+      await speakWithTimedHighlight(chunk, { rate });
+    }
+    await delay(120);
   }
 }
 
@@ -247,8 +404,7 @@ function speakOnce(text, { rate = PARENT_RATES.default } = {}) {
     configureUtterance(u, rate);
     u.onend = () => resolve();
     u.onerror = () => resolve();
-    speechSynthesis.speak(u);
-    speaking = true;
+    waitForUtterance(u);
   });
 }
 
@@ -258,8 +414,7 @@ export function speak(text, { rate = PARENT_RATES.default, passageNum = 1, onEnd
   const u = new SpeechSynthesisUtterance(text);
   configureUtterance(u, rate);
   u.onend = onEnd;
-  speechSynthesis.speak(u);
-  speaking = true;
+  waitForUtterance(u);
   return true;
 }
 
@@ -291,7 +446,7 @@ export function speakParts(parts, { rate = PARENT_RATES.default, passageNum = 1,
       index += 1;
       speakNext();
     };
-    speechSynthesis.speak(u);
+    waitForUtterance(u);
     speaking = true;
   };
 
@@ -301,9 +456,11 @@ export function speakParts(parts, { rate = PARENT_RATES.default, passageNum = 1,
 
 export async function speakWordWithExamples(word, examples, elements, onEnd, passageNum = 1) {
   if (!isTTSAvailable()) return false;
+  await ensureVoicesReady();
   stopSpeaking();
   const gen = speechGeneration;
   speaking = true;
+  startChromeKeepAlive();
   setTeleprompterMode(true);
   setReaderForPassage(passageNum);
 
@@ -340,6 +497,7 @@ export async function speakWordWithExamples(word, examples, elements, onEnd, pas
   }
 
   speaking = false;
+  stopChromeKeepAlive();
   setTeleprompterMode(false);
   if (!isSpeechAborted(gen)) onEnd?.();
   return !isSpeechAborted(gen);
@@ -347,9 +505,11 @@ export async function speakWordWithExamples(word, examples, elements, onEnd, pas
 
 export async function speakLongPassage(title, paragraphs, contentRoot, titleRoot, onEnd, passageNum = 1) {
   if (!isTTSAvailable()) return false;
+  await ensureVoicesReady();
   stopSpeaking();
   const gen = speechGeneration;
   speaking = true;
+  startChromeKeepAlive();
   setTeleprompterMode(true);
   setReaderForPassage(passageNum);
 
@@ -383,6 +543,7 @@ export async function speakLongPassage(title, paragraphs, contentRoot, titleRoot
   clearHighlights(contentRoot);
   clearHighlights(titleRoot);
   speaking = false;
+  stopChromeKeepAlive();
   setTeleprompterMode(false);
   if (!isSpeechAborted(gen)) onEnd?.();
   return !isSpeechAborted(gen);
@@ -394,6 +555,7 @@ export function speakPassage(text, onEnd) {
 
 export function stopSpeaking() {
   speechGeneration += 1;
+  stopChromeKeepAlive();
   if (isTTSAvailable()) speechSynthesis.cancel();
   speaking = false;
   setTeleprompterMode(false);
@@ -411,7 +573,7 @@ export function getCurrentReader() {
   return currentReader;
 }
 
-export { refreshVoicePool, getParentReader };
+export { refreshVoicePool, getParentReader, ensureVoicesReady };
 
 if (typeof window !== 'undefined') {
   initVoices();

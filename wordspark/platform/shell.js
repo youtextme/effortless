@@ -80,6 +80,8 @@ export async function bootShell() {
     });
   }
 
+  if (ctx.tts.ensureVoicesReady) await ctx.tts.ensureVoicesReady();
+
   setupListeners();
   const p = ctx.storage.loadProgress();
   if (!p.onboarded || !p.childName) showModal('name-modal');
