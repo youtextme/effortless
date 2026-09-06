@@ -185,6 +185,29 @@ body {
 
 .passage .vocab-word:active { opacity: 0.65; }
 
+.speech-word-active {
+  background: #ffe082;
+  border-radius: 3px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  transition: background 0.12s ease;
+}
+
+.passage .vocab-word.speech-word-active {
+  background: #ffe082;
+  text-decoration: none;
+}
+
+.example-line .speech-word-active {
+  background: #ffe082;
+  border-radius: 3px;
+}
+
+.sheet-word .speech-word-active {
+  background: #ffe082;
+  border-radius: 4px;
+}
+
 .scroll-sentinel {
   height: 2px;
   width: 100%;

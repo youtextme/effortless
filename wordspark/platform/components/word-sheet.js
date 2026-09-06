@@ -14,11 +14,16 @@ export const WordSheetComponent = {
           `<p class="example-line">${line}</p>`
         ).join('');
         elements.sheet.hidden = false;
-        ctx.tts.speakWordWithExamples(speech.word, speech.examples);
+        ctx.tts.speakWordWithExamples(speech.word, speech.examples, {
+          wordEl: elements.word,
+          container: elements.container,
+        });
         ctx.emit('word.opened', 'word-sheet', { word: data.word });
       },
       close(elements) {
         ctx.tts.stopSpeaking();
+        ctx.tts.clearHighlights(elements.word);
+        ctx.tts.clearHighlights(elements.container);
         elements.sheet.hidden = true;
         ctx.emit('word.closed', 'word-sheet', {});
       },

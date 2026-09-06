@@ -258,9 +258,13 @@ async function playPassageAloud() {
 
   const title = $('#passage-title')?.textContent || '';
   btn?.classList.add('is-playing');
-  await ctx.tts.speakLongPassage(title, passagePlainParagraphs, () => {
-    btn?.classList.remove('is-playing');
-  });
+  await ctx.tts.speakLongPassage(
+    title,
+    passagePlainParagraphs,
+    $('#passage-content'),
+    $('#passage-title'),
+    () => { btn?.classList.remove('is-playing'); }
+  );
 }
 
 function setupScrollUnlock() {
@@ -309,7 +313,11 @@ function openWordSheet(data) {
 }
 
 function closeWordSheet() {
-  ctx.wordSheet.close({ sheet: $('#word-sheet') });
+  ctx.wordSheet.close({
+    sheet: $('#word-sheet'),
+    word: $('#sheet-word'),
+    container: $('#sheet-scenarios'),
+  });
 }
 
 function startQuiz() {
