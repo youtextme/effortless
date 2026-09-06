@@ -1,6 +1,7 @@
 name: Deploy GitHub Pages
 
-# Deploys snack-blog to /snack/ while preserving the WordSpark root (and vice versa).
+# AUTHORITATIVE Pages deployer for effortless (see .github/PAGES-DEPLOY-LAW.md).
+# Deploys snack-blog → /snack/ and WordSpark → site root when present.
 # Never use force_orphan — that wipes sibling apps on gh-pages.
 
 on:
@@ -10,8 +11,13 @@ on:
       - "web/snack-blog/**"
       - "wordspark/**"
       - ".github/workflows/github-pages.yml"
-      - ".github/workflows/snack-blog-pages.yml"
+      - ".github/PAGES-DEPLOY-LAW.md"
   workflow_dispatch:
+    inputs:
+      reason:
+        description: "Why redeploy (logged in commit message)"
+        required: false
+        default: "manual redeploy"
 
 permissions:
   contents: write
@@ -32,6 +38,7 @@ jobs:
       - name: Assemble and push gh-pages
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REDEPLOY_REASON: ${{ github.event.inputs.reason || 'push' }}
         run: |
           set -euo pipefail
 
@@ -71,5 +78,5 @@ jobs:
             exit 0
           fi
 
-          git commit -m "deploy(pages): snack-blog at /snack/ (+ preserve root)"
+          git commit -m "deploy(pages): snack-blog at /snack/ (${REDEPLOY_REASON})"
           git push origin gh-pages
