@@ -5,10 +5,19 @@
 const STORAGE_KEY = 'ws_platform_telemetry';
 const MAX_EVENTS = 200;
 
-export function createTelemetry() {
+export function createTelemetry({ storage } = {}) {
+  const mem = { raw: null };
+  const store = storage || (typeof localStorage !== 'undefined'
+    ? localStorage
+    : {
+      getItem: () => mem.raw,
+      setItem: (_, v) => { mem.raw = v; },
+      removeItem: () => { mem.raw = null; },
+    });
+
   function load() {
     try {
-      const raw = localStorage.getItem(STORAGE_KEY);
+      const raw = store.getItem(STORAGE_KEY);
       return raw ? JSON.parse(raw) : [];
     } catch {
       return [];
@@ -17,7 +26,7 @@ export function createTelemetry() {
 
   function save(events) {
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(events.slice(-MAX_EVENTS)));
+      store.setItem(STORAGE_KEY, JSON.stringify(events.slice(-MAX_EVENTS)));
     } catch {
       /* quota — drop silently */
     }
@@ -33,7 +42,7 @@ export function createTelemetry() {
       return load();
     },
     clear() {
-      localStorage.removeItem(STORAGE_KEY);
+      store.removeItem(STORAGE_KEY);
     },
   };
 }

@@ -9,6 +9,10 @@ export function register(component) {
   components.set(component.id, component);
 }
 
+export function reset() {
+  components.clear();
+}
+
 export function get(id) {
   return components.get(id);
 }
@@ -48,7 +52,8 @@ export async function initAll(ctx) {
 }
 
 export async function destroyAll() {
-  for (const component of [...components.values()].reverse()) {
+  const order = [...resolveInitOrder()].reverse();
+  for (const component of order) {
     if (component.destroy) await component.destroy();
   }
 }

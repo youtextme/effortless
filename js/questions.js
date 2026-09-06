@@ -3,6 +3,7 @@
  */
 
 import { getTopicTitle } from './data/topics.js';
+import { getTargetWords } from './passage-generator.js';
 
 function shuffle(arr) {
   const a = [...arr];
@@ -141,8 +142,8 @@ function skillQuestions(passageData) {
 }
 
 function wordQuestions(passageData) {
-  const words = passageData.words;
-  const picked = shuffle(words).slice(0, 3);
+  const words = getTargetWords(passageData);
+  const picked = shuffle(words);
 
   return picked.map((word) => {
     const distractors = shuffle(words.filter((w) => w.word !== word.word)).slice(0, 3);
