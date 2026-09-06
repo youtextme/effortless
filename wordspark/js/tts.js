@@ -319,6 +319,7 @@ export async function speakWordWithExamples(word, examples, elements, onEnd) {
   stopSpeaking();
   const gen = speechGeneration;
   speaking = true;
+  setTeleprompterMode(true);
 
   const wordRoot = elements?.wordEl;
   const exampleRoot = elements?.container;
@@ -353,6 +354,7 @@ export async function speakWordWithExamples(word, examples, elements, onEnd) {
   }
 
   speaking = false;
+  setTeleprompterMode(false);
   if (!isSpeechAborted(gen)) onEnd?.();
   return !isSpeechAborted(gen);
 }
@@ -367,6 +369,7 @@ export async function speakLongPassage(title, paragraphs, contentRoot, titleRoot
   stopSpeaking();
   const gen = speechGeneration;
   speaking = true;
+  setTeleprompterMode(true);
 
   clearHighlights(contentRoot);
   clearHighlights(titleRoot);
@@ -378,6 +381,7 @@ export async function speakLongPassage(title, paragraphs, contentRoot, titleRoot
       clearHighlights(contentRoot);
       clearHighlights(titleRoot);
       speaking = false;
+      setTeleprompterMode(false);
       return false;
     }
     await delay(400);
@@ -397,6 +401,7 @@ export async function speakLongPassage(title, paragraphs, contentRoot, titleRoot
   clearHighlights(contentRoot);
   clearHighlights(titleRoot);
   speaking = false;
+  setTeleprompterMode(false);
   if (!isSpeechAborted(gen)) onEnd?.();
   return !isSpeechAborted(gen);
 }
@@ -409,6 +414,7 @@ export function stopSpeaking() {
   speechGeneration += 1;
   if (isTTSAvailable()) speechSynthesis.cancel();
   speaking = false;
+  setTeleprompterMode(false);
   if (activeHighlightEl) {
     activeHighlightEl.classList.remove('speech-word-active');
     activeHighlightEl = null;
