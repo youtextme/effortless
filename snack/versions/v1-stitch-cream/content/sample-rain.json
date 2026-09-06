@@ -1,0 +1,32 @@
+{
+  "title": "Why rain smells good",
+  "topic": "Why rain smells good",
+  "reader": "Ayaan",
+  "grade": "4th",
+  "minutes": 3,
+  "hook": "That earthy smell after rain has a real name.",
+  "screens": [
+    {
+      "heading": "Dry ground waits",
+      "body": "After a dry day, the ground holds tiny bits that smell like earth."
+    },
+    {
+      "heading": "Raindrops splash up",
+      "body": "When raindrops hit, they splash those bits into the air. Scientists call that smell petrichor.",
+      "tips": {
+        "petrichor": {
+          "meaning": "The earthy smell when rain hits dry ground.",
+          "example": "Like breathing in right after a summer storm on the sidewalk."
+        }
+      }
+    },
+    {
+      "heading": "Your nose knows",
+      "body": "Your nose catches it fast — like a secret the sidewalk was saving for you."
+    },
+    {
+      "heading": "Try it next time",
+      "body": "Next time it rains, take one slow breath. That good smell? You know its name now."
+    }
+  ]
+}

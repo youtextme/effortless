@@ -1,0 +1,49 @@
+{
+  "title": "How a mirror helps you notice yourself",
+  "topic": "How a mirror helps you notice yourself",
+  "reader": "Ayaan",
+  "grade": "4th",
+  "minutes": 3,
+  "screens": [
+    {
+      "heading": "What a mirror does",
+      "body": "A mirror does not tell you who to be. It only shows what is in front of it."
+    },
+    {
+      "heading": "Pause and breathe",
+      "body": "When you pause and notice your face, your breath often slows by itself."
+    },
+    {
+      "heading": "Just you, here",
+      "body": "That quiet look is yours. No score. No lecture. Just you, here."
+    },
+    {
+      "heading": "Remember this",
+      "body": "Later, if the day feels loud, you can remember: noticing is already a kind of strength."
+    }
+  ],
+  "comprehension": [
+    {
+      "question": "What does a mirror actually do?",
+      "choices": [
+        "Shows what is in front of it",
+        "Tells you who to be",
+        "Gives you a score"
+      ],
+      "answer": 0
+    },
+    {
+      "question": "What can happen when you pause and notice your face?",
+      "choices": [
+        "Your breath often slows",
+        "You must talk louder",
+        "The mirror changes your face"
+      ],
+      "answer": 0
+    }
+  ],
+  "video": {
+    "prompt": "Watch a quiet clip of someone taking a calm breath in front of a mirror. What did you notice?",
+    "minChars": 12
+  }
+}

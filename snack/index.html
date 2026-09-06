@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#fafaf8" />
+    <meta
+      name="description"
+      content="Effortless — a quiet blog snack for curious readers."
+    />
+    <title>Effortless — Blog snack</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page">
+      <!-- 1. Read — scroll the essay -->
+      <main id="step-read" class="step step-read">
+        <article id="article" class="article" aria-live="polite"></article>
+        <footer class="step-footer">
+          <p id="read-gate-hint" class="gate-hint">Scroll to the end to continue.</p>
+          <button type="button" class="btn-continue" id="btn-read-done" disabled>Continue</button>
+        </footer>
+      </main>
+
+      <!-- 2. Comprehension -->
+      <section id="step-comprehension" class="step" hidden aria-labelledby="comp-title">
+        <h2 id="comp-title" class="step-heading">Questions</h2>
+        <p class="step-lead">Answer from what you read. No tricks.</p>
+        <form id="comprehension-form" class="comprehension-form"></form>
+        <footer class="step-footer">
+          <button type="submit" form="comprehension-form" class="btn-continue" id="btn-comp-done">Continue</button>
+        </footer>
+      </section>
+
+      <!-- 3. Video observations -->
+      <section id="step-video" class="step" hidden aria-labelledby="video-title">
+        <h2 id="video-title" class="step-heading">Observations</h2>
+        <p id="video-prompt" class="step-lead"></p>
+        <div id="video-link" class="video-link" hidden></div>
+        <label class="field-label" for="video-observations">What did you notice?</label>
+        <textarea
+          id="video-observations"
+          class="field-textarea"
+          rows="6"
+          placeholder="Write a few plain sentences."
+          autocomplete="off"
+          aria-describedby="video-hint"
+        ></textarea>
+        <p id="video-hint" class="gate-hint">At least a sentence or two.</p>
+        <footer class="step-footer">
+          <button type="button" class="btn-continue" id="btn-video-done">Continue</button>
+        </footer>
+      </section>
+
+      <!-- 4. Share -->
+      <section id="step-share" class="step" hidden aria-labelledby="share-title">
+        <h2 id="share-title" class="step-heading">Finished</h2>
+        <p class="step-lead" id="share-message">You read the snack, answered the questions, and wrote your observations.</p>
+        <footer class="step-footer">
+          <button type="button" class="btn-continue" id="btn-share">Share</button>
+          <p id="share-status" class="share-status" hidden role="status"></p>
+        </footer>
+        <nav class="more-snacks" aria-label="More snacks">
+          <span class="more-label">Another snack</span>
+          <a href="?snack=rain" data-snack="rain">Why rain smells good</a>
+          <span class="sep" aria-hidden="true">·</span>
+          <a href="?snack=mirror" data-snack="mirror">How a mirror helps you notice yourself</a>
+        </nav>
+      </section>
+
+      <details class="parent-tools">
+        <summary>Parent tools</summary>
+        <nav id="version-switcher" class="version-switcher" aria-label="Prototype version"></nav>
+        <label class="field-label" for="topic-input">Topic</label>
+        <input id="topic-input" class="field-input" type="text" maxlength="120" autocomplete="off" />
+        <div id="create-status" class="status-msg" hidden role="status"></div>
+        <div class="parent-actions">
+          <button type="button" class="btn-quiet" id="btn-try-sample">Load rain sample</button>
+          <button type="button" class="btn-quiet" id="btn-generate">Generate with Ollama</button>
+        </div>
+      </details>
+    </div>
+
+    <script src="app.js" type="module"></script>
+  </body>
+</html>
