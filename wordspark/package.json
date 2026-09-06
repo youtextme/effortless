@@ -1,0 +1,8 @@
+{
+  "name": "wordspark",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test platform/speech/speech.test.js"
+  }
+}

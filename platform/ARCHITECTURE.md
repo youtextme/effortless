@@ -25,7 +25,7 @@ WordSpark and future effortless products compose from **platform components** �
 │  reading · quiz · certificate · word-sheet · progress   │
 ├─────────────────────────────────────────────────────────┤
 │  Adapters (wrap browser APIs)                           │
-│  storage · tts · service-worker                         │
+│  storage · speech (visible-text TTS) · service-worker    │
 ├─────────────────────────────────────────────────────────┤
 │  Kernel (wordspark/platform/kernel/*)                   │
 │  registry · bus · health · telemetry · policy · context │
