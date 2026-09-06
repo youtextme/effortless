@@ -61,21 +61,13 @@ jobs:
           rsync -a --delete "${{ github.workspace }}/web/snack-blog/" snack/
 
           WORDSPARK_DEPLOYED=false
-          # WordSpark → site root + /wordspark/ mirror (when present on this branch)
+          # WordSpark → site root (when present on this branch)
           if [ -d "${{ github.workspace }}/wordspark" ]; then
             rsync -a --delete \
               --exclude '.git/' \
               --filter 'protect snack/' \
               --filter 'protect snack/***' \
-              --filter 'protect wordspark/' \
-              --filter 'protect wordspark/***' \
               "${{ github.workspace }}/wordspark/" ./
-
-            mkdir -p wordspark
-            rsync -a --delete \
-              --exclude '.git/' \
-              "${{ github.workspace }}/wordspark/" wordspark/
-
             WORDSPARK_DEPLOYED=true
           fi
 
@@ -91,7 +83,7 @@ jobs:
           fi
 
           if [ "$WORDSPARK_DEPLOYED" = true ]; then
-            git commit -m "deploy(pages): WordSpark root + /wordspark/ + snack at /snack/ (${REDEPLOY_REASON})"
+            git commit -m "deploy(pages): WordSpark root + snack at /snack/ (${REDEPLOY_REASON})"
           else
             git commit -m "deploy(pages): snack-blog at /snack/ (${REDEPLOY_REASON})"
           fi
