@@ -42,13 +42,15 @@ jobs:
         run: |
           set -euo pipefail
           cd gh-pages-publish
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-          # WordSpark → site root (never delete /snack/)
+          # WordSpark → site root (never delete /snack/ or .git)
           rsync -a --delete \
-            --exclude snack \
+            --exclude '.git/' \
+            --filter 'protect snack/' \
+            --filter 'protect snack/***' \
             "${{ github.workspace }}/wordspark/" ./
+
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
           touch .nojekyll
           git add -A
