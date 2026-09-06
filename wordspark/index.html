@@ -18,9 +18,29 @@
 </head>
 <body>
   <div id="app">
+    <header id="reading-header" class="reading-header">
+      <button id="btn-home" class="btn-home" aria-label="Home" type="button">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M3 10.5L12 3l9 7.5V20a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1v-9.5z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </header>
+
     <main class="reading-main" id="reading-scroll">
-      <h1 id="passage-title" class="passage-h1"></h1>
-      <article id="passage-content" class="passage"></article>
+      <p id="passage-theme" class="passage-theme"></p>
+      <div class="passage-title-row">
+        <h1 id="passage-title" class="passage-h1"></h1>
+        <button id="btn-read-aloud" class="btn-speaker" type="button" aria-label="Listen from the beginning">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M11 5L6 9H3v6h3l5 4V5z" fill="currentColor"/>
+            <path d="M15.5 8.5a5 5 0 010 7M18 6a8.5 8.5 0 010 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+      <div class="passage-scroll-wrap" id="passage-scroll-wrap">
+        <article id="passage-content" class="passage"></article>
+        <div id="scroll-fade" class="scroll-fade" aria-hidden="true"></div>
+      </div>
       <div id="scroll-sentinel" class="scroll-sentinel" aria-hidden="true"></div>
     </main>
 

@@ -32,6 +32,9 @@ let quizScore = 0;
 let wordMap = {};
 let scrollObserver = null;
 let currentCertificateCanvas = null;
+let lastScrollY = 0;
+let passagePlainParagraphs = [];
+let scrollHandler = null;
 
 const COMPONENTS = [
   StorageComponent,
@@ -100,6 +103,11 @@ function setupListeners() {
   });
 
   $('#btn-done-reading')?.addEventListener('click', startQuiz);
+  $('#btn-home')?.addEventListener('click', () => {
+    ctx.tts.stopSpeaking();
+    openPanel('panel-passages', renderPassageList);
+  });
+  $('#btn-read-aloud')?.addEventListener('click', playPassageAloud);
   $('#btn-next-passage')?.addEventListener('click', () => {
     hideOverlay('screen-complete');
     loadPassage(ctx.storage.getActivePassage());
@@ -172,18 +180,87 @@ function loadPassage(n) {
   currentPassageData.words.forEach((w) => { wordMap[w.word.toLowerCase()] = w; });
 
   const { h1, sections } = generatePassagePages(currentPassageData);
+  $('#passage-theme').textContent = currentPassageData.theme || '';
   $('#passage-title').textContent = h1;
   $('#passage-content').innerHTML = sections
     .map((s) => sectionToHtml(s, currentPassageData.words))
     .join('');
 
+  passagePlainParagraphs = sections.flatMap((s) =>
+    s.body.split(/\n+/).map((p) => p.trim()).filter(Boolean)
+  );
+
+  $('#btn-read-aloud')?.classList.remove('is-playing');
+  $('#passage-scroll-wrap')?.classList.remove('at-end');
+
   setupWordTaps();
   setupScrollUnlock();
+  setupReadingChrome();
   ctx.storage.setReadingPassage(n);
   updateParentProgress();
   updateFab();
   window.scrollTo(0, 0);
+  lastScrollY = 0;
+  updateReadingHeader(0);
   ctx.emit('reading.loaded', 'reading', { passage: n, title: h1 });
+}
+
+function setupReadingChrome() {
+  if (scrollHandler) {
+    window.removeEventListener('scroll', scrollHandler, { passive: true });
+  }
+
+  scrollHandler = () => {
+    const y = window.scrollY;
+    updateReadingHeader(y);
+    updateScrollFade();
+    lastScrollY = y;
+  };
+
+  window.addEventListener('scroll', scrollHandler, { passive: true });
+  updateScrollFade();
+}
+
+function updateReadingHeader(y) {
+  const header = $('#reading-header');
+  if (!header) return;
+
+  if (y < 24) {
+    header.classList.remove('is-hidden');
+    return;
+  }
+
+  if (y > lastScrollY + 4) {
+    header.classList.add('is-hidden');
+  } else if (y < lastScrollY - 4) {
+    header.classList.remove('is-hidden');
+  }
+}
+
+function updateScrollFade() {
+  const wrap = $('#passage-scroll-wrap');
+  if (!wrap) return;
+
+  const docH = document.documentElement.scrollHeight;
+  const winH = window.innerHeight;
+  const nearEnd = window.scrollY + winH >= docH - 48;
+
+  wrap.classList.toggle('at-end', nearEnd || docH <= winH + 40);
+}
+
+async function playPassageAloud() {
+  const btn = $('#btn-read-aloud');
+  if (ctx.tts.isSpeaking()) {
+    ctx.tts.stopSpeaking();
+    btn?.classList.remove('is-playing');
+    return;
+  }
+
+  const title = $('#passage-title')?.textContent || '';
+  btn?.classList.add('is-playing');
+  await ctx.tts.speakLongPassage(title, passagePlainParagraphs, () => {
+    btn?.classList.remove('is-playing');
+  });
 }
 
 function setupScrollUnlock() {
@@ -195,6 +272,7 @@ function setupScrollUnlock() {
     if (entries[0]?.isIntersecting) {
       ctx.reading.markScrolledToEnd();
       updateFab();
+      updateScrollFade();
     }
   }, { root: null, threshold: 0.5 });
   scrollObserver.observe(sentinel);

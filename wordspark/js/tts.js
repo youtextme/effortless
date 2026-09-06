@@ -109,6 +109,22 @@ export async function speakWordWithExamples(word, examples, onEnd) {
   return true;
 }
 
+export async function speakLongPassage(title, paragraphs, onEnd) {
+  if (!isTTSAvailable()) return false;
+  stopSpeaking();
+  speaking = true;
+
+  const chunks = [title, ...paragraphs].filter(Boolean);
+  for (const chunk of chunks) {
+    await speakOnce(chunk, { rate: 0.92 });
+    await delay(200);
+  }
+
+  speaking = false;
+  onEnd?.();
+  return true;
+}
+
 export function speakPassage(text, onEnd) {
   return speakSequence(text, onEnd);
 }
