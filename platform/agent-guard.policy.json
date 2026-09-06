@@ -1,0 +1,56 @@
+{
+  "coverage": {
+    "lines": 95,
+    "functions": 90,
+    "branches": 80
+  },
+  "testGlobs": [
+    "wordspark/platform/**/*.test.js",
+    "platform/**/*.test.js"
+  ],
+  "coverageInclude": [
+    "wordspark/platform/kernel/**/*.js",
+    "wordspark/platform/speech/policy.js",
+    "wordspark/platform/speech/sentences.js",
+    "wordspark/platform/speech/voice-picker.js",
+    "wordspark/platform/speech/lifecycle.js",
+    "wordspark/platform/speech/word-clock.js"
+  ],
+  "coverageExclude": [
+    "**/*.test.js",
+    "**/speech/engine.js",
+    "**/speech/listen-control.js"
+  ],
+  "jsFacadeAllowlist": [
+    "app.js",
+    "tts.js",
+    "voices.js",
+    "storage.js",
+    "certificate.js",
+    "passage-generator.js",
+    "questions.js",
+    "word-usage.js"
+  ],
+  "forbidden": [
+    {
+      "id": "ua-chrome-fork",
+      "pattern": "function isChrome\\s*\\(|export function isChrome\\s*\\(",
+      "roots": ["wordspark/platform"]
+    },
+    {
+      "id": "user-agent-sniff",
+      "pattern": "navigator\\.userAgent",
+      "roots": ["wordspark/platform"]
+    }
+  ],
+  "storyExempt": ["tts"],
+  "storyMarker": "story:",
+  "componentMarker": "component:",
+  "cxStoriesPath": "platform/cx/stories.json",
+  "manifestPath": "platform/COMPONENT-MANIFEST.json",
+  "runtimeComponentDir": "wordspark/platform/components",
+  "shellPath": "wordspark/platform/shell.js",
+  "swPath": "wordspark/sw.js",
+  "swRuntimeDir": "wordspark/platform",
+  "nfrPath": "platform/cx/nfr.json"
+}

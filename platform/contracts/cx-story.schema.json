@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://youtextme.github.io/effortless/platform/contracts/cx-story.schema.json",
+  "title": "CustomerExperienceStory",
+  "type": "object",
+  "required": ["id", "component", "given", "when", "then"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+    "component": { "type": "string" },
+    "given": { "type": "string" },
+    "when": { "type": "string" },
+    "then": { "type": "string" },
+    "nfr": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^[a-z0-9-]+$" }
+    }
+  },
+  "additionalProperties": false
+}

@@ -34,6 +34,17 @@ export const speechPolicy = Object.freeze({
     keepAliveMs: 10000,
     iosUnlockText: ' ',
     wordRepeatGapMs: 550,
+    surfacePollMs: 200,
+  }),
+
+  /**
+   * Highlight clock — used when SpeechSynthesis onboundary is late or missing.
+   * charsPerSecondAtRate1 is English spoken chars/sec at utterance.rate = 1.
+   */
+  clock: Object.freeze({
+    charsPerSecondAtRate1: 15,
+    maxBoundaryStaleMs: 160,
+    maxLagWords: 1,
   }),
 
   wordSheet: Object.freeze({
@@ -122,6 +133,8 @@ export const speechPolicy = Object.freeze({
   skipClassTokens: Object.freeze(['passage-h2', 'scroll-fade', 'scroll-sentinel']),
 
   surfaceSelector: '[data-speech-surface]',
+
+  abortUtteranceErrors: Object.freeze(['interrupted', 'canceled', 'cancelled', 'not-allowed']),
 
   /** Visible blocks that form speech turns (DOM query, not hardcoded copy). */
   blockSelector: [

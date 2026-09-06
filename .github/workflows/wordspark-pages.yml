@@ -7,6 +7,7 @@ on:
       - 'wordspark/**'
       - 'platform/**'
       - '.github/workflows/wordspark-pages.yml'
+      - '.github/workflows/platform-ci.yml'
   workflow_dispatch:
 
 permissions:
@@ -17,14 +18,15 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  ci:
+    uses: ./.github/workflows/platform-ci.yml
+
   deploy:
+    needs: ci
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Validate platform
-        run: node platform/scripts/validate-platform.mjs
 
       - name: Deploy to gh-pages branch
         uses: peaceiris/actions-gh-pages@v4

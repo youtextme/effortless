@@ -1,6 +1,8 @@
 import * as speech from '../speech/engine.js';
 import { mountListenControl } from '../speech/listen-control.js';
 import { speechPolicy } from '../speech/policy.js';
+import { attachSpeechLifecycle } from '../speech/lifecycle.js';
+import { findActiveSurface } from '../speech/visible-text.js';
 
 export const SpeechComponent = {
   id: 'speech',
@@ -33,13 +35,21 @@ export const SpeechComponent = {
         return p ? { voice: p.voice, pitch: p.pitch || 1, label: 'Mom' } : null;
       },
     };
+    if (typeof document !== 'undefined') {
+      attachSpeechLifecycle({
+        doc: document,
+        stop: () => speech.stopSpeaking(),
+        findActiveSurface,
+        pollMs: speechPolicy.timing.surfacePollMs,
+      });
+    }
   },
   health() {
-    const ok = speech.isTTSAvailable();
+    const available = speech.isTTSAvailable();
     const profile = speech.getCurrentProfile();
     return {
-      ok,
-      status: ok
+      ok: true,
+      status: available
         ? `speech ready (${profile?.voice?.name || 'default voice'})`
         : 'tts unavailable — silent fallback',
     };

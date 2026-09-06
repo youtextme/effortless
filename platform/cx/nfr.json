@@ -1,0 +1,21 @@
+{
+  "version": "1.0.0",
+  "requirements": [
+    {
+      "id": "speech-stops-on-navigate",
+      "kind": "functional",
+      "statement": "Read-aloud must stop when the customer leaves the spoken surface, including opening the quiz."
+    },
+    {
+      "id": "highlight-tracks-audio",
+      "kind": "timing",
+      "statement": "The highlighted word must not trail the predicted spoken word by more than one word, even when onboundary never fires.",
+      "maxLagWords": 1
+    },
+    {
+      "id": "voices-ready-before-speak",
+      "kind": "reliability",
+      "statement": "Do not start an audible utterance until voices are loaded or the policy wait deadline elapsed; abort if the surface changed while waiting."
+    }
+  ]
+}

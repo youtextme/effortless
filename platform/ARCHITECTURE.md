@@ -66,11 +66,13 @@ wordspark/js/                      # Legacy paths + data (components import from
 
 ## Adding a component
 
-1. Add entry to `platform/COMPONENT-MANIFEST.json`.
-2. Create `wordspark/platform/components/<name>.js` implementing the component interface.
-3. Register in `shell.js` dependency graph.
-4. Add contract slice to `platform/contracts/` if new public API surface.
-5. Run `node platform/scripts/validate-platform.mjs`.
+1. `node platform/scripts/new-component.mjs --id <id> --description "<customer outcome>"`
+2. Import and register in `wordspark/platform/shell.js`.
+3. Add/adjust `platform/cx/stories.json` (and NFRs in `platform/cx/nfr.json` when it is a customer requirement) plus a `story:<id>` test.
+4. List every new `wordspark/platform/**/*.js` file in `wordspark/sw.js` and bump `CACHE_NAME`.
+5. Run `npm run ci` (must be green). CI also runs in GitHub Actions; Pages deploy needs it.
+
+See `platform/AGENT-PLAYBOOK.md`.
 
 ## Evolution path
 

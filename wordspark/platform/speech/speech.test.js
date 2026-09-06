@@ -7,8 +7,8 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { splitSentences, packByChars, joinPieceText, nextMaxChars, rateForQuality, qualityOfVoice, localeFamily } from './sentences.js';
-import { scoreVoice, pickWarmMother, sessionProfile } from './voice-picker.js';
+import { splitSentences, packByChars, joinPieceText, nextMaxChars, rateForQuality, qualityOfVoice, localeFamily, isAbortResult } from './sentences.js';
+import { scoreVoice, pickWarmMother, sessionProfile, documentLocale, listEnglishVoices } from './voice-picker.js';
 import { isSilentFromFlags, flagsFromElement } from './visible-text.js';
 import { speechPolicy } from './policy.js';
 
@@ -17,6 +17,10 @@ const here = dirname(fileURLToPath(import.meta.url));
 test('splitSentences keeps a paragraph as readable turns', () => {
   const parts = splitSentences('Hello there. How are you? I am fine!');
   assert.deepEqual(parts, ['Hello there.', 'How are you?', 'I am fine!']);
+  assert.deepEqual(splitSentences(''), []);
+  assert.deepEqual(splitSentences('   '), []);
+  const withDr = splitSentences('Dr. Smith sat down. Then he spoke.');
+  assert.ok(withDr.length >= 1);
 });
 
 test('packByChars never splits a piece and stays under cap when possible', () => {
@@ -38,10 +42,11 @@ test('nextMaxChars shrinks toward min', () => {
   assert.equal(nextMaxChars(50, 0.6, 48), 48);
 });
 
-test('qualityOfVoice classifies neural / network / compact', () => {
+test('qualityOfVoice classifies neural / network / compact / local', () => {
   assert.equal(qualityOfVoice({ name: 'Microsoft Aria Neural', localService: true }), 'neural');
   assert.equal(qualityOfVoice({ name: 'Google US English', localService: false }), 'network');
   assert.equal(qualityOfVoice({ name: 'eSpeak compact', localService: true }), 'compact');
+  assert.equal(qualityOfVoice({ name: 'Samantha', localService: true }), 'local');
 });
 
 test('rateForQuality uses policy bands only', () => {
@@ -54,7 +59,7 @@ test('localeFamily is mechanized from BCP-47', () => {
   assert.equal(localeFamily('en_US'), 'en');
 });
 
-test('pickWarmMother prefers Google female when network voices exist', () => {
+test('story:warm-mother-voice pickWarmMother prefers Google female when network voices exist', () => {
   const voices = [
     { name: 'eSpeak Male', lang: 'en-US', voiceURI: 'espeak', localService: true },
     { name: 'Google UK English Female', lang: 'en-GB', voiceURI: 'google-uk-f', localService: false },
@@ -64,6 +69,21 @@ test('pickWarmMother prefers Google female when network voices exist', () => {
   assert.equal(picked.voiceURI, 'google-uk-f');
   assert.ok(scoreVoice(voices[1], 'en-GB') > scoreVoice(voices[2], 'en-GB'));
   assert.ok(scoreVoice(voices[1], 'en-GB') > scoreVoice(voices[0], 'en-US'));
+});
+
+test('documentLocale and listEnglishVoices use document/nav when present', () => {
+  assert.equal(documentLocale({ documentElement: { lang: 'en-GB' } }, { language: 'fr' }), 'en-GB');
+  assert.equal(documentLocale(null, { language: 'en-AU' }), 'en-AU');
+  assert.equal(documentLocale(null, null), 'en');
+  const voices = [
+    { name: 'A', lang: 'en-US', voiceURI: 'a' },
+    { name: 'B', lang: 'fr-FR', voiceURI: 'b' },
+  ];
+  assert.equal(listEnglishVoices(voices, 'en-US').length, 1);
+  assert.equal(pickWarmMother([]), null);
+  assert.equal(scoreVoice(null), -Infinity);
+  const underscored = { name: 'Jenny', lang: 'en_us', voiceURI: 'j', localService: true };
+  assert.ok(scoreVoice(underscored, 'en-us') > scoreVoice({ name: 'X', lang: 'de', voiceURI: 'x' }, 'en-us'));
 });
 
 test('pickWarmMother prefers Samantha when only Apple voices exist', () => {
@@ -85,14 +105,14 @@ test('sticky URI wins so the voice does not rotate', () => {
   assert.equal(picked.voiceURI, 'karen');
 });
 
-test('sessionProfile uses one rate for the session', () => {
+test('story:one-rate-per-session sessionProfile uses one rate for the session', () => {
   const voice = { name: 'Google UK English Female', lang: 'en-GB', voiceURI: 'g', localService: false };
   const profile = sessionProfile(voice, 'en-GB');
   assert.equal(profile.rate, speechPolicy.rates.network);
   assert.equal(profile.pitch, speechPolicy.pitch);
 });
 
-test('hidden passage-h2 flags are silent — not spoken', () => {
+test('story:hidden-headings-not-spoken hidden passage-h2 flags are silent — not spoken', () => {
   const el = {
     tagName: 'H2',
     hidden: false,
@@ -136,7 +156,7 @@ test('data-speech-skip and aria-hidden are silent', () => {
   assert.equal(isSilentFromFlags(aria), true);
 });
 
-test('index.html has a global listen dock and speech surfaces on every page', () => {
+test('story:listen-on-every-surface index.html has a global listen dock and speech surfaces on every page', () => {
   const html = readFileSync(join(here, '../../index.html'), 'utf8');
   assert.match(html, /id="btn-listen"/);
   assert.match(html, /class="listen-dock"/);
@@ -154,5 +174,27 @@ test('index.html has a global listen dock and speech surfaces on every page', ()
     assert.match(html, new RegExp(`id="${id}"[^>]*data-speech-surface`));
   }
   assert.doesNotMatch(html, /id="btn-read-aloud"/);
+});
+
+test('story:abort-does-not-restart component:speech canceled utterances are abort not retry', () => {
+  assert.equal(isAbortResult('interrupted', speechPolicy.abortUtteranceErrors), true);
+  assert.equal(isAbortResult('canceled', speechPolicy.abortUtteranceErrors), true);
+  assert.equal(isAbortResult('network', speechPolicy.abortUtteranceErrors), false);
+});
+
+test('story:voices-ready-before-speak engine waits for voices and aborts stale sessions', () => {
+  const src = readFileSync(join(here, 'engine.js'), 'utf8');
+  assert.match(src, /await ensureVoicesReady\(\)/);
+  assert.match(src, /shouldAbortAfterAsyncWait/);
+  assert.match(src, /pickSpeakRoot/);
+  assert.ok(speechPolicy.timing.voicesWaitMs >= 1000);
+});
+
+test('story:speech-stops-on-surface-change shell startQuiz stops speech before overlay', () => {
+  const src = readFileSync(join(here, '../shell.js'), 'utf8');
+  assert.match(src, /function startQuiz\(/);
+  assert.match(src, /ctx\.tts\.stopSpeaking\(\)/);
+  const engine = readFileSync(join(here, 'engine.js'), 'utf8');
+  assert.match(engine, /shouldStopForSurfaceChange/);
 });
 

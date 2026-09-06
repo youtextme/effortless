@@ -4,7 +4,7 @@
  */
 
 import { speechPolicy } from './policy.js';
-import { packByChars, joinPieceText, nextMaxChars } from './sentences.js';
+import { packByChars, joinPieceText, nextMaxChars, isAbortResult } from './sentences.js';
 import {
   pickWarmMother,
   sessionProfile,
@@ -17,6 +17,12 @@ import {
   visiblePlainText,
   isSilentElement,
 } from './visible-text.js';
+import {
+  shouldAbortAfterAsyncWait,
+  shouldStopForSurfaceChange,
+  pickSpeakRoot,
+} from './lifecycle.js';
+import { predictedCharIndex, indexAtChar } from './word-clock.js';
 
 const BLOCK_SELECTOR = speechPolicy.blockSelector;
 
@@ -242,14 +248,36 @@ function setTeleprompter(on) {
   document.body.classList.toggle('teleprompter-active', on);
 }
 
-function charIndexToSpan(charIndex, spans) {
-  let pos = 0;
-  for (let i = 0; i < spans.length; i++) {
-    const len = spans[i].textContent.length;
-    if (charIndex < pos + len + 1) return spans[i];
-    pos += len + 1;
-  }
-  return spans[spans.length - 1];
+function nowMs() {
+  return typeof performance !== 'undefined' && typeof performance.now === 'function'
+    ? performance.now()
+    : Date.now();
+}
+
+function scheduleTick(fn) {
+  if (typeof requestAnimationFrame === 'function') return requestAnimationFrame(fn);
+  return setTimeout(() => fn(nowMs()), 16);
+}
+
+function cancelTick(id) {
+  if (typeof cancelAnimationFrame === 'function') cancelAnimationFrame(id);
+  else clearTimeout(id);
+}
+
+function paintSpokenWord(text, spans, lengths, rate, startedAt, boundaryChar, boundaryAt, hasBoundary) {
+  if (!spans.length || !startedAt) return;
+  const now = nowMs();
+  const char = predictedCharIndex({
+    elapsedMs: now - startedAt,
+    rate,
+    charsPerSecondAtRate1: speechPolicy.clock.charsPerSecondAtRate1,
+    textLength: text.length,
+    boundaryChar,
+    sinceBoundaryMs: now - (boundaryAt || startedAt),
+    boundaryStaleMs: speechPolicy.clock.maxBoundaryStaleMs,
+    hasBoundary,
+  });
+  activateSpan(spans[indexAtChar(char, lengths)]);
 }
 
 function speakUtterance(text, spans) {
@@ -261,25 +289,48 @@ function speakUtterance(text, spans) {
     }
     const u = new SpeechSynthesisUtterance(text);
     applyProfile(u);
+    const lengths = spans.map((span) => span.textContent.length);
+    const rate = u.rate;
+    let startedAt = 0;
+    let boundaryChar = 0;
+    let boundaryAt = 0;
+    let hasBoundary = false;
+    let tickId = 0;
+    let settled = false;
+
+    const finish = (result) => {
+      if (settled) return;
+      settled = true;
+      cancelTick(tickId);
+      markChunk(spans, false);
+      resolve(result);
+    };
+
+    const loop = () => {
+      paintSpokenWord(text, spans, lengths, rate, startedAt, boundaryChar, boundaryAt, hasBoundary);
+      tickId = scheduleTick(loop);
+    };
 
     u.onstart = () => {
+      startedAt = nowMs();
+      boundaryAt = startedAt;
       markChunk(spans, true);
       if (spans[0]) activateSpan(spans[0]);
+      tickId = scheduleTick(loop);
     };
     u.onboundary = (event) => {
       if (!spans.length) return;
       if (event.name && event.name !== 'word' && event.charIndex < 0) return;
-      const span = charIndexToSpan(event.charIndex, spans);
-      activateSpan(span);
+      const idx = typeof event.charIndex === 'number' ? event.charIndex : 0;
+      if (idx >= boundaryChar) {
+        boundaryChar = idx;
+        boundaryAt = nowMs();
+        hasBoundary = true;
+      }
+      paintSpokenWord(text, spans, lengths, rate, startedAt, boundaryChar, boundaryAt, hasBoundary);
     };
-    u.onend = () => {
-      markChunk(spans, false);
-      resolve('end');
-    };
-    u.onerror = (event) => {
-      markChunk(spans, false);
-      resolve(event?.error || 'error');
-    };
+    u.onend = () => finish('end');
+    u.onerror = (event) => finish(event?.error || 'error');
 
     resumeIfPaused();
     s.speak(u);
@@ -337,6 +388,11 @@ async function speakBlock(block, gen) {
       return false;
     }
 
+    if (isAbortResult(result, speechPolicy.abortUtteranceErrors)) {
+      unwrapRoot(block);
+      return false;
+    }
+
     if (result === 'error' || result === 'synthesis-failed' || result === 'network') {
       const smaller = nextMaxChars(cap, speechPolicy.pack.shrinkOnError, speechPolicy.pack.minChars);
       if (smaller < cap) {
@@ -358,9 +414,13 @@ async function speakLiveRoot(root, gen) {
   const blocks = collectBlocks(root);
   for (const block of blocks) {
     if (gen !== generation) return false;
+    if (shouldStopForSurfaceChange(root, findActiveSurface())) {
+      stopSpeaking();
+      return false;
+    }
     const ok = await speakBlock(block, gen);
     if (!ok) return false;
-    await new Promise((r) => requestAnimationFrame(r));
+    await new Promise((r) => scheduleTick(r));
   }
   return gen === generation;
 }
@@ -372,15 +432,22 @@ function emitSpeechState() {
 }
 
 async function beginSession({ teleprompter }) {
+  const genAtEntry = generation;
   await ensureVoicesReady();
+  if (shouldAbortAfterAsyncWait(genAtEntry, generation)) {
+    return { aborted: true, gen: generation };
+  }
   stopSpeaking();
   const gen = generation;
   speaking = true;
   startKeepAlive();
   if (teleprompter) setTeleprompter(true);
   await unlockIfNeeded();
+  if (shouldAbortAfterAsyncWait(gen, generation)) {
+    return { aborted: true, gen: generation };
+  }
   emitSpeechState();
-  return gen;
+  return { aborted: false, gen };
 }
 
 function endSession(gen, onEnd, ok) {
@@ -418,8 +485,19 @@ export async function speakRoot(root, { onEnd, teleprompter = true } = {}) {
     onEnd?.();
     return false;
   }
-  const gen = await beginSession({ teleprompter });
-  const ok = await speakLiveRoot(root, gen);
+  const session = await beginSession({ teleprompter });
+  if (session.aborted) {
+    onEnd?.();
+    return false;
+  }
+  const gen = session.gen;
+  const target = pickSpeakRoot(root, findActiveSurface());
+  if (!target) {
+    stopSpeaking();
+    onEnd?.();
+    return false;
+  }
+  const ok = await speakLiveRoot(target, gen);
   return endSession(gen, onEnd, ok);
 }
 
@@ -433,7 +511,12 @@ export async function speakWordSheet(panel, onEnd) {
     onEnd?.();
     return false;
   }
-  const gen = await beginSession({ teleprompter: true });
+  const session = await beginSession({ teleprompter: true });
+  if (session.aborted) {
+    onEnd?.();
+    return false;
+  }
+  const gen = session.gen;
   const lead = panel.querySelector(speechPolicy.wordSheet.leadSelector);
 
   if (lead && visiblePlainText(lead) && gen === generation) {

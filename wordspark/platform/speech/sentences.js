@@ -65,6 +65,10 @@ export function qualityOfVoice(voice, signals) {
   return 'local';
 }
 
+export function isAbortResult(result, abortCodes = []) {
+  return abortCodes.includes(result);
+}
+
 export function localeFamily(locale, fallback = 'en') {
   const raw = String(locale || fallback).toLowerCase();
   return raw.split(/[-_]/)[0] || fallback;
