@@ -6,7 +6,7 @@ import {
   setReadingPassage, resetProgress, verifyRefreshPassword,
 } from './storage.js';
 import { generateQuestions, PASS_THRESHOLD } from './questions.js';
-import { speakParts, stopSpeaking } from './tts.js';
+import { speakWordWithExamples, stopSpeaking } from './tts.js';
 import { getWordExplanation, explanationToSpeech } from './word-usage.js';
 import { generateCertificate, shareCertificate } from './certificate.js';
 
@@ -18,7 +18,7 @@ let quizIndex = 0;
 let quizScore = 0;
 let wordMap = {};
 let hasScrolledToEnd = false;
-let scrollObserver = null;
+let currentCertificateCanvas = null;
 
 const $ = (sel) => document.querySelector(sel);
 const $$ = (sel) => document.querySelectorAll(sel);
@@ -179,18 +179,14 @@ function setupWordTaps() {
 
 function openWordSheet(data) {
   const explanation = getWordExplanation(data);
+  const speech = explanationToSpeech(data.word, explanation);
   $('#sheet-word').textContent = data.word;
-  $('#sheet-intro').textContent = explanation.intro;
-  $('#sheet-scenarios').innerHTML = explanation.examples.map((ex, i) => `
-    <div class="scenario">
-      <span class="scenario-who">Example ${i + 1} · ${ex.title}</span>
-      <p class="scenario-setup">${ex.story}</p>
-      <p class="scenario-line">${ex.say}</p>
-      <p class="scenario-note">${ex.note}</p>
-    </div>
+  $('#sheet-intro').hidden = true;
+  $('#sheet-scenarios').innerHTML = speech.examples.map((line) => `
+    <p class="example-line">${line}</p>
   `).join('');
   $('#word-sheet').hidden = false;
-  speakParts(explanationToSpeech(data.word, explanation));
+  speakWordWithExamples(speech.word, speech.examples);
 }
 
 function closeWordSheet() {
@@ -236,25 +232,47 @@ function handleAnswer(btn) {
 
 function finishQuiz() {
   hideOverlay('screen-quiz');
+  const total = quizQuestions.length;
   if (quizScore >= PASS_THRESHOLD) {
     const p = completePassage(currentPassageNum, WORDS_PER_DAY);
-    $('#complete-msg').textContent = `You finished "${getTopicTitle(currentPassageNum)}". ${p.totalWordsLearned} words learned so far.`;
-    showOverlay('screen-complete');
+    showCertificateScreen(p);
     updateParentProgress();
   } else {
-    showToast(`Got ${quizScore}/${quizQuestions.length}. Try again!`);
+    showToast(`Got ${quizScore}/${total}. Need ${PASS_THRESHOLD} to pass. Try again!`);
     setTimeout(startQuiz, 1200);
   }
 }
 
-async function handleShare() {
+async function showCertificateScreen(progress) {
   const p = loadProgress();
+  const topic = getTopicTitle(currentPassageNum);
   const canvas = await generateCertificate({
     childName: p.childName,
-    dayData: { ...currentPassageData, theme: getTopicTitle(currentPassageNum) },
-    progress: { ...p, streak: p.completedPassages.length, completedDays: p.completedPassages },
+    dayData: { ...currentPassageData, theme: topic },
+    progress: { ...progress, totalWordsLearned: progress.totalWordsLearned },
   });
-  await shareCertificate(canvas, currentPassageData);
+  currentCertificateCanvas = canvas;
+  canvas.className = 'cert-preview-canvas';
+  const holder = $('#cert-preview');
+  holder.innerHTML = '';
+  holder.appendChild(canvas);
+  $('#complete-msg').textContent = `You completed "${topic}".`;
+  showOverlay('screen-complete');
+}
+
+async function handleShare() {
+  if (!currentCertificateCanvas) {
+    const p = loadProgress();
+    currentCertificateCanvas = await generateCertificate({
+      childName: p.childName,
+      dayData: { ...currentPassageData, theme: getTopicTitle(currentPassageNum) },
+      progress: p,
+    });
+  }
+  await shareCertificate(currentCertificateCanvas, {
+    ...currentPassageData,
+    theme: getTopicTitle(currentPassageNum),
+  });
 }
 
 function updateParentProgress() {

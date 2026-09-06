@@ -39,11 +39,11 @@
 
     <section id="screen-complete" class="overlay" hidden>
       <div class="complete-container">
-        <div class="complete-icon">✓</div>
         <h2>Well done!</h2>
         <p id="complete-msg"></p>
-        <button id="btn-next-passage" class="btn-primary">Keep reading</button>
-        <button id="btn-share-complete" class="btn-text">Share with parents</button>
+        <div id="cert-preview" class="cert-preview"></div>
+        <button id="btn-share-complete" class="btn-primary">Share certificate</button>
+        <button id="btn-next-passage" class="btn-text">Keep reading</button>
       </div>
     </section>
   </div>
@@ -61,7 +61,7 @@
     <div class="word-sheet-backdrop" id="word-sheet-backdrop"></div>
     <div class="word-sheet-panel">
       <h3 id="sheet-word" class="sheet-word"></h3>
-      <p id="sheet-intro" class="sheet-intro"></p>
+      <p id="sheet-intro" class="sheet-intro" hidden></p>
       <div id="sheet-scenarios" class="sheet-scenarios"></div>
     </div>
   </div>

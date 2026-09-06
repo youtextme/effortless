@@ -1,6 +1,16 @@
 /**
- * Generates a shareable certificate image using Canvas.
+ * Minimal printable certificate — topic, takeaway, words learned.
  */
+
+import { getTopicTitle } from './data/topics.js';
+
+const MAX_TAKEAWAY_WORDS = 80;
+
+function truncateWords(text, max) {
+  const words = text.split(/\s+/).filter(Boolean);
+  if (words.length <= max) return text;
+  return words.slice(0, max).join(' ') + '…';
+}
 
 export async function generateCertificate({ childName, dayData, progress }) {
   const canvas = document.createElement('canvas');
@@ -10,97 +20,81 @@ export async function generateCertificate({ childName, dayData, progress }) {
   canvas.height = height;
   const ctx = canvas.getContext('2d');
 
-  const gradient = ctx.createLinearGradient(0, 0, width, height);
-  gradient.addColorStop(0, '#1a1a2e');
-  gradient.addColorStop(0.5, '#16213e');
-  gradient.addColorStop(1, '#0f3460');
-  ctx.fillStyle = gradient;
-  ctx.fillRect(0, 0, width, height);
-
-  ctx.strokeStyle = '#e94560';
-  ctx.lineWidth = 8;
-  ctx.strokeRect(40, 40, width - 80, height - 80);
-  ctx.strokeStyle = '#ffd700';
-  ctx.lineWidth = 3;
-  ctx.strokeRect(55, 55, width - 110, height - 110);
-
-  ctx.fillStyle = '#ffd700';
-  ctx.font = 'bold 72px Georgia, serif';
-  ctx.textAlign = 'center';
-  ctx.fillText('🏆 WordSpark', width / 2, 160);
-
-  ctx.fillStyle = '#ffffff';
-  ctx.font = '36px Georgia, serif';
-  ctx.fillText('Certificate of Achievement', width / 2, 230);
-
-  const name = childName || 'Young Scholar';
-  ctx.fillStyle = '#e94560';
-  ctx.font = 'bold 56px Georgia, serif';
-  ctx.fillText(name, width / 2, 340);
-
-  ctx.fillStyle = '#cccccc';
-  ctx.font = '32px Arial, sans-serif';
-  ctx.fillText(`completed passage ${dayData.day} of 100`, width / 2, 410);
-
-  ctx.fillStyle = '#ffd700';
-  ctx.font = 'bold 40px Georgia, serif';
-  ctx.fillText(`📚 ${dayData.theme}`, width / 2, 500);
-
-  ctx.fillStyle = '#ffffff';
-  ctx.font = 'italic 28px Georgia, serif';
-  wrapText(ctx, `"${dayData.takeaway}"`, width / 2, 560, width - 160, 36);
-
-  ctx.fillStyle = '#ffd700';
-  ctx.font = 'bold 36px Arial, sans-serif';
-  ctx.fillText('✨ 10 Advanced Words Learned', width / 2, 700);
-
-  ctx.fillStyle = '#ffffff';
-  ctx.font = '28px Arial, sans-serif';
-  let y = 760;
-  const col1 = dayData.words.slice(0, 5);
-  const col2 = dayData.words.slice(5, 10);
-
-  for (let i = 0; i < 5; i++) {
-    const w1 = col1[i];
-    const w2 = col2[i];
-    ctx.textAlign = 'left';
-    if (w1) {
-      ctx.fillStyle = '#e94560';
-      ctx.font = 'bold 30px Arial, sans-serif';
-      ctx.fillText(`${i + 1}. ${w1.word}`, 100, y);
-      ctx.fillStyle = '#aaaaaa';
-      ctx.font = '22px Arial, sans-serif';
-      ctx.fillText(`   ${w1.meaning}`, 100, y + 30);
-    }
-    if (w2) {
-      ctx.fillStyle = '#e94560';
-      ctx.font = 'bold 30px Arial, sans-serif';
-      ctx.fillText(`${i + 6}. ${w2.word}`, 560, y);
-      ctx.fillStyle = '#aaaaaa';
-      ctx.font = '22px Arial, sans-serif';
-      ctx.fillText(`   ${w2.meaning}`, 560, y + 30);
-    }
-    y += 80;
-  }
-
-  ctx.textAlign = 'center';
-  ctx.fillStyle = '#cccccc';
-  ctx.font = '26px Arial, sans-serif';
-  ctx.fillText(`📊 ${progress.totalWordsLearned} of 1000 words learned`, width / 2, 1220);
-  ctx.fillText(`📖 ${dayData.day} of 100 passages complete`, width / 2, 1260);
-
-  ctx.fillStyle = '#ffd700';
-  ctx.font = 'bold 28px Arial, sans-serif';
-  ctx.fillText('Share with parents on WhatsApp! 💬', width / 2, 1380);
-
-  ctx.fillStyle = '#666666';
-  ctx.font = '22px Arial, sans-serif';
+  const topic = dayData.theme || getTopicTitle(dayData.day);
+  const takeaway = truncateWords(dayData.takeaway || '', MAX_TAKEAWAY_WORDS);
+  const name = childName || 'Student';
+  const words = dayData.words || [];
   const date = new Date().toLocaleDateString('en-IN', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
   });
-  ctx.fillText(`Issued: ${date}`, width / 2, 1450);
+
+  // White printable background
+  ctx.fillStyle = '#ffffff';
+  ctx.fillRect(0, 0, width, height);
+
+  // Thin border
+  ctx.strokeStyle = '#d4af37';
+  ctx.lineWidth = 4;
+  ctx.strokeRect(48, 48, width - 96, height - 96);
+
+  // Golden badge
+  const badgeX = width / 2;
+  const badgeY = 200;
+  const badgeR = 72;
+  const grad = ctx.createRadialGradient(badgeX, badgeY, 8, badgeX, badgeY, badgeR);
+  grad.addColorStop(0, '#fff8dc');
+  grad.addColorStop(0.5, '#ffd700');
+  grad.addColorStop(1, '#c9a227');
+  ctx.beginPath();
+  ctx.arc(badgeX, badgeY, badgeR, 0, Math.PI * 2);
+  ctx.fillStyle = grad;
+  ctx.fill();
+  ctx.strokeStyle = '#b8860b';
+  ctx.lineWidth = 3;
+  ctx.stroke();
+  ctx.fillStyle = '#7a5c00';
+  ctx.font = 'bold 52px Georgia, serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('★', badgeX, badgeY + 18);
+
+  ctx.fillStyle = '#1a1a1a';
+  ctx.font = 'bold 42px Georgia, serif';
+  ctx.fillText('Certificate', width / 2, 340);
+
+  ctx.fillStyle = '#444444';
+  ctx.font = '28px Arial, sans-serif';
+  ctx.fillText('WordSpark', width / 2, 390);
+
+  ctx.fillStyle = '#1a73e8';
+  ctx.font = 'bold 48px Georgia, serif';
+  wrapText(ctx, name, width / 2, 470, width - 160, 56);
+
+  ctx.fillStyle = '#202124';
+  ctx.font = 'bold 36px Georgia, serif';
+  wrapText(ctx, topic, width / 2, 560, width - 120, 44);
+
+  ctx.fillStyle = '#5f6368';
+  ctx.font = '26px Arial, sans-serif';
+  ctx.fillText('Key takeaway', width / 2, 660);
+  ctx.fillStyle = '#202124';
+  ctx.font = 'italic 28px Georgia, serif';
+  wrapText(ctx, takeaway, width / 2, 710, width - 140, 38);
+
+  ctx.fillStyle = '#5f6368';
+  ctx.font = '26px Arial, sans-serif';
+  ctx.fillText('Words learned', width / 2, 920);
+
+  ctx.fillStyle = '#202124';
+  ctx.font = '28px Arial, sans-serif';
+  const wordList = words.map((w) => w.word).join(' · ');
+  wrapText(ctx, wordList, width / 2, 970, width - 120, 36);
+
+  ctx.fillStyle = '#9aa0a6';
+  ctx.font = '24px Arial, sans-serif';
+  ctx.fillText(date, width / 2, 1380);
+  ctx.fillText(`${progress?.totalWordsLearned ?? words.length} of 1000 words · Topic ${dayData.day} of 100`, width / 2, 1420);
 
   return canvas;
 }
@@ -109,31 +103,32 @@ function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
   const words = text.split(' ');
   let line = '';
   let currentY = y;
+  ctx.textAlign = 'center';
 
   for (const word of words) {
     const testLine = line + word + ' ';
-    const metrics = ctx.measureText(testLine);
-    if (metrics.width > maxWidth && line !== '') {
-      ctx.fillText(line, x, currentY);
+    if (ctx.measureText(testLine).width > maxWidth && line !== '') {
+      ctx.fillText(line.trim(), x, currentY);
       line = word + ' ';
       currentY += lineHeight;
     } else {
       line = testLine;
     }
   }
-  ctx.fillText(line, x, currentY);
+  if (line.trim()) ctx.fillText(line.trim(), x, currentY);
 }
 
 export async function shareCertificate(canvas, dayData) {
   return new Promise((resolve) => {
     canvas.toBlob(async (blob) => {
-      const file = new File([blob], `wordspark-day-${dayData.day}.png`, { type: 'image/png' });
+      const topic = dayData.theme || getTopicTitle(dayData.day);
+      const file = new File([blob], `wordspark-${dayData.day}.png`, { type: 'image/png' });
 
       if (navigator.share && navigator.canShare?.({ files: [file] })) {
         try {
           await navigator.share({
-            title: `WordSpark — ${dayData.theme}`,
-            text: `I finished "${dayData.theme}" and learned 10 new words! 🎉`,
+            title: `WordSpark — ${topic}`,
+            text: `I completed "${topic}" on WordSpark!`,
             files: [file],
           });
           resolve({ method: 'share', success: true });
@@ -149,7 +144,7 @@ export async function shareCertificate(canvas, dayData) {
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `wordspark-day-${dayData.day}.png`;
+      a.download = `wordspark-${dayData.day}.png`;
       a.click();
       URL.revokeObjectURL(url);
       resolve({ method: 'download', success: true });

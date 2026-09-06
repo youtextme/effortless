@@ -364,30 +364,54 @@ body {
 .quiz-choice.wrong { border-color: var(--red); background: #fce8e6; }
 .quiz-choice:disabled { cursor: default; }
 
+.example-line {
+  font-size: 1.1rem;
+  line-height: 1.65;
+  color: var(--text);
+  padding: 0.85rem 1rem;
+  background: var(--bg);
+  border-radius: var(--radius);
+  margin-bottom: 0.75rem;
+  border-left: 3px solid var(--blue);
+}
+
+.cert-preview {
+  width: 100%;
+  max-width: 360px;
+  margin: 1rem auto 1.25rem;
+}
+
+.cert-preview-canvas {
+  width: 100%;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
 .complete-container {
-  max-width: 400px;
+  max-width: 480px;
   margin: 0 auto;
-  padding: 4rem 1.5rem;
+  padding: 2rem 1.5rem 3rem;
   text-align: center;
   min-height: 100dvh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
 }
+
+.complete-container h2 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+.complete-container p { color: var(--text-secondary); margin-bottom: 0.5rem; }
 
 .complete-icon {
   width: 72px; height: 72px;
   background: var(--green-light);
   color: var(--green);
   border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
+  display: none;
+  align-items: center; justify-content: center;
   font-size: 2rem; font-weight: 700;
   margin-bottom: 1.5rem;
 }
 
-.complete-container h2 { font-size: 1.5rem; margin-bottom: 0.5rem; }
-.complete-container p { color: var(--text-secondary); margin-bottom: 2rem; }
+.complete-container .btn-primary { margin-top: 0.5rem; }
+.complete-container .btn-text { margin-top: 0.25rem; }
 
 /* Parent footer — hidden from kid focus */
 .parent-footer {

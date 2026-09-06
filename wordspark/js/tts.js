@@ -14,6 +14,28 @@ function getVoice() {
     || voices.find((v) => v.lang.startsWith('en'));
 }
 
+function delay(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+function speakOnce(text, { rate = 0.88 } = {}) {
+  return new Promise((resolve) => {
+    if (!isTTSAvailable()) {
+      resolve();
+      return;
+    }
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = 'en-US';
+    u.rate = rate;
+    const voice = getVoice();
+    if (voice) u.voice = voice;
+    u.onend = () => resolve();
+    u.onerror = () => resolve();
+    speechSynthesis.speak(u);
+    speaking = true;
+  });
+}
+
 export function speak(text, { rate = 0.9, onEnd } = {}) {
   if (!isTTSAvailable()) return false;
   const u = new SpeechSynthesisUtterance(text);
@@ -21,7 +43,7 @@ export function speak(text, { rate = 0.9, onEnd } = {}) {
   u.rate = rate;
   const voice = getVoice();
   if (voice) u.voice = voice;
-  if (onEnd) u.onend = onEnd;
+  u.onend = onEnd;
   speechSynthesis.speak(u);
   speaking = true;
   return true;
@@ -63,6 +85,27 @@ export function speakParts(parts, { rate = 0.88, onEnd } = {}) {
   };
 
   speakNext();
+  return true;
+}
+
+/** Pronounce word twice (1s gap), then read example sentences directly. */
+export async function speakWordWithExamples(word, examples, onEnd) {
+  if (!isTTSAvailable()) return false;
+  stopSpeaking();
+  speaking = true;
+
+  await speakOnce(word, { rate: 0.75 });
+  await delay(1000);
+  await speakOnce(word, { rate: 0.75 });
+  await delay(400);
+
+  for (const sentence of examples.slice(0, 2)) {
+    await speakOnce(sentence, { rate: 0.9 });
+    await delay(300);
+  }
+
+  speaking = false;
+  onEnd?.();
   return true;
 }
 
