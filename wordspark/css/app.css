@@ -191,6 +191,30 @@ body {
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
   transition: background 0.12s ease;
+  scroll-margin-top: 36vh;
+}
+
+/* Teleprompter mode — full text visible, no bottom fade while listening */
+body.teleprompter-active .passage,
+.passage-scroll-wrap.teleprompter-active .passage {
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+
+body.teleprompter-active .scroll-fade,
+.passage-scroll-wrap.teleprompter-active .scroll-fade {
+  opacity: 0;
+  pointer-events: none;
+}
+
+body.teleprompter-active .reading-header {
+  opacity: 0;
+  pointer-events: none;
+}
+
+body.teleprompter-active .btn-speaker.is-playing {
+  opacity: 1;
+  box-shadow: 0 0 0 3px #ffe082;
 }
 
 .passage .vocab-word.speech-word-active {
