@@ -1,0 +1,16 @@
+{
+  "name": "effortless",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "ci": "node platform/scripts/run-ci.mjs",
+    "test": "node platform/scripts/run-ci.mjs",
+    "guard": "node platform/scripts/agent-guard.mjs",
+    "cx": "node platform/cx/analyzer.mjs",
+    "platform:validate": "node platform/scripts/validate-platform.mjs",
+    "component:new": "node platform/scripts/new-component.mjs"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

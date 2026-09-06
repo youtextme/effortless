@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://youtextme.github.io/effortless/platform/contracts/events.schema.json",
+  "title": "PlatformEvent",
+  "type": "object",
+  "required": ["type", "timestamp", "component"],
+  "properties": {
+    "type": { "type": "string" },
+    "timestamp": { "type": "integer" },
+    "component": { "type": "string" },
+    "payload": { "type": "object" },
+    "sessionId": { "type": "string" }
+  },
+  "additionalProperties": false
+}

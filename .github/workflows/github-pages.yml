@@ -10,7 +10,10 @@ on:
     paths:
       - "web/snack-blog/**"
       - "wordspark/**"
+      - "platform/**"
+      - "package.json"
       - ".github/workflows/github-pages.yml"
+      - ".github/workflows/platform-ci.yml"
       - ".github/PAGES-DEPLOY-LAW.md"
   workflow_dispatch:
     inputs:
@@ -27,7 +30,11 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  ci:
+    uses: ./.github/workflows/platform-ci.yml
+
   deploy:
+    needs: ci
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source
@@ -53,6 +60,7 @@ jobs:
           mkdir -p snack
           rsync -a --delete "${{ github.workspace }}/web/snack-blog/" snack/
 
+          WORDSPARK_DEPLOYED=false
           # WordSpark → site root (when present on this branch)
           if [ -d "${{ github.workspace }}/wordspark" ]; then
             rsync -a --delete \
@@ -60,6 +68,7 @@ jobs:
               --filter 'protect snack/' \
               --filter 'protect snack/***' \
               "${{ github.workspace }}/wordspark/" ./
+            WORDSPARK_DEPLOYED=true
           fi
 
           git config --local user.name "github-actions[bot]"
@@ -73,5 +82,9 @@ jobs:
             exit 0
           fi
 
-          git commit -m "deploy(pages): snack-blog at /snack/ (${REDEPLOY_REASON})"
+          if [ "$WORDSPARK_DEPLOYED" = true ]; then
+            git commit -m "deploy(pages): WordSpark root + snack at /snack/ (${REDEPLOY_REASON})"
+          else
+            git commit -m "deploy(pages): snack-blog at /snack/ (${REDEPLOY_REASON})"
+          fi
           git push origin gh-pages

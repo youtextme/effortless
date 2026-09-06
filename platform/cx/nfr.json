@@ -1,0 +1,92 @@
+{
+  "version": "1.1.0",
+  "requirements": [
+    {
+      "id": "speech-stops-on-navigate",
+      "kind": "functional",
+      "statement": "Read-aloud must stop when the customer leaves the spoken surface, including opening the quiz, even while voices are still loading.",
+      "sourceEvidence": [
+        {
+          "file": "wordspark/platform/speech/engine.js",
+          "includes": ["planSpeakSession", "shouldAbortAfterAsyncWait", "ensureVoicesReady"]
+        },
+        {
+          "file": "wordspark/platform/shell.js",
+          "includes": ["stopSpeaking", "showOverlay('screen-quiz')"]
+        },
+        {
+          "file": "wordspark/css/app.css",
+          "includes": [".overlay {", "position: fixed", "z-index: 150"]
+        }
+      ]
+    },
+    {
+      "id": "highlight-tracks-audio",
+      "kind": "timing",
+      "statement": "The highlighted word must not trail the predicted spoken word by more than one word, even when onboundary never fires and even when the engine ignores utterance.rate.",
+      "maxLagWords": 1,
+      "sourceEvidence": [
+        {
+          "file": "wordspark/platform/speech/engine.js",
+          "includes": ["predictedCharIndex", "effectiveCharsPerSecond", "observeCharsPerSecond"]
+        },
+        {
+          "file": "wordspark/platform/speech/word-clock.js",
+          "includes": ["effectiveCharsPerSecond", "honorRate"]
+        }
+      ]
+    },
+    {
+      "id": "voices-ready-before-speak",
+      "kind": "reliability",
+      "statement": "Do not start an audible utterance until voices are loaded or the policy wait deadline elapsed; abort if the surface changed while waiting.",
+      "sourceEvidence": [
+        {
+          "file": "wordspark/platform/speech/engine.js",
+          "includes": ["await ensureVoicesReady()"]
+        },
+        {
+          "file": "wordspark/platform/shell.js",
+          "includes": ["ensureVoicesReady"]
+        },
+        {
+          "file": "wordspark/platform/speech/policy.js",
+          "includes": ["voicesWaitMs: 3000"]
+        }
+      ]
+    },
+    {
+      "id": "vocab-once",
+      "kind": "functional",
+      "statement": "Each vocabulary word is highlighted on first occurrence only so the child meets it once in the passage.",
+      "sourceEvidence": [
+        {
+          "file": "wordspark/js/passage-generator.js",
+          "includes": ["highlightWordsOnce"]
+        }
+      ]
+    },
+    {
+      "id": "continue-gated-until-end",
+      "kind": "functional",
+      "statement": "Continue into the quiz stays locked until the reader has reached the end of the passage.",
+      "sourceEvidence": [
+        {
+          "file": "wordspark/platform/shell.js",
+          "includes": ["hasScrolledToEnd"]
+        }
+      ]
+    },
+    {
+      "id": "child-data-local",
+      "kind": "privacy",
+      "statement": "Child progress and certificates stay on-device; pii and undeclared network events are blocked.",
+      "sourceEvidence": [
+        {
+          "file": "wordspark/platform/kernel/policy.js",
+          "includes": ["pii."]
+        }
+      ]
+    }
+  ]
+}
