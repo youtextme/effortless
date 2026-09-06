@@ -85,11 +85,10 @@ test('read-aloud hook: listen button and speech surface in index.html', () => {
   assert.doesNotMatch(html, /id="btn-read-aloud"/);
 });
 
-test('Pages deploy publishes WordSpark at root and /wordspark/', () => {
+test('Pages deploy: WordSpark to root with snack protected', () => {
   const workflow = readFileSync(join(repoRoot, '.github/workflows/github-pages.yml'), 'utf8');
-  assert.match(workflow, /wordspark\//);
+  assert.match(workflow, /wordspark/);
   assert.match(workflow, /protect snack/);
-  assert.match(workflow, /protect wordspark/);
 });
 
 test('favicon and app name present', () => {

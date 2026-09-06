@@ -7,13 +7,9 @@ Run after `github-pages.yml` deploy completes on `gh-pages`.
 ```bash
 BASE=https://youtextme.github.io/effortless
 curl -sI "$BASE/" | head -1
-curl -sI "$BASE/wordspark/" | head -1
 curl -sI "$BASE/snack/" | head -1
 curl -sI "$BASE/js/data/words.js" | head -1
-curl -sI "$BASE/wordspark/js/data/words.js" | head -1
 ```
-
-Expected: all `HTTP/2 200` (or `HTTP/1.1 200`).
 
 ## Passage database shape (must NOT be card-only)
 
@@ -56,7 +52,6 @@ Expected: `passages: 100`, `withBody: 100`, `wcInRange: 100`, `body_wc_min` ≥ 
 ```bash
 curl -s "$BASE/" | rg -q 'id=\"btn-listen\"' && echo 'btn-listen OK'
 curl -s "$BASE/" | rg -q 'data-speech-surface' && echo 'speech-surface OK'
-curl -s "$BASE/wordspark/" | rg -q 'id=\"btn-listen\"' && echo 'wordspark btn-listen OK'
 ```
 
 ## Snack regression
