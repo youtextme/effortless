@@ -267,7 +267,8 @@ async function playPassageAloud() {
     passagePlainParagraphs,
     $('#passage-content'),
     $('#passage-title'),
-    () => { btn?.classList.remove('is-playing'); }
+    () => { btn?.classList.remove('is-playing'); },
+    currentPassageNum
   );
 }
 
@@ -313,6 +314,7 @@ function openWordSheet(data) {
     word: $('#sheet-word'),
     container: $('#sheet-scenarios'),
     sheet: $('#word-sheet'),
+    passageNum: currentPassageNum,
   });
 }
 
