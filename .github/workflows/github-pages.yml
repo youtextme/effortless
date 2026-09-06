@@ -30,34 +30,24 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout source
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
 
+      - name: Checkout gh-pages
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          path: gh-pages-publish
+          fetch-depth: 1
+
       - name: Assemble and push gh-pages
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REDEPLOY_REASON: ${{ github.event.inputs.reason || 'push' }}
         run: |
           set -euo pipefail
-
-          REPO="https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git"
-          WORK="/tmp/gh-pages-work"
-          rm -rf "$WORK"
-          mkdir -p "$WORK"
-
-          if git ls-remote --heads "$REPO" gh-pages | grep -q gh-pages; then
-            git clone --branch gh-pages --depth 1 "$REPO" "$WORK"
-          else
-            git -C "$WORK" init
-            git -C "$WORK" checkout -b gh-pages
-            git -C "$WORK" remote add origin "$REPO"
-          fi
-
-          cd "$WORK"
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          cd gh-pages-publish
 
           # Snack blog → /snack/
           mkdir -p snack
@@ -66,9 +56,14 @@ jobs:
           # WordSpark → site root (when present on this branch)
           if [ -d "${{ github.workspace }}/wordspark" ]; then
             rsync -a --delete \
-              --exclude snack \
+              --exclude '.git/' \
+              --filter 'protect snack/' \
+              --filter 'protect snack/***' \
               "${{ github.workspace }}/wordspark/" ./
           fi
+
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
           touch .nojekyll
           git add -A
