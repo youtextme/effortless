@@ -160,4 +160,4 @@ export function generateQuestions(passageData) {
   return shuffle([...core, ...vocab]);
 }
 
-export const PASS_THRESHOLD = 12;
+export const PASS_THRESHOLD = 10;
