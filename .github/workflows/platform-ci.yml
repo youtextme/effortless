@@ -1,0 +1,25 @@
+name: Platform CI
+
+on:
+  workflow_call:
+  pull_request:
+  push:
+    branches: [main, 'cursor/**']
+
+concurrency:
+  group: platform-ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  platform:
+    name: Platform CI
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Validate, agent-guard, tests, 95% coverage
+        run: node platform/scripts/run-ci.mjs

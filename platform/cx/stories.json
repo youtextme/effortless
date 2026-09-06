@@ -1,0 +1,125 @@
+{
+  "version": "1.0.0",
+  "stories": [
+    {
+      "id": "hidden-headings-not-spoken",
+      "component": "speech",
+      "given": "a passage with display:none section headings",
+      "when": "Listen reads the active surface",
+      "then": "hidden headings are not in the spoken string"
+    },
+    {
+      "id": "warm-mother-voice",
+      "component": "speech",
+      "given": "the device exposes several English voices",
+      "when": "the picker runs",
+      "then": "the highest-scored female/warm voice is sticky for the session"
+    },
+    {
+      "id": "one-rate-per-session",
+      "component": "speech",
+      "given": "a network or neural English voice",
+      "when": "a session profile is built",
+      "then": "a single rate from policy bands is used for the whole session"
+    },
+    {
+      "id": "listen-on-every-surface",
+      "component": "speech",
+      "given": "any WordSpark screen",
+      "when": "the shell boots",
+      "then": "a global Listen dock exists and every customer screen is a speech surface"
+    },
+    {
+      "id": "speech-stops-on-surface-change",
+      "component": "speech",
+      "given": "Listen is reading the passage",
+      "when": "the quiz (or any other covering surface) becomes active, including while voices are still loading",
+      "then": "speech stops because the speaking root is no longer the active surface and in-flight sessions abort",
+      "nfr": ["speech-stops-on-navigate"]
+    },
+    {
+      "id": "highlight-tracks-spoken-word",
+      "component": "speech",
+      "given": "Listen is reading a passage and Chrome never fires onboundary",
+      "when": "the word clock advances with elapsed time and the session rate",
+      "then": "the highlighted word is at most one word behind the predicted spoken word",
+      "nfr": ["highlight-tracks-audio"]
+    },
+    {
+      "id": "voices-ready-before-speak",
+      "component": "speech",
+      "given": "voices have not loaded yet",
+      "when": "the customer taps Listen",
+      "then": "the engine waits for voices or the policy deadline, and aborts if the surface changed while waiting",
+      "nfr": ["voices-ready-before-speak"]
+    },
+    {
+      "id": "abort-does-not-restart",
+      "component": "speech",
+      "given": "an utterance is cancelled mid-read",
+      "when": "the engine receives interrupted/canceled",
+      "then": "it does not shrink-and-replay the same chunk"
+    },
+    {
+      "id": "kernel-acyclic-init",
+      "component": "shell",
+      "given": "registered components with dependencies",
+      "when": "registry resolves init order",
+      "then": "dependencies initialize first and cycles throw"
+    },
+    {
+      "id": "reading-unlocks-quiz-after-scroll",
+      "component": "reading",
+      "given": "a loaded passage",
+      "when": "the reader reaches the end",
+      "then": "hasScrolledToEnd is true so Continue can start the quiz",
+      "nfr": ["continue-gated-until-end"]
+    },
+    {
+      "id": "quiz-requires-comprehension-pass",
+      "component": "quiz",
+      "given": "a generated question set",
+      "when": "the quiz is created",
+      "then": "a numeric pass threshold exists and questions can be generated"
+    },
+    {
+      "id": "word-sheet-uses-speech",
+      "component": "word-sheet",
+      "given": "a tapped vocabulary word",
+      "when": "the sheet opens",
+      "then": "the component depends on speech and exposes open/close"
+    },
+    {
+      "id": "certificate-share-local",
+      "component": "certificate",
+      "given": "a passed quiz",
+      "when": "a certificate is requested",
+      "then": "generate/share functions are registered and child data stays on-device",
+      "nfr": ["child-data-local"]
+    },
+    {
+      "id": "passage-weaves-vocab-once",
+      "component": "passage",
+      "given": "a day of vocabulary",
+      "when": "a passage is generated",
+      "then": "sections exist so the reading surface has something to show",
+      "nfr": ["vocab-once"]
+    },
+    {
+      "id": "vocab-highlighted-once",
+      "component": "passage",
+      "given": "a passage body that repeats a vocabulary word",
+      "when": "highlightWordsOnce runs",
+      "then": "only the first occurrence is a tappable mark",
+      "nfr": ["vocab-once"]
+    },
+    {
+      "id": "policy-blocks-pii-events",
+      "component": "storage",
+      "given": "a component emits pii.* or undeclared network",
+      "when": "policy.allowEvent runs",
+      "then": "the event is blocked and child data stays local",
+      "nfr": ["child-data-local"]
+    }
+  ]
+}
