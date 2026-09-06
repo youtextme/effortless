@@ -1,0 +1,66 @@
+{
+  "platformVersion": "1.0.0",
+  "kernel": {
+    "id": "kernel",
+    "version": "1.0.0",
+    "modules": ["registry", "bus", "health", "telemetry", "policy", "context"]
+  },
+  "components": [
+    {
+      "id": "storage",
+      "version": "1.0.0",
+      "dependencies": [],
+      "description": "Progress persistence via localStorage adapter",
+      "events": { "emits": ["progress.loaded", "progress.saved", "passage.completed"], "listens": [] }
+    },
+    {
+      "id": "passage",
+      "version": "1.0.0",
+      "dependencies": [],
+      "description": "Topic passage generation and vocabulary highlighting",
+      "events": { "emits": ["passage.generated"], "listens": [] }
+    },
+    {
+      "id": "reading",
+      "version": "1.0.0",
+      "dependencies": ["passage", "storage"],
+      "description": "Reading surface, scroll unlock, FAB",
+      "events": { "emits": ["reading.loaded", "reading.scrolled-to-end"], "listens": ["passage.generated"] }
+    },
+    {
+      "id": "word-sheet",
+      "version": "1.0.0",
+      "dependencies": ["tts"],
+      "description": "Word tap sheet with pronunciation and examples",
+      "events": { "emits": ["word.opened", "word.closed"], "listens": [] }
+    },
+    {
+      "id": "tts",
+      "version": "1.0.0",
+      "dependencies": [],
+      "description": "Web Speech API adapter with fallbacks",
+      "events": { "emits": ["tts.unavailable", "tts.spoken"], "listens": [] }
+    },
+    {
+      "id": "quiz",
+      "version": "1.0.0",
+      "dependencies": ["storage"],
+      "description": "Comprehension quiz gate",
+      "events": { "emits": ["quiz.started", "quiz.answered", "quiz.completed", "quiz.failed"], "listens": ["reading.scrolled-to-end"] }
+    },
+    {
+      "id": "certificate",
+      "version": "1.0.0",
+      "dependencies": ["storage"],
+      "description": "Minimal printable certificate and share",
+      "events": { "emits": ["certificate.generated", "certificate.shared"], "listens": ["quiz.completed"] }
+    },
+    {
+      "id": "shell",
+      "version": "1.0.0",
+      "dependencies": ["storage", "reading", "word-sheet", "quiz", "certificate", "tts"],
+      "description": "App composition root and screen orchestration",
+      "events": { "emits": ["app.ready", "app.error"], "listens": [] }
+    }
+  ]
+}

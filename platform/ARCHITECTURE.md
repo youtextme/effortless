@@ -1,0 +1,79 @@
+# Platform Component Architecture
+
+WordSpark and future effortless products compose from **platform components** — bounded, contract-first modules governed by a shared kernel.
+
+## Principles (principal-engineer bar)
+
+| Principle | How we enforce it |
+|-----------|-------------------|
+| **Bounded context** | One component = one job. No cross-imports except via kernel bus or declared dependencies. |
+| **Contract-first** | `platform/contracts/*.schema.json` define inputs/outputs. CI validates manifest + deps. |
+| **Observable** | All components emit structured events on `platform.kernel.bus`. |
+| **Self-healing** | `health.js` runs on boot + interval; components expose `health()` and recovery hooks. |
+| **Self-learning** | `telemetry.js` persists anonymised event rings to localStorage for evolution review. |
+| **Self-governing** | `policy.js` blocks disallowed actions (no undeclared network, no child PII export). |
+| **Thin apps** | `wordspark/js/app.js` only boots `platform/shell.js`. Products are composition roots. |
+
+## Layer model
+
+```
+┌─────────────────────────────────────────────────────────┐
+│  App shell (wordspark/platform/shell.js)                │
+│  Wires components, handles routing between screens        │
+├─────────────────────────────────────────────────────────┤
+│  Components (wordspark/platform/components/*)           │
+│  reading · quiz · certificate · word-sheet · progress   │
+├─────────────────────────────────────────────────────────┤
+│  Adapters (wrap browser APIs)                           │
+│  storage · tts · service-worker                         │
+├─────────────────────────────────────────────────────────┤
+│  Kernel (wordspark/platform/kernel/*)                   │
+│  registry · bus · health · telemetry · policy · context │
+├─────────────────────────────────────────────────────────┤
+│  Data & generators (wordspark/js/data, scripts/)        │
+│  Versioned datasets, build-time codegen                 │
+└─────────────────────────────────────────────────────────┘
+```
+
+## Component lifecycle
+
+1. **Register** — `registry.register(manifest)` at module load.
+2. **Init** — `shell` calls `init(ctx)` in dependency order.
+3. **Health** — `health.checkAll()` before first render; repeat every 60s.
+4. **Operate** — components communicate via `bus.emit` / `bus.on`, not direct calls across boundaries.
+5. **Destroy** — `destroy()` on navigation away or app teardown.
+
+## Repository layout
+
+```
+platform/                          # Repo-level governance (this folder)
+  ARCHITECTURE.md
+  COMPONENT-MANIFEST.json          # Canonical registry (mirrored at runtime)
+  adr/
+  contracts/
+  scripts/validate-platform.mjs
+
+wordspark/platform/                # Runtime platform (deployed with PWA)
+  kernel/
+  components/
+  shell.js
+
+wordspark/js/                      # Legacy paths + data (components import from here)
+  data/
+  passage-generator.js
+  ...
+```
+
+## Adding a component
+
+1. Add entry to `platform/COMPONENT-MANIFEST.json`.
+2. Create `wordspark/platform/components/<name>.js` implementing the component interface.
+3. Register in `shell.js` dependency graph.
+4. Add contract slice to `platform/contracts/` if new public API surface.
+5. Run `node platform/scripts/validate-platform.mjs`.
+
+## Evolution path
+
+- **Phase 1 (now):** Kernel + shell; components wrap existing modules.
+- **Phase 2:** Move `js/*.js` into `platform/components/*/impl/`; data behind repository ports.
+- **Phase 3:** Shared `platform` package consumed by Android (via KMP) and web; single manifest drives both.

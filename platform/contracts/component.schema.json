@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://youtextme.github.io/effortless/platform/contracts/component.schema.json",
+  "title": "PlatformComponent",
+  "type": "object",
+  "required": ["id", "version", "dependencies", "description"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*$"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "dependencies": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "description": { "type": "string" },
+    "healthIntervalMs": {
+      "type": "integer",
+      "minimum": 0,
+      "default": 60000
+    },
+    "events": {
+      "type": "object",
+      "properties": {
+        "emits": { "type": "array", "items": { "type": "string" } },
+        "listens": { "type": "array", "items": { "type": "string" } }
+      }
+    }
+  },
+  "additionalProperties": false
+}
