@@ -3,7 +3,7 @@ import { getWordExplanation, explanationToSpeech } from '../../js/word-usage.js'
 export const WordSheetComponent = {
   id: 'word-sheet',
   version: '1.0.0',
-  dependencies: ['speech', 'tts'],
+  dependencies: ['tts'],
   init(ctx) {
     ctx.wordSheet = {
       open(data, elements) {
@@ -14,9 +14,12 @@ export const WordSheetComponent = {
           `<p class="example-line">${line}</p>`
         ).join('');
         elements.sheet.hidden = false;
-        ctx.speech.speakWordSheet(
-          elements.sheet.querySelector('.word-sheet-panel'),
-          undefined
+        ctx.tts.speakWordWithExamples(
+          speech.word,
+          speech.examples,
+          { wordEl: elements.word, container: elements.container },
+          undefined,
+          elements.passageNum ?? 1
         );
         ctx.emit('word.opened', 'word-sheet', { word: data.word });
       },

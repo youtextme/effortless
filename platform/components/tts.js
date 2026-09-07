@@ -1,15 +1,14 @@
-/**
- * TTS adapter — speech subsystem owns the implementation.
- */
+import * as ttsApi from '../../js/tts.js';
 
 export const TtsComponent = {
   id: 'tts',
-  version: '2.0.0',
-  dependencies: ['speech'],
-  init() {
-    /* ctx.tts is installed by SpeechComponent */
+  version: '1.0.0',
+  dependencies: [],
+  init(ctx) {
+    ctx.tts = ttsApi;
   },
   health() {
-    return { ok: true, status: 'delegates to speech' };
+    const ok = ttsApi.isTTSAvailable();
+    return { ok, status: ok ? 'speech synthesis ready' : 'tts unavailable — silent fallback' };
   },
 };

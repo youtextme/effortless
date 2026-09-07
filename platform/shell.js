@@ -3,9 +3,9 @@
  * All screens orchestrated here; components accessed via ctx.
  */
 
-import { VOCABULARY } from '../js/data/words.js';
+import { VOCABULARY, WORDS_PER_DAY } from '../js/data/words.js';
 import { getTopicTitle } from '../js/data/topics.js';
-import { sectionToHtml, generatePassagePages, getTargetWords, TARGET_WORDS_PER_PASSAGE } from '../js/passage-generator.js';
+import { sectionToHtml, generatePassagePages } from '../js/passage-generator.js';
 import * as bus from './kernel/bus.js';
 import * as registry from './kernel/registry.js';
 import { createContext } from './kernel/context.js';
@@ -16,10 +16,10 @@ import { StorageComponent } from './components/storage.js';
 import { PassageComponent } from './components/passage.js';
 import { ReadingComponent } from './components/reading.js';
 import { TtsComponent } from './components/tts.js';
-import { SpeechComponent } from './components/speech.js';
 import { WordSheetComponent } from './components/word-sheet.js';
 import { QuizComponent } from './components/quiz.js';
 import { CertificateComponent } from './components/certificate.js';
+import { getPaceId, setPaceId } from '../js/speech-settings.js';
 
 const $ = (sel) => document.querySelector(sel);
 const $$ = (sel) => document.querySelectorAll(sel);
@@ -30,16 +30,18 @@ let currentPassageNum = 1;
 let quizQuestions = [];
 let quizIndex = 0;
 let quizScore = 0;
+let quizMisses = 0;
+let toastTimer = null;
 let wordMap = {};
 let scrollObserver = null;
 let currentCertificateCanvas = null;
 let lastScrollY = 0;
+let passagePlainParagraphs = [];
 let scrollHandler = null;
 
 const COMPONENTS = [
   StorageComponent,
   PassageComponent,
-  SpeechComponent,
   TtsComponent,
   ReadingComponent,
   WordSheetComponent,
@@ -81,10 +83,7 @@ export async function bootShell() {
     });
   }
 
-  if (ctx.speech?.ensureVoicesReady) await ctx.speech.ensureVoicesReady();
-  else if (ctx.tts.ensureVoicesReady) await ctx.tts.ensureVoicesReady();
-
-  ctx.speech?.mountListenControl($('#btn-listen'));
+  if (ctx.tts.ensureVoicesReady) await ctx.tts.ensureVoicesReady();
 
   setupListeners();
   const p = ctx.storage.loadProgress();
@@ -113,6 +112,7 @@ function setupListeners() {
     ctx.tts.stopSpeaking();
     openPanel('panel-passages', renderPassageList);
   });
+  $('#btn-read-aloud')?.addEventListener('click', playPassageAloud);
   $('#btn-next-passage')?.addEventListener('click', () => {
     hideOverlay('screen-complete');
     loadPassage(ctx.storage.getActivePassage());
@@ -124,6 +124,16 @@ function setupListeners() {
     const panel = $('#parent-panel');
     panel.hidden = !panel.hidden;
     updateParentProgress();
+    if (!panel.hidden) syncPaceControls();
+  });
+
+  $$('[data-pace]').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      setPaceId(btn.dataset.pace);
+      syncPaceControls();
+      showToast('Speech speed updated');
+    });
   });
 
   $$('.parent-link').forEach((btn) => {
@@ -176,6 +186,7 @@ function getPassageData(n) {
 }
 
 function loadPassage(n) {
+  hideToast();
   ctx.tts.stopSpeaking();
   ctx.tts.clearHighlights($('#passage-content'));
   ctx.tts.clearHighlights($('#passage-title'));
@@ -186,21 +197,18 @@ function loadPassage(n) {
   wordMap = {};
   currentPassageData.words.forEach((w) => { wordMap[w.word.toLowerCase()] = w; });
 
-  const targets = getTargetWords(currentPassageData);
-  let title;
-  let contentHtml;
-  if (currentPassageData.body) {
-    title = currentPassageData.title || getTopicTitle(currentPassageNum);
-    contentHtml = sectionToHtml({ h2: '', body: currentPassageData.body }, targets);
-  } else {
-    const { h1, sections } = generatePassagePages(currentPassageData);
-    title = h1;
-    contentHtml = sections.map((s) => sectionToHtml(s, targets)).join('');
-  }
+  const { h1, sections } = generatePassagePages(currentPassageData);
   $('#passage-theme').textContent = currentPassageData.theme || '';
-  $('#passage-title').textContent = title;
-  $('#passage-content').innerHTML = contentHtml;
+  $('#passage-title').textContent = h1;
+  $('#passage-content').innerHTML = sections
+    .map((s) => sectionToHtml(s, currentPassageData.words))
+    .join('');
 
+  passagePlainParagraphs = sections.flatMap((s) =>
+    s.body.split(/\n+/).map((p) => p.trim()).filter(Boolean)
+  );
+
+  $('#btn-read-aloud')?.classList.remove('is-playing');
   $('#passage-scroll-wrap')?.classList.remove('at-end');
 
   setupWordTaps();
@@ -212,7 +220,7 @@ function loadPassage(n) {
   window.scrollTo(0, 0);
   lastScrollY = 0;
   updateReadingHeader(0);
-  ctx.emit('reading.loaded', 'reading', { passage: n, title });
+  ctx.emit('reading.loaded', 'reading', { passage: n, title: h1 });
 }
 
 function setupReadingChrome() {
@@ -256,6 +264,28 @@ function updateScrollFade() {
   const nearEnd = window.scrollY + winH >= docH - 48;
 
   wrap.classList.toggle('at-end', nearEnd || docH <= winH + 40);
+}
+
+async function playPassageAloud() {
+  const btn = $('#btn-read-aloud');
+  if (ctx.tts.isSpeaking()) {
+    ctx.tts.stopSpeaking();
+    ctx.tts.clearHighlights($('#passage-content'));
+    ctx.tts.clearHighlights($('#passage-title'));
+    btn?.classList.remove('is-playing');
+    return;
+  }
+
+  const title = $('#passage-title')?.textContent || '';
+  btn?.classList.add('is-playing');
+  await ctx.tts.speakLongPassage(
+    title,
+    passagePlainParagraphs,
+    $('#passage-content'),
+    $('#passage-title'),
+    () => { btn?.classList.remove('is-playing'); },
+    currentPassageNum
+  );
 }
 
 function setupScrollUnlock() {
@@ -314,17 +344,37 @@ function closeWordSheet() {
 
 function startQuiz() {
   if (!ctx.reading.hasScrolledToEnd) return;
+  hideToast();
   ctx.tts.stopSpeaking();
   quizQuestions = ctx.quiz.generate(currentPassageData);
   quizIndex = 0;
   quizScore = 0;
+  quizMisses = 0;
   showOverlay('screen-quiz');
   renderQuestion();
   ctx.emit('quiz.started', 'quiz', { count: quizQuestions.length });
 }
 
+function hideQuizCoach() {
+  const el = $('#quiz-coach');
+  if (el) el.hidden = true;
+  const text = $('#quiz-coach-text');
+  if (text) text.textContent = '';
+}
+
+function showQuizCoach(message) {
+  const text = $('#quiz-coach-text');
+  const el = $('#quiz-coach');
+  if (text) text.textContent = message;
+  if (el) el.hidden = false;
+  if (message) ctx.tts.speakSequence(message);
+}
+
 function renderQuestion() {
   const q = quizQuestions[quizIndex];
+  quizMisses = 0;
+  ctx.tts.stopSpeaking();
+  hideQuizCoach();
   $('#quiz-progress-bar').style.width = `${(quizIndex / quizQuestions.length) * 100}%`;
   $('#quiz-counter').textContent = `Question ${quizIndex + 1} of ${quizQuestions.length}`;
   $('#quiz-question').textContent = q.prompt;
@@ -335,36 +385,44 @@ function renderQuestion() {
 }
 
 function handleAnswer(btn) {
+  if (btn.disabled) return;
   const correct = btn.dataset.correct === 'true';
-  $$('.quiz-choice').forEach((b) => {
-    b.disabled = true;
-    if (b.dataset.correct === 'true') b.classList.add('correct');
-    else if (b === btn && !correct) b.classList.add('wrong');
-  });
-  if (correct) quizScore++;
-  ctx.emit('quiz.answered', 'quiz', { index: quizIndex, correct });
-  setTimeout(() => {
-    quizIndex++;
-    if (quizIndex < quizQuestions.length) renderQuestion();
-    else finishQuiz();
-  }, correct ? 500 : 1000);
+  ctx.tts.stopSpeaking();
+
+  if (correct) {
+    $$('.quiz-choice').forEach((b) => {
+      b.disabled = true;
+      if (b.dataset.correct === 'true') b.classList.add('correct');
+    });
+    quizScore++;
+    ctx.emit('quiz.answered', 'quiz', { index: quizIndex, correct: true, misses: quizMisses });
+    hideQuizCoach();
+    setTimeout(() => {
+      quizIndex++;
+      if (quizIndex < quizQuestions.length) renderQuestion();
+      else finishQuiz();
+    }, 500);
+    return;
+  }
+
+  quizMisses += 1;
+  btn.classList.add('wrong');
+  btn.disabled = true;
+  ctx.emit('quiz.answered', 'quiz', { index: quizIndex, correct: false, misses: quizMisses });
+  const q = quizQuestions[quizIndex];
+  const message = ctx.quiz.coachMessage(q, quizMisses);
+  showQuizCoach(message);
 }
 
 function finishQuiz() {
+  hideToast();
+  ctx.tts.stopSpeaking();
   hideOverlay('screen-quiz');
   const total = quizQuestions.length;
-  const passed = quizScore >= ctx.quiz.PASS_THRESHOLD;
-  ctx.emit('quiz.completed', 'quiz', { score: quizScore, total, passed });
-
-  if (passed) {
-    const p = ctx.storage.completePassage(currentPassageNum, TARGET_WORDS_PER_PASSAGE);
-    showCertificateScreen(p);
-    updateParentProgress();
-  } else {
-    showToast(`Got ${quizScore}/${total}. Need ${ctx.quiz.PASS_THRESHOLD} to pass. Try again!`);
-    ctx.emit('quiz.failed', 'quiz', { score: quizScore, total });
-    setTimeout(startQuiz, 1200);
-  }
+  ctx.emit('quiz.completed', 'quiz', { score: quizScore, total, passed: true });
+  const p = ctx.storage.completePassage(currentPassageNum, WORDS_PER_DAY);
+  showCertificateScreen(p);
+  updateParentProgress();
 }
 
 async function showCertificateScreen(progress) {
@@ -405,9 +463,24 @@ function updateParentProgress() {
   const p = ctx.storage.loadProgress();
   $('#parent-progress').textContent =
     `${p.completedPassages.length}/100 topics · ${p.totalWordsLearned}/1000 words`;
+  syncPaceControls();
 }
 
-function openPanel(id, fn) { closePanels(); $(`#${id}`).hidden = false; fn(); }
+function syncPaceControls() {
+  const id = getPaceId();
+  $$('[data-pace]').forEach((btn) => {
+    btn.classList.toggle('is-active', btn.dataset.pace === id);
+  });
+  const voiceEl = $('#parent-voice-name');
+  if (voiceEl) {
+    const name = ctx?.tts?.getActiveVoiceName?.() || '';
+    voiceEl.textContent = name && name !== 'default'
+      ? `Voice on this device: ${name}`
+      : 'Voice: best available on this device';
+  }
+}
+
+function openPanel(id, fn) { hideToast(); closePanels(); $(`#${id}`).hidden = false; fn(); }
 function closePanels() { $$('.sub-panel').forEach((p) => { p.hidden = true; }); }
 
 function renderPassageList() {
@@ -473,7 +546,28 @@ async function handleInstall() {
 
 function showToast(msg) {
   const t = $('#toast');
+  if (!t) return;
+  if (toastTimer) {
+    clearTimeout(toastTimer);
+    toastTimer = null;
+  }
+  t.hidden = false;
+  t.setAttribute('aria-hidden', 'false');
   t.textContent = msg;
   t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2500);
+  toastTimer = setTimeout(() => {
+    hideToast();
+  }, 2800);
+}
+
+function hideToast() {
+  const t = $('#toast');
+  if (toastTimer) {
+    clearTimeout(toastTimer);
+    toastTimer = null;
+  }
+  if (!t) return;
+  t.classList.remove('show');
+  t.setAttribute('aria-hidden', 'true');
+  t.hidden = true;
 }
