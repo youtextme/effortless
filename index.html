@@ -18,49 +18,50 @@
 </head>
 <body>
   <div id="app">
-    <header id="reading-header" class="reading-header">
-      <button id="btn-home" class="btn-home" aria-label="Home" type="button">
+    <header id="reading-header" class="reading-header" data-speech-skip>
+      <button id="btn-home" class="btn-home" aria-label="Home" type="button" data-speech-skip>
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
           <path d="M3 10.5L12 3l9 7.5V20a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1v-9.5z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
         </svg>
       </button>
     </header>
 
-    <main class="reading-main" id="reading-scroll">
+    <main class="reading-main" id="reading-scroll" data-speech-surface>
       <p id="passage-theme" class="passage-theme"></p>
       <div class="passage-title-row">
         <h1 id="passage-title" class="passage-h1"></h1>
-        <button id="btn-read-aloud" class="btn-speaker" type="button" aria-label="Listen from the beginning">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M11 5L6 9H3v6h3l5 4V5z" fill="currentColor"/>
-            <path d="M15.5 8.5a5 5 0 010 7M18 6a8.5 8.5 0 010 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-          </svg>
-        </button>
       </div>
       <div class="passage-scroll-wrap" id="passage-scroll-wrap">
         <article id="passage-content" class="passage"></article>
-        <div id="scroll-fade" class="scroll-fade" aria-hidden="true"></div>
+        <div id="scroll-fade" class="scroll-fade" aria-hidden="true" data-speech-skip></div>
       </div>
-      <div id="scroll-sentinel" class="scroll-sentinel" aria-hidden="true"></div>
+      <div id="scroll-sentinel" class="scroll-sentinel" aria-hidden="true" data-speech-skip></div>
     </main>
 
-    <button id="btn-done-reading" class="fab" disabled aria-label="Continue">
+    <button id="btn-listen" class="listen-dock" type="button" aria-label="Listen to this page" aria-pressed="false" data-speech-skip>
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M11 5L6 9H3v6h3l5 4V5z" fill="currentColor"/>
+        <path d="M15.5 8.5a5 5 0 010 7M18 6a8.5 8.5 0 010 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+      </svg>
+    </button>
+
+    <button id="btn-done-reading" class="fab" disabled aria-label="Continue" data-speech-skip>
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </button>
 
-    <section id="screen-quiz" class="overlay" hidden>
+    <section id="screen-quiz" class="overlay" hidden data-speech-surface>
       <div class="quiz-container">
         <div class="quiz-progress"><div class="quiz-progress-bar" id="quiz-progress-bar"></div></div>
         <p class="quiz-counter" id="quiz-counter"></p>
         <h2 id="quiz-question" class="quiz-question"></h2>
-        <div id="quiz-choices" class="quiz-choices"></div>
+        <div id="quiz-choices" class="quiz-choices" data-speech-skip></div>
         <div id="quiz-coach" class="quiz-coach" hidden aria-live="polite">
           <p id="quiz-coach-text" class="quiz-coach-text"></p>
         </div>
       </div>
     </section>
 
-    <section id="screen-complete" class="overlay" hidden>
+    <section id="screen-complete" class="overlay" hidden data-speech-surface>
       <div class="complete-container">
         <h2>Well done!</h2>
         <p id="complete-msg"></p>
@@ -71,7 +72,7 @@
     </section>
   </div>
 
-  <div id="name-modal" class="modal" hidden>
+  <div id="name-modal" class="modal" hidden data-speech-surface>
     <div class="modal-panel">
       <h2>Welcome to WordSpark</h2>
       <p>What's your name?</p>
@@ -80,7 +81,7 @@
     </div>
   </div>
 
-  <div id="word-sheet" class="word-sheet" hidden>
+  <div id="word-sheet" class="word-sheet" hidden data-speech-surface>
     <div class="word-sheet-backdrop" id="word-sheet-backdrop"></div>
     <div class="word-sheet-panel">
       <h3 id="sheet-word" class="sheet-word"></h3>
@@ -89,7 +90,7 @@
     </div>
   </div>
 
-  <footer id="parent-footer" class="parent-footer">
+  <footer id="parent-footer" class="parent-footer" data-speech-skip>
     <button id="btn-parent-toggle" class="parent-toggle">Parents</button>
     <div id="parent-panel" class="parent-panel" hidden>
       <span id="parent-progress" class="parent-stat"></span>
@@ -109,7 +110,7 @@
     </div>
   </footer>
 
-  <section id="panel-passages" class="sub-panel" hidden>
+  <section id="panel-passages" class="sub-panel" hidden data-speech-surface>
     <header class="sub-header">
       <button class="icon-btn btn-back-panel" data-back>←</button>
       <h2>Topics</h2>
@@ -117,7 +118,7 @@
     <div id="passage-list" class="passage-list"></div>
   </section>
 
-  <section id="panel-words" class="sub-panel" hidden>
+  <section id="panel-words" class="sub-panel" hidden data-speech-surface>
     <header class="sub-header">
       <button class="icon-btn btn-back-panel" data-back>←</button>
       <h2>Words</h2>
@@ -125,7 +126,7 @@
     <div id="words-list" class="words-list"></div>
   </section>
 
-  <section id="panel-certificates" class="sub-panel" hidden>
+  <section id="panel-certificates" class="sub-panel" hidden data-speech-surface>
     <header class="sub-header">
       <button class="icon-btn btn-back-panel" data-back>←</button>
       <h2>Certificates</h2>

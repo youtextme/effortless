@@ -1,6 +1,6 @@
 /**
  * Parent read-aloud pace — stored on device, edited from Parents.
- * Home = a parent talking to a 10-year-old (not a slow title, not a rush).
+ * Home = a parent talking to a 10-year-old (same rate for title and body).
  */
 
 const KEY = 'wordspark_speech_pace';

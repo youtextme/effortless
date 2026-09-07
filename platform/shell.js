@@ -16,10 +16,11 @@ import { StorageComponent } from './components/storage.js';
 import { PassageComponent } from './components/passage.js';
 import { ReadingComponent } from './components/reading.js';
 import { TtsComponent } from './components/tts.js';
+import { SpeechComponent } from './components/speech.js';
 import { WordSheetComponent } from './components/word-sheet.js';
 import { QuizComponent } from './components/quiz.js';
 import { CertificateComponent } from './components/certificate.js';
-import { getPaceId, setPaceId } from '../js/speech-settings.js';
+import { getPaceId, setPaceId } from './speech/pace.js';
 
 const $ = (sel) => document.querySelector(sel);
 const $$ = (sel) => document.querySelectorAll(sel);
@@ -36,12 +37,12 @@ let wordMap = {};
 let scrollObserver = null;
 let currentCertificateCanvas = null;
 let lastScrollY = 0;
-let passagePlainParagraphs = [];
 let scrollHandler = null;
 
 const COMPONENTS = [
   StorageComponent,
   PassageComponent,
+  SpeechComponent,
   TtsComponent,
   ReadingComponent,
   WordSheetComponent,
@@ -83,7 +84,10 @@ export async function bootShell() {
     });
   }
 
-  if (ctx.tts.ensureVoicesReady) await ctx.tts.ensureVoicesReady();
+  if (ctx.speech?.ensureVoicesReady) await ctx.speech.ensureVoicesReady();
+  else if (ctx.tts.ensureVoicesReady) await ctx.tts.ensureVoicesReady();
+
+  ctx.speech?.mountListenControl($('#btn-listen'));
 
   setupListeners();
   const p = ctx.storage.loadProgress();
@@ -112,7 +116,6 @@ function setupListeners() {
     ctx.tts.stopSpeaking();
     openPanel('panel-passages', renderPassageList);
   });
-  $('#btn-read-aloud')?.addEventListener('click', playPassageAloud);
   $('#btn-next-passage')?.addEventListener('click', () => {
     hideOverlay('screen-complete');
     loadPassage(ctx.storage.getActivePassage());
@@ -131,6 +134,7 @@ function setupListeners() {
     btn.addEventListener('click', (e) => {
       e.stopPropagation();
       setPaceId(btn.dataset.pace);
+      ctx.tts.refreshProfile?.();
       syncPaceControls();
       showToast('Speech speed updated');
     });
@@ -204,11 +208,6 @@ function loadPassage(n) {
     .map((s) => sectionToHtml(s, currentPassageData.words))
     .join('');
 
-  passagePlainParagraphs = sections.flatMap((s) =>
-    s.body.split(/\n+/).map((p) => p.trim()).filter(Boolean)
-  );
-
-  $('#btn-read-aloud')?.classList.remove('is-playing');
   $('#passage-scroll-wrap')?.classList.remove('at-end');
 
   setupWordTaps();
@@ -264,28 +263,6 @@ function updateScrollFade() {
   const nearEnd = window.scrollY + winH >= docH - 48;
 
   wrap.classList.toggle('at-end', nearEnd || docH <= winH + 40);
-}
-
-async function playPassageAloud() {
-  const btn = $('#btn-read-aloud');
-  if (ctx.tts.isSpeaking()) {
-    ctx.tts.stopSpeaking();
-    ctx.tts.clearHighlights($('#passage-content'));
-    ctx.tts.clearHighlights($('#passage-title'));
-    btn?.classList.remove('is-playing');
-    return;
-  }
-
-  const title = $('#passage-title')?.textContent || '';
-  btn?.classList.add('is-playing');
-  await ctx.tts.speakLongPassage(
-    title,
-    passagePlainParagraphs,
-    $('#passage-content'),
-    $('#passage-title'),
-    () => { btn?.classList.remove('is-playing'); },
-    currentPassageNum
-  );
 }
 
 function setupScrollUnlock() {
@@ -367,7 +344,7 @@ function showQuizCoach(message) {
   const el = $('#quiz-coach');
   if (text) text.textContent = message;
   if (el) el.hidden = false;
-  if (message) ctx.tts.speakSequence(message);
+  if (message) ctx.tts.speakSequence?.(message);
 }
 
 function renderQuestion() {
