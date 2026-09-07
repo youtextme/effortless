@@ -212,7 +212,8 @@ export function sectionToHtml(section, words) {
     .filter(Boolean)
     .map((p) => `<p>${p}</p>`)
     .join('');
-  return `<h2 class="passage-h2" aria-hidden="true">${section.h2}</h2>${highlightWordsOnce(raw, words)}`;
+  if (!words?.length) return raw;
+  return highlightWordsOnce(raw, words);
 }
 
 export function countWordOccurrences(text, word) {

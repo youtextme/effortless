@@ -79,8 +79,8 @@
       "id": "quiz-requires-comprehension-pass",
       "component": "quiz",
       "given": "a generated question set",
-      "when": "the quiz is created",
-      "then": "a numeric pass threshold exists and questions can be generated"
+      "when": "the kid answers",
+      "then": "misses are coached and there is no pass wall"
     },
     {
       "id": "word-sheet-uses-speech",

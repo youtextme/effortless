@@ -20,6 +20,7 @@ import { SpeechComponent } from './components/speech.js';
 import { WordSheetComponent } from './components/word-sheet.js';
 import { QuizComponent } from './components/quiz.js';
 import { CertificateComponent } from './components/certificate.js';
+import { getPaceId, setPaceId } from './speech/pace.js';
 
 const $ = (sel) => document.querySelector(sel);
 const $$ = (sel) => document.querySelectorAll(sel);
@@ -30,6 +31,8 @@ let currentPassageNum = 1;
 let quizQuestions = [];
 let quizIndex = 0;
 let quizScore = 0;
+let quizMisses = 0;
+let toastTimer = null;
 let wordMap = {};
 let scrollObserver = null;
 let currentCertificateCanvas = null;
@@ -124,6 +127,17 @@ function setupListeners() {
     const panel = $('#parent-panel');
     panel.hidden = !panel.hidden;
     updateParentProgress();
+    if (!panel.hidden) syncPaceControls();
+  });
+
+  $$('[data-pace]').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      setPaceId(btn.dataset.pace);
+      ctx.tts.refreshProfile?.();
+      syncPaceControls();
+      showToast('Speech speed updated');
+    });
   });
 
   $$('.parent-link').forEach((btn) => {
@@ -176,6 +190,7 @@ function getPassageData(n) {
 }
 
 function loadPassage(n) {
+  hideToast();
   ctx.tts.stopSpeaking();
   ctx.tts.clearHighlights($('#passage-content'));
   ctx.tts.clearHighlights($('#passage-title'));
@@ -306,17 +321,37 @@ function closeWordSheet() {
 
 function startQuiz() {
   if (!ctx.reading.hasScrolledToEnd) return;
+  hideToast();
   ctx.tts.stopSpeaking();
   quizQuestions = ctx.quiz.generate(currentPassageData);
   quizIndex = 0;
   quizScore = 0;
+  quizMisses = 0;
   showOverlay('screen-quiz');
   renderQuestion();
   ctx.emit('quiz.started', 'quiz', { count: quizQuestions.length });
 }
 
+function hideQuizCoach() {
+  const el = $('#quiz-coach');
+  if (el) el.hidden = true;
+  const text = $('#quiz-coach-text');
+  if (text) text.textContent = '';
+}
+
+function showQuizCoach(message) {
+  const text = $('#quiz-coach-text');
+  const el = $('#quiz-coach');
+  if (text) text.textContent = message;
+  if (el) el.hidden = false;
+  if (message) ctx.tts.speakSequence?.(message);
+}
+
 function renderQuestion() {
   const q = quizQuestions[quizIndex];
+  quizMisses = 0;
+  ctx.tts.stopSpeaking();
+  hideQuizCoach();
   $('#quiz-progress-bar').style.width = `${(quizIndex / quizQuestions.length) * 100}%`;
   $('#quiz-counter').textContent = `Question ${quizIndex + 1} of ${quizQuestions.length}`;
   $('#quiz-question').textContent = q.prompt;
@@ -327,36 +362,44 @@ function renderQuestion() {
 }
 
 function handleAnswer(btn) {
+  if (btn.disabled) return;
   const correct = btn.dataset.correct === 'true';
-  $$('.quiz-choice').forEach((b) => {
-    b.disabled = true;
-    if (b.dataset.correct === 'true') b.classList.add('correct');
-    else if (b === btn && !correct) b.classList.add('wrong');
-  });
-  if (correct) quizScore++;
-  ctx.emit('quiz.answered', 'quiz', { index: quizIndex, correct });
-  setTimeout(() => {
-    quizIndex++;
-    if (quizIndex < quizQuestions.length) renderQuestion();
-    else finishQuiz();
-  }, correct ? 500 : 1000);
+  ctx.tts.stopSpeaking();
+
+  if (correct) {
+    $$('.quiz-choice').forEach((b) => {
+      b.disabled = true;
+      if (b.dataset.correct === 'true') b.classList.add('correct');
+    });
+    quizScore++;
+    ctx.emit('quiz.answered', 'quiz', { index: quizIndex, correct: true, misses: quizMisses });
+    hideQuizCoach();
+    setTimeout(() => {
+      quizIndex++;
+      if (quizIndex < quizQuestions.length) renderQuestion();
+      else finishQuiz();
+    }, 500);
+    return;
+  }
+
+  quizMisses += 1;
+  btn.classList.add('wrong');
+  btn.disabled = true;
+  ctx.emit('quiz.answered', 'quiz', { index: quizIndex, correct: false, misses: quizMisses });
+  const q = quizQuestions[quizIndex];
+  const message = ctx.quiz.coachMessage(q, quizMisses);
+  showQuizCoach(message);
 }
 
 function finishQuiz() {
+  hideToast();
+  ctx.tts.stopSpeaking();
   hideOverlay('screen-quiz');
   const total = quizQuestions.length;
-  const passed = quizScore >= ctx.quiz.PASS_THRESHOLD;
-  ctx.emit('quiz.completed', 'quiz', { score: quizScore, total, passed });
-
-  if (passed) {
-    const p = ctx.storage.completePassage(currentPassageNum, WORDS_PER_DAY);
-    showCertificateScreen(p);
-    updateParentProgress();
-  } else {
-    showToast(`Got ${quizScore}/${total}. Need ${ctx.quiz.PASS_THRESHOLD} to pass. Try again!`);
-    ctx.emit('quiz.failed', 'quiz', { score: quizScore, total });
-    setTimeout(startQuiz, 1200);
-  }
+  ctx.emit('quiz.completed', 'quiz', { score: quizScore, total, passed: true });
+  const p = ctx.storage.completePassage(currentPassageNum, WORDS_PER_DAY);
+  showCertificateScreen(p);
+  updateParentProgress();
 }
 
 async function showCertificateScreen(progress) {
@@ -397,9 +440,24 @@ function updateParentProgress() {
   const p = ctx.storage.loadProgress();
   $('#parent-progress').textContent =
     `${p.completedPassages.length}/100 topics · ${p.totalWordsLearned}/1000 words`;
+  syncPaceControls();
 }
 
-function openPanel(id, fn) { closePanels(); $(`#${id}`).hidden = false; fn(); }
+function syncPaceControls() {
+  const id = getPaceId();
+  $$('[data-pace]').forEach((btn) => {
+    btn.classList.toggle('is-active', btn.dataset.pace === id);
+  });
+  const voiceEl = $('#parent-voice-name');
+  if (voiceEl) {
+    const name = ctx?.tts?.getActiveVoiceName?.() || '';
+    voiceEl.textContent = name && name !== 'default'
+      ? `Voice on this device: ${name}`
+      : 'Voice: best available on this device';
+  }
+}
+
+function openPanel(id, fn) { hideToast(); closePanels(); $(`#${id}`).hidden = false; fn(); }
 function closePanels() { $$('.sub-panel').forEach((p) => { p.hidden = true; }); }
 
 function renderPassageList() {
@@ -465,7 +523,28 @@ async function handleInstall() {
 
 function showToast(msg) {
   const t = $('#toast');
+  if (!t) return;
+  if (toastTimer) {
+    clearTimeout(toastTimer);
+    toastTimer = null;
+  }
+  t.hidden = false;
+  t.setAttribute('aria-hidden', 'false');
   t.textContent = msg;
   t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2500);
+  toastTimer = setTimeout(() => {
+    hideToast();
+  }, 2800);
+}
+
+function hideToast() {
+  const t = $('#toast');
+  if (toastTimer) {
+    clearTimeout(toastTimer);
+    toastTimer = null;
+  }
+  if (!t) return;
+  t.classList.remove('show');
+  t.setAttribute('aria-hidden', 'true');
+  t.hidden = true;
 }

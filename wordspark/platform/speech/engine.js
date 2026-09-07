@@ -5,6 +5,7 @@
 
 import { speechPolicy } from './policy.js';
 import { packByChars, joinPieceText, nextMaxChars, isAbortResult } from './sentences.js';
+import { getSpeechRate } from './pace.js';
 import {
   pickWarmMother,
   sessionProfile,
@@ -131,7 +132,7 @@ export function ensureVoicesReady() {
 
 function applyProfile(utterance) {
   if (!profile) refreshProfile();
-  utterance.rate = profile?.rate ?? speechPolicy.rates.default;
+  utterance.rate = getSpeechRate();
   utterance.pitch = speechPolicy.pitch;
   utterance.volume = speechPolicy.volume;
   utterance.lang = profile?.lang || document.documentElement?.lang || 'en-US';
@@ -482,6 +483,38 @@ export function isSpeaking() {
 
 export function getCurrentProfile() {
   return profile;
+}
+
+export function speakText(text, { onEnd } = {}) {
+  const trimmed = String(text || '').trim();
+  if (!isTTSAvailable() || !trimmed) {
+    onEnd?.();
+    return false;
+  }
+  stopSpeaking();
+  speaking = true;
+  const u = new SpeechSynthesisUtterance(trimmed);
+  applyProfile(u);
+  u.onend = () => {
+    speaking = false;
+    emitSpeechState();
+    onEnd?.();
+  };
+  u.onerror = () => {
+    speaking = false;
+    emitSpeechState();
+    onEnd?.();
+  };
+  resumeIfPaused();
+  try {
+    synth()?.speak(u);
+  } catch {
+    speaking = false;
+    onEnd?.();
+    return false;
+  }
+  emitSpeechState();
+  return true;
 }
 
 export function stopSpeaking() {

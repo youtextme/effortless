@@ -13,6 +13,7 @@
     "wordspark/platform/speech/policy.js",
     "wordspark/platform/speech/sentences.js",
     "wordspark/platform/speech/voice-picker.js",
+    "wordspark/platform/speech/pace.js",
     "wordspark/platform/speech/lifecycle.js",
     "wordspark/platform/speech/word-clock.js"
   ],

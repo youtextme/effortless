@@ -11,13 +11,14 @@ export {
   speakRoot,
   speakActiveSurface,
   speakWordSheet,
+  speakText,
   getCurrentProfile as getCurrentReader,
   refreshProfile as refreshVoicePool,
 } from '../platform/speech/engine.js';
 
 export { speechPolicy, speechPolicy as PARENT_RATES } from '../platform/speech/policy.js';
 
-import { speakActiveSurface, speakWordSheet } from '../platform/speech/engine.js';
+import { speakActiveSurface, speakWordSheet, speakText } from '../platform/speech/engine.js';
 
 export async function speakLongPassage(_title, _paragraphs, _content, _titleRoot, onEnd) {
   return speakActiveSurface({ onEnd });
@@ -29,9 +30,19 @@ export async function speakWordWithExamples(_word, _examples, elements, onEnd) {
   return speakWordSheet(panel, onEnd);
 }
 
-export function speak() { return false; }
-export function speakWord() { return false; }
-export function speakSequence() { return false; }
-export function speakParts() { return false; }
-export function speakPassage() { return false; }
+export function speak(text, { onEnd } = {}) {
+  return speakText(text, { onEnd });
+}
+export function speakWord(word, onEnd) {
+  return speakText(word, { onEnd });
+}
+export function speakSequence(text, onEnd) {
+  return speakText(text, { onEnd });
+}
+export function speakParts(parts, { onEnd } = {}) {
+  return speakText((parts || []).join(' '), { onEnd });
+}
+export function speakPassage(text, onEnd) {
+  return speakText(text, { onEnd });
+}
 export function getParentReader() { return null; }

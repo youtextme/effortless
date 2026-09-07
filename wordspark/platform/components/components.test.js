@@ -75,7 +75,7 @@ test('story:reading-unlocks-quiz-after-scroll reading marks end', async () => {
   assert.equal(ctx.reading.hasScrolledToEnd, false);
 });
 
-test('story:quiz-requires-comprehension-pass quiz generates questions', async () => {
+test('story:quiz-requires-comprehension-pass quiz coaches takeaways without a pass wall', async () => {
   const ctx = createContext({
     bus,
     telemetry: createTelemetry(),
@@ -83,19 +83,25 @@ test('story:quiz-requires-comprehension-pass quiz generates questions', async ()
     registry,
   });
   await QuizComponent.init(ctx);
-  assert.ok(ctx.quiz.PASS_THRESHOLD > 0);
+  assert.equal(ctx.quiz.PASS_THRESHOLD, 0);
+  assert.equal(typeof ctx.quiz.coachMessage, 'function');
   const day = {
     day: 1,
     theme: 'test',
-    takeaway: 'learn',
+    takeaway: 'learn with wonder every day',
     words: Array.from({ length: 10 }, (_, i) => ({
       word: `word${i}`,
       meaning: 'm',
-      example: 'e',
+      example: `Use word${i} at dinner tonight.`,
     })),
   };
   const qs = ctx.quiz.generate(day);
   assert.ok(qs.length > 0);
+  assert.ok(qs[0].thinkAloud);
+  const first = ctx.quiz.coachMessage(qs[0], 1);
+  const retry = ctx.quiz.coachMessage(qs[0], 2);
+  assert.ok(first);
+  assert.ok(retry.split(/\s+/).length <= 50);
   assert.equal(QuizComponent.health().ok, true);
 });
 

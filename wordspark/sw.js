@@ -1,4 +1,4 @@
-const CACHE_NAME = 'wordspark-v19';
+const CACHE_NAME = 'wordspark-v20';
 const ASSETS = [
   './',
   './index.html',
@@ -27,6 +27,7 @@ const ASSETS = [
   './platform/speech/listen-control.js',
   './platform/speech/lifecycle.js',
   './platform/speech/word-clock.js',
+  './platform/speech/pace.js',
   './js/passage-generator.js',
   './js/storage.js',
   './js/certificate.js',

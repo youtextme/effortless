@@ -11,6 +11,7 @@ import { splitSentences, packByChars, joinPieceText, nextMaxChars, rateForQualit
 import { scoreVoice, pickWarmMother, sessionProfile, documentLocale, listEnglishVoices } from './voice-picker.js';
 import { isSilentFromFlags, flagsFromElement, coveringScoreFromFlags } from './visible-text.js';
 import { speechPolicy } from './policy.js';
+import { getSpeechRate, getPaceId, setPaceId, PACE_RATES } from './pace.js';
 
 const here = dirname(fileURLToPath(import.meta.url));
 
@@ -105,11 +106,43 @@ test('sticky URI wins so the voice does not rotate', () => {
   assert.equal(picked.voiceURI, 'karen');
 });
 
-test('story:one-rate-per-session sessionProfile uses one rate for the session', () => {
+test('story:one-rate-per-session sessionProfile uses parent home pace for title and body', () => {
   const voice = { name: 'Google UK English Female', lang: 'en-GB', voiceURI: 'g', localService: false };
   const profile = sessionProfile(voice, 'en-GB');
-  assert.equal(profile.rate, speechPolicy.rates.network);
+  assert.equal(profile.rate, getSpeechRate());
+  assert.equal(profile.rate, PACE_RATES.home);
   assert.equal(profile.pitch, speechPolicy.pitch);
+});
+
+test('robot voices lose to a warm English voice even if sticky', () => {
+  const voices = [
+    { name: 'eSpeak Generic', lang: 'en-GB', voiceURI: 'espeak', localService: true, default: true },
+    { name: 'Google US English', lang: 'en-US', voiceURI: 'google-us', localService: false },
+  ];
+  const picked = pickWarmMother(voices, 'en-US', 'espeak');
+  assert.equal(picked.voiceURI, 'google-us');
+});
+
+test('parents can raise the shared title-and-body pace', () => {
+  const mem = {
+    store: { wordspark_speech_pace: 'quick' },
+    getItem(k) { return this.store[k] || null; },
+    setItem(k, v) { this.store[k] = String(v); },
+  };
+  assert.equal(getSpeechRate(mem), PACE_RATES.quick);
+  assert.ok(PACE_RATES.quick > PACE_RATES.home);
+  assert.equal(getPaceId({ getItem: () => null }), 'home');
+  assert.equal(setPaceId('brisk', mem), 'brisk');
+  assert.equal(getPaceId(mem), 'brisk');
+  assert.equal(setPaceId('nope', mem), 'home');
+});
+
+test('kill experiment: only compact/espeak still returns a voice', () => {
+  const picked = pickWarmMother([
+    { name: 'eSpeak Compact', lang: 'en-GB', voiceURI: 'espeak-compact', localService: true },
+  ], 'en-GB');
+  assert.ok(picked);
+  assert.equal(picked.voiceURI, 'espeak-compact');
 });
 
 test('story:hidden-headings-not-spoken hidden passage-h2 flags are silent — not spoken', () => {

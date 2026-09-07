@@ -54,7 +54,10 @@
         <div class="quiz-progress"><div class="quiz-progress-bar" id="quiz-progress-bar"></div></div>
         <p class="quiz-counter" id="quiz-counter"></p>
         <h2 id="quiz-question" class="quiz-question"></h2>
-        <div id="quiz-choices" class="quiz-choices"></div>
+        <div id="quiz-choices" class="quiz-choices" data-speech-skip></div>
+        <div id="quiz-coach" class="quiz-coach" hidden aria-live="polite">
+          <p id="quiz-coach-text" class="quiz-coach-text"></p>
+        </div>
       </div>
     </section>
 
@@ -91,6 +94,14 @@
     <button id="btn-parent-toggle" class="parent-toggle">Parents</button>
     <div id="parent-panel" class="parent-panel" hidden>
       <span id="parent-progress" class="parent-stat"></span>
+      <div class="parent-pace" role="group" aria-label="Read-aloud speed">
+        <span class="parent-pace-label">Speech speed</span>
+        <button type="button" class="parent-pace-btn" data-pace="gentle">Gentle</button>
+        <button type="button" class="parent-pace-btn" data-pace="home">Home</button>
+        <button type="button" class="parent-pace-btn" data-pace="brisk">Brisk</button>
+        <button type="button" class="parent-pace-btn" data-pace="quick">Quick</button>
+      </div>
+      <p id="parent-voice-name" class="parent-voice-name"></p>
       <button class="parent-link" data-action="passages">Topics</button>
       <button class="parent-link" data-action="words">Words</button>
       <button class="parent-link" data-action="certificates">Certificates</button>
@@ -135,7 +146,7 @@
     </div>
   </div>
 
-  <div id="toast" class="toast"></div>
+  <div id="toast" class="toast" hidden aria-hidden="true"></div>
   <script type="module" src="js/app.js"></script>
 </body>
 </html>
