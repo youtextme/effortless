@@ -49,6 +49,11 @@ export const speechPolicy = Object.freeze({
     observeSmoothing: 0.35,
   }),
 
+  fold: Object.freeze({
+    topSlopPx: 8,
+    headerSelector: '#reading-header',
+  }),
+
   wordSheet: Object.freeze({
     leadSelector: '.sheet-word',
     meaningSelector: '.sheet-intro',

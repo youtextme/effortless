@@ -61,6 +61,22 @@
       "then": "it does not shrink-and-replay the same chunk"
     },
     {
+      "id": "word-tap-takes-listen",
+      "component": "speech",
+      "given": "Listen is reading the passage",
+      "when": "the kid taps an advanced word",
+      "then": "passage speech stops and the word sheet auto-speaks without the surface-stop cancelling it",
+      "nfr": ["word-tap-interrupts-listen"]
+    },
+    {
+      "id": "listen-from-fold",
+      "component": "speech",
+      "given": "the kid has scrolled the passage",
+      "when": "they tap Listen",
+      "then": "read-aloud starts at the top-most paragraph in the viewport, not the title if it has left the fold",
+      "nfr": ["listen-starts-in-fold"]
+    },
+    {
       "id": "kernel-acyclic-init",
       "component": "shell",
       "given": "registered components with dependencies",

@@ -1,4 +1,5 @@
 import { getWordExplanation, explanationToSpeech } from '../../js/word-usage.js';
+import { planSpeechHandoff, SPEECH_EVENTS } from '../speech/session.js';
 
 function escapeHtml(text) {
   return String(text)
@@ -15,6 +16,13 @@ export const WordSheetComponent = {
   init(ctx) {
     ctx.wordSheet = {
       open(data, elements) {
+        const plan = planSpeechHandoff(SPEECH_EVENTS.wordOpen, {
+          speaking: true,
+          wordSheetOpen: true,
+        });
+        if (plan.action === 'stop-then-speak-word-sheet') {
+          ctx.speech.stopSpeaking();
+        }
         const explanation = getWordExplanation(data);
         const speech = explanationToSpeech(data.word, explanation);
         elements.word.textContent = data.word;
@@ -33,7 +41,10 @@ export const WordSheetComponent = {
         ctx.emit('word.opened', 'word-sheet', { word: data.word });
       },
       close(elements) {
-        ctx.tts.stopSpeaking();
+        const plan = planSpeechHandoff(SPEECH_EVENTS.wordClose);
+        if (plan.action === 'stop') {
+          ctx.tts.stopSpeaking();
+        }
         ctx.tts.clearHighlights(elements.word);
         ctx.tts.clearHighlights(elements.container);
         if (elements.intro) {

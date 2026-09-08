@@ -105,8 +105,11 @@ test('story:word-sheet-daily-use sheet fills meaning and three example lines the
   });
   await WordSheetComponent.init(ctx);
   const spoken = [];
+  const order = [];
   ctx.speech = {
+    stopSpeaking() { order.push('stop'); },
     speakWordSheet(panel) {
+      order.push('speak');
       spoken.push(panel);
     },
   };
@@ -140,6 +143,7 @@ test('story:word-sheet-daily-use sheet fills meaning and three example lines the
   assert.equal(container.innerHTML.includes('Scientists'), false);
   assert.equal(sheet.hidden, false);
   assert.equal(spoken[0], panel);
+  assert.deepEqual(order, ['stop', 'speak']);
 
   ctx.wordSheet.close({ sheet, word, container, intro });
   assert.equal(sheet.hidden, true);

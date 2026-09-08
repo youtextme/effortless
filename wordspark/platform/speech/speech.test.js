@@ -257,3 +257,13 @@ test('story:word-sheet-daily-use engine says the word twice then meaning then ex
   assert.match(speechPolicy.blockSelector, /sheet-intro/);
 });
 
+test('story:listen-from-fold Listen slices blocks from the visible fold', () => {
+  const src = readFileSync(join(here, 'engine.js'), 'utf8');
+  assert.match(src, /sliceBlocksFromFold/);
+  assert.match(src, /fromFold/);
+  assert.equal(speechPolicy.fold.topSlopPx, 8);
+  const listen = readFileSync(join(here, 'listen-control.js'), 'utf8');
+  assert.match(listen, /planSpeechHandoff/);
+  assert.match(listen, /speak-surface-from-fold|fromFold: true/);
+});
+

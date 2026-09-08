@@ -113,6 +113,7 @@ function setupListeners() {
 
   $('#btn-done-reading')?.addEventListener('click', startQuiz);
   $('#btn-home')?.addEventListener('click', () => {
+    closeWordSheet();
     ctx.tts.stopSpeaking();
     openPanel('panel-passages', renderPassageList);
   });
@@ -191,6 +192,7 @@ function getPassageData(n) {
 
 function loadPassage(n) {
   hideToast();
+  closeWordSheet();
   ctx.tts.stopSpeaking();
   ctx.tts.clearHighlights($('#passage-content'));
   ctx.tts.clearHighlights($('#passage-title'));
@@ -324,6 +326,7 @@ function closeWordSheet() {
 function startQuiz() {
   if (!ctx.reading.hasScrolledToEnd) return;
   hideToast();
+  closeWordSheet();
   ctx.tts.stopSpeaking();
   quizQuestions = ctx.quiz.generate(currentPassageData);
   quizIndex = 0;
@@ -459,7 +462,14 @@ function syncPaceControls() {
   }
 }
 
-function openPanel(id, fn) { hideToast(); closePanels(); $(`#${id}`).hidden = false; fn(); }
+function openPanel(id, fn) {
+  hideToast();
+  closeWordSheet();
+  ctx.tts.stopSpeaking();
+  closePanels();
+  $(`#${id}`).hidden = false;
+  fn();
+}
 function closePanels() { $$('.sub-panel').forEach((p) => { p.hidden = true; }); }
 
 function renderPassageList() {

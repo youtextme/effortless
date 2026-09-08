@@ -1,4 +1,4 @@
-const CACHE_NAME = 'wordspark-v23'; // tap word: twice, meaning, three daily kid examples (relatable verbs)
+const CACHE_NAME = 'wordspark-v24'; // listen from fold; word tap stops passage and auto-speaks the sheet
 const ASSETS = [
   './',
   './index.html',
@@ -28,6 +28,8 @@ const ASSETS = [
   './platform/speech/lifecycle.js',
   './platform/speech/word-clock.js',
   './platform/speech/pace.js',
+  './platform/speech/fold.js',
+  './platform/speech/session.js',
   './js/passage-generator.js',
   './js/storage.js',
   './js/certificate.js',

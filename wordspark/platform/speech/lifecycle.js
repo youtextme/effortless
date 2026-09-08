@@ -3,10 +3,20 @@
  * Pure decision + MutationObserver + optional poll. No per-screen if/else.
  */
 
+export function isWordSheetSurface(el) {
+  if (!el) return false;
+  if (el.id === 'word-sheet') return true;
+  if (typeof el.classList?.contains === 'function' && el.classList.contains('word-sheet')) {
+    return true;
+  }
+  return false;
+}
+
 export function shouldStopForSurfaceChange(speakingRoot, activeRoot) {
   if (!speakingRoot) return false;
   if (!activeRoot) return true;
   if (speakingRoot === activeRoot) return false;
+  if (isWordSheetSurface(activeRoot)) return false;
   if (typeof speakingRoot.contains === 'function' && speakingRoot.contains(activeRoot)) return false;
   if (typeof activeRoot.contains === 'function' && activeRoot.contains(speakingRoot)) return false;
   return true;

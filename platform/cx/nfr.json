@@ -97,6 +97,44 @@
       ]
     },
     {
+      "id": "word-tap-interrupts-listen",
+      "kind": "functional",
+      "statement": "Tapping an advanced word while Listen is playing stops passage speech and auto-speaks the word sheet. Unhiding the sheet must not cancel that new session.",
+      "sourceEvidence": [
+        {
+          "file": "wordspark/platform/speech/lifecycle.js",
+          "includes": ["isWordSheetSurface", "shouldStopForSurfaceChange"]
+        },
+        {
+          "file": "wordspark/platform/speech/session.js",
+          "includes": ["stop-then-speak-word-sheet"]
+        },
+        {
+          "file": "wordspark/platform/components/word-sheet.js",
+          "includes": ["stopSpeaking", "speakWordSheet"]
+        }
+      ]
+    },
+    {
+      "id": "listen-starts-in-fold",
+      "kind": "functional",
+      "statement": "Listen on the reading surface starts at the top-most paragraph currently in the viewport fold.",
+      "sourceEvidence": [
+        {
+          "file": "wordspark/platform/speech/fold.js",
+          "includes": ["sliceBlocksFromFold", "firstBlockInFoldIndex"]
+        },
+        {
+          "file": "wordspark/platform/speech/engine.js",
+          "includes": ["fromFold", "sliceBlocksFromFold"]
+        },
+        {
+          "file": "wordspark/platform/speech/policy.js",
+          "includes": ["topSlopPx: 8"]
+        }
+      ]
+    },
+    {
       "id": "child-data-local",
       "kind": "privacy",
       "statement": "Child progress and certificates stay on-device; pii and undeclared network events are blocked.",

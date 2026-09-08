@@ -27,7 +27,9 @@
         { "id": "dock", "story": "listen-on-every-surface" },
         { "id": "mother-voice", "story": "warm-mother-voice" },
         { "id": "steady-rate", "story": "one-rate-per-session" },
-        { "id": "no-restart", "story": "abort-does-not-restart" }
+        { "id": "no-restart", "story": "abort-does-not-restart" },
+        { "id": "word-tap-listen", "story": "word-tap-takes-listen" },
+        { "id": "listen-fold", "story": "listen-from-fold" }
       ]
     },
     {
