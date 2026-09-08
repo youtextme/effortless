@@ -174,9 +174,6 @@ function unwrapRoot(root) {
     parent.replaceChild(document.createTextNode(el.textContent), el);
     parent.normalize();
   });
-  root.querySelectorAll('.speech-chunk-active').forEach((el) => {
-    el.classList.remove('speech-chunk-active');
-  });
   root.querySelectorAll('.speech-word-active').forEach((el) => {
     el.classList.remove('speech-word-active');
   });
@@ -247,10 +244,6 @@ function activateSpan(span) {
   });
 }
 
-function markChunk(spans, on) {
-  spans.forEach((s) => s.classList.toggle('speech-chunk-active', on));
-}
-
 function setTeleprompter(on) {
   document.body.classList.toggle('teleprompter-active', on);
 }
@@ -319,7 +312,6 @@ function speakUtterance(text, spans) {
           speechPolicy.clock.observeSmoothing,
         );
       }
-      markChunk(spans, false);
       resolve(result);
     };
 
@@ -331,7 +323,6 @@ function speakUtterance(text, spans) {
     u.onstart = () => {
       startedAt = nowMs();
       boundaryAt = startedAt;
-      markChunk(spans, true);
       if (spans[0]) activateSpan(spans[0]);
       tickId = scheduleTick(loop);
     };
