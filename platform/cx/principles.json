@@ -1,0 +1,29 @@
+{
+  "version": "1.0.0",
+  "principles": [
+    {
+      "id": "one-job-on-screen",
+      "statement": "Each surface has one customer job. New units compose into existing surfaces instead of stacking chrome."
+    },
+    {
+      "id": "distraction-free",
+      "statement": "Plain type, generous space, no decorative gamification."
+    },
+    {
+      "id": "copy-is-data",
+      "statement": "Kid-facing strings live in packs and datasets so languages can swap without kernel edits."
+    },
+    {
+      "id": "device-local",
+      "statement": "No account. Memory stays on this device."
+    },
+    {
+      "id": "use-it-this-slice",
+      "statement": "A registered unit is not shipped until an existing journey selects it in the production mix."
+    },
+    {
+      "id": "possible-and-free",
+      "statement": "Core loop uses browser APIs and local storage. No paid cloud required."
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://youtextme.github.io/effortless/platform/contracts/item.schema.json",
+  "title": "QuestionItemType",
+  "type": "object",
+  "required": ["id", "label"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*$"
+    },
+    "label": { "type": "string" }
+  },
+  "additionalProperties": true
+}

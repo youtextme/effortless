@@ -16,6 +16,10 @@ WordSpark is a **platform of components**. New customer experiences are new/exte
 
 **Before you claim done:** `npm run ci` must exit 0 (100% tests pass + ≥95% coverage on the governed surface). GitHub Actions `Platform CI` is the same command. Pages deploy waits on it.
 
+**To add a question type:** fail-closed id in `items.js`, pack in `item-packs.js`, **and** emit it from `generateQuestions` (Use-It). Do not fork quiz HTML in `shell.js`.
+
+**High-level customer goals:** staff `platform/team/ROSTER.md`. Fill `platform/team/INTAKE.md`. Design: `platform/cx/DESIGN.md`.
+
 **To add a component:**
 
 ```bash

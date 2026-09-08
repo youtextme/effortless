@@ -179,6 +179,18 @@ Staffing is your decision, never the user's. Dispatch role-isolated subagents in
 
 User is stakeholder at **outcome gates only**: legal/ToS, irreversible spend, conflicting goals, kill-criterion hit, missing paid secret.
 
+## Step 3.5 — Platform Product Team (high-level customer goals)
+
+When the ask is a **high-level customer goal** (not a one-line fix) — e.g. “10 question types”, “math”, “a puzzle”, “a game” — **do not wait for wireframes**. Staff this standing team (see `platform/team/ROSTER.md`) **in addition to** Step 3:
+
+- **CX Designer** — work backwards: why would a kid/parent use this *today*? Quiet Apple/Dyson path (`platform/cx/DESIGN.md`).
+- **Experience Composer** — **Use-It Law**: the new unit must appear in an existing journey *this slice* (`platform/team/INTAKE.md`).
+- **Platform Architect** — bounded component or item pack; kernel register/render/grade; no shell `if (id === …)`.
+- **NFR Engineer** — device-local, copy-is-data (i18n-ready), a11y, no UA forks, speech = visible DOM.
+- **Builder** / **Evaluator** — same as Step 3 (Evaluator ≠ Builder).
+
+Fill the intake block in the outcome contract **before product code**. A registry with no production mix is a kill.
+
 ## Step 4 — Mandatory artifacts by task type
 
 | Task type | Blocking artifact |

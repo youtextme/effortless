@@ -10,6 +10,7 @@ import { QuizComponent } from './quiz.js';
 import { CertificateComponent } from './certificate.js';
 import { HomeComponent } from './home.js';
 import { CapabilityComponent } from './capability.js';
+import { ItemComponent } from './item.js';
 import { highlightWordsOnce } from '../../js/passage-generator.js';
 import * as bus from '../kernel/bus.js';
 import { createPolicy } from '../kernel/policy.js';
@@ -20,6 +21,7 @@ import * as registry from '../kernel/registry.js';
 const ALL = [
   StorageComponent,
   CapabilityComponent,
+  ItemComponent,
   PassageComponent,
   ReadingComponent,
   SpeechComponent,
@@ -40,7 +42,7 @@ test('every registered runtime component exposes id version health', () => {
   }
 });
 
-test('component:storage component:capability component:passage component:reading component:speech component:tts component:word-sheet component:quiz component:certificate component:home init onto context', async () => {
+test('component:storage component:capability component:item component:passage component:reading component:speech component:tts component:word-sheet component:quiz component:certificate component:home init onto context', async () => {
   registry.reset();
   const ctx = createContext({
     bus,
@@ -61,6 +63,8 @@ test('component:storage component:capability component:passage component:reading
   assert.ok(ctx.tts);
   assert.ok(ctx.wordSheet);
   assert.ok(ctx.quiz);
+  assert.ok(ctx.item);
+  assert.equal(typeof ctx.item.renderHtml, 'function');
   assert.ok(ctx.certificate);
   assert.equal(typeof ctx.storage.getBootTarget, 'function');
   assert.equal(typeof ctx.storage.saveResume, 'function');

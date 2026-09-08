@@ -1,0 +1,46 @@
+{
+  "id": "platform-product-team",
+  "objectiveRunner": "prompt-os",
+  "staffing": "automatic",
+  "trigger": "high-level customer goal (not a one-line fix)",
+  "roles": [
+    {
+      "id": "cx-designer",
+      "label": "CX Designer",
+      "job": "Work backwards from why a kid or parent would use this today. Design the quietest path. Apple/Dyson: one job on screen, no chrome for its own sake."
+    },
+    {
+      "id": "experience-composer",
+      "label": "Experience Composer",
+      "job": "Use-It Law: every new unit must appear in an existing customer journey this slice. Do not ship a shelf of unused types."
+    },
+    {
+      "id": "platform-architect",
+      "label": "Platform Architect",
+      "job": "Bounded component or item pack. Register, list, render, grade through the kernel. No shell if (id === …). Reuse across catalogs (passages, later math, puzzles)."
+    },
+    {
+      "id": "nfr-engineer",
+      "label": "NFR Engineer",
+      "job": "Local-only memory, i18n-ready strings (copy is data), reliability, a11y, no UA forks, speech reads visible DOM."
+    },
+    {
+      "id": "builder",
+      "label": "Builder",
+      "job": "Implements after the contract is active. Mandatory CX story + journey step + tests."
+    },
+    {
+      "id": "evaluator",
+      "label": "Evaluator",
+      "job": "Fresh context. Never the Builder. Grades evidence against this roster and the outcome contract."
+    }
+  ],
+  "laws": [
+    "customer-experience-is-king",
+    "use-it-this-slice",
+    "components-not-one-offs",
+    "distraction-free",
+    "copy-is-data",
+    "device-local"
+  ]
+}

@@ -66,6 +66,7 @@ function makeQuestion({ prompt, correct, wrongs, thinkAloud, retryAloud, kind, r
   }
   return {
     kind,
+    itemType: 'choice',
     prompt,
     choices: seededShuffle([
       { text: correct, correct: true },
@@ -132,13 +133,21 @@ function meaningQuestion(wordData, others, rng) {
   });
 }
 
+function toBlankItem(question) {
+  return {
+    ...question,
+    itemType: 'blank',
+    stem: 'The friend-style meaning is ____.',
+  };
+}
+
 function wordQuestions(passageData, rng) {
   const words = seededShuffle(passageData.words || [], rng);
   const picked = words.slice(0, WORD_COUNT);
   return picked.map((wordData, i) => {
     const others = words.filter((w) => w.word !== wordData.word);
     if (i === 0) return usageQuestion(wordData, others, rng);
-    return meaningQuestion(wordData, others, rng);
+    return toBlankItem(meaningQuestion(wordData, others, rng));
   });
 }
 

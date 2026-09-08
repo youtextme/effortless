@@ -1,4 +1,4 @@
-const CACHE_NAME = 'wordspark-v29'; // one voice per listen session; 15% highlight preload + lead; install always visible
+const CACHE_NAME = 'wordspark-v30'; // platform product team: question item registry (choice + blank) used in the live quiz mix
 const ASSETS = [
   './',
   './index.html',
@@ -12,6 +12,7 @@ const ASSETS = [
   './platform/kernel/policy.js',
   './platform/kernel/context.js',
   './platform/kernel/capabilities.js',
+  './platform/kernel/items.js',
   './platform/components/storage.js',
   './platform/components/passage.js',
   './platform/components/reading.js',
@@ -23,6 +24,8 @@ const ASSETS = [
   './platform/components/home.js',
   './platform/components/capability.js',
   './platform/components/capability-packs.js',
+  './platform/components/item.js',
+  './platform/components/item-packs.js',
   './platform/speech/policy.js',
   './platform/speech/sentences.js',
   './platform/speech/voice-picker.js',

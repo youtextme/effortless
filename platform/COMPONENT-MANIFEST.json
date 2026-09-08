@@ -3,7 +3,7 @@
   "kernel": {
     "id": "kernel",
     "version": "1.0.0",
-    "modules": ["registry", "bus", "health", "telemetry", "policy", "context", "capabilities"]
+    "modules": ["registry", "bus", "health", "telemetry", "policy", "context", "capabilities", "items"]
   },
   "components": [
     {
@@ -50,9 +50,9 @@
     },
     {
       "id": "quiz",
-      "version": "2.0.0",
-      "dependencies": ["storage"],
-      "description": "Kid-think takeaway quiz with coaching, no pass wall",
+      "version": "2.1.0",
+      "dependencies": ["storage", "item"],
+      "description": "Kid-think takeaway quiz composed from registered question item types",
       "events": { "emits": ["quiz.started", "quiz.answered", "quiz.completed", "quiz.failed"], "listens": ["reading.scrolled-to-end"] }
     },
     {
@@ -61,6 +61,13 @@
       "dependencies": ["storage"],
       "description": "Minimal printable certificate and share",
       "events": { "emits": ["certificate.generated", "certificate.shared"], "listens": ["quiz.completed"] }
+    },
+    {
+      "id": "item",
+      "version": "1.0.0",
+      "dependencies": [],
+      "description": "Registry of reusable question item types (choice, blank, later packs)",
+      "events": { "emits": ["item.failed"], "listens": [] }
     },
     {
       "id": "capability",
@@ -79,7 +86,7 @@
     {
       "id": "shell",
       "version": "1.2.0",
-      "dependencies": ["storage", "reading", "word-sheet", "quiz", "certificate", "speech", "tts", "home", "capability"],
+      "dependencies": ["storage", "reading", "word-sheet", "quiz", "certificate", "speech", "tts", "home", "capability", "item"],
       "description": "App composition root and screen orchestration",
       "events": { "emits": ["app.ready", "app.error"], "listens": [] }
     }

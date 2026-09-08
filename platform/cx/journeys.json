@@ -17,6 +17,7 @@
         { "id": "speech-stops-on-quiz", "story": "speech-stops-on-surface-change" },
         { "id": "quiz-pass", "story": "quiz-requires-comprehension-pass" },
         { "id": "quiz-spread", "story": "quiz-takeaway-spread" },
+        { "id": "quiz-item-types", "story": "quiz-uses-item-types" },
         { "id": "certificate", "story": "certificate-share-local" }
       ]
     },
@@ -58,7 +59,9 @@
       "intent": "Plug in a new kid exercise the same way as the 100 passages, without rewriting Home listing",
       "steps": [
         { "id": "catalogs-register", "story": "passages-are-capabilities" },
-        { "id": "math-without-fork", "story": "extra-capability-registers-without-shell-fork" }
+        { "id": "math-without-fork", "story": "extra-capability-registers-without-shell-fork" },
+        { "id": "item-types-register", "story": "question-items-are-reusable" },
+        { "id": "item-without-fork", "story": "extra-item-registers-without-quiz-fork" }
       ]
     }
   ]

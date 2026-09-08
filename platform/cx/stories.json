@@ -192,6 +192,30 @@
       "when": "it registers beside passages",
       "then": "list and catalog HTML work without a shell if on math and without mapping VOCABULARY in the shell",
       "nfr": ["capability-catalog-no-shell-fork"]
+    },
+    {
+      "id": "question-items-are-reusable",
+      "component": "item",
+      "given": "choice and fill-in-the-blank packs",
+      "when": "the item registry boots",
+      "then": "both types register, render, and grade through the shared kernel",
+      "nfr": ["question-items-no-shell-fork", "use-it-this-slice"]
+    },
+    {
+      "id": "extra-item-registers-without-quiz-fork",
+      "component": "item",
+      "given": "an unknown future item type",
+      "when": "someone tries to register it without adding the fail-closed kind",
+      "then": "the registry rejects it and quiz render stays empty instead of crashing",
+      "nfr": ["question-items-no-shell-fork"]
+    },
+    {
+      "id": "quiz-uses-item-types",
+      "component": "quiz",
+      "given": "a generated quiz for a passage",
+      "when": "the child reaches the quiz",
+      "then": "the mix includes both choose-one and fill-the-blank items painted by the registry",
+      "nfr": ["use-it-this-slice"]
     }
   ]
 }

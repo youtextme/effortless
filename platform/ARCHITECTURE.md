@@ -29,7 +29,7 @@ WordSpark and future effortless products compose from **platform components** �
 ├─────────────────────────────────────────────────────────┤
 │  Kernel (wordspark/platform/kernel/*)                   │
 │  registry · bus · health · telemetry · policy · context │
-│  capabilities (catalogs of reusable exercises)          │
+│  capabilities (catalogs) · items (question types)       │
 ├─────────────────────────────────────────────────────────┤
 │  Data & generators (wordspark/js/data, scripts/)        │
 │  Versioned datasets, build-time codegen                 │
@@ -64,6 +64,15 @@ wordspark/js/                      # Legacy paths + data (components import from
   passage-generator.js
   ...
 ```
+
+## Adding a question item type
+
+1. Fail-closed kind in `items.js` + pack in `item-packs.js`.
+2. Production mix in `generateQuestions` (Use-It Law — unused types are not shipped).
+3. Quiz renders via `ctx.item.renderHtml` — never `if (itemType === 'blank')` in the shell.
+4. CX story + journey step; SW if new files; `npm run ci`.
+
+High-level goals: `platform/team/ROSTER.md` + `INTAKE.md`. Design bar: `platform/cx/DESIGN.md`.
 
 ## Adding an exercise pack (math, diagrams, more reading)
 

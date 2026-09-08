@@ -27,7 +27,7 @@ export function evaluate({ root = defaultRoot, wordspark = defaultWordspark } = 
     }
   }
 
-  const kernelFiles = ['registry.js', 'bus.js', 'health.js', 'telemetry.js', 'policy.js', 'context.js', 'capabilities.js'];
+  const kernelFiles = ['registry.js', 'bus.js', 'health.js', 'telemetry.js', 'policy.js', 'context.js', 'capabilities.js', 'items.js'];
   for (const f of kernelFiles) {
     const p = join(wordspark, 'platform', 'kernel', f);
     if (!existsSync(p)) errors.push(`Missing kernel module: ${p}`);
@@ -63,10 +63,28 @@ export function evaluate({ root = defaultRoot, wordspark = defaultWordspark } = 
     }
   }
 
-  for (const contract of ['component.schema.json', 'events.schema.json', 'cx-story.schema.json', 'capability.schema.json']) {
+  for (const contract of ['component.schema.json', 'events.schema.json', 'cx-story.schema.json', 'capability.schema.json', 'item.schema.json']) {
     if (!existsSync(join(root, 'contracts', contract))) {
       errors.push(`Missing contract: ${contract}`);
     }
+  }
+
+  const teamRoster = join(root, 'team', 'ROSTER.json');
+  if (!existsSync(teamRoster)) {
+    errors.push('Missing platform product team roster: team/ROSTER.json');
+  } else {
+    const roster = JSON.parse(readFileSync(teamRoster, 'utf8'));
+    const requiredRoles = ['cx-designer', 'experience-composer', 'platform-architect', 'nfr-engineer', 'builder', 'evaluator'];
+    const have = new Set((roster.roles || []).map((r) => r.id));
+    for (const id of requiredRoles) {
+      if (!have.has(id)) errors.push(`Team roster missing role ${id}`);
+    }
+  }
+  if (!existsSync(join(root, 'cx', 'principles.json'))) {
+    errors.push('Missing CX principles: cx/principles.json');
+  }
+  if (!existsSync(join(root, 'cx', 'DESIGN.md'))) {
+    errors.push('Missing design charter: cx/DESIGN.md');
   }
 
   return {

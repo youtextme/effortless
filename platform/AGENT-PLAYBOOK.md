@@ -19,6 +19,17 @@ GitHub Actions workflow **Platform CI** runs the same command on every PR. Pages
 
 `95%` is **coverage**, not “mostly passing tests”. **Every test must pass** (exit 0). Flaky tests are failures.
 
+## Add a question type (choice, blank, later packs)
+
+Do **not** fork `renderQuestion` in `shell.js`.
+
+1. Add the kebab id to `normalizeItemType` in `wordspark/platform/kernel/items.js` (fail-closed switch).
+2. Export `createXType()` from `item-packs.js` and append to `defaultItemTypes()`.
+3. **Use-It:** `generateQuestions` must emit that `itemType` in the live mix (not a flag).
+4. CX story on a real journey; `npm run ci`.
+
+High-level goals (“10 types”, “math”, “puzzles”) go through `platform/team/` — fill intake, staff the roster, compose into today’s surfaces.
+
 ## Add an exercise pack (math, diagrams, …)
 
 Do **not** fork Home listing in `shell.js`.

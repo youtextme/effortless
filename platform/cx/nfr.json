@@ -223,6 +223,40 @@
           "includes": ["createPassagesCapability", "createWordsCapability", "defaultPacks"]
         }
       ]
+    },
+    {
+      "id": "question-items-no-shell-fork",
+      "kind": "reliability",
+      "statement": "Question interactions are registered item types. Quiz asks the registry to render; the shell does not switch on itemType.",
+      "sourceEvidence": [
+        {
+          "file": "wordspark/platform/kernel/items.js",
+          "includes": ["createItemRegistry", "normalizeItemType", "Unknown item type"]
+        },
+        {
+          "file": "wordspark/platform/shell.js",
+          "includes": ["ctx.quiz.renderHtml", "data-quiz-answer"]
+        },
+        {
+          "file": "wordspark/platform/components/item-packs.js",
+          "includes": ["createChoiceType", "createBlankType", "defaultItemTypes"]
+        }
+      ]
+    },
+    {
+      "id": "use-it-this-slice",
+      "kind": "functional",
+      "statement": "A registered unit is not shelfware: the production quiz mix includes both choice and blank items.",
+      "sourceEvidence": [
+        {
+          "file": "wordspark/js/questions.js",
+          "includes": ["itemType: 'blank'", "toBlankItem"]
+        },
+        {
+          "file": "platform/team/INTAKE.md",
+          "includes": ["Use-It Law"]
+        }
+      ]
     }
   ]
 }

@@ -1,0 +1,14 @@
+---
+description: High-level customer goals staff the Platform Product Team (CX-first, Use-It, components).
+alwaysApply: true
+---
+
+# Platform Product Team
+
+On high-level customer goals (question types, math, puzzles, games, new catalogs), do **not** wait for pixel specs.
+
+1. Read `platform/team/ROSTER.md` + `platform/team/INTAKE.md` + `platform/cx/DESIGN.md`.
+2. Staff CX Designer, Experience Composer (Use-It Law), Platform Architect, NFR Engineer, Builder, Evaluator ≠ Builder.
+3. New units register as **components or item packs** and must appear in an **existing journey this slice**.
+4. Question types: `wordspark/platform/components/item-packs.js` + fail-closed `normalizeItemType` + production mix in `generateQuestions`.
+5. Catalogs: `capability-packs.js`. Never shell `if (id === …)`.
