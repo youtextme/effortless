@@ -5,77 +5,53 @@ import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { VOCABULARY, TOTAL_DAYS } from '../../js/data/words.js';
 import {
-  TARGET_WORDS_PER_PASSAGE,
-  MIN_WORD_OCCURRENCES,
-  PASSAGE_WORD_MIN,
-  PASSAGE_WORD_MAX,
   countWordOccurrences,
-  getTargetWords,
+  generatePassagePages,
+  passageWordCount,
 } from '../../js/passage-generator.js';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const wordsparkRoot = join(here, '..', '..');
 const repoRoot = join(wordsparkRoot, '..');
 
-function isCardOnlyShape(entry) {
-  return !entry.body && Array.isArray(entry.words) && entry.words.length >= 4;
-}
+const WORDS_PER_PASSAGE = 10;
+const MIN_PASSAGE_WORDS = 600;
 
-test('fixture database: ≥100 passages in words.js', () => {
-  assert.ok(VOCABULARY.length >= 100, `expected ≥100 passages, got ${VOCABULARY.length}`);
+test('fixture database: 100 passages in words.js', () => {
+  assert.equal(VOCABULARY.length, 100, `expected 100 passages, got ${VOCABULARY.length}`);
   assert.equal(TOTAL_DAYS, 100);
 });
 
-test('REJECT card-only vocabulary shape (body_wc=0) — must store passage body', () => {
-  const cardOnly = VOCABULARY.filter(isCardOnlyShape);
-  assert.equal(
-    cardOnly.length,
-    0,
-    `card-only entries without body: days ${cardOnly.slice(0, 5).map((d) => d.day).join(', ')}`,
-  );
-  for (const day of VOCABULARY) {
-    assert.equal(typeof day.body, 'string', `day ${day.day} missing body string`);
-    assert.ok(day.body.trim().length > 0, `day ${day.day} has empty body`);
-    assert.equal(typeof day.body_wc, 'number', `day ${day.day} missing body_wc`);
-    assert.ok(day.body_wc > 0, `day ${day.day} body_wc must be > 0 (got ${day.body_wc})`);
-  }
-});
-
-test('every stored passage: 350–450 words in body_wc', () => {
+test('every passage card has 10 vocabulary words', () => {
   const failures = [];
   for (const day of VOCABULARY) {
-    if (day.body_wc < PASSAGE_WORD_MIN || day.body_wc > PASSAGE_WORD_MAX) {
-      failures.push(`day ${day.day}: body_wc ${day.body_wc} outside ${PASSAGE_WORD_MIN}–${PASSAGE_WORD_MAX}`);
+    if (!Array.isArray(day.words) || day.words.length !== WORDS_PER_PASSAGE) {
+      failures.push(`day ${day.day}: expected ${WORDS_PER_PASSAGE} words, got ${day.words?.length ?? 0}`);
+    }
+    for (const w of day.words || []) {
+      if (!w.word?.trim()) failures.push(`day ${day.day}: missing word`);
     }
   }
   assert.equal(failures.length, 0, failures.slice(0, 5).join('\n'));
 });
 
-test('every stored passage: 4 targets, each ≥5 occurrences in body', () => {
+test('generated passages weave each vocabulary word exactly once', () => {
   const failures = [];
-  for (const day of VOCABULARY) {
-    const targets = day.targets?.length
-      ? day.targets.map((word) => ({ word }))
-      : getTargetWords(day);
-    if (targets.length !== TARGET_WORDS_PER_PASSAGE) {
-      failures.push(`day ${day.day}: expected ${TARGET_WORDS_PER_PASSAGE} targets, got ${targets.length}`);
+  for (const day of VOCABULARY.slice(0, 10)) {
+    const { sections } = generatePassagePages(day);
+    const body = sections.map((s) => s.body).join('\n\n');
+    const wc = passageWordCount(sections);
+    if (wc < MIN_PASSAGE_WORDS) {
+      failures.push(`day ${day.day}: passageWordCount ${wc} below ${MIN_PASSAGE_WORDS}`);
     }
-    for (const w of targets) {
-      const n = countWordOccurrences(day.body, w.word);
-      if (n < MIN_WORD_OCCURRENCES) {
-        failures.push(`day ${day.day}: ${w.word} appears ${n} times in body (min ${MIN_WORD_OCCURRENCES})`);
+    for (const w of day.words) {
+      const n = countWordOccurrences(body, w.word);
+      if (n !== 1) {
+        failures.push(`day ${day.day}: ${w.word} appears ${n} times (expected 1)`);
       }
     }
   }
   assert.equal(failures.length, 0, failures.slice(0, 5).join('\n'));
-});
-
-test('target words per passage contract', () => {
-  const day = VOCABULARY[0];
-  assert.equal(MIN_WORD_OCCURRENCES, 5);
-  assert.ok(PASSAGE_WORD_MIN >= 350);
-  assert.ok(PASSAGE_WORD_MAX <= 450);
-  assert.ok(Array.isArray(day.targets) && day.targets.length === TARGET_WORDS_PER_PASSAGE);
 });
 
 test('read-aloud hook: listen button and speech surface in index.html', () => {
@@ -86,7 +62,14 @@ test('read-aloud hook: listen button and speech surface in index.html', () => {
 });
 
 test('Pages deploy: WordSpark to root with snack protected', () => {
-  const workflow = readFileSync(join(repoRoot, '.github/workflows/github-pages.yml'), 'utf8');
+  const workflowPaths = [
+    join(repoRoot, '.github/workflows/wordspark-pages.yml'),
+    join(repoRoot, '.github/workflows/github-pages.yml'),
+  ];
+  const workflow = workflowPaths
+    .filter((path) => existsSync(path))
+    .map((path) => readFileSync(path, 'utf8'))
+    .join('\n');
   assert.match(workflow, /wordspark/);
   assert.match(workflow, /protect snack/);
 });

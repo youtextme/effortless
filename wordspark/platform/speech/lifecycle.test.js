@@ -1,6 +1,21 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { shouldStopForSurfaceChange, attachSpeechLifecycle, shouldAbortAfterAsyncWait, pickSpeakRoot, planSpeakSession } from './lifecycle.js';
+import { shouldStopForSurfaceChange, attachSpeechLifecycle, shouldAbortAfterAsyncWait, pickSpeakRoot, planSpeakSession, isWordSheetSurface } from './lifecycle.js';
+
+test('story:word-tap-takes-listen opening the word sheet does not surface-stop the coming sheet speech', () => {
+  const passage = { id: 'reading-scroll', contains: () => false };
+  const wordSheet = { id: 'word-sheet', contains: () => false };
+  const quiz = { id: 'screen-quiz', contains: () => false };
+  assert.equal(isWordSheetSurface(null), false);
+  assert.equal(isWordSheetSurface({ id: 'reading-scroll' }), false);
+  assert.equal(isWordSheetSurface({
+    id: 'x',
+    classList: { contains: (c) => c === 'word-sheet' },
+  }), true);
+  assert.equal(shouldStopForSurfaceChange(passage, wordSheet), false);
+  assert.equal(shouldStopForSurfaceChange(wordSheet, passage), true);
+  assert.equal(shouldStopForSurfaceChange(passage, quiz), true);
+});
 
 test('story:speech-stops-on-surface-change quiz covering the passage stops speech', () => {
   const passage = { id: 'reading-scroll', contains: () => false };

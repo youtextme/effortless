@@ -3,9 +3,9 @@
  * All screens orchestrated here; components accessed via ctx.
  */
 
-import { VOCABULARY } from '../js/data/words.js';
+import { VOCABULARY, WORDS_PER_DAY } from '../js/data/words.js';
 import { getTopicTitle } from '../js/data/topics.js';
-import { sectionToHtml, generatePassagePages, getTargetWords, TARGET_WORDS_PER_PASSAGE } from '../js/passage-generator.js';
+import { sectionToHtml, generatePassagePages } from '../js/passage-generator.js';
 import * as bus from './kernel/bus.js';
 import * as registry from './kernel/registry.js';
 import { createContext } from './kernel/context.js';
@@ -20,6 +20,9 @@ import { SpeechComponent } from './components/speech.js';
 import { WordSheetComponent } from './components/word-sheet.js';
 import { QuizComponent } from './components/quiz.js';
 import { CertificateComponent } from './components/certificate.js';
+import { HomeComponent } from './components/home.js';
+import { CapabilityComponent } from './components/capability.js';
+import { getPaceId, setPaceId } from './speech/pace.js';
 
 const $ = (sel) => document.querySelector(sel);
 const $$ = (sel) => document.querySelectorAll(sel);
@@ -30,14 +33,18 @@ let currentPassageNum = 1;
 let quizQuestions = [];
 let quizIndex = 0;
 let quizScore = 0;
+let quizMisses = 0;
+let toastTimer = null;
 let wordMap = {};
 let scrollObserver = null;
 let currentCertificateCanvas = null;
 let lastScrollY = 0;
 let scrollHandler = null;
+let resumeTimer = null;
 
 const COMPONENTS = [
   StorageComponent,
+  CapabilityComponent,
   PassageComponent,
   SpeechComponent,
   TtsComponent,
@@ -45,6 +52,7 @@ const COMPONENTS = [
   WordSheetComponent,
   QuizComponent,
   CertificateComponent,
+  HomeComponent,
 ];
 
 export async function bootShell() {
@@ -81,6 +89,12 @@ export async function bootShell() {
     });
   }
 
+  ctx.capability?.registerAction?.('read-passage', (result) => {
+    closePanels();
+    closeHome();
+    loadPassage(result.day);
+  });
+
   if (ctx.speech?.ensureVoicesReady) await ctx.speech.ensureVoicesReady();
   else if (ctx.tts.ensureVoicesReady) await ctx.tts.ensureVoicesReady();
 
@@ -89,7 +103,7 @@ export async function bootShell() {
   setupListeners();
   const p = ctx.storage.loadProgress();
   if (!p.onboarded || !p.childName) showModal('name-modal');
-  else loadPassage(ctx.storage.getActivePassage());
+  else restoreSession();
 
   ctx.emit('app.ready', 'shell', { components: COMPONENTS.map((c) => c.id) });
 }
@@ -108,11 +122,13 @@ function setupListeners() {
     loadPassage(ctx.storage.getActivePassage());
   });
 
-  $('#btn-done-reading')?.addEventListener('click', startQuiz);
+  $('#btn-done-reading')?.addEventListener('click', () => startQuiz());
   $('#btn-home')?.addEventListener('click', () => {
+    closeWordSheet();
     ctx.tts.stopSpeaking();
-    openPanel('panel-passages', renderPassageList);
+    openHome();
   });
+  $('#btn-home-close')?.addEventListener('click', closeHome);
   $('#btn-next-passage')?.addEventListener('click', () => {
     hideOverlay('screen-complete');
     loadPassage(ctx.storage.getActivePassage());
@@ -124,6 +140,17 @@ function setupListeners() {
     const panel = $('#parent-panel');
     panel.hidden = !panel.hidden;
     updateParentProgress();
+    if (!panel.hidden) syncPaceControls();
+  });
+
+  $$('[data-pace]').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      setPaceId(btn.dataset.pace);
+      ctx.tts.refreshProfile?.();
+      syncPaceControls();
+      showToast('Speech speed updated');
+    });
   });
 
   $$('.parent-link').forEach((btn) => {
@@ -131,8 +158,8 @@ function setupListeners() {
       const action = btn.dataset.action;
       $('#parent-panel').hidden = true;
       if (action === 'refresh') showModal('refresh-modal');
-      else if (action === 'passages') openPanel('panel-passages', renderPassageList);
-      else if (action === 'words') openPanel('panel-words', renderWordsList);
+      else if (action === 'passages') openHome('passages');
+      else if (action === 'words') openHome('words');
       else if (action === 'certificates') openPanel('panel-certificates', renderCerts);
       else if (action === 'install') handleInstall();
     });
@@ -163,19 +190,132 @@ function setupListeners() {
 
   $$('[data-back]').forEach((btn) => btn.addEventListener('click', closePanels));
 
+  $$('[data-home-tab]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      renderHomeTab(btn.dataset.homeTab);
+      persistResume({
+        surface: 'home',
+        homeTab: btn.dataset.homeTab,
+        passage: currentPassageNum,
+        scrollY: window.scrollY,
+      });
+    });
+  });
+
+  $('#btn-save-settings-name')?.addEventListener('click', saveSettingsName);
+  $('#settings-child-name')?.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') saveSettingsName();
+  });
+  $('#btn-settings-certs')?.addEventListener('click', () => {
+    openPanel('panel-certificates', renderCerts);
+  });
+  $('#btn-install')?.addEventListener('click', () => handleInstall());
+
   window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     window._deferredPrompt = e;
-    const btn = $('#btn-install');
-    if (btn) btn.hidden = false;
+    updateInstallUi();
   });
+  window.addEventListener('appinstalled', () => {
+    window._deferredPrompt = null;
+    updateInstallUi();
+  });
+  window.addEventListener('pagehide', flushResume);
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'hidden') flushResume();
+  });
+}
+
+function saveSettingsName() {
+  const name = $('#settings-child-name')?.value?.trim();
+  if (!name) return;
+  ctx.storage.setChildName(name);
+  showToast('Name saved');
 }
 
 function getPassageData(n) {
   return VOCABULARY.find((d) => d.day === n) || VOCABULARY[0];
 }
 
-function loadPassage(n) {
+function persistResume(partial) {
+  if (typeof ctx?.storage?.saveResume === 'function') {
+    ctx.storage.saveResume(partial);
+  }
+}
+
+function restoreSession() {
+  const target = typeof ctx.storage.getBootTarget === 'function'
+    ? ctx.storage.getBootTarget()
+    : {
+        surface: 'reading',
+        passage: ctx.storage.getActivePassage(),
+        scrollY: 0,
+        homeTab: 'passages',
+        quizIndex: 0,
+      };
+  const passage = target.passage || ctx.storage.getActivePassage();
+  if (target.surface === 'home') {
+    loadPassage(passage, { scrollY: target.scrollY });
+    openHome(target.homeTab);
+    return;
+  }
+  loadPassage(passage, { scrollY: target.surface === 'quiz' ? 0 : target.scrollY });
+  if (target.surface === 'quiz') {
+    ctx.reading.markScrolledToEnd();
+    updateFab();
+    startQuiz({ index: target.quizIndex || 0 });
+  }
+}
+
+function currentSurface() {
+  if ($('#screen-home') && !$('#screen-home').hidden) return 'home';
+  if ($('#screen-quiz') && !$('#screen-quiz').hidden) return 'quiz';
+  return 'reading';
+}
+
+function scheduleResume(factory) {
+  if (resumeTimer) return;
+  resumeTimer = setTimeout(() => {
+    resumeTimer = null;
+    persistResume(factory());
+  }, 400);
+}
+
+function flushResume() {
+  if (!ctx?.storage?.saveResume) return;
+  if (resumeTimer) {
+    clearTimeout(resumeTimer);
+    resumeTimer = null;
+  }
+  const surface = currentSurface();
+  if (surface === 'quiz') {
+    persistResume({
+      passage: currentPassageNum,
+      surface: 'quiz',
+      quizIndex,
+    });
+    return;
+  }
+  if (surface === 'home') {
+    persistResume({
+      passage: currentPassageNum,
+      surface: 'home',
+      homeTab: ctx.home.getTab(),
+      scrollY: window.scrollY,
+    });
+    return;
+  }
+  persistResume({
+    passage: currentPassageNum,
+    scrollY: window.scrollY,
+    surface: 'reading',
+    homeTab: ctx.home?.getTab?.() || 'passages',
+  });
+}
+
+function loadPassage(n, options = {}) {
+  hideToast();
+  closeWordSheet();
   ctx.tts.stopSpeaking();
   ctx.tts.clearHighlights($('#passage-content'));
   ctx.tts.clearHighlights($('#passage-title'));
@@ -186,20 +326,12 @@ function loadPassage(n) {
   wordMap = {};
   currentPassageData.words.forEach((w) => { wordMap[w.word.toLowerCase()] = w; });
 
-  const targets = getTargetWords(currentPassageData);
-  let title;
-  let contentHtml;
-  if (currentPassageData.body) {
-    title = currentPassageData.title || getTopicTitle(currentPassageNum);
-    contentHtml = sectionToHtml({ h2: '', body: currentPassageData.body }, targets);
-  } else {
-    const { h1, sections } = generatePassagePages(currentPassageData);
-    title = h1;
-    contentHtml = sections.map((s) => sectionToHtml(s, targets)).join('');
-  }
+  const { h1, sections } = generatePassagePages(currentPassageData);
   $('#passage-theme').textContent = currentPassageData.theme || '';
-  $('#passage-title').textContent = title;
-  $('#passage-content').innerHTML = contentHtml;
+  $('#passage-title').textContent = h1;
+  $('#passage-content').innerHTML = sections
+    .map((s) => sectionToHtml(s, currentPassageData.words))
+    .join('');
 
   $('#passage-scroll-wrap')?.classList.remove('at-end');
 
@@ -207,12 +339,19 @@ function loadPassage(n) {
   setupScrollUnlock();
   setupReadingChrome();
   ctx.storage.setReadingPassage(n);
+  const scrollY = Math.max(0, Number(options.scrollY) || 0);
+  window.scrollTo(0, scrollY);
+  lastScrollY = scrollY;
+  updateReadingHeader(scrollY);
+  persistResume({
+    passage: n,
+    scrollY,
+    surface: 'reading',
+    quizIndex: 0,
+  });
   updateParentProgress();
   updateFab();
-  window.scrollTo(0, 0);
-  lastScrollY = 0;
-  updateReadingHeader(0);
-  ctx.emit('reading.loaded', 'reading', { passage: n, title });
+  ctx.emit('reading.loaded', 'reading', { passage: n, title: h1 });
 }
 
 function setupReadingChrome() {
@@ -225,6 +364,13 @@ function setupReadingChrome() {
     updateReadingHeader(y);
     updateScrollFade();
     lastScrollY = y;
+    if (currentSurface() === 'reading') {
+      scheduleResume(() => ({
+        passage: currentPassageNum,
+        scrollY: window.scrollY,
+        surface: 'reading',
+      }));
+    }
   };
 
   window.addEventListener('scroll', scrollHandler, { passive: true });
@@ -298,6 +444,7 @@ function setupWordTaps() {
 function openWordSheet(data) {
   ctx.wordSheet.open(data, {
     word: $('#sheet-word'),
+    intro: $('#sheet-intro'),
     container: $('#sheet-scenarios'),
     sheet: $('#word-sheet'),
     passageNum: currentPassageNum,
@@ -308,23 +455,51 @@ function closeWordSheet() {
   ctx.wordSheet.close({
     sheet: $('#word-sheet'),
     word: $('#sheet-word'),
+    intro: $('#sheet-intro'),
     container: $('#sheet-scenarios'),
   });
 }
 
-function startQuiz() {
+function startQuiz(options = {}) {
   if (!ctx.reading.hasScrolledToEnd) return;
+  hideToast();
+  closeWordSheet();
   ctx.tts.stopSpeaking();
   quizQuestions = ctx.quiz.generate(currentPassageData);
-  quizIndex = 0;
+  const rawIndex = Number.isFinite(options?.index) ? options.index : 0;
+  quizIndex = Math.max(0, Math.min(rawIndex, Math.max(0, quizQuestions.length - 1)));
   quizScore = 0;
+  quizMisses = 0;
   showOverlay('screen-quiz');
+  persistResume({
+    passage: currentPassageNum,
+    surface: 'quiz',
+    quizIndex,
+  });
   renderQuestion();
-  ctx.emit('quiz.started', 'quiz', { count: quizQuestions.length });
+  ctx.emit('quiz.started', 'quiz', { count: quizQuestions.length, index: quizIndex });
+}
+
+function hideQuizCoach() {
+  const el = $('#quiz-coach');
+  if (el) el.hidden = true;
+  const text = $('#quiz-coach-text');
+  if (text) text.textContent = '';
+}
+
+function showQuizCoach(message) {
+  const text = $('#quiz-coach-text');
+  const el = $('#quiz-coach');
+  if (text) text.textContent = message;
+  if (el) el.hidden = false;
+  if (message) ctx.tts.speakSequence?.(message);
 }
 
 function renderQuestion() {
   const q = quizQuestions[quizIndex];
+  quizMisses = 0;
+  ctx.tts.stopSpeaking();
+  hideQuizCoach();
   $('#quiz-progress-bar').style.width = `${(quizIndex / quizQuestions.length) * 100}%`;
   $('#quiz-counter').textContent = `Question ${quizIndex + 1} of ${quizQuestions.length}`;
   $('#quiz-question').textContent = q.prompt;
@@ -332,39 +507,52 @@ function renderQuestion() {
     .map((c) => `<button class="quiz-choice" data-correct="${c.correct}">${c.text}</button>`)
     .join('');
   $$('.quiz-choice').forEach((btn) => btn.addEventListener('click', () => handleAnswer(btn)));
+  persistResume({
+    passage: currentPassageNum,
+    surface: 'quiz',
+    quizIndex,
+  });
 }
 
 function handleAnswer(btn) {
+  if (btn.disabled) return;
   const correct = btn.dataset.correct === 'true';
-  $$('.quiz-choice').forEach((b) => {
-    b.disabled = true;
-    if (b.dataset.correct === 'true') b.classList.add('correct');
-    else if (b === btn && !correct) b.classList.add('wrong');
-  });
-  if (correct) quizScore++;
-  ctx.emit('quiz.answered', 'quiz', { index: quizIndex, correct });
-  setTimeout(() => {
-    quizIndex++;
-    if (quizIndex < quizQuestions.length) renderQuestion();
-    else finishQuiz();
-  }, correct ? 500 : 1000);
+  ctx.tts.stopSpeaking();
+
+  if (correct) {
+    $$('.quiz-choice').forEach((b) => {
+      b.disabled = true;
+      if (b.dataset.correct === 'true') b.classList.add('correct');
+    });
+    quizScore++;
+    ctx.emit('quiz.answered', 'quiz', { index: quizIndex, correct: true, misses: quizMisses });
+    hideQuizCoach();
+    setTimeout(() => {
+      quizIndex++;
+      if (quizIndex < quizQuestions.length) renderQuestion();
+      else finishQuiz();
+    }, 500);
+    return;
+  }
+
+  quizMisses += 1;
+  btn.classList.add('wrong');
+  btn.disabled = true;
+  ctx.emit('quiz.answered', 'quiz', { index: quizIndex, correct: false, misses: quizMisses });
+  const q = quizQuestions[quizIndex];
+  const message = ctx.quiz.coachMessage(q, quizMisses);
+  showQuizCoach(message);
 }
 
 function finishQuiz() {
+  hideToast();
+  ctx.tts.stopSpeaking();
   hideOverlay('screen-quiz');
   const total = quizQuestions.length;
-  const passed = quizScore >= ctx.quiz.PASS_THRESHOLD;
-  ctx.emit('quiz.completed', 'quiz', { score: quizScore, total, passed });
-
-  if (passed) {
-    const p = ctx.storage.completePassage(currentPassageNum, TARGET_WORDS_PER_PASSAGE);
-    showCertificateScreen(p);
-    updateParentProgress();
-  } else {
-    showToast(`Got ${quizScore}/${total}. Need ${ctx.quiz.PASS_THRESHOLD} to pass. Try again!`);
-    ctx.emit('quiz.failed', 'quiz', { score: quizScore, total });
-    setTimeout(startQuiz, 1200);
-  }
+  ctx.emit('quiz.completed', 'quiz', { score: quizScore, total, passed: true });
+  const p = ctx.storage.completePassage(currentPassageNum, WORDS_PER_DAY);
+  showCertificateScreen(p);
+  updateParentProgress();
 }
 
 async function showCertificateScreen(progress) {
@@ -405,43 +593,141 @@ function updateParentProgress() {
   const p = ctx.storage.loadProgress();
   $('#parent-progress').textContent =
     `${p.completedPassages.length}/100 topics · ${p.totalWordsLearned}/1000 words`;
+  syncPaceControls();
 }
 
-function openPanel(id, fn) { closePanels(); $(`#${id}`).hidden = false; fn(); }
-function closePanels() { $$('.sub-panel').forEach((p) => { p.hidden = true; }); }
-
-function renderPassageList() {
-  const p = ctx.storage.loadProgress();
-  $('#passage-list').innerHTML = VOCABULARY.map((d) => {
-    const done = p.completedPassages.includes(d.day);
-    const title = getTopicTitle(d.day);
-    return `<div class="passage-item ${done ? 'done' : ''}" data-n="${d.day}">
-      <span class="passage-item-title">${title}</span><span>${done ? '✓' : ''}</span></div>`;
-  }).join('');
-  $$('.passage-item').forEach((el) => {
-    el.addEventListener('click', () => {
-      closePanels();
-      loadPassage(parseInt(el.dataset.n, 10));
-    });
+function syncPaceControls() {
+  const id = getPaceId();
+  $$('[data-pace]').forEach((btn) => {
+    btn.classList.toggle('is-active', btn.dataset.pace === id);
+  });
+  const voiceName = ctx?.tts?.getActiveVoiceName?.() || '';
+  const voiceCopy = voiceName && voiceName !== 'default'
+    ? `Voice on this device: ${voiceName}`
+    : 'Voice: best available on this device';
+  $$('#parent-voice-name, #settings-voice-name').forEach((voiceEl) => {
+    voiceEl.textContent = voiceCopy;
   });
 }
 
-function renderWordsList() {
-  const p = ctx.storage.loadProgress();
-  let idx = 0;
-  const rows = [];
-  for (const day of VOCABULARY) {
-    const learned = p.completedPassages.includes(day.day);
-    for (const w of day.words) {
-      idx++;
-      rows.push(`<div class="word-row ${learned ? 'learned' : 'upcoming'}">
-        <span class="word-index">${idx}</span>
-        <div class="word-info"><span class="word-text">${w.word}</span>
-        <span class="word-meaning">${w.meaning}</span></div></div>`);
+function openHome(tab) {
+  hideToast();
+  closeWordSheet();
+  ctx.tts.stopSpeaking();
+  hideOverlay('screen-quiz');
+  hideOverlay('screen-complete');
+  const next = ctx.home.setTab(tab || ctx.home.getTab());
+  showOverlay('screen-home');
+  renderHomeTab(next);
+  persistResume({
+    passage: currentPassageNum,
+    surface: 'home',
+    homeTab: next,
+    scrollY: window.scrollY,
+  });
+}
+
+function closeHome() {
+  hideOverlay('screen-home');
+  ctx.tts.stopSpeaking();
+  persistResume({
+    passage: currentPassageNum,
+    surface: 'reading',
+    scrollY: window.scrollY,
+    homeTab: ctx.home.getTab(),
+  });
+}
+
+function renderHomeTab(tab) {
+  const id = ctx.home.setTab(tab);
+  $$('[data-home-tab]').forEach((btn) => {
+    const on = btn.dataset.homeTab === id;
+    btn.setAttribute('aria-selected', on ? 'true' : 'false');
+    btn.classList.toggle('is-active', on);
+  });
+  $$('[data-home-panel]').forEach((panel) => {
+    panel.hidden = panel.dataset.homePanel !== id;
+  });
+  if (id === 'settings') {
+    syncPaceControls();
+    const name = ctx.storage.loadProgress().childName || '';
+    const input = $('#settings-child-name');
+    if (input && document.activeElement !== input) input.value = name;
+    updateInstallUi();
+    return;
+  }
+  renderCatalog(id);
+}
+
+function renderCatalog(id) {
+  const cap = ctx.capability?.get?.(id);
+  const mount = document.querySelector(`[data-catalog="${id}"]`);
+  if (!cap || !mount) return;
+  mount.innerHTML = ctx.capability.renderCatalogHtml(ctx.capability.listItems(id), cap);
+  mount.querySelectorAll('[data-item]').forEach((el) => {
+    el.addEventListener('click', () => handleCatalogOpen(id, el.dataset.item));
+  });
+}
+
+function handleCatalogOpen(capabilityId, itemId) {
+  if (typeof ctx.capability?.open !== 'function') return;
+  const result = ctx.capability.open(capabilityId, itemId);
+  if (typeof ctx.capability.dispatch === 'function') {
+    const handled = ctx.capability.dispatch(result);
+    if (!handled) {
+      ctx.emit('capability.unhandled', 'capability', {
+        action: result?.action,
+        capabilityId,
+        itemId,
+      });
+    }
+    return;
+  }
+  switch (result?.action) {
+    case 'read-passage':
+      closePanels();
+      closeHome();
+      loadPassage(result.day);
+      return;
+    case 'none':
+    case 'unknown':
+    case 'unsupported':
+    case 'open-exercise':
+      return;
+    default: {
+      const action = result?.action;
+      ctx.emit('capability.unhandled', 'capability', { action, capabilityId, itemId });
     }
   }
-  $('#words-list').innerHTML = rows.join('');
 }
+
+function updateInstallUi() {
+  const state = ctx.home.installState({
+    standalone: ctx.home.isStandaloneDisplay({
+      matchMedia: window.matchMedia?.bind(window),
+      standalone: window.navigator?.standalone,
+    }),
+    canPrompt: Boolean(window._deferredPrompt),
+  });
+  const copy = $('#install-copy');
+  const btn = $('#btn-install');
+  if (copy) copy.textContent = state.copy;
+  if (btn) {
+    btn.hidden = false;
+    btn.textContent = state.button;
+    btn.disabled = !state.enabled;
+  }
+}
+
+function openPanel(id, fn) {
+  hideToast();
+  closeWordSheet();
+  ctx.tts.stopSpeaking();
+  closePanels();
+  $(`#${id}`).hidden = false;
+  fn();
+}
+function closePanels() { $$('.sub-panel').forEach((p) => { p.hidden = true; }); }
 
 async function renderCerts() {
   const p = ctx.storage.loadProgress();
@@ -468,12 +754,52 @@ async function renderCerts() {
 
 async function handleInstall() {
   const prompt = window._deferredPrompt;
-  if (prompt) { prompt.prompt(); await prompt.userChoice; }
+  if (prompt) {
+    prompt.prompt();
+    await prompt.userChoice;
+    window._deferredPrompt = null;
+    updateInstallUi();
+    return;
+  }
+  const state = ctx.home.installState({
+    standalone: ctx.home.isStandaloneDisplay({
+      matchMedia: window.matchMedia?.bind(window),
+      standalone: window.navigator?.standalone,
+    }),
+    canPrompt: false,
+  });
+  if (!state.enabled) {
+    showToast('Already installed on this device');
+    return;
+  }
+  showToast('Use Share → Add to Home Screen, or your browser Install menu');
+  updateInstallUi();
 }
 
 function showToast(msg) {
   const t = $('#toast');
+  if (!t) return;
+  if (toastTimer) {
+    clearTimeout(toastTimer);
+    toastTimer = null;
+  }
+  t.hidden = false;
+  t.setAttribute('aria-hidden', 'false');
   t.textContent = msg;
   t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2500);
+  toastTimer = setTimeout(() => {
+    hideToast();
+  }, 2800);
+}
+
+function hideToast() {
+  const t = $('#toast');
+  if (toastTimer) {
+    clearTimeout(toastTimer);
+    toastTimer = null;
+  }
+  if (!t) return;
+  t.classList.remove('show');
+  t.setAttribute('aria-hidden', 'true');
+  t.hidden = true;
 }

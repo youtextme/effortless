@@ -61,6 +61,22 @@
       "then": "it does not shrink-and-replay the same chunk"
     },
     {
+      "id": "word-tap-takes-listen",
+      "component": "speech",
+      "given": "Listen is reading the passage",
+      "when": "the kid taps an advanced word",
+      "then": "passage speech stops and the word sheet auto-speaks without the surface-stop cancelling it",
+      "nfr": ["word-tap-interrupts-listen"]
+    },
+    {
+      "id": "listen-from-fold",
+      "component": "speech",
+      "given": "the kid has scrolled the passage",
+      "when": "they tap Listen",
+      "then": "read-aloud starts at the top-most paragraph in the viewport, not the title if it has left the fold",
+      "nfr": ["listen-starts-in-fold"]
+    },
+    {
       "id": "kernel-acyclic-init",
       "component": "shell",
       "given": "registered components with dependencies",
@@ -79,8 +95,8 @@
       "id": "quiz-requires-comprehension-pass",
       "component": "quiz",
       "given": "a generated question set",
-      "when": "the quiz is created",
-      "then": "a numeric pass threshold exists and questions can be generated"
+      "when": "the kid answers",
+      "then": "misses are coached and there is no pass wall"
     },
     {
       "id": "word-sheet-uses-speech",
@@ -88,6 +104,14 @@
       "given": "a tapped vocabulary word",
       "when": "the sheet opens",
       "then": "the component depends on speech and exposes open/close"
+    },
+    {
+      "id": "word-sheet-daily-use",
+      "component": "word-sheet",
+      "given": "a tapped advanced word",
+      "when": "the sheet opens and speaks",
+      "then": "the word is said twice, then a simple meaning, then three daily-life examples that each contain the word",
+      "nfr": ["word-sheet-daily-speech"]
     },
     {
       "id": "certificate-share-local",
@@ -120,6 +144,54 @@
       "when": "policy.allowEvent runs",
       "then": "the event is blocked and child data stays local",
       "nfr": ["child-data-local"]
+    },
+    {
+      "id": "quiz-takeaway-spread",
+      "component": "quiz",
+      "given": "a generated question set for a passage",
+      "when": "the kid thinks through the quiz",
+      "then": "five takeaway items reinforce the top idea and are spread through the set, with two kid word items and friend-style hints",
+      "nfr": ["quiz-kid-think"]
+    },
+    {
+      "id": "home-three-tabs",
+      "component": "home",
+      "given": "the child taps Home",
+      "when": "the home surface opens",
+      "then": "there are three tabs: Words, Passages, and Settings",
+      "nfr": ["home-three-tabs"]
+    },
+    {
+      "id": "resume-where-left-off",
+      "component": "storage",
+      "given": "the child leaves mid-passage, on Home, or mid-quiz",
+      "when": "they open WordSpark again on that device",
+      "then": "boot restores that surface, passage, scroll, Home tab, or quiz index",
+      "nfr": ["resume-on-device"]
+    },
+    {
+      "id": "install-pwa-visible",
+      "component": "home",
+      "given": "Settings is open on a browser that may never fire beforeinstallprompt",
+      "when": "the child looks for Install",
+      "then": "Install is visible with Add to Home Screen copy, and installed mode reuses the same on-device memory",
+      "nfr": ["pwa-install-visible"]
+    },
+    {
+      "id": "passages-are-capabilities",
+      "component": "capability",
+      "given": "the 100 passages and 1000 words are the first learning catalogs",
+      "when": "the capability component boots",
+      "then": "both catalogs register, list, and open through the shared registry",
+      "nfr": ["capability-catalog-no-shell-fork"]
+    },
+    {
+      "id": "extra-capability-registers-without-shell-fork",
+      "component": "capability",
+      "given": "a stub math exercise pack",
+      "when": "it registers beside passages",
+      "then": "list and catalog HTML work without a shell if on math and without mapping VOCABULARY in the shell",
+      "nfr": ["capability-catalog-no-shell-fork"]
     }
   ]
 }

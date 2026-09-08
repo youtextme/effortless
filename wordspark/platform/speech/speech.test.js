@@ -11,6 +11,7 @@ import { splitSentences, packByChars, joinPieceText, nextMaxChars, rateForQualit
 import { scoreVoice, pickWarmMother, sessionProfile, documentLocale, listEnglishVoices } from './voice-picker.js';
 import { isSilentFromFlags, flagsFromElement, coveringScoreFromFlags } from './visible-text.js';
 import { speechPolicy } from './policy.js';
+import { getSpeechRate, getPaceId, setPaceId, PACE_RATES } from './pace.js';
 
 const here = dirname(fileURLToPath(import.meta.url));
 
@@ -105,11 +106,43 @@ test('sticky URI wins so the voice does not rotate', () => {
   assert.equal(picked.voiceURI, 'karen');
 });
 
-test('story:one-rate-per-session sessionProfile uses one rate for the session', () => {
+test('story:one-rate-per-session sessionProfile uses parent home pace for title and body', () => {
   const voice = { name: 'Google UK English Female', lang: 'en-GB', voiceURI: 'g', localService: false };
   const profile = sessionProfile(voice, 'en-GB');
-  assert.equal(profile.rate, speechPolicy.rates.network);
+  assert.equal(profile.rate, getSpeechRate());
+  assert.equal(profile.rate, PACE_RATES.home);
   assert.equal(profile.pitch, speechPolicy.pitch);
+});
+
+test('robot voices lose to a warm English voice even if sticky', () => {
+  const voices = [
+    { name: 'eSpeak Generic', lang: 'en-GB', voiceURI: 'espeak', localService: true, default: true },
+    { name: 'Google US English', lang: 'en-US', voiceURI: 'google-us', localService: false },
+  ];
+  const picked = pickWarmMother(voices, 'en-US', 'espeak');
+  assert.equal(picked.voiceURI, 'google-us');
+});
+
+test('parents can raise the shared title-and-body pace', () => {
+  const mem = {
+    store: { wordspark_speech_pace: 'quick' },
+    getItem(k) { return this.store[k] || null; },
+    setItem(k, v) { this.store[k] = String(v); },
+  };
+  assert.equal(getSpeechRate(mem), PACE_RATES.quick);
+  assert.ok(PACE_RATES.quick > PACE_RATES.home);
+  assert.equal(getPaceId({ getItem: () => null }), 'home');
+  assert.equal(setPaceId('brisk', mem), 'brisk');
+  assert.equal(getPaceId(mem), 'brisk');
+  assert.equal(setPaceId('nope', mem), 'home');
+});
+
+test('kill experiment: only compact/espeak still returns a voice', () => {
+  const picked = pickWarmMother([
+    { name: 'eSpeak Compact', lang: 'en-GB', voiceURI: 'espeak-compact', localService: true },
+  ], 'en-GB');
+  assert.ok(picked);
+  assert.equal(picked.voiceURI, 'espeak-compact');
 });
 
 test('story:hidden-headings-not-spoken hidden passage-h2 flags are silent — not spoken', () => {
@@ -166,8 +199,7 @@ test('story:listen-on-every-surface index.html has a global listen dock and spee
     'screen-complete',
     'name-modal',
     'word-sheet',
-    'panel-passages',
-    'panel-words',
+    'screen-home',
     'panel-certificates',
   ];
   for (const id of surfaces) {
@@ -180,6 +212,16 @@ test('story:abort-does-not-restart component:speech canceled utterances are abor
   assert.equal(isAbortResult('interrupted', speechPolicy.abortUtteranceErrors), true);
   assert.equal(isAbortResult('canceled', speechPolicy.abortUtteranceErrors), true);
   assert.equal(isAbortResult('network', speechPolicy.abortUtteranceErrors), false);
+});
+
+test('story:highlight-tracks-spoken-word Listen paints one word, not the whole paragraph', () => {
+  const css = readFileSync(join(here, '../../css/app.css'), 'utf8');
+  const engine = readFileSync(join(here, 'engine.js'), 'utf8');
+  assert.match(css, /\.speech-word-active\s*\{/);
+  assert.equal(css.includes('speech-chunk-active'), false);
+  assert.equal(engine.includes('markChunk'), false);
+  assert.equal(engine.includes('speech-chunk-active'), false);
+  assert.match(engine, /activateSpan\(spans\[indexAtChar/);
 });
 
 test('story:voices-ready-before-speak engine waits for voices and aborts stale sessions', () => {
@@ -200,5 +242,27 @@ test('story:speech-stops-on-surface-change shell startQuiz stops speech before o
   const readingScore = coveringScoreFromFlags({ hidden: false, position: 'static', zIndex: 'auto' });
   assert.ok(quizScore > readingScore, 'quiz overlay must cover the passage for speech lifecycle');
   assert.equal(coveringScoreFromFlags({ hidden: true, position: 'fixed', zIndex: '150' }), -1);
+});
+
+test('story:word-sheet-daily-use engine says the word twice then meaning then examples', () => {
+  const src = readFileSync(join(here, 'engine.js'), 'utf8');
+  const meaningAt = src.indexOf('speechPolicy.wordSheet.meaningSelector');
+  const examplesAt = src.indexOf('speechPolicy.wordSheet.examplesSelector');
+  assert.ok(meaningAt > 0, 'meaning selector must be read');
+  assert.ok(examplesAt > meaningAt, 'examples must be spoken after meaning');
+  assert.equal(speechPolicy.wordSheet.repeats, 2);
+  assert.equal(speechPolicy.wordSheet.meaningSelector, '.sheet-intro');
+  assert.equal(speechPolicy.wordSheet.examplesSelector, '.sheet-scenarios');
+  assert.match(speechPolicy.blockSelector, /sheet-intro/);
+});
+
+test('story:listen-from-fold Listen slices blocks from the visible fold', () => {
+  const src = readFileSync(join(here, 'engine.js'), 'utf8');
+  assert.match(src, /sliceBlocksFromFold/);
+  assert.match(src, /fromFold/);
+  assert.equal(speechPolicy.fold.topSlopPx, 8);
+  const listen = readFileSync(join(here, 'listen-control.js'), 'utf8');
+  assert.match(listen, /planSpeechHandoff/);
+  assert.match(listen, /speak-surface-from-fold|fromFold: true/);
 });
 

@@ -78,6 +78,63 @@
       ]
     },
     {
+      "id": "word-sheet-daily-speech",
+      "kind": "functional",
+      "statement": "Tapping a word speaks it twice, then a simple meaning, then three daily-life examples that each contain the word.",
+      "sourceEvidence": [
+        {
+          "file": "wordspark/platform/speech/engine.js",
+          "includes": ["speechPolicy.wordSheet.meaningSelector", "speechPolicy.wordSheet.examplesSelector"]
+        },
+        {
+          "file": "wordspark/platform/speech/policy.js",
+          "includes": ["meaningSelector: '.sheet-intro'", "repeats: 2"]
+        },
+        {
+          "file": "wordspark/js/word-usage.js",
+          "includes": ["examples.slice(0, 3)"]
+        }
+      ]
+    },
+    {
+      "id": "word-tap-interrupts-listen",
+      "kind": "functional",
+      "statement": "Tapping an advanced word while Listen is playing stops passage speech and auto-speaks the word sheet. Unhiding the sheet must not cancel that new session.",
+      "sourceEvidence": [
+        {
+          "file": "wordspark/platform/speech/lifecycle.js",
+          "includes": ["isWordSheetSurface", "shouldStopForSurfaceChange"]
+        },
+        {
+          "file": "wordspark/platform/speech/session.js",
+          "includes": ["stop-then-speak-word-sheet"]
+        },
+        {
+          "file": "wordspark/platform/components/word-sheet.js",
+          "includes": ["stopSpeaking", "speakWordSheet"]
+        }
+      ]
+    },
+    {
+      "id": "listen-starts-in-fold",
+      "kind": "functional",
+      "statement": "Listen on the reading surface starts at the top-most paragraph currently in the viewport fold.",
+      "sourceEvidence": [
+        {
+          "file": "wordspark/platform/speech/fold.js",
+          "includes": ["sliceBlocksFromFold", "firstBlockInFoldIndex"]
+        },
+        {
+          "file": "wordspark/platform/speech/engine.js",
+          "includes": ["fromFold", "sliceBlocksFromFold"]
+        },
+        {
+          "file": "wordspark/platform/speech/policy.js",
+          "includes": ["topSlopPx: 8"]
+        }
+      ]
+    },
+    {
       "id": "child-data-local",
       "kind": "privacy",
       "statement": "Child progress and certificates stay on-device; pii and undeclared network events are blocked.",
@@ -85,6 +142,85 @@
         {
           "file": "wordspark/platform/kernel/policy.js",
           "includes": ["pii."]
+        }
+      ]
+    },
+    {
+      "id": "quiz-kid-think",
+      "kind": "functional",
+      "statement": "The quiz uses five spread takeaway scenarios plus two kid word items with friend-style hints that do not paste the answer on the first miss.",
+      "sourceEvidence": [
+        {
+          "file": "wordspark/js/questions.js",
+          "includes": ["QUIZ_PATTERN", "takeawayPack", "getWordExplanation"]
+        },
+        {
+          "file": "wordspark/js/quiz-takeaways.js",
+          "includes": ["TAKEAWAY_COUNT", "takeawayPack"]
+        }
+      ]
+    },
+    {
+      "id": "home-three-tabs",
+      "kind": "functional",
+      "statement": "Home has exactly three tabs: Words, Passages, and Settings.",
+      "sourceEvidence": [
+        {
+          "file": "wordspark/platform/components/home.js",
+          "includes": ["id: 'words'", "id: 'passages'", "id: 'settings'"]
+        },
+        {
+          "file": "wordspark/index.html",
+          "includes": ["data-home-tab=\"words\"", "data-home-tab=\"passages\"", "data-home-tab=\"settings\""]
+        }
+      ]
+    },
+    {
+      "id": "resume-on-device",
+      "kind": "functional",
+      "statement": "Reopening the app restores the last reading, Home tab, or quiz index on this device.",
+      "sourceEvidence": [
+        {
+          "file": "wordspark/js/storage.js",
+          "includes": ["getBootTarget", "saveResume"]
+        },
+        {
+          "file": "wordspark/platform/shell.js",
+          "includes": ["restoreSession", "flushResume"]
+        }
+      ]
+    },
+    {
+      "id": "pwa-install-visible",
+      "kind": "functional",
+      "statement": "Install is always offered in Settings, including Add to Home Screen copy when the browser never fires beforeinstallprompt.",
+      "sourceEvidence": [
+        {
+          "file": "wordspark/platform/components/home.js",
+          "includes": ["installState", "Add to Home Screen"]
+        },
+        {
+          "file": "wordspark/index.html",
+          "includes": ["id=\"btn-install\"", "id=\"install-copy\""]
+        }
+      ]
+    },
+    {
+      "id": "capability-catalog-no-shell-fork",
+      "kind": "reliability",
+      "statement": "Passages and words are registered catalog capabilities. A second exercise pack can list and render through the same API without a shell if on its id.",
+      "sourceEvidence": [
+        {
+          "file": "wordspark/platform/kernel/capabilities.js",
+          "includes": ["createCapabilityRegistry", "renderCatalogHtml", "registerAction", "createExerciseCapability"]
+        },
+        {
+          "file": "wordspark/platform/shell.js",
+          "includes": ["renderCatalog(", "capability.dispatch", "data-catalog"]
+        },
+        {
+          "file": "wordspark/platform/components/capability-packs.js",
+          "includes": ["createPassagesCapability", "createWordsCapability", "defaultPacks"]
         }
       ]
     }

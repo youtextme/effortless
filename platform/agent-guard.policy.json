@@ -13,8 +13,11 @@
     "wordspark/platform/speech/policy.js",
     "wordspark/platform/speech/sentences.js",
     "wordspark/platform/speech/voice-picker.js",
+    "wordspark/platform/speech/pace.js",
     "wordspark/platform/speech/lifecycle.js",
-    "wordspark/platform/speech/word-clock.js"
+    "wordspark/platform/speech/word-clock.js",
+    "wordspark/platform/speech/fold.js",
+    "wordspark/platform/speech/session.js"
   ],
   "coverageExclude": [
     "**/*.test.js",
@@ -29,7 +32,8 @@
     "certificate.js",
     "passage-generator.js",
     "questions.js",
-    "word-usage.js"
+    "word-usage.js",
+    "quiz-takeaways.js"
   ],
   "forbidden": [
     {

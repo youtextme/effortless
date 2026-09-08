@@ -22,6 +22,9 @@ export const SpeechComponent = {
       clearHighlights: speech.clearHighlights,
       speakActiveSurface: speech.speakActiveSurface,
       speakRoot: speech.speakRoot,
+      speakText: speech.speakText,
+      speakSequence: speech.speakText,
+      refreshProfile: speech.refreshProfile,
       speakLongPassage(_title, _paragraphs, _content, _titleRoot, onEnd) {
         return speech.speakActiveSurface({ onEnd });
       },
@@ -32,7 +35,10 @@ export const SpeechComponent = {
       },
       getCurrentReader() {
         const p = speech.getCurrentProfile();
-        return p ? { voice: p.voice, pitch: p.pitch || 1, label: 'Mom' } : null;
+        return p ? { voice: p.voice, pitch: p.pitch || 1, label: 'Parent' } : null;
+      },
+      getActiveVoiceName() {
+        return speech.getCurrentProfile()?.voice?.name || 'default';
       },
     };
     if (typeof document !== 'undefined') {

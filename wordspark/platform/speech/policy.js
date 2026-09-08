@@ -49,8 +49,15 @@ export const speechPolicy = Object.freeze({
     observeSmoothing: 0.35,
   }),
 
+  fold: Object.freeze({
+    topSlopPx: 8,
+    headerSelector: '#reading-header',
+  }),
+
   wordSheet: Object.freeze({
     leadSelector: '.sheet-word',
+    meaningSelector: '.sheet-intro',
+    examplesSelector: '.sheet-scenarios',
     repeats: 2,
   }),
 
@@ -112,6 +119,18 @@ export const speechPolicy = Object.freeze({
     'good news': -80,
   }),
 
+  /**
+   * Name/URI substrings treated as novelty/robot. Hard-rejected when any
+   * warmer English voice exists.
+   */
+  robotReject: Object.freeze([
+    'espeak', 'compact', 'pico', 'flite', 'zarvox', 'trinoids', 'boing',
+    'whisper', 'bad news', 'good news', 'cellos', 'bells', 'albert',
+    'novelty', 'robot',
+  ]),
+
+  robotRejectScore: -200,
+
   voiceBonuses: Object.freeze({
     langFamily: 22,
     langExact: 12,
@@ -141,8 +160,8 @@ export const speechPolicy = Object.freeze({
   /** Visible blocks that form speech turns (DOM query, not hardcoded copy). */
   blockSelector: [
     'p', 'h1', 'h2', 'h3', 'h4', 'li',
-    '.example-line', '.sheet-word', '.passage-theme',
-    '.quiz-question', '.quiz-choice', '.quiz-counter',
+    '.example-line', '.sheet-word', '.sheet-intro', '.passage-theme',
+    '.quiz-question', '.quiz-counter', '.quiz-coach-text',
     '.complete-container h2', '.complete-container p',
     '.passage-item-title', '.word-text', '.word-meaning',
     '.sub-header h2', '.modal-panel h2', '.modal-panel p',

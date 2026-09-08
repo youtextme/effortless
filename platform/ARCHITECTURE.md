@@ -22,13 +22,14 @@ WordSpark and future effortless products compose from **platform components** �
 │  Wires components, handles routing between screens        │
 ├─────────────────────────────────────────────────────────┤
 │  Components (wordspark/platform/components/*)           │
-│  reading · quiz · certificate · word-sheet · progress   │
+│  capability · home · reading · quiz · certificate · …   │
 ├─────────────────────────────────────────────────────────┤
 │  Adapters (wrap browser APIs)                           │
 │  storage · speech (visible-text TTS) · service-worker    │
 ├─────────────────────────────────────────────────────────┤
 │  Kernel (wordspark/platform/kernel/*)                   │
 │  registry · bus · health · telemetry · policy · context │
+│  capabilities (catalogs of reusable exercises)          │
 ├─────────────────────────────────────────────────────────┤
 │  Data & generators (wordspark/js/data, scripts/)        │
 │  Versioned datasets, build-time codegen                 │
@@ -63,6 +64,16 @@ wordspark/js/                      # Legacy paths + data (components import from
   passage-generator.js
   ...
 ```
+
+## Adding an exercise pack (math, diagrams, more reading)
+
+Passages are a **catalog**, not the platform. To add a pack:
+
+1. Export `createMathCapability(getProgress)` from `wordspark/platform/components/capability-packs.js` using `createExerciseCapability` (`homeTab: false` until there is real kid content).
+2. Append it to `defaultPacks()`.
+3. Register a player with `ctx.capability.registerAction('open-exercise', …)` (or a new kebab action) — **do not** add `if (id === 'math')` in `shell.js`.
+4. When the pack is ready for kids, set `homeTab: true` and mount a `data-catalog` panel (`catalogPanelHtml` on Home).
+5. Add a CX story on a journey, list any new `wordspark/platform/**/*.js` in `sw.js`, bump `CACHE_NAME`, run `npm run ci`.
 
 ## Adding a component
 

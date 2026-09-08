@@ -12,9 +12,11 @@
         { "id": "highlight-sync", "story": "highlight-tracks-spoken-word" },
         { "id": "no-hidden-headings", "story": "hidden-headings-not-spoken" },
         { "id": "word-sheet", "story": "word-sheet-uses-speech" },
+        { "id": "word-sheet-daily", "story": "word-sheet-daily-use" },
         { "id": "scroll-unlock", "story": "reading-unlocks-quiz-after-scroll" },
         { "id": "speech-stops-on-quiz", "story": "speech-stops-on-surface-change" },
         { "id": "quiz-pass", "story": "quiz-requires-comprehension-pass" },
+        { "id": "quiz-spread", "story": "quiz-takeaway-spread" },
         { "id": "certificate", "story": "certificate-share-local" }
       ]
     },
@@ -26,7 +28,9 @@
         { "id": "dock", "story": "listen-on-every-surface" },
         { "id": "mother-voice", "story": "warm-mother-voice" },
         { "id": "steady-rate", "story": "one-rate-per-session" },
-        { "id": "no-restart", "story": "abort-does-not-restart" }
+        { "id": "no-restart", "story": "abort-does-not-restart" },
+        { "id": "word-tap-listen", "story": "word-tap-takes-listen" },
+        { "id": "listen-fold", "story": "listen-from-fold" }
       ]
     },
     {
@@ -36,6 +40,25 @@
       "steps": [
         { "id": "local-only", "story": "policy-blocks-pii-events" },
         { "id": "acyclic", "story": "kernel-acyclic-init" }
+      ]
+    },
+    {
+      "id": "kid-comes-back",
+      "actor": "child",
+      "intent": "Find words and passages, change settings, install the app, and pick up where they stopped",
+      "steps": [
+        { "id": "home-tabs", "story": "home-three-tabs" },
+        { "id": "resume", "story": "resume-where-left-off" },
+        { "id": "install", "story": "install-pwa-visible" }
+      ]
+    },
+    {
+      "id": "builder-adds-an-exercise",
+      "actor": "builder",
+      "intent": "Plug in a new kid exercise the same way as the 100 passages, without rewriting Home listing",
+      "steps": [
+        { "id": "catalogs-register", "story": "passages-are-capabilities" },
+        { "id": "math-without-fork", "story": "extra-capability-registers-without-shell-fork" }
       ]
     }
   ]

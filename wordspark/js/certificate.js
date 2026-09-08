@@ -3,7 +3,6 @@
  */
 
 import { getTopicTitle } from './data/topics.js';
-import { getTargetWords } from './passage-generator.js';
 
 const MAX_TAKEAWAY_WORDS = 80;
 
@@ -24,7 +23,7 @@ export async function generateCertificate({ childName, dayData, progress }) {
   const topic = dayData.theme || getTopicTitle(dayData.day);
   const takeaway = truncateWords(dayData.takeaway || '', MAX_TAKEAWAY_WORDS);
   const name = childName || 'Student';
-  const words = getTargetWords(dayData);
+  const words = dayData.words || [];
   const date = new Date().toLocaleDateString('en-IN', {
     year: 'numeric',
     month: 'long',

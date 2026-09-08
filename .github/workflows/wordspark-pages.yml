@@ -1,0 +1,66 @@
+name: Deploy WordSpark to GitHub Pages
+
+# WordSpark branch deploy — MUST preserve /snack/ (see .github/PAGES-DEPLOY-LAW.md on main).
+# Never force_orphan. Checkout gh-pages, rsync WordSpark to root excluding snack/, push.
+
+on:
+  push:
+    branches: [main, cursor/wordspark-vocab-pwa-206f]
+    paths:
+      - 'wordspark/**'
+      - 'platform/**'
+      - '.github/workflows/wordspark-pages.yml'
+      - '.github/workflows/platform-ci.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: github-pages-deploy
+  cancel-in-progress: false
+
+jobs:
+  ci:
+    uses: ./.github/workflows/platform-ci.yml
+
+  deploy:
+    needs: ci
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Checkout gh-pages
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          path: gh-pages-publish
+          fetch-depth: 1
+
+      - name: Assemble and push gh-pages (preserve /snack/)
+        run: |
+          set -euo pipefail
+          cd gh-pages-publish
+          # WordSpark → site root (never delete /snack/ or .git)
+          rsync -a --delete \
+            --exclude '.git/' \
+            --filter 'protect snack/' \
+            --filter 'protect snack/***' \
+            "${{ github.workspace }}/wordspark/" ./
+
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          touch .nojekyll
+          git add -A
+
+          if git diff --staged --quiet; then
+            echo "No Pages changes to deploy."
+            exit 0
+          fi
+
+          git commit -m "deploy(pages): WordSpark at root (preserve /snack/)"
+          git push origin gh-pages

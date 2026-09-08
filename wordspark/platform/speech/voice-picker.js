@@ -4,7 +4,8 @@
  */
 
 import { speechPolicy } from './policy.js';
-import { localeFamily, qualityOfVoice, rateForQuality } from './sentences.js';
+import { localeFamily, qualityOfVoice } from './sentences.js';
+import { getSpeechRate } from './pace.js';
 
 export function documentLocale(doc = typeof document !== 'undefined' ? document : null, nav = typeof navigator !== 'undefined' ? navigator : null) {
   const htmlLang = doc?.documentElement?.lang;
@@ -22,8 +23,14 @@ function blobHasSignal(blob, signal) {
   return tokenSet(blob).has(needle);
 }
 
+export function isRobotVoice(voice) {
+  const blob = `${voice?.name || ''} ${voice?.voiceURI || ''}`.toLowerCase();
+  return (speechPolicy.robotReject || []).some((token) => blob.includes(token));
+}
+
 export function scoreVoice(voice, locale = documentLocale()) {
   if (!voice) return -Infinity;
+  if (isRobotVoice(voice)) return speechPolicy.robotRejectScore ?? -200;
   const lang = String(voice.lang || '').toLowerCase();
   const family = localeFamily(locale, speechPolicy.locale.fallback);
   const blob = `${voice.name || ''} ${voice.voiceURI || ''}`.toLowerCase();
@@ -51,16 +58,18 @@ export function pickWarmMother(voices, locale = documentLocale(), stickyUri = ''
   const list = [...(voices || [])];
   if (!list.length) return null;
 
-  if (stickyUri) {
-    const sticky = list.find((v) => v.voiceURI === stickyUri);
-    if (sticky) return sticky;
-  }
-
   const ranked = list
     .map((voice) => ({ voice, score: scoreVoice(voice, locale) }))
     .sort((a, b) => b.score - a.score);
+  const usable = ranked.filter((row) => row.score > -100);
+  const pool = usable.length ? usable : ranked;
 
-  return ranked[0]?.voice || null;
+  if (stickyUri) {
+    const sticky = pool.find((row) => row.voice.voiceURI === stickyUri);
+    if (sticky) return sticky.voice;
+  }
+
+  return pool[0]?.voice || null;
 }
 
 export function sessionProfile(voice, locale = documentLocale()) {
@@ -69,7 +78,7 @@ export function sessionProfile(voice, locale = documentLocale()) {
     voice,
     locale,
     quality,
-    rate: rateForQuality(speechPolicy.rates, quality),
+    rate: getSpeechRate(),
     pitch: speechPolicy.pitch,
     lang: voice?.lang || locale || 'en-US',
   };

@@ -1,164 +1,178 @@
 /**
- * Reading comprehension quiz — 12 questions, shuffled choices, skills + takeaways.
+ * Takeaway quiz — kid-think scenarios, no pass wall.
+ * Five takeaway items (top idea + 4 more, spread) and two word items.
  */
 
-import { getTopicTitle } from './data/topics.js';
-import { getTargetWords } from './passage-generator.js';
+import { getWordExplanation } from './word-usage.js';
+import { TAKEAWAY_COUNT, takeawayPack } from './quiz-takeaways.js';
 
-function shuffle(arr) {
+export { TAKEAWAY_COUNT };
+export const WORD_COUNT = 2;
+export const QUIZ_PATTERN = Object.freeze([
+  'takeaway',
+  'word',
+  'takeaway',
+  'takeaway',
+  'word',
+  'takeaway',
+  'takeaway',
+]);
+
+export function keywordsFrom(text) {
+  const stop = new Set([
+    'this', 'that', 'with', 'from', 'your', 'their', 'about', 'would',
+    'could', 'should', 'have', 'what', 'when', 'which', 'them', 'they',
+    'into', 'just', 'than', 'then', 'also', 'only', 'they', 'them',
+  ]);
+  return String(text || '')
+    .replace(/[^\w\s'-]/g, ' ')
+    .split(/\s+/)
+    .map((w) => w.trim())
+    .filter((w) => w.length > 3 && !stop.has(w.toLowerCase()));
+}
+
+export function clipWords(text, max = 50) {
+  const parts = String(text || '').trim().split(/\s+/).filter(Boolean);
+  if (parts.length <= max) return parts.join(' ');
+  return `${parts.slice(0, max).join(' ')}.`;
+}
+
+export function mulberry32(seed) {
+  let a = seed >>> 0;
+  return function rng() {
+    a |= 0;
+    a = (a + 0x6D2B79F5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+export function seededShuffle(arr, rng) {
   const a = [...arr];
   for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
+    const j = Math.floor(rng() * (i + 1));
     [a[i], a[j]] = [a[j], a[i]];
   }
   return a;
 }
 
-function makeQuestion(prompt, correct, wrongs) {
+function makeQuestion({ prompt, correct, wrongs, thinkAloud, retryAloud, kind, rng }) {
+  const uniqueWrongs = [...new Set(wrongs.map((text) => String(text || '').trim()))]
+    .filter((text) => text && text !== correct)
+    .slice(0, 3);
+  while (uniqueWrongs.length < 3) {
+    uniqueWrongs.push(`Not this one — it skips thinking (${uniqueWrongs.length + 1})`);
+  }
   return {
+    kind,
     prompt,
-    choices: shuffle([
+    choices: seededShuffle([
       { text: correct, correct: true },
-      ...wrongs.map((text) => ({ text, correct: false })),
-    ]),
+      ...uniqueWrongs.map((text) => ({ text, correct: false })),
+    ], rng),
+    thinkAloud,
+    retryAloud: clipWords(retryAloud, 50),
   };
 }
 
-function skillQuestions(passageData) {
-  const title = getTopicTitle(passageData.day);
-  const takeaway = passageData.takeaway;
-  const theme = passageData.theme;
-
-  return [
-    makeQuestion(
-      'What is this reading mainly about?',
-      title,
-      [
-        'Memorising spelling lists',
-        'Finishing pages as fast as possible',
-        'Learning only grammar rules',
-      ]
-    ),
-    makeQuestion(
-      'What is the most important reason to read carefully?',
-      'To understand ideas you can use in real life',
-      [
-        'To impress people with long words',
-        'To skip thinking and move on',
-        'To collect highlights without understanding',
-      ]
-    ),
-    makeQuestion(
-      'According to the passage, what should you do after reading?',
-      'Pause and think about what you learned',
-      [
-        'Forget everything immediately',
-        'Only copy highlighted words',
-        'Never explain it to anyone',
-      ]
-    ),
-    makeQuestion(
-      'Why is pausing while reading valuable?',
-      'It means your mind is working and learning',
-      [
-        'It means you are too slow',
-        'It means the topic is boring',
-        'It means you should stop forever',
-      ]
-    ),
-    makeQuestion(
-      `Which idea best matches the key lesson: "${takeaway}"`,
-      takeaway,
-      [
-        'Facts never matter in decisions',
-        'You should never ask questions',
-        'Reading is only for exams',
-      ]
-    ),
-    makeQuestion(
-      'What skill does the passage encourage you to build?',
-      'Thinking clearly before you decide',
-      [
-        'Reacting quickly without facts',
-        'Ignoring details on purpose',
-        'Trusting only loud voices',
-      ]
-    ),
-    makeQuestion(
-      'What should you try explaining to someone after reading?',
-      'This topic using your own examples',
-      [
-        'Only the number of pages you read',
-        'Nothing — keep it private',
-        'Only word definitions from memory',
-      ]
-    ),
-    makeQuestion(
-      'How does the passage describe strong thinkers?',
-      'They collect facts before they decide',
-      [
-        'They guess and never check',
-        'They avoid hard topics',
-        'They only believe friends',
-      ]
-    ),
-    makeQuestion(
-      `This passage belongs to which area of learning?`,
-      theme,
-      [
-        'Random word memorisation',
-        'Typing speed practice',
-        'Colouring worksheets',
-      ]
-    ),
-    makeQuestion(
-      'What makes reading "useful" according to the passage?',
-      'Connecting ideas to your own life',
-      [
-        'Reading as fast as possible',
-        'Never using what you learn',
-        'Avoiding real-world examples',
-      ]
-    ),
-    makeQuestion(
-      'When you truly understand a topic, what happens?',
-      'You can explain it simply to someone else',
-      [
-        'You forget it the next day',
-        'You only remember fancy words',
-        'You stop asking questions',
-      ]
-    ),
-    makeQuestion(
-      'What is the best way to make learning stick?',
-      'Use what you read in real conversations',
-      [
-        'Highlight words and never speak them',
-        'Read once and never return',
-        'Memorise without understanding',
-      ]
-    ),
-  ];
+function takeawayQuestions(passageData, rng) {
+  return takeawayPack(passageData.takeaway).map((item) => makeQuestion({
+    ...item,
+    kind: 'takeaway',
+    rng,
+  }));
 }
 
-function wordQuestions(passageData) {
-  const words = getTargetWords(passageData);
-  const picked = shuffle(words);
+function wordThinkAloud(word, simple) {
+  const meaning = String(simple || '').trim();
+  return `Hey — "${word}" is a word you can actually use. ${meaning} Picture homework, a game, dinner, or a message to a friend — not a scientist in a lab. Which choice sounds like you saying it this week?`;
+}
 
-  return picked.map((word) => {
-    const distractors = shuffle(words.filter((w) => w.word !== word.word)).slice(0, 3);
-    return makeQuestion(
-      `In this topic, what does "${word.word}" mean?`,
-      word.meaning,
-      distractors.map((d) => d.meaning)
-    );
+function wordRetry(word, simple) {
+  const keys = keywordsFrom(simple).slice(0, 4).join(', ');
+  return clipWords(`You've got this. "${word}" means that idea in real life. Keywords: ${keys}. Try again.`, 50);
+}
+
+function usageQuestion(wordData, others, rng) {
+  const expl = getWordExplanation(wordData);
+  const word = wordData.word;
+  const correct = expl.examples[0];
+  const wrongs = others
+    .map((w) => getWordExplanation(w).examples[0])
+    .filter((line) => line && line !== correct && !line.toLowerCase().includes(String(word).toLowerCase()))
+    .slice(0, 3);
+  return makeQuestion({
+    prompt: `Which moment is really using "${word}" the way a kid would say it?`,
+    correct,
+    wrongs,
+    thinkAloud: wordThinkAloud(word, expl.simple),
+    retryAloud: wordRetry(word, expl.simple),
+    kind: 'word',
+    rng,
   });
 }
 
-export function generateQuestions(passageData) {
-  const core = skillQuestions(passageData);
-  const vocab = wordQuestions(passageData);
-  return shuffle([...core, ...vocab]);
+function meaningQuestion(wordData, others, rng) {
+  const expl = getWordExplanation(wordData);
+  const word = wordData.word;
+  const correct = expl.simple;
+  const wrongs = others
+    .map((w) => getWordExplanation(w).simple)
+    .filter((line) => line && line !== correct)
+    .slice(0, 3);
+  return makeQuestion({
+    prompt: `A friend asks, "what does ${word} actually mean?" Which friend-style answer is right?`,
+    correct,
+    wrongs,
+    thinkAloud: `Hey — explain "${word}" like you would at dinner. Picture homework, a game, or a sibling asking "wait, what does that mean?" Pick the meaning that matches this word, not a neighbour word on the list.`,
+    retryAloud: wordRetry(word, expl.simple),
+    kind: 'word',
+    rng,
+  });
 }
 
-export const PASS_THRESHOLD = 10;
+function wordQuestions(passageData, rng) {
+  const words = seededShuffle(passageData.words || [], rng);
+  const picked = words.slice(0, WORD_COUNT);
+  return picked.map((wordData, i) => {
+    const others = words.filter((w) => w.word !== wordData.word);
+    if (i === 0) return usageQuestion(wordData, others, rng);
+    return meaningQuestion(wordData, others, rng);
+  });
+}
+
+function interleave(takeaways, words) {
+  const out = [];
+  let ti = 0;
+  let wi = 0;
+  for (const kind of QUIZ_PATTERN) {
+    if (kind === 'takeaway') out.push(takeaways[ti++]);
+    else out.push(words[wi++]);
+  }
+  return out.filter(Boolean);
+}
+
+export function generateQuestions(passageData) {
+  const seed = Number(passageData?.day) || 1;
+  const rng = mulberry32(seed * 9973 + 17);
+  const takeaways = takeawayQuestions(passageData, rng);
+  const words = wordQuestions(passageData, rng);
+  return interleave(takeaways, words);
+}
+
+export function takeawayIndexes(questions) {
+  return questions
+    .map((q, i) => (q.kind === 'takeaway' ? i : -1))
+    .filter((i) => i >= 0);
+}
+
+/** First miss: friend hint. Later misses: keywords, still ≤50 words. */
+export function coachMessage(question, missCount) {
+  if (!question) return '';
+  if (missCount <= 1) return String(question.thinkAloud || '').trim();
+  return clipWords(question.retryAloud || '', 50);
+}
+
+/** Kept so older shells do not crash; coaching quiz does not use a pass wall. */
+export const PASS_THRESHOLD = 0;

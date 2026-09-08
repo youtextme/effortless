@@ -1,13 +1,14 @@
-import { generateQuestions, PASS_THRESHOLD } from '../../js/questions.js';
+import { generateQuestions, PASS_THRESHOLD, coachMessage } from '../../js/questions.js';
 
 export const QuizComponent = {
   id: 'quiz',
-  version: '1.0.0',
+  version: '2.0.0',
   dependencies: ['storage'],
   init(ctx) {
     ctx.quiz = {
       PASS_THRESHOLD,
       generate: generateQuestions,
+      coachMessage,
     };
   },
   health() {

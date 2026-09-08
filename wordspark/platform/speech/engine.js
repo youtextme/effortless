@@ -5,6 +5,7 @@
 
 import { speechPolicy } from './policy.js';
 import { packByChars, joinPieceText, nextMaxChars, isAbortResult } from './sentences.js';
+import { getSpeechRate } from './pace.js';
 import {
   pickWarmMother,
   sessionProfile,
@@ -28,6 +29,8 @@ import {
   effectiveCharsPerSecond,
   observeCharsPerSecond,
 } from './word-clock.js';
+import { sliceBlocksFromFold, foldViewportFromWindow } from './fold.js';
+import { setSpeechMode } from './session.js';
 
 const BLOCK_SELECTOR = speechPolicy.blockSelector;
 
@@ -131,7 +134,7 @@ export function ensureVoicesReady() {
 
 function applyProfile(utterance) {
   if (!profile) refreshProfile();
-  utterance.rate = profile?.rate ?? speechPolicy.rates.default;
+  utterance.rate = getSpeechRate();
   utterance.pitch = speechPolicy.pitch;
   utterance.volume = speechPolicy.volume;
   utterance.lang = profile?.lang || document.documentElement?.lang || 'en-US';
@@ -172,9 +175,6 @@ function unwrapRoot(root) {
     if (!parent) return;
     parent.replaceChild(document.createTextNode(el.textContent), el);
     parent.normalize();
-  });
-  root.querySelectorAll('.speech-chunk-active').forEach((el) => {
-    el.classList.remove('speech-chunk-active');
   });
   root.querySelectorAll('.speech-word-active').forEach((el) => {
     el.classList.remove('speech-word-active');
@@ -246,10 +246,6 @@ function activateSpan(span) {
   });
 }
 
-function markChunk(spans, on) {
-  spans.forEach((s) => s.classList.toggle('speech-chunk-active', on));
-}
-
 function setTeleprompter(on) {
   document.body.classList.toggle('teleprompter-active', on);
 }
@@ -318,7 +314,6 @@ function speakUtterance(text, spans) {
           speechPolicy.clock.observeSmoothing,
         );
       }
-      markChunk(spans, false);
       resolve(result);
     };
 
@@ -330,7 +325,6 @@ function speakUtterance(text, spans) {
     u.onstart = () => {
       startedAt = nowMs();
       boundaryAt = startedAt;
-      markChunk(spans, true);
       if (spans[0]) activateSpan(spans[0]);
       tickId = scheduleTick(loop);
     };
@@ -426,8 +420,18 @@ async function speakBlock(block, gen) {
   return gen === generation;
 }
 
-async function speakLiveRoot(root, gen) {
-  const blocks = collectBlocks(root);
+async function speakLiveRoot(root, gen, options = {}) {
+  let blocks = collectBlocks(root);
+  if (options.fromFold) {
+    const header = typeof document !== 'undefined'
+      ? document.querySelector(speechPolicy.fold.headerSelector)
+      : null;
+    const fold = foldViewportFromWindow(
+      typeof window !== 'undefined' ? window : { innerHeight: 0 },
+      header,
+    );
+    blocks = sliceBlocksFromFold(blocks, (el) => el.getBoundingClientRect(), fold, speechPolicy.fold.topSlopPx);
+  }
   for (const block of blocks) {
     if (gen !== generation) return false;
     if (shouldStopForSurfaceChange(root, findActiveSurface())) {
@@ -484,11 +488,44 @@ export function getCurrentProfile() {
   return profile;
 }
 
+export function speakText(text, { onEnd } = {}) {
+  const trimmed = String(text || '').trim();
+  if (!isTTSAvailable() || !trimmed) {
+    onEnd?.();
+    return false;
+  }
+  stopSpeaking();
+  speaking = true;
+  const u = new SpeechSynthesisUtterance(trimmed);
+  applyProfile(u);
+  u.onend = () => {
+    speaking = false;
+    emitSpeechState();
+    onEnd?.();
+  };
+  u.onerror = () => {
+    speaking = false;
+    emitSpeechState();
+    onEnd?.();
+  };
+  resumeIfPaused();
+  try {
+    synth()?.speak(u);
+  } catch {
+    speaking = false;
+    onEnd?.();
+    return false;
+  }
+  emitSpeechState();
+  return true;
+}
+
 export function stopSpeaking() {
   generation += 1;
   speaking = false;
   stopKeepAlive();
   setTeleprompter(false);
+  setSpeechMode('idle');
   unwrapRoot(document.body);
   highlightEl = null;
   const s = synth();
@@ -496,7 +533,7 @@ export function stopSpeaking() {
   emitSpeechState();
 }
 
-export async function speakRoot(root, { onEnd, teleprompter = true } = {}) {
+export async function speakRoot(root, { onEnd, teleprompter = true, fromFold = false } = {}) {
   if (!isTTSAvailable() || !root) {
     onEnd?.();
     return false;
@@ -518,13 +555,14 @@ export async function speakRoot(root, { onEnd, teleprompter = true } = {}) {
     onEnd?.();
     return false;
   }
-  const ok = await speakLiveRoot(plan.root, gen);
+  setSpeechMode('surface');
+  const ok = await speakLiveRoot(plan.root, gen, { fromFold });
   return endSession(gen, onEnd, ok);
 }
 
 export async function speakActiveSurface(options = {}) {
   const root = findActiveSurface();
-  return speakRoot(root, options);
+  return speakRoot(root, { ...options, fromFold: options.fromFold !== false });
 }
 
 export async function speakWordSheet(panel, onEnd) {
@@ -549,6 +587,7 @@ export async function speakWordSheet(panel, onEnd) {
     onEnd?.();
     return false;
   }
+  setSpeechMode('word-sheet');
   const lead = panel.querySelector(speechPolicy.wordSheet.leadSelector);
 
   if (lead && visiblePlainText(lead) && gen === generation) {
@@ -561,7 +600,12 @@ export async function speakWordSheet(panel, onEnd) {
     }
   }
 
-  const examples = panel.querySelector('.sheet-scenarios');
+  const meaning = panel.querySelector(speechPolicy.wordSheet.meaningSelector);
+  if (meaning && visiblePlainText(meaning) && gen === generation) {
+    await speakLiveRoot(meaning, gen);
+  }
+
+  const examples = panel.querySelector(speechPolicy.wordSheet.examplesSelector);
   if (examples && gen === generation) {
     await speakLiveRoot(examples, gen);
   }

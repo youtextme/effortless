@@ -1,7 +1,7 @@
 {
   "name": "WordSpark",
   "short_name": "WordSpark",
-  "description": "Read 100 Kindle-style passages. Learn vocabulary with read-aloud. Tap any word to hear it.",
+  "description": "Read 100 passages. Learn 1000 advanced English words. Tap any word to hear it.",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#ffffff",
