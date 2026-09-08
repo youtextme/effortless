@@ -1,4 +1,4 @@
-const CACHE_NAME = 'wordspark-v20';
+const CACHE_NAME = 'wordspark-v21'; // word-level Listen highlight
 const ASSETS = [
   './',
   './index.html',
