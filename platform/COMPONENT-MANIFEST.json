@@ -8,9 +8,9 @@
   "components": [
     {
       "id": "storage",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "dependencies": [],
-      "description": "Progress persistence via localStorage adapter",
+      "description": "Progress persistence via localStorage adapter, including resume memory",
       "events": { "emits": ["progress.loaded", "progress.saved", "passage.completed"], "listens": [] }
     },
     {
@@ -50,9 +50,9 @@
     },
     {
       "id": "quiz",
-      "version": "1.0.0",
+      "version": "2.0.0",
       "dependencies": ["storage"],
-      "description": "Comprehension quiz gate",
+      "description": "Kid-think takeaway quiz with coaching, no pass wall",
       "events": { "emits": ["quiz.started", "quiz.answered", "quiz.completed", "quiz.failed"], "listens": ["reading.scrolled-to-end"] }
     },
     {
@@ -63,9 +63,16 @@
       "events": { "emits": ["certificate.generated", "certificate.shared"], "listens": ["quiz.completed"] }
     },
     {
-      "id": "shell",
+      "id": "home",
       "version": "1.0.0",
-      "dependencies": ["storage", "reading", "word-sheet", "quiz", "certificate", "speech", "tts"],
+      "dependencies": ["storage"],
+      "description": "Home catalogs (words, passages) and settings (name, speech, PWA install)",
+      "events": { "emits": ["home.opened", "home.tab"], "listens": [] }
+    },
+    {
+      "id": "shell",
+      "version": "1.1.0",
+      "dependencies": ["storage", "reading", "word-sheet", "quiz", "certificate", "speech", "tts", "home"],
       "description": "App composition root and screen orchestration",
       "events": { "emits": ["app.ready", "app.error"], "listens": [] }
     }

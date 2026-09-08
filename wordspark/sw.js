@@ -1,4 +1,4 @@
-const CACHE_NAME = 'wordspark-v24'; // listen from fold; word tap stops passage and auto-speaks the sheet
+const CACHE_NAME = 'wordspark-v25'; // kid-think quiz (5 takeaways spread + word meaning by example); Home words/passages/settings; resume + always-visible PWA install
 const ASSETS = [
   './',
   './index.html',
@@ -19,6 +19,7 @@ const ASSETS = [
   './platform/components/word-sheet.js',
   './platform/components/quiz.js',
   './platform/components/certificate.js',
+  './platform/components/home.js',
   './platform/speech/policy.js',
   './platform/speech/sentences.js',
   './platform/speech/voice-picker.js',
@@ -39,6 +40,7 @@ const ASSETS = [
   './js/tts.js',
   './js/voices.js',
   './js/questions.js',
+  './js/quiz-takeaways.js',
   './js/word-usage.js',
   './manifest.webmanifest',
   './icons/icon.svg',

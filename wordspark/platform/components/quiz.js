@@ -2,7 +2,7 @@ import { generateQuestions, PASS_THRESHOLD, coachMessage } from '../../js/questi
 
 export const QuizComponent = {
   id: 'quiz',
-  version: '1.1.0',
+  version: '2.0.0',
   dependencies: ['storage'],
   init(ctx) {
     ctx.quiz = {

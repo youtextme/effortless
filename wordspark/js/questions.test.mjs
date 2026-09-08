@@ -26,7 +26,7 @@ test('quiz has no pass wall', () => {
 
 test('questions coach takeaways and daily-life word use', () => {
   const qs = generateQuestions(sample);
-  assert.equal(qs.length, 6);
+  assert.equal(qs.length, 7);
   for (const q of qs) {
     assert.ok(q.thinkAloud);
     assert.ok(q.retryAloud);

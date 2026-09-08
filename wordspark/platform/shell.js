@@ -20,6 +20,7 @@ import { SpeechComponent } from './components/speech.js';
 import { WordSheetComponent } from './components/word-sheet.js';
 import { QuizComponent } from './components/quiz.js';
 import { CertificateComponent } from './components/certificate.js';
+import { HomeComponent } from './components/home.js';
 import { getPaceId, setPaceId } from './speech/pace.js';
 
 const $ = (sel) => document.querySelector(sel);
@@ -38,6 +39,7 @@ let scrollObserver = null;
 let currentCertificateCanvas = null;
 let lastScrollY = 0;
 let scrollHandler = null;
+let resumeTimer = null;
 
 const COMPONENTS = [
   StorageComponent,
@@ -48,6 +50,7 @@ const COMPONENTS = [
   WordSheetComponent,
   QuizComponent,
   CertificateComponent,
+  HomeComponent,
 ];
 
 export async function bootShell() {
@@ -92,7 +95,7 @@ export async function bootShell() {
   setupListeners();
   const p = ctx.storage.loadProgress();
   if (!p.onboarded || !p.childName) showModal('name-modal');
-  else loadPassage(ctx.storage.getActivePassage());
+  else restoreSession();
 
   ctx.emit('app.ready', 'shell', { components: COMPONENTS.map((c) => c.id) });
 }
@@ -111,12 +114,13 @@ function setupListeners() {
     loadPassage(ctx.storage.getActivePassage());
   });
 
-  $('#btn-done-reading')?.addEventListener('click', startQuiz);
+  $('#btn-done-reading')?.addEventListener('click', () => startQuiz());
   $('#btn-home')?.addEventListener('click', () => {
     closeWordSheet();
     ctx.tts.stopSpeaking();
-    openPanel('panel-passages', renderPassageList);
+    openHome();
   });
+  $('#btn-home-close')?.addEventListener('click', closeHome);
   $('#btn-next-passage')?.addEventListener('click', () => {
     hideOverlay('screen-complete');
     loadPassage(ctx.storage.getActivePassage());
@@ -146,8 +150,8 @@ function setupListeners() {
       const action = btn.dataset.action;
       $('#parent-panel').hidden = true;
       if (action === 'refresh') showModal('refresh-modal');
-      else if (action === 'passages') openPanel('panel-passages', renderPassageList);
-      else if (action === 'words') openPanel('panel-words', renderWordsList);
+      else if (action === 'passages') openHome('passages');
+      else if (action === 'words') openHome('words');
       else if (action === 'certificates') openPanel('panel-certificates', renderCerts);
       else if (action === 'install') handleInstall();
     });
@@ -178,19 +182,116 @@ function setupListeners() {
 
   $$('[data-back]').forEach((btn) => btn.addEventListener('click', closePanels));
 
+  $$('[data-home-tab]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      renderHomeTab(btn.dataset.homeTab);
+      ctx.storage.saveResume({
+        surface: 'home',
+        homeTab: btn.dataset.homeTab,
+        passage: currentPassageNum,
+        scrollY: window.scrollY,
+      });
+    });
+  });
+
+  $('#btn-save-settings-name')?.addEventListener('click', saveSettingsName);
+  $('#settings-child-name')?.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') saveSettingsName();
+  });
+  $('#btn-settings-certs')?.addEventListener('click', () => {
+    openPanel('panel-certificates', renderCerts);
+  });
+  $('#btn-install')?.addEventListener('click', () => handleInstall());
+
   window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     window._deferredPrompt = e;
-    const btn = $('#btn-install');
-    if (btn) btn.hidden = false;
+    updateInstallUi();
   });
+  window.addEventListener('appinstalled', () => {
+    window._deferredPrompt = null;
+    updateInstallUi();
+  });
+  window.addEventListener('pagehide', flushResume);
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'hidden') flushResume();
+  });
+}
+
+function saveSettingsName() {
+  const name = $('#settings-child-name')?.value?.trim();
+  if (!name) return;
+  ctx.storage.setChildName(name);
+  showToast('Name saved');
 }
 
 function getPassageData(n) {
   return VOCABULARY.find((d) => d.day === n) || VOCABULARY[0];
 }
 
-function loadPassage(n) {
+function restoreSession() {
+  const target = ctx.storage.getBootTarget();
+  const passage = target.passage || ctx.storage.getActivePassage();
+  if (target.surface === 'home') {
+    loadPassage(passage, { scrollY: target.scrollY });
+    openHome(target.homeTab);
+    return;
+  }
+  loadPassage(passage, { scrollY: target.surface === 'quiz' ? 0 : target.scrollY });
+  if (target.surface === 'quiz') {
+    ctx.reading.markScrolledToEnd();
+    updateFab();
+    startQuiz({ index: target.quizIndex || 0 });
+  }
+}
+
+function currentSurface() {
+  if ($('#screen-home') && !$('#screen-home').hidden) return 'home';
+  if ($('#screen-quiz') && !$('#screen-quiz').hidden) return 'quiz';
+  return 'reading';
+}
+
+function scheduleResume(factory) {
+  if (resumeTimer) return;
+  resumeTimer = setTimeout(() => {
+    resumeTimer = null;
+    ctx.storage.saveResume(factory());
+  }, 400);
+}
+
+function flushResume() {
+  if (!ctx?.storage?.saveResume) return;
+  if (resumeTimer) {
+    clearTimeout(resumeTimer);
+    resumeTimer = null;
+  }
+  const surface = currentSurface();
+  if (surface === 'quiz') {
+    ctx.storage.saveResume({
+      passage: currentPassageNum,
+      surface: 'quiz',
+      quizIndex,
+    });
+    return;
+  }
+  if (surface === 'home') {
+    ctx.storage.saveResume({
+      passage: currentPassageNum,
+      surface: 'home',
+      homeTab: ctx.home.getTab(),
+      scrollY: window.scrollY,
+    });
+    return;
+  }
+  ctx.storage.saveResume({
+    passage: currentPassageNum,
+    scrollY: window.scrollY,
+    surface: 'reading',
+    homeTab: ctx.home?.getTab?.() || 'passages',
+  });
+}
+
+function loadPassage(n, options = {}) {
   hideToast();
   closeWordSheet();
   ctx.tts.stopSpeaking();
@@ -216,11 +317,18 @@ function loadPassage(n) {
   setupScrollUnlock();
   setupReadingChrome();
   ctx.storage.setReadingPassage(n);
+  const scrollY = Math.max(0, Number(options.scrollY) || 0);
+  window.scrollTo(0, scrollY);
+  lastScrollY = scrollY;
+  updateReadingHeader(scrollY);
+  ctx.storage.saveResume({
+    passage: n,
+    scrollY,
+    surface: 'reading',
+    quizIndex: 0,
+  });
   updateParentProgress();
   updateFab();
-  window.scrollTo(0, 0);
-  lastScrollY = 0;
-  updateReadingHeader(0);
   ctx.emit('reading.loaded', 'reading', { passage: n, title: h1 });
 }
 
@@ -234,6 +342,13 @@ function setupReadingChrome() {
     updateReadingHeader(y);
     updateScrollFade();
     lastScrollY = y;
+    if (currentSurface() === 'reading') {
+      scheduleResume(() => ({
+        passage: currentPassageNum,
+        scrollY: window.scrollY,
+        surface: 'reading',
+      }));
+    }
   };
 
   window.addEventListener('scroll', scrollHandler, { passive: true });
@@ -323,18 +438,24 @@ function closeWordSheet() {
   });
 }
 
-function startQuiz() {
+function startQuiz(options = {}) {
   if (!ctx.reading.hasScrolledToEnd) return;
   hideToast();
   closeWordSheet();
   ctx.tts.stopSpeaking();
   quizQuestions = ctx.quiz.generate(currentPassageData);
-  quizIndex = 0;
+  const rawIndex = Number.isFinite(options?.index) ? options.index : 0;
+  quizIndex = Math.max(0, Math.min(rawIndex, Math.max(0, quizQuestions.length - 1)));
   quizScore = 0;
   quizMisses = 0;
   showOverlay('screen-quiz');
+  ctx.storage.saveResume({
+    passage: currentPassageNum,
+    surface: 'quiz',
+    quizIndex,
+  });
   renderQuestion();
-  ctx.emit('quiz.started', 'quiz', { count: quizQuestions.length });
+  ctx.emit('quiz.started', 'quiz', { count: quizQuestions.length, index: quizIndex });
 }
 
 function hideQuizCoach() {
@@ -364,6 +485,11 @@ function renderQuestion() {
     .map((c) => `<button class="quiz-choice" data-correct="${c.correct}">${c.text}</button>`)
     .join('');
   $$('.quiz-choice').forEach((btn) => btn.addEventListener('click', () => handleAnswer(btn)));
+  ctx.storage.saveResume({
+    passage: currentPassageNum,
+    surface: 'quiz',
+    quizIndex,
+  });
 }
 
 function handleAnswer(btn) {
@@ -453,12 +579,79 @@ function syncPaceControls() {
   $$('[data-pace]').forEach((btn) => {
     btn.classList.toggle('is-active', btn.dataset.pace === id);
   });
-  const voiceEl = $('#parent-voice-name');
-  if (voiceEl) {
-    const name = ctx?.tts?.getActiveVoiceName?.() || '';
-    voiceEl.textContent = name && name !== 'default'
-      ? `Voice on this device: ${name}`
-      : 'Voice: best available on this device';
+  const voiceName = ctx?.tts?.getActiveVoiceName?.() || '';
+  const voiceCopy = voiceName && voiceName !== 'default'
+    ? `Voice on this device: ${voiceName}`
+    : 'Voice: best available on this device';
+  $$('#parent-voice-name, #settings-voice-name').forEach((voiceEl) => {
+    voiceEl.textContent = voiceCopy;
+  });
+}
+
+function openHome(tab) {
+  hideToast();
+  closeWordSheet();
+  ctx.tts.stopSpeaking();
+  hideOverlay('screen-quiz');
+  hideOverlay('screen-complete');
+  const next = ctx.home.setTab(tab || ctx.home.getTab());
+  showOverlay('screen-home');
+  renderHomeTab(next);
+  ctx.storage.saveResume({
+    passage: currentPassageNum,
+    surface: 'home',
+    homeTab: next,
+    scrollY: window.scrollY,
+  });
+}
+
+function closeHome() {
+  hideOverlay('screen-home');
+  ctx.tts.stopSpeaking();
+  ctx.storage.saveResume({
+    passage: currentPassageNum,
+    surface: 'reading',
+    scrollY: window.scrollY,
+    homeTab: ctx.home.getTab(),
+  });
+}
+
+function renderHomeTab(tab) {
+  const id = ctx.home.setTab(tab);
+  $$('[data-home-tab]').forEach((btn) => {
+    const on = btn.dataset.homeTab === id;
+    btn.setAttribute('aria-selected', on ? 'true' : 'false');
+    btn.classList.toggle('is-active', on);
+  });
+  $$('[data-home-panel]').forEach((panel) => {
+    panel.hidden = panel.dataset.homePanel !== id;
+  });
+  if (id === 'words') renderWordsList();
+  else if (id === 'passages') renderPassageList();
+  else if (id === 'settings') {
+    syncPaceControls();
+    const name = ctx.storage.loadProgress().childName || '';
+    const input = $('#settings-child-name');
+    if (input && document.activeElement !== input) input.value = name;
+    updateInstallUi();
+  }
+}
+
+function updateInstallUi() {
+  const state = ctx.home.installState({
+    standalone: ctx.home.isStandaloneDisplay({
+      matchMedia: window.matchMedia?.bind(window),
+      standalone: window.navigator?.standalone,
+    }),
+    canPrompt: Boolean(window._deferredPrompt),
+  });
+  const copy = $('#install-copy');
+  const btn = $('#btn-install');
+  if (copy) copy.textContent = state.copy;
+  if (btn) {
+    btn.hidden = false;
+    btn.textContent = state.button;
+    btn.disabled = !state.enabled;
   }
 }
 
@@ -483,6 +676,7 @@ function renderPassageList() {
   $$('.passage-item').forEach((el) => {
     el.addEventListener('click', () => {
       closePanels();
+      closeHome();
       loadPassage(parseInt(el.dataset.n, 10));
     });
   });
@@ -530,7 +724,26 @@ async function renderCerts() {
 
 async function handleInstall() {
   const prompt = window._deferredPrompt;
-  if (prompt) { prompt.prompt(); await prompt.userChoice; }
+  if (prompt) {
+    prompt.prompt();
+    await prompt.userChoice;
+    window._deferredPrompt = null;
+    updateInstallUi();
+    return;
+  }
+  const state = ctx.home.installState({
+    standalone: ctx.home.isStandaloneDisplay({
+      matchMedia: window.matchMedia?.bind(window),
+      standalone: window.navigator?.standalone,
+    }),
+    canPrompt: false,
+  });
+  if (!state.enabled) {
+    showToast('Already installed on this device');
+    return;
+  }
+  showToast('Use Share → Add to Home Screen, or your browser Install menu');
+  updateInstallUi();
 }
 
 function showToast(msg) {

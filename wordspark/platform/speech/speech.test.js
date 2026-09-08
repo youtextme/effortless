@@ -199,8 +199,7 @@ test('story:listen-on-every-surface index.html has a global listen dock and spee
     'screen-complete',
     'name-modal',
     'word-sheet',
-    'panel-passages',
-    'panel-words',
+    'screen-home',
     'panel-certificates',
   ];
   for (const id of surfaces) {

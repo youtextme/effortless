@@ -144,6 +144,38 @@
       "when": "policy.allowEvent runs",
       "then": "the event is blocked and child data stays local",
       "nfr": ["child-data-local"]
+    },
+    {
+      "id": "quiz-takeaway-spread",
+      "component": "quiz",
+      "given": "a generated question set for a passage",
+      "when": "the kid thinks through the quiz",
+      "then": "five takeaway items reinforce the top idea and are spread through the set, with two kid word items and friend-style hints",
+      "nfr": ["quiz-kid-think"]
+    },
+    {
+      "id": "home-three-tabs",
+      "component": "home",
+      "given": "the child taps Home",
+      "when": "the home surface opens",
+      "then": "there are three tabs: Words, Passages, and Settings",
+      "nfr": ["home-three-tabs"]
+    },
+    {
+      "id": "resume-where-left-off",
+      "component": "storage",
+      "given": "the child leaves mid-passage, on Home, or mid-quiz",
+      "when": "they open WordSpark again on that device",
+      "then": "boot restores that surface, passage, scroll, Home tab, or quiz index",
+      "nfr": ["resume-on-device"]
+    },
+    {
+      "id": "install-pwa-visible",
+      "component": "home",
+      "given": "Settings is open on a browser that may never fire beforeinstallprompt",
+      "when": "the child looks for Install",
+      "then": "Install is visible with Add to Home Screen copy, and installed mode reuses the same on-device memory",
+      "nfr": ["pwa-install-visible"]
     }
   ]
 }

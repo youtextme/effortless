@@ -32,7 +32,8 @@
     "certificate.js",
     "passage-generator.js",
     "questions.js",
-    "word-usage.js"
+    "word-usage.js",
+    "quiz-takeaways.js"
   ],
   "forbidden": [
     {

@@ -144,6 +144,66 @@
           "includes": ["pii."]
         }
       ]
+    },
+    {
+      "id": "quiz-kid-think",
+      "kind": "functional",
+      "statement": "The quiz uses five spread takeaway scenarios plus two kid word items with friend-style hints that do not paste the answer on the first miss.",
+      "sourceEvidence": [
+        {
+          "file": "wordspark/js/questions.js",
+          "includes": ["QUIZ_PATTERN", "takeawayPack", "getWordExplanation"]
+        },
+        {
+          "file": "wordspark/js/quiz-takeaways.js",
+          "includes": ["TAKEAWAY_COUNT", "takeawayPack"]
+        }
+      ]
+    },
+    {
+      "id": "home-three-tabs",
+      "kind": "functional",
+      "statement": "Home has exactly three tabs: Words, Passages, and Settings.",
+      "sourceEvidence": [
+        {
+          "file": "wordspark/platform/components/home.js",
+          "includes": ["id: 'words'", "id: 'passages'", "id: 'settings'"]
+        },
+        {
+          "file": "wordspark/index.html",
+          "includes": ["data-home-tab=\"words\"", "data-home-tab=\"passages\"", "data-home-tab=\"settings\""]
+        }
+      ]
+    },
+    {
+      "id": "resume-on-device",
+      "kind": "functional",
+      "statement": "Reopening the app restores the last reading, Home tab, or quiz index on this device.",
+      "sourceEvidence": [
+        {
+          "file": "wordspark/js/storage.js",
+          "includes": ["getBootTarget", "saveResume"]
+        },
+        {
+          "file": "wordspark/platform/shell.js",
+          "includes": ["restoreSession", "flushResume"]
+        }
+      ]
+    },
+    {
+      "id": "pwa-install-visible",
+      "kind": "functional",
+      "statement": "Install is always offered in Settings, including Add to Home Screen copy when the browser never fires beforeinstallprompt.",
+      "sourceEvidence": [
+        {
+          "file": "wordspark/platform/components/home.js",
+          "includes": ["installState", "Add to Home Screen"]
+        },
+        {
+          "file": "wordspark/index.html",
+          "includes": ["id=\"btn-install\"", "id=\"install-copy\""]
+        }
+      ]
     }
   ]
 }
