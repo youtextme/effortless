@@ -90,6 +90,14 @@
       "then": "the component depends on speech and exposes open/close"
     },
     {
+      "id": "word-sheet-daily-use",
+      "component": "word-sheet",
+      "given": "a tapped advanced word",
+      "when": "the sheet opens and speaks",
+      "then": "the word is said twice, then a simple meaning, then three daily-life examples that each contain the word",
+      "nfr": ["word-sheet-daily-speech"]
+    },
+    {
       "id": "certificate-share-local",
       "component": "certificate",
       "given": "a passed quiz",

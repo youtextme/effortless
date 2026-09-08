@@ -78,6 +78,25 @@
       ]
     },
     {
+      "id": "word-sheet-daily-speech",
+      "kind": "functional",
+      "statement": "Tapping a word speaks it twice, then a simple meaning, then three daily-life examples that each contain the word.",
+      "sourceEvidence": [
+        {
+          "file": "wordspark/platform/speech/engine.js",
+          "includes": ["speechPolicy.wordSheet.meaningSelector", "speechPolicy.wordSheet.examplesSelector"]
+        },
+        {
+          "file": "wordspark/platform/speech/policy.js",
+          "includes": ["meaningSelector: '.sheet-intro'", "repeats: 2"]
+        },
+        {
+          "file": "wordspark/js/word-usage.js",
+          "includes": ["examples.slice(0, 3)"]
+        }
+      ]
+    },
+    {
       "id": "child-data-local",
       "kind": "privacy",
       "statement": "Child progress and certificates stay on-device; pii and undeclared network events are blocked.",

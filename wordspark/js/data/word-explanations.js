@@ -1,4395 +1,5859 @@
-/** Direct example sentences for 732 words. Generated. */
+/** Kid-plain meaning + 3 daily-life examples. Generated. */
 export const WORD_EXPLANATIONS = {
   "analyze": {
+    "simple": "It means you examine in detail to understand.",
     "examples": [
-      "Scientists analyze data to find patterns.",
-      "He will analyze the topic in class tomorrow."
+      "After the match we should analyze what went wrong.",
+      "Before I send that message I should analyze if it sounds kind.",
+      "Can we analyze this so everyone at dinner understands?"
     ]
   },
   "hypothesis": {
+    "simple": "Hypothesis is an educated guess to be tested.",
     "examples": [
-      "Her hypothesis was proven by the experiment.",
-      "That is a good example of hypothesis."
+      "What's the hypothesis we should remember from today?",
+      "My friend asked about the hypothesis and I didn't freeze.",
+      "I wrote the hypothesis in my own words for homework."
     ]
   },
   "investigate": {
+    "simple": "It means to look into something carefully.",
     "examples": [
-      "Police investigate crimes thoroughly.",
-      "They need to investigate the results properly."
+      "If I lose my jumper I have to investigate the last place I had it.",
+      "Don't shout — let's investigate what happened first.",
+      "Let me investigate this homework before I guess."
     ]
   },
   "observe": {
+    "simple": "It means to watch carefully and notice details.",
     "examples": [
       "We observe birds in the garden.",
-      "He will observe the topic in class tomorrow."
+      "Let me observe this homework before I guess.",
+      "Help me observe this so I can do it myself tomorrow."
     ]
   },
   "discover": {
+    "simple": "It means to find something new.",
     "examples": [
-      "Scientists discover new species every year.",
-      "We should discover the facts before arguing."
+      "Help me discover this so I can do it myself tomorrow.",
+      "After the match we should discover what went wrong.",
+      "Before I send that message I should discover if it sounds kind."
     ]
   },
   "explore": {
+    "simple": "It means to travel through unfamiliar areas.",
     "examples": [
       "Children explore the forest with wonder.",
-      "Can we explore the problem step by step?"
+      "Can we explore this so everyone at dinner understands?",
+      "In class I asked if we can explore the question together."
     ]
   },
   "curious": {
+    "simple": "It means eager to learn or know.",
     "examples": [
-      "Curious minds ask the best questions.",
-      "It was a curious moment I will not forget."
+      "We stayed curious even when the game was hard.",
+      "Don't guess — be curious about what really happened.",
+      "I need to be curious when I explain this to Mum."
     ]
   },
   "phenomenon": {
+    "simple": "Phenomenon is an observable fact or event.",
     "examples": [
-      "Rainbows are a beautiful phenomenon.",
-      "We discussed phenomenon during dinner last night."
+      "That's a real phenomenon, not just a story from a book.",
+      "On the playground I used the phenomenon in a real sentence.",
+      "Start with the phenomenon, then the details."
     ]
   },
   "evidence": {
+    "simple": "It means facts indicating truth.",
     "examples": [
-      "The evidence proved his innocence.",
-      "We discussed evidence during dinner last night."
+      "Start with the evidence, then the details.",
+      "I told Mum the evidence from class actually happened at home.",
+      "I explained the evidence to my little brother at dinner."
     ]
   },
   "conclude": {
+    "simple": "It means to reach a decision after thinking.",
     "examples": [
       "We conclude that practice improves skill.",
-      "Can we conclude the problem step by step?"
+      "Help me conclude this so I can do it myself tomorrow.",
+      "After the match we should conclude what went wrong."
     ]
   },
   "theory": {
+    "simple": "Theory is a system of ideas explaining something.",
     "examples": [
-      "Darwin's theory changed biology forever.",
-      "We discussed theory during dinner last night."
+      "What's the theory we should remember from today?",
+      "My friend asked about the theory and I didn't freeze.",
+      "I wrote the theory in my own words for homework."
     ]
   },
   "experiment": {
+    "simple": "Experiment is a scientific test.",
     "examples": [
-      "The experiment produced surprising results.",
-      "You sounded very experiment when you spoke up."
+      "Start with the experiment, then the details.",
+      "I told Mum the experiment from class actually happened at home.",
+      "I explained the experiment to my little brother at dinner."
     ]
   },
   "research": {
+    "simple": "It means systematic investigation.",
     "examples": [
-      "Medical research saves lives.",
-      "We discussed research during dinner last night."
+      "Start with the research, then the details.",
+      "I told Mum the research from class actually happened at home.",
+      "I explained the research to my little brother at dinner."
     ]
   },
   "inquiry": {
+    "simple": "Inquiry is an act of asking for information.",
     "examples": [
-      "The inquiry revealed new facts.",
-      "We discussed inquiry during dinner last night."
+      "Start with the inquiry, then the details.",
+      "I told Mum the inquiry from class actually happened at home.",
+      "I explained the inquiry to my little brother at dinner."
     ]
   },
   "speculate": {
+    "simple": "It means to form theories without firm evidence.",
     "examples": [
-      "Experts speculate about Mars.",
-      "I want to speculate what happened and learn from it."
+      "If I lose my jumper I have to speculate the last place I had it.",
+      "Don't shout — let's speculate what happened first.",
+      "Let me speculate this homework before I guess."
     ]
   },
   "scrutinize": {
+    "simple": "It means to examine closely and critically.",
     "examples": [
-      "Auditors scrutinize financial records.",
-      "She asked me to scrutinize the situation calmly."
+      "Let me scrutinize this homework before I guess.",
+      "Help me scrutinize this so I can do it myself tomorrow.",
+      "After the match we should scrutinize what went wrong."
     ]
   },
   "deduce": {
+    "simple": "It means to reach a conclusion by reasoning.",
     "examples": [
-      "Detectives deduce facts from clues.",
-      "He will deduce the topic in class tomorrow."
+      "Let me deduce this homework before I guess.",
+      "Help me deduce this so I can do it myself tomorrow.",
+      "After the match we should deduce what went wrong."
     ]
   },
   "verify": {
+    "simple": "It means to make sure something is true.",
     "examples": [
-      "Please verify your email address.",
-      "We should verify the facts before arguing."
+      "In class I asked if we can verify the question together.",
+      "I need to verify where I left my charger.",
+      "If I lose my jumper I have to verify the last place I had it."
     ]
   },
   "uncover": {
+    "simple": "It means to discover something hidden.",
     "examples": [
-      "Archaeologists uncover ancient ruins.",
-      "She asked me to uncover the situation calmly."
+      "Help me uncover this so I can do it myself tomorrow.",
+      "After the match we should uncover what went wrong.",
+      "Before I send that message I should uncover if it sounds kind."
     ]
   },
   "probe": {
+    "simple": "It means to investigate thoroughly.",
     "examples": [
-      "Journalists probe into corruption.",
-      "I want to probe what happened and learn from it."
+      "Help me probe this so I can do it myself tomorrow.",
+      "After the match we should probe what went wrong.",
+      "Before I send that message I should probe if it sounds kind."
     ]
   },
   "articulate": {
+    "simple": "It means able to express ideas clearly.",
     "examples": [
-      "She is an articulate speaker.",
-      "That is a good example of articulate."
+      "Stay articulate when the question feels tricky.",
+      "An articulate start is better than rushing dinner homework.",
+      "Today I felt articulate when I finally understood."
     ]
   },
   "eloquent": {
+    "simple": "It means fluent and persuasive in speaking.",
     "examples": [
-      "His eloquent speech moved the audience.",
-      "You sounded very eloquent when you spoke up."
+      "That was an eloquent way to finish the homework.",
+      "My teacher said that was eloquent work.",
+      "We stayed eloquent even when the game was hard."
     ]
   },
   "persuade": {
+    "simple": "It means to convince someone.",
     "examples": [
-      "Advertisements persuade us to buy products.",
-      "Can we persuade the problem step by step?"
+      "Don't shout — let's persuade what happened first.",
+      "Let me persuade this homework before I guess.",
+      "Help me persuade this so I can do it myself tomorrow."
     ]
   },
   "convey": {
+    "simple": "It means to communicate a message.",
     "examples": [
-      "Art conveys emotions without words.",
-      "I want to convey what happened and learn from it."
+      "Before I send that message I should convey if it sounds kind.",
+      "Can we convey this so everyone at dinner understands?",
+      "In class I asked if we can convey the question together."
     ]
   },
   "express": {
+    "simple": "It means to make known in words.",
     "examples": [
-      "Poets express feelings through verse.",
-      "I want to express what happened and learn from it."
+      "After the match we should express what went wrong.",
+      "Before I send that message I should express if it sounds kind.",
+      "Can we express this so everyone at dinner understands?"
     ]
   },
   "communicate": {
+    "simple": "It means to share information.",
     "examples": [
       "We communicate through language and gestures.",
-      "Can we communicate the problem step by step?"
+      "Help me communicate this so I can do it myself tomorrow.",
+      "After the match we should communicate what went wrong."
     ]
   },
   "assert": {
+    "simple": "It means to state confidently.",
     "examples": [
-      "Leaders assert their vision boldly.",
-      "She asked me to assert the situation calmly."
+      "Don't shout — let's assert what happened first.",
+      "Let me assert this homework before I guess.",
+      "Help me assert this so I can do it myself tomorrow."
     ]
   },
   "emphasize": {
+    "simple": "It means to give special importance to.",
     "examples": [
-      "Teachers emphasize the importance of reading.",
-      "I tried to emphasize the mistake and fix it."
+      "Before I send that message I should emphasize if it sounds kind.",
+      "Can we emphasize this so everyone at dinner understands?",
+      "In class I asked if we can emphasize the question together."
     ]
   },
   "clarify": {
+    "simple": "It means to make something clear.",
     "examples": [
-      "Could you clarify your main point?",
-      "I tried to clarify the mistake and fix it."
+      "If I lose my jumper I have to clarify the last place I had it.",
+      "Don't shout — let's clarify what happened first.",
+      "Let me clarify this homework before I guess."
     ]
   },
   "elaborate": {
+    "simple": "It means to add more detail.",
     "examples": [
-      "Please elaborate on your proposal.",
-      "They need to elaborate the results properly."
+      "After the match we should elaborate what went wrong.",
+      "Before I send that message I should elaborate if it sounds kind.",
+      "Can we elaborate this so everyone at dinner understands?"
     ]
   },
   "narrate": {
+    "simple": "It means to tell a story.",
     "examples": [
-      "Grandparents narrate tales from their youth.",
-      "They need to narrate the results properly."
+      "Let me narrate this homework before I guess.",
+      "Help me narrate this so I can do it myself tomorrow.",
+      "After the match we should narrate what went wrong."
     ]
   },
   "describe": {
+    "simple": "It means to give an account in words.",
     "examples": [
-      "Writers describe scenes vividly.",
-      "Can we describe the problem step by step?"
+      "Let me describe this homework before I guess.",
+      "Help me describe this so I can do it myself tomorrow.",
+      "After the match we should describe what went wrong."
     ]
   },
   "interpret": {
+    "simple": "It means to explain the meaning of.",
     "examples": [
-      "Musicians interpret songs differently.",
-      "Let's interpret this carefully before we decide."
+      "Don't shout — let's interpret what happened first.",
+      "Let me interpret this homework before I guess.",
+      "Help me interpret this so I can do it myself tomorrow."
     ]
   },
   "paraphrase": {
+    "simple": "It means to express in different words.",
     "examples": [
-      "Students paraphrase texts in their own words.",
-      "We should paraphrase the facts before arguing."
+      "Before I send that message I should paraphrase if it sounds kind.",
+      "Can we paraphrase this so everyone at dinner understands?",
+      "In class I asked if we can paraphrase the question together."
     ]
   },
   "summarize": {
+    "simple": "It means to give a brief account.",
     "examples": [
-      "Reporters summarize the day's news.",
-      "We should summarize the facts before arguing."
+      "I need to summarize where I left my charger.",
+      "If I lose my jumper I have to summarize the last place I had it.",
+      "Don't shout — let's summarize what happened first."
     ]
   },
   "debate": {
+    "simple": "It means to discuss opposing views.",
     "examples": [
-      "Politicians debate policies on television.",
-      "We should debate the facts before arguing."
+      "In class I asked if we can debate the question together.",
+      "I need to debate where I left my charger.",
+      "If I lose my jumper I have to debate the last place I had it."
     ]
   },
   "negotiate": {
+    "simple": "It means to discuss to reach agreement.",
     "examples": [
-      "Countries negotiate trade deals.",
-      "She asked me to negotiate the situation calmly."
+      "I need to negotiate where I left my charger.",
+      "If I lose my jumper I have to negotiate the last place I had it.",
+      "Don't shout — let's negotiate what happened first."
     ]
   },
   "advocate": {
+    "simple": "It means to publicly support.",
     "examples": [
-      "Activists advocate for environmental protection.",
-      "Can we advocate the problem step by step?"
+      "Can we advocate this so everyone at dinner understands?",
+      "In class I asked if we can advocate the question together.",
+      "I need to advocate where I left my charger."
     ]
   },
   "proclaim": {
+    "simple": "It means to announce officially.",
     "examples": [
-      "The king proclaimed a new law.",
-      "They need to proclaim the results properly."
+      "Before I send that message I should proclaim if it sounds kind.",
+      "Can we proclaim this so everyone at dinner understands?",
+      "In class I asked if we can proclaim the question together."
     ]
   },
   "announce": {
+    "simple": "It means to make a public statement.",
     "examples": [
-      "Schools announce exam results online.",
-      "We should announce the facts before arguing."
+      "In class I asked if we can announce the question together.",
+      "I need to announce where I left my charger.",
+      "If I lose my jumper I have to announce the last place I had it."
     ]
   },
   "evaluate": {
+    "simple": "It means to assess the value of.",
     "examples": [
-      "Judges evaluate performances carefully.",
-      "We should evaluate the facts before arguing."
+      "Let me evaluate this homework before I guess.",
+      "Help me evaluate this so I can do it myself tomorrow.",
+      "After the match we should evaluate what went wrong."
     ]
   },
   "assess": {
+    "simple": "It means to evaluate or estimate.",
     "examples": [
-      "Teachers assess student progress regularly.",
-      "He will assess the topic in class tomorrow."
+      "In class I asked if we can assess the question together.",
+      "I need to assess where I left my charger.",
+      "If I lose my jumper I have to assess the last place I had it."
     ]
   },
   "compare": {
+    "simple": "It means to examine similarities and differences.",
     "examples": [
       "We compare prices before buying.",
-      "Let's compare this carefully before we decide."
+      "Can we compare this so everyone at dinner understands?",
+      "In class I asked if we can compare the question together."
     ]
   },
   "contrast": {
+    "simple": "It means to show differences.",
     "examples": [
-      "The essay contrasts urban and rural life.",
-      "I tried to contrast the mistake and fix it."
+      "Help me contrast this so I can do it myself tomorrow.",
+      "After the match we should contrast what went wrong.",
+      "Before I send that message I should contrast if it sounds kind."
     ]
   },
   "distinguish": {
+    "simple": "It means to recognize as different.",
     "examples": [
-      "Experts distinguish real art from copies.",
-      "Let's distinguish this carefully before we decide."
+      "Let me distinguish this homework before I guess.",
+      "Help me distinguish this so I can do it myself tomorrow.",
+      "After the match we should distinguish what went wrong."
     ]
   },
   "justify": {
+    "simple": "It means to show to be right or reasonable.",
     "examples": [
-      "How do you justify this expense?",
-      "I want to justify what happened and learn from it."
+      "Don't shout — let's justify what happened first.",
+      "Let me justify this homework before I guess.",
+      "Help me justify this so I can do it myself tomorrow."
     ]
   },
   "critique": {
+    "simple": "It means to evaluate critically.",
     "examples": [
-      "Critics critique films and books.",
-      "I tried to critique the mistake and fix it."
+      "Can we critique this so everyone at dinner understands?",
+      "In class I asked if we can critique the question together.",
+      "I need to critique where I left my charger."
     ]
   },
   "appraise": {
+    "simple": "It means to assess the quality of.",
     "examples": [
-      "Jewelers appraise diamonds carefully.",
-      "Can we appraise the problem step by step?"
+      "Don't shout — let's appraise what happened first.",
+      "Let me appraise this homework before I guess.",
+      "Help me appraise this so I can do it myself tomorrow."
     ]
   },
   "weigh": {
+    "simple": "It means to consider carefully.",
     "examples": [
-      "Judges weigh evidence before deciding.",
-      "He will weigh the topic in class tomorrow."
+      "After the match we should weigh what went wrong.",
+      "Before I send that message I should weigh if it sounds kind.",
+      "Can we weigh this so everyone at dinner understands?"
     ]
   },
   "logical": {
+    "simple": "It means based on clear reasoning.",
     "examples": [
-      "Her argument was logical and convincing.",
-      "You sounded very logical when you spoke up."
+      "Don't guess — be logical about what really happened.",
+      "I need to be logical when I explain this to Mum.",
+      "You were logical in that group chat with us."
     ]
   },
   "rational": {
+    "simple": "It means based on reason rather than emotion.",
     "examples": [
-      "Make rational decisions about money.",
-      "It was a rational moment I will not forget."
+      "My teacher said that was rational work.",
+      "We stayed rational even when the game was hard.",
+      "Don't guess — be rational about what really happened."
     ]
   },
   "coherent": {
+    "simple": "It means logical and consistent.",
     "examples": [
-      "Write a coherent essay with clear points.",
-      "It was a coherent moment I will not forget."
+      "What's the coherent we should remember from today?",
+      "My friend asked about the coherent and I didn't freeze.",
+      "I wrote the coherent in my own words for homework."
     ]
   },
   "valid": {
+    "simple": "It means well-founded and logical.",
     "examples": [
-      "That is a valid reason for concern.",
-      "That is a good example of valid."
+      "I told Mum the valid from class actually happened at home.",
+      "I explained the valid to my little brother at dinner.",
+      "What's the valid we should remember from today?"
     ]
   },
   "plausible": {
+    "simple": "It means seeming reasonable or probable.",
     "examples": [
-      "His explanation sounds plausible.",
-      "We discussed plausible during dinner last night."
+      "You were plausible in that group chat with us.",
+      "Stay plausible when the question feels tricky.",
+      "A plausible start is better than rushing dinner homework."
     ]
   },
   "feasible": {
+    "simple": "It means possible to do easily.",
     "examples": [
-      "Building a bridge here is feasible.",
-      "We discussed feasible during dinner last night."
+      "Don't guess — be feasible about what really happened.",
+      "I need to be feasible when I explain this to Mum.",
+      "You were feasible in that group chat with us."
     ]
   },
   "comprehensive": {
+    "simple": "It means complete and including everything.",
     "examples": [
-      "The report is comprehensive and detailed.",
-      "It was a comprehensive moment I will not forget."
+      "Stay comprehensive when the question feels tricky.",
+      "A comprehensive start is better than rushing dinner homework.",
+      "Today I felt comprehensive when I finally understood."
     ]
   },
   "thorough": {
+    "simple": "It means complete with attention to detail.",
     "examples": [
-      "She did a thorough job cleaning.",
-      "That is a good example of thorough."
+      "Before the test I need one clear thorough I can say out loud.",
+      "That's a real thorough, not just a story from a book.",
+      "On the playground I used the thorough in a real sentence."
     ]
   },
   "systematic": {
+    "simple": "It means done according to a fixed plan.",
     "examples": [
-      "Scientists use systematic methods.",
-      "It was a systematic moment I will not forget."
+      "Start with the systematic, then the details.",
+      "I told Mum the systematic from class actually happened at home.",
+      "I explained the systematic to my little brother at dinner."
     ]
   },
   "methodical": {
+    "simple": "It means done in an orderly way.",
     "examples": [
-      "He is methodical in his approach.",
-      "It was a methodical moment I will not forget."
+      "You were methodical in that group chat with us.",
+      "Stay methodical when the question feels tricky.",
+      "A methodical start is better than rushing dinner homework."
     ]
   },
   "ecosystem": {
+    "simple": "Ecosystem is a community of living organisms.",
     "examples": [
-      "Rainforests have rich ecosystems.",
-      "That is a good example of ecosystem."
+      "On the playground I used the ecosystem in a real sentence.",
+      "Start with the ecosystem, then the details.",
+      "I told Mum the ecosystem from class actually happened at home."
     ]
   },
   "biodiversity": {
+    "simple": "It means variety of life in an area.",
     "examples": [
-      "Protecting biodiversity is essential.",
-      "We discussed biodiversity during dinner last night."
+      "Start with the biodiversity, then the details.",
+      "I told Mum the biodiversity from class actually happened at home.",
+      "I explained the biodiversity to my little brother at dinner."
     ]
   },
   "habitat": {
+    "simple": "It means natural home of an organism.",
     "examples": [
-      "Polar bears' habitat is melting.",
-      "We discussed habitat during dinner last night."
+      "My friend asked about the habitat and I didn't freeze.",
+      "I wrote the habitat in my own words for homework.",
+      "Before the test I need one clear habitat I can say out loud."
     ]
   },
   "organism": {
+    "simple": "Organism is a living thing.",
     "examples": [
-      "Every organism needs food and water.",
-      "That is a good example of organism."
+      "My friend asked about the organism and I didn't freeze.",
+      "I wrote the organism in my own words for homework.",
+      "Before the test I need one clear organism I can say out loud."
     ]
   },
   "species": {
+    "simple": "Species is a group of similar organisms.",
     "examples": [
       "Many species face extinction today.",
-      "That is a good example of species."
+      "Start with the species, then the details.",
+      "I told Mum the species from class actually happened at home."
     ]
   },
   "photosynthesis": {
+    "simple": "It means you process plants use to make food.",
     "examples": [
-      "Photosynthesis requires sunlight.",
-      "I tried to photosynthesis the mistake and fix it."
+      "In class I asked if we can photosynthesis the question together.",
+      "I need to photosynthesis where I left my charger.",
+      "If I lose my jumper I have to photosynthesis the last place I had it."
     ]
   },
   "evolution": {
+    "simple": "It means gradual development over time.",
     "examples": [
-      "Evolution explains species diversity.",
-      "We discussed evolution during dinner last night."
+      "I told Mum the evolution from class actually happened at home.",
+      "I explained the evolution to my little brother at dinner.",
+      "What's the evolution we should remember from today?"
     ]
   },
   "adaptation": {
+    "simple": "It means adjustment to new conditions.",
     "examples": [
-      "Camouflage is a useful adaptation.",
-      "We discussed adaptation during dinner last night."
+      "That's a real adaptation, not just a story from a book.",
+      "On the playground I used the adaptation in a real sentence.",
+      "Start with the adaptation, then the details."
     ]
   },
   "sustainability": {
+    "simple": "It means ability to maintain over time.",
     "examples": [
-      "Sustainability protects future generations.",
-      "We discussed sustainability during dinner last night."
+      "Start with the sustainability, then the details.",
+      "I told Mum the sustainability from class actually happened at home.",
+      "I explained the sustainability to my little brother at dinner."
     ]
   },
   "conservation": {
+    "simple": "It means you protection of natural resources.",
     "examples": [
-      "Conservation efforts save endangered animals.",
-      "Let's conservation this carefully before we decide."
+      "Before I send that message I should conservation if it sounds kind.",
+      "Can we conservation this so everyone at dinner understands?",
+      "In class I asked if we can conservation the question together."
     ]
   },
   "climate": {
+    "simple": "It means long-term weather patterns.",
     "examples": [
-      "Climate change affects global temperatures.",
-      "We discussed climate during dinner last night."
+      "My friend asked about the climate and I didn't freeze.",
+      "I wrote the climate in my own words for homework.",
+      "Before the test I need one clear climate I can say out loud."
     ]
   },
   "atmosphere": {
+    "simple": "It means layer of gases around Earth.",
     "examples": [
-      "The atmosphere protects us from radiation.",
-      "That is a good example of atmosphere."
+      "I explained the atmosphere to my little brother at dinner.",
+      "What's the atmosphere we should remember from today?",
+      "My friend asked about the atmosphere and I didn't freeze."
     ]
   },
   "precipitation": {
+    "simple": "It means rain, snow, or hail.",
     "examples": [
-      "Annual precipitation varies by region.",
-      "We discussed precipitation during dinner last night."
+      "I told Mum the precipitation from class actually happened at home.",
+      "I explained the precipitation to my little brother at dinner.",
+      "What's the precipitation we should remember from today?"
     ]
   },
   "temperature": {
+    "simple": "It means degree of heat or cold.",
     "examples": [
-      "Temperature affects chemical reactions.",
-      "That is a good example of temperature."
+      "Before the test I need one clear temperature I can say out loud.",
+      "That's a real temperature, not just a story from a book.",
+      "On the playground I used the temperature in a real sentence."
     ]
   },
   "geology": {
+    "simple": "It means study of Earth's structure.",
     "examples": [
-      "Geology reveals Earth's ancient history.",
-      "That is a good example of geology."
+      "I explained the geology to my little brother at dinner.",
+      "What's the geology we should remember from today?",
+      "My friend asked about the geology and I didn't freeze."
     ]
   },
   "terrain": {
+    "simple": "It means physical features of land.",
     "examples": [
-      "Mountain terrain is difficult to cross.",
-      "We discussed terrain during dinner last night."
+      "Start with the terrain, then the details.",
+      "I told Mum the terrain from class actually happened at home.",
+      "I explained the terrain to my little brother at dinner."
     ]
   },
   "volcano": {
+    "simple": "It means mountain that erupts lava.",
     "examples": [
-      "The volcano erupted after decades.",
-      "That is a good example of volcano."
+      "I told Mum the volcano from class actually happened at home.",
+      "I explained the volcano to my little brother at dinner.",
+      "What's the volcano we should remember from today?"
     ]
   },
   "earthquake": {
+    "simple": "It means sudden shaking of the ground.",
     "examples": [
-      "Earthquakes can cause massive damage.",
-      "We discussed earthquake during dinner last night."
+      "That's a real earthquake, not just a story from a book.",
+      "On the playground I used the earthquake in a real sentence.",
+      "Start with the earthquake, then the details."
     ]
   },
   "mineral": {
+    "simple": "It means naturally occurring solid substance.",
     "examples": [
-      "Gold is a valuable mineral.",
-      "It was a mineral moment I will not forget."
+      "Start with the mineral, then the details.",
+      "I told Mum the mineral from class actually happened at home.",
+      "I explained the mineral to my little brother at dinner."
     ]
   },
   "fossil": {
+    "simple": "It means remains of ancient organisms.",
     "examples": [
-      "Fossils tell us about prehistoric life.",
-      "That is a good example of fossil."
+      "I explained the fossil to my little brother at dinner.",
+      "What's the fossil we should remember from today?",
+      "My friend asked about the fossil and I didn't freeze."
     ]
   },
   "civilization": {
+    "simple": "It means advanced human society.",
     "examples": [
-      "Ancient Egyptian civilization lasted millennia.",
-      "We discussed civilization during dinner last night."
+      "That's a real civilization, not just a story from a book.",
+      "On the playground I used the civilization in a real sentence.",
+      "Start with the civilization, then the details."
     ]
   },
   "monarchy": {
+    "simple": "It means government by a king or queen.",
     "examples": [
-      "Britain has a constitutional monarchy.",
-      "We discussed monarchy during dinner last night."
+      "That's a real monarchy, not just a story from a book.",
+      "On the playground I used the monarchy in a real sentence.",
+      "Start with the monarchy, then the details."
     ]
   },
   "democracy": {
+    "simple": "It means government by the people.",
     "examples": [
-      "Democracy gives citizens voting rights.",
-      "We discussed democracy during dinner last night."
+      "What's the democracy we should remember from today?",
+      "My friend asked about the democracy and I didn't freeze.",
+      "I wrote the democracy in my own words for homework."
     ]
   },
   "revolution": {
+    "simple": "It means dramatic change in government.",
     "examples": [
-      "The French Revolution changed Europe.",
-      "We discussed revolution during dinner last night."
+      "That's a real revolution, not just a story from a book.",
+      "On the playground I used the revolution in a real sentence.",
+      "Start with the revolution, then the details."
     ]
   },
   "colony": {
+    "simple": "It means territory controlled by another country.",
     "examples": [
-      "India was once a British colony.",
-      "That is a good example of colony."
+      "I told Mum the colony from class actually happened at home.",
+      "I explained the colony to my little brother at dinner.",
+      "What's the colony we should remember from today?"
     ]
   },
   "independence": {
+    "simple": "It means freedom from control.",
     "examples": [
-      "India gained independence in 1947.",
-      "That is a good example of independence."
+      "What's the independence we should remember from today?",
+      "My friend asked about the independence and I didn't freeze.",
+      "I wrote the independence in my own words for homework."
     ]
   },
   "constitution": {
+    "simple": "It means fundamental laws of a nation.",
     "examples": [
-      "The constitution protects citizens' rights.",
-      "We discussed constitution during dinner last night."
+      "On the playground I used the constitution in a real sentence.",
+      "Start with the constitution, then the details.",
+      "I told Mum the constitution from class actually happened at home."
     ]
   },
   "amendment": {
+    "simple": "Amendment is a change to a law or constitution.",
     "examples": [
-      "The amendment granted voting rights.",
-      "You sounded very amendment when you spoke up."
+      "My friend asked about the amendment and I didn't freeze.",
+      "I wrote the amendment in my own words for homework.",
+      "Before the test I need one clear amendment I can say out loud."
     ]
   },
   "sovereignty": {
+    "simple": "It means supreme power of a state.",
     "examples": [
-      "Nations defend their sovereignty fiercely.",
-      "We discussed sovereignty during dinner last night."
+      "I wrote the sovereignty in my own words for homework.",
+      "Before the test I need one clear sovereignty I can say out loud.",
+      "That's a real sovereignty, not just a story from a book."
     ]
   },
   "diplomacy": {
+    "simple": "It means managing international relations.",
     "examples": [
-      "Diplomacy prevents wars between nations.",
-      "That is a good example of diplomacy."
+      "What's the diplomacy we should remember from today?",
+      "My friend asked about the diplomacy and I didn't freeze.",
+      "I wrote the diplomacy in my own words for homework."
     ]
   },
   "heritage": {
+    "simple": "It means traditions passed through generations.",
     "examples": [
       "We must preserve our cultural heritage.",
-      "We discussed heritage during dinner last night."
+      "Before the test I need one clear heritage I can say out loud.",
+      "That's a real heritage, not just a story from a book."
     ]
   },
   "tradition": {
+    "simple": "It means custom passed through generations.",
     "examples": [
-      "Family traditions create lasting bonds.",
-      "That is a good example of tradition."
+      "My friend asked about the tradition and I didn't freeze.",
+      "I wrote the tradition in my own words for homework.",
+      "Before the test I need one clear tradition I can say out loud."
     ]
   },
   "culture": {
+    "simple": "It means beliefs and customs of a group.",
     "examples": [
-      "Every culture has unique celebrations.",
-      "That is a good example of culture."
+      "Start with the culture, then the details.",
+      "I told Mum the culture from class actually happened at home.",
+      "I explained the culture to my little brother at dinner."
     ]
   },
   "ethnicity": {
+    "simple": "It means you shared cultural background.",
     "examples": [
-      "Ethnicity shapes identity and community.",
-      "They need to ethnicity the results properly."
+      "In class I asked if we can ethnicity the question together.",
+      "I need to ethnicity where I left my charger.",
+      "If I lose my jumper I have to ethnicity the last place I had it."
     ]
   },
   "migration": {
+    "simple": "It means movement from one place to another.",
     "examples": [
-      "Bird migration follows seasonal patterns.",
-      "That is a good example of migration."
+      "That's a real migration, not just a story from a book.",
+      "On the playground I used the migration in a real sentence.",
+      "Start with the migration, then the details."
     ]
   },
   "immigration": {
+    "simple": "It means moving to a new country.",
     "examples": [
-      "Immigration enriches diverse societies.",
-      "That is a good example of immigration."
+      "I explained the immigration to my little brother at dinner.",
+      "What's the immigration we should remember from today?",
+      "My friend asked about the immigration and I didn't freeze."
     ]
   },
   "assimilation": {
+    "simple": "It means absorbing into a culture.",
     "examples": [
-      "Assimilation can take generations.",
-      "We discussed assimilation during dinner last night."
+      "Start with the assimilation, then the details.",
+      "I told Mum the assimilation from class actually happened at home.",
+      "I explained the assimilation to my little brother at dinner."
     ]
   },
   "prejudice": {
+    "simple": "It means unfair opinion without reason.",
     "examples": [
       "We must fight prejudice in society.",
-      "We discussed prejudice during dinner last night."
+      "Before the test I need one clear prejudice I can say out loud.",
+      "That's a real prejudice, not just a story from a book."
     ]
   },
   "tolerance": {
+    "simple": "It means you acceptance of different views.",
     "examples": [
-      "Tolerance makes communities stronger.",
-      "Let's tolerance this carefully before we decide."
+      "I need to tolerance where I left my charger.",
+      "If I lose my jumper I have to tolerance the last place I had it.",
+      "Don't shout — let's tolerance what happened first."
     ]
   },
   "diversity": {
+    "simple": "It means variety of different elements.",
     "examples": [
-      "Diversity strengthens organizations.",
-      "We discussed diversity during dinner last night."
+      "My friend asked about the diversity and I didn't freeze.",
+      "I wrote the diversity in my own words for homework.",
+      "Before the test I need one clear diversity I can say out loud."
     ]
   },
   "aesthetic": {
+    "simple": "It means concerned with beauty.",
     "examples": [
-      "The building has great aesthetic appeal.",
-      "It was a aesthetic moment I will not forget."
+      "My teacher said that was aesthetic work.",
+      "We stayed aesthetic even when the game was hard.",
+      "Don't guess — be aesthetic about what really happened."
     ]
   },
   "creative": {
+    "simple": "It means having original ideas.",
     "examples": [
-      "Creative thinkers solve problems differently.",
-      "You sounded very creative when you spoke up."
+      "We stayed creative even when the game was hard.",
+      "Don't guess — be creative about what really happened.",
+      "I need to be creative when I explain this to Mum."
     ]
   },
   "imaginative": {
+    "simple": "It means having a vivid imagination.",
     "examples": [
       "Imaginative children invent wonderful stories.",
-      "It was a imaginative moment I will not forget."
+      "That was an imaginative way to finish the homework.",
+      "My teacher said that was imaginative work."
     ]
   },
   "innovative": {
+    "simple": "It means introducing new ideas.",
     "examples": [
-      "Innovative companies lead their industries.",
-      "You sounded very innovative when you spoke up."
+      "You were innovative in that group chat with us.",
+      "Stay innovative when the question feels tricky.",
+      "An innovative start is better than rushing dinner homework."
     ]
   },
   "original": {
+    "simple": "It means new and not copied.",
     "examples": [
-      "Her original design won first prize.",
-      "You sounded very original when you spoke up."
+      "What's the original we should remember from today?",
+      "My friend asked about the original and I didn't freeze.",
+      "I wrote the original in my own words for homework."
     ]
   },
   "abstract": {
+    "simple": "It means existing in thought, not physical.",
     "examples": [
-      "Abstract art expresses emotions visually.",
-      "That is a good example of abstract."
+      "Don't guess — be abstract about what really happened.",
+      "I need to be abstract when I explain this to Mum.",
+      "You were abstract in that group chat with us."
     ]
   },
   "symbolic": {
+    "simple": "It means representing something else.",
     "examples": [
-      "The dove is symbolic of peace.",
-      "It was a symbolic moment I will not forget."
+      "I wrote the symbolic in my own words for homework.",
+      "Before the test I need one clear symbolic I can say out loud.",
+      "That's a real symbolic, not just a story from a book."
     ]
   },
   "metaphor": {
+    "simple": "It means figure of speech comparing things.",
     "examples": [
-      "Life is a journey is a common metaphor.",
-      "That is a good example of metaphor."
+      "Before the test I need one clear metaphor I can say out loud.",
+      "That's a real metaphor, not just a story from a book.",
+      "On the playground I used the metaphor in a real sentence."
     ]
   },
   "allegory": {
+    "simple": "It means story with hidden meaning.",
     "examples": [
-      "Animal Farm is an allegory about power.",
-      "We discussed allegory during dinner last night."
+      "Don't guess — be allegory about what really happened.",
+      "I need to be allegory when I explain this to Mum.",
+      "You were allegory in that group chat with us."
     ]
   },
   "genre": {
+    "simple": "It means category of art or literature.",
     "examples": [
       "Science fiction is my favorite genre.",
-      "We discussed genre during dinner last night."
+      "Start with the genre, then the details.",
+      "I told Mum the genre from class actually happened at home."
     ]
   },
   "rhythm": {
+    "simple": "It means pattern of beats in music.",
     "examples": [
-      "African drums have complex rhythms.",
-      "That is a good example of rhythm."
+      "On the playground I used the rhythm in a real sentence.",
+      "Start with the rhythm, then the details.",
+      "I told Mum the rhythm from class actually happened at home."
     ]
   },
   "harmony": {
+    "simple": "It means pleasing combination of elements.",
     "examples": [
-      "The choir sang in perfect harmony.",
-      "That is a good example of harmony."
+      "My friend asked about the harmony and I didn't freeze.",
+      "I wrote the harmony in my own words for homework.",
+      "Before the test I need one clear harmony I can say out loud."
     ]
   },
   "melody": {
+    "simple": "It means sequence of musical notes.",
     "examples": [
       "The melody stayed in my head all day.",
-      "That is a good example of melody."
+      "On the playground I used the melody in a real sentence.",
+      "Start with the melody, then the details."
     ]
   },
   "composition": {
+    "simple": "Composition is a creative work.",
     "examples": [
-      "Mozart wrote this composition at age eight.",
-      "That is a good example of composition."
+      "I told Mum the composition from class actually happened at home.",
+      "I explained the composition to my little brother at dinner.",
+      "What's the composition we should remember from today?"
     ]
   },
   "sculpture": {
+    "simple": "It means three-dimensional art form.",
     "examples": [
-      "The marble sculpture took years to complete.",
-      "We discussed sculpture during dinner last night."
+      "Before the test I need one clear sculpture I can say out loud.",
+      "That's a real sculpture, not just a story from a book.",
+      "On the playground I used the sculpture in a real sentence."
     ]
   },
   "canvas": {
+    "simple": "It means surface for painting.",
     "examples": [
-      "The artist stretched canvas on a frame.",
-      "That is a good example of canvas."
+      "I told Mum the canvas from class actually happened at home.",
+      "I explained the canvas to my little brother at dinner.",
+      "What's the canvas we should remember from today?"
     ]
   },
   "portrait": {
+    "simple": "It means artistic representation of a person.",
     "examples": [
-      "The portrait captured her personality.",
-      "We discussed portrait during dinner last night."
+      "My friend asked about the portrait and I didn't freeze.",
+      "I wrote the portrait in my own words for homework.",
+      "Before the test I need one clear portrait I can say out loud."
     ]
   },
   "exhibition": {
+    "simple": "It means public display of art.",
     "examples": [
-      "The exhibition attracted thousands of visitors.",
-      "We discussed exhibition during dinner last night."
+      "Before the test I need one clear exhibition I can say out loud.",
+      "That's a real exhibition, not just a story from a book.",
+      "On the playground I used the exhibition in a real sentence."
     ]
   },
   "masterpiece": {
+    "simple": "It means you work of outstanding skill.",
     "examples": [
-      "The Mona Lisa is a true masterpiece.",
-      "He will masterpiece the topic in class tomorrow."
+      "Before I send that message I should masterpiece if it sounds kind.",
+      "Can we masterpiece this so everyone at dinner understands?",
+      "In class I asked if we can masterpiece the question together."
     ]
   },
   "renaissance": {
+    "simple": "It means revival of art and learning.",
     "examples": [
-      "The Renaissance transformed European culture.",
-      "That is a good example of renaissance."
+      "On the playground I used the renaissance in a real sentence.",
+      "Start with the renaissance, then the details.",
+      "I told Mum the renaissance from class actually happened at home."
     ]
   },
   "influence": {
+    "simple": "It means power to affect others.",
     "examples": [
       "Parents have great influence on children.",
-      "We discussed influence during dinner last night."
+      "What's the influence we should remember from today?",
+      "My friend asked about the influence and I didn't freeze."
     ]
   },
   "authority": {
+    "simple": "It means power to give orders.",
     "examples": [
-      "Teachers have authority in the classroom.",
-      "We discussed authority during dinner last night."
+      "I told Mum the authority from class actually happened at home.",
+      "I explained the authority to my little brother at dinner.",
+      "What's the authority we should remember from today?"
     ]
   },
   "prestige": {
+    "simple": "It means widespread respect and admiration.",
     "examples": [
-      "The university has international prestige.",
-      "We discussed prestige during dinner last night."
+      "That's a real prestige, not just a story from a book.",
+      "On the playground I used the prestige in a real sentence.",
+      "Start with the prestige, then the details."
     ]
   },
   "reputation": {
+    "simple": "It means beliefs about someone's character.",
     "examples": [
-      "She built a reputation for honesty.",
-      "We discussed reputation during dinner last night."
+      "What's the reputation we should remember from today?",
+      "My friend asked about the reputation and I didn't freeze.",
+      "I wrote the reputation in my own words for homework."
     ]
   },
   "credibility": {
+    "simple": "It means quality of being trusted.",
     "examples": [
-      "Journalists must maintain credibility.",
-      "That is a good example of credibility."
+      "That's a real credibility, not just a story from a book.",
+      "On the playground I used the credibility in a real sentence.",
+      "Start with the credibility, then the details."
     ]
   },
   "integrity": {
+    "simple": "It means honesty and strong principles.",
     "examples": [
-      "Leaders with integrity earn respect.",
-      "We discussed integrity during dinner last night."
+      "I told Mum the integrity from class actually happened at home.",
+      "I explained the integrity to my little brother at dinner.",
+      "What's the integrity we should remember from today?"
     ]
   },
   "accountability": {
+    "simple": "It means responsibility for actions.",
     "examples": [
-      "Public officials need accountability.",
-      "We discussed accountability during dinner last night."
+      "Start with the accountability, then the details.",
+      "I told Mum the accountability from class actually happened at home.",
+      "I explained the accountability to my little brother at dinner."
     ]
   },
   "responsibility": {
+    "simple": "It means duty to deal with something.",
     "examples": [
-      "Taking responsibility shows maturity.",
-      "That is a good example of responsibility."
+      "On the playground I used the responsibility in a real sentence.",
+      "Start with the responsibility, then the details.",
+      "I told Mum the responsibility from class actually happened at home."
     ]
   },
   "dedication": {
+    "simple": "It means commitment to a task.",
     "examples": [
-      "Her dedication to study paid off.",
-      "That is a good example of dedication."
+      "Before the test I need one clear dedication I can say out loud.",
+      "That's a real dedication, not just a story from a book.",
+      "On the playground I used the dedication in a real sentence."
     ]
   },
   "perseverance": {
+    "simple": "It means continued effort despite difficulty.",
     "examples": [
-      "Perseverance leads to success.",
-      "We discussed perseverance during dinner last night."
+      "I explained the perseverance to my little brother at dinner.",
+      "What's the perseverance we should remember from today?",
+      "My friend asked about the perseverance and I didn't freeze."
     ]
   },
   "ambition": {
+    "simple": "It means strong desire to achieve.",
     "examples": [
-      "His ambition drove him to excel.",
-      "We discussed ambition during dinner last night."
+      "I told Mum the ambition from class actually happened at home.",
+      "I explained the ambition to my little brother at dinner.",
+      "What's the ambition we should remember from today?"
     ]
   },
   "motivation": {
+    "simple": "It means reason for acting.",
     "examples": [
-      "Good teachers inspire student motivation.",
-      "That is a good example of motivation."
+      "Start with the motivation, then the details.",
+      "I told Mum the motivation from class actually happened at home.",
+      "I explained the motivation to my little brother at dinner."
     ]
   },
   "determination": {
+    "simple": "It means firmness of purpose.",
     "examples": [
-      "Her determination overcame all obstacles.",
-      "We discussed determination during dinner last night."
+      "Start with the determination, then the details.",
+      "I told Mum the determination from class actually happened at home.",
+      "I explained the determination to my little brother at dinner."
     ]
   },
   "resilience": {
+    "simple": "It means ability to recover quickly.",
     "examples": [
-      "Resilience helps us bounce back from failure.",
-      "We discussed resilience during dinner last night."
+      "Before the test I need one clear resilience I can say out loud.",
+      "That's a real resilience, not just a story from a book.",
+      "On the playground I used the resilience in a real sentence."
     ]
   },
   "confidence": {
+    "simple": "It means belief in one's abilities.",
     "examples": [
-      "Confidence grows with practice.",
-      "That is a good example of confidence."
+      "That's a real confidence, not just a story from a book.",
+      "On the playground I used the confidence in a real sentence.",
+      "Start with the confidence, then the details."
     ]
   },
   "initiative": {
+    "simple": "It means ability to act independently.",
     "examples": [
-      "Show initiative by starting projects early.",
-      "It was a initiative moment I will not forget."
+      "You were initiative in that group chat with us.",
+      "Stay initiative when the question feels tricky.",
+      "An initiative start is better than rushing dinner homework."
     ]
   },
   "strategy": {
+    "simple": "Strategy is a plan of action designed to achieve a goal.",
     "examples": [
-      "Develop a strategy for exam preparation.",
-      "We discussed strategy during dinner last night."
+      "I wrote the strategy in my own words for homework.",
+      "Before the test I need one clear strategy I can say out loud.",
+      "That's a real strategy, not just a story from a book."
     ]
   },
   "tactic": {
+    "simple": "It means specific action to achieve a goal.",
     "examples": [
-      "The team used clever tactics to win.",
-      "It was a tactic moment I will not forget."
+      "I wrote the tactic in my own words for homework.",
+      "Before the test I need one clear tactic I can say out loud.",
+      "That's a real tactic, not just a story from a book."
     ]
   },
   "vision": {
+    "simple": "Vision is the ability to think about the future.",
     "examples": [
-      "Great leaders have a clear vision.",
-      "That is a good example of vision."
+      "Start with the vision, then the details.",
+      "I told Mum the vision from class actually happened at home.",
+      "I explained the vision to my little brother at dinner."
     ]
   },
   "mission": {
+    "simple": "It means important assignment or purpose.",
     "examples": [
-      "The mission was to explore Mars.",
-      "That is a good example of mission."
+      "My friend asked about the mission and I didn't freeze.",
+      "I wrote the mission in my own words for homework.",
+      "Before the test I need one clear mission I can say out loud."
     ]
   },
   "economy": {
+    "simple": "It means system of production and trade.",
     "examples": [
-      "The global economy affects everyone.",
-      "That is a good example of economy."
+      "My friend asked about the economy and I didn't freeze.",
+      "I wrote the economy in my own words for homework.",
+      "Before the test I need one clear economy I can say out loud."
     ]
   },
   "inflation": {
+    "simple": "It means general increase in prices.",
     "examples": [
-      "Inflation reduces purchasing power.",
-      "That is a good example of inflation."
+      "That's a real inflation, not just a story from a book.",
+      "On the playground I used the inflation in a real sentence.",
+      "Start with the inflation, then the details."
     ]
   },
   "recession": {
+    "simple": "It means period of economic decline.",
     "examples": [
-      "The recession caused many job losses.",
-      "We discussed recession during dinner last night."
+      "I told Mum the recession from class actually happened at home.",
+      "I explained the recession to my little brother at dinner.",
+      "What's the recession we should remember from today?"
     ]
   },
   "prosperity": {
+    "simple": "It means state of being successful.",
     "examples": [
-      "Economic reforms brought prosperity.",
-      "We discussed prosperity during dinner last night."
+      "Before the test I need one clear prosperity I can say out loud.",
+      "That's a real prosperity, not just a story from a book.",
+      "On the playground I used the prosperity in a real sentence."
     ]
   },
   "poverty": {
+    "simple": "It means state of being extremely poor.",
     "examples": [
-      "Fighting poverty requires global effort.",
-      "We discussed poverty during dinner last night."
+      "On the playground I used the poverty in a real sentence.",
+      "Start with the poverty, then the details.",
+      "I told Mum the poverty from class actually happened at home."
     ]
   },
   "subsidy": {
+    "simple": "It means government financial support.",
     "examples": [
-      "Farm subsidies help agricultural workers.",
-      "We discussed subsidy during dinner last night."
+      "I told Mum the subsidy from class actually happened at home.",
+      "I explained the subsidy to my little brother at dinner.",
+      "What's the subsidy we should remember from today?"
     ]
   },
   "tariff": {
+    "simple": "It means tax on imported goods.",
     "examples": [
-      "Tariffs protect domestic industries.",
-      "That is a good example of tariff."
+      "That's a real tariff, not just a story from a book.",
+      "On the playground I used the tariff in a real sentence.",
+      "Start with the tariff, then the details."
     ]
   },
   "investment": {
+    "simple": "It means money put into something profitable.",
     "examples": [
-      "Education is the best investment.",
-      "You sounded very investment when you spoke up."
+      "Before the test I need one clear investment I can say out loud.",
+      "That's a real investment, not just a story from a book.",
+      "On the playground I used the investment in a real sentence."
     ]
   },
   "dividend": {
+    "simple": "It means you share of company profits.",
     "examples": [
-      "Shareholders receive annual dividends.",
-      "They need to dividend the results properly."
+      "Help me dividend this so I can do it myself tomorrow.",
+      "After the match we should dividend what went wrong.",
+      "Before I send that message I should dividend if it sounds kind."
     ]
   },
   "budget": {
+    "simple": "It means you plan for spending money.",
     "examples": [
-      "Families create monthly budgets.",
-      "Let's budget this carefully before we decide."
+      "Can we budget this so everyone at dinner understands?",
+      "In class I asked if we can budget the question together.",
+      "I need to budget where I left my charger."
     ]
   },
   "commerce": {
+    "simple": "It means activity of buying and selling.",
     "examples": [
-      "E-commerce has transformed shopping.",
-      "We discussed commerce during dinner last night."
+      "My friend asked about the commerce and I didn't freeze.",
+      "I wrote the commerce in my own words for homework.",
+      "Before the test I need one clear commerce I can say out loud."
     ]
   },
   "enterprise": {
+    "simple": "It means business organization.",
     "examples": [
-      "Small enterprises drive innovation.",
-      "We discussed enterprise during dinner last night."
+      "On the playground I used the enterprise in a real sentence.",
+      "Start with the enterprise, then the details.",
+      "I told Mum the enterprise from class actually happened at home."
     ]
   },
   "entrepreneur": {
+    "simple": "It means person who starts businesses.",
     "examples": [
-      "Entrepreneurs take risks to innovate.",
-      "We discussed entrepreneur during dinner last night."
+      "I explained the entrepreneur to my little brother at dinner.",
+      "What's the entrepreneur we should remember from today?",
+      "My friend asked about the entrepreneur and I didn't freeze."
     ]
   },
   "monopoly": {
+    "simple": "It means exclusive control of a market.",
     "examples": [
-      "Governments regulate monopolies.",
-      "You sounded very monopoly when you spoke up."
+      "Start with the monopoly, then the details.",
+      "I told Mum the monopoly from class actually happened at home.",
+      "I explained the monopoly to my little brother at dinner."
     ]
   },
   "competition": {
+    "simple": "It means rivalry between businesses.",
     "examples": [
-      "Competition lowers prices for consumers.",
-      "We discussed competition during dinner last night."
+      "I explained the competition to my little brother at dinner.",
+      "What's the competition we should remember from today?",
+      "My friend asked about the competition and I didn't freeze."
     ]
   },
   "consumer": {
+    "simple": "It means person who buys goods.",
     "examples": [
-      "Consumers demand better products.",
-      "That is a good example of consumer."
+      "That's a real consumer, not just a story from a book.",
+      "On the playground I used the consumer in a real sentence.",
+      "Start with the consumer, then the details."
     ]
   },
   "supply": {
+    "simple": "It means to make available for use.",
     "examples": [
-      "Schools supply textbooks to students.",
-      "They need to supply the results properly."
+      "Don't shout — let's supply what happened first.",
+      "Let me supply this homework before I guess.",
+      "Help me supply this so I can do it myself tomorrow."
     ]
   },
   "demand": {
+    "simple": "It means desire for goods or services.",
     "examples": [
-      "High demand raises prices.",
-      "We discussed demand during dinner last night."
+      "I wrote the demand in my own words for homework.",
+      "Before the test I need one clear demand I can say out loud.",
+      "That's a real demand, not just a story from a book."
     ]
   },
   "scarcity": {
+    "simple": "It means shortage of resources.",
     "examples": [
-      "Water scarcity affects many regions.",
-      "That is a good example of scarcity."
+      "Start with the scarcity, then the details.",
+      "I told Mum the scarcity from class actually happened at home.",
+      "I explained the scarcity to my little brother at dinner."
     ]
   },
   "abundance": {
+    "simple": "It means large quantity available.",
     "examples": [
-      "The harvest brought abundance.",
-      "We discussed abundance during dinner last night."
+      "On the playground I used the abundance in a real sentence.",
+      "Start with the abundance, then the details.",
+      "I told Mum the abundance from class actually happened at home."
     ]
   },
   "technology": {
+    "simple": "It means application of scientific knowledge.",
     "examples": [
       "Technology changes how we live.",
-      "That is a good example of technology."
+      "That's a real technology, not just a story from a book.",
+      "On the playground I used the technology in a real sentence."
     ]
   },
   "digital": {
+    "simple": "It means it is about computer technology.",
     "examples": [
-      "Digital tools enhance learning.",
-      "It was a digital moment I will not forget."
+      "I used a digital idea in class today.",
+      "At school I gave a digital example from real life.",
+      "We talked about digital stuff after the match."
     ]
   },
   "artificial": {
+    "simple": "It means made by humans, not natural.",
     "examples": [
-      "Artificial intelligence is advancing rapidly.",
-      "It was a artificial moment I will not forget."
+      "An artificial start is better than rushing dinner homework.",
+      "Today I felt artificial when I finally understood.",
+      "That was an artificial way to finish the homework."
     ]
   },
   "automation": {
+    "simple": "It means you use of machines instead of people.",
     "examples": [
-      "Automation increases factory efficiency.",
-      "They need to automation the results properly."
+      "In class I asked if we can automation the question together.",
+      "I need to automation where I left my charger.",
+      "If I lose my jumper I have to automation the last place I had it."
     ]
   },
   "innovation": {
+    "simple": "It means introduction of new ideas.",
     "examples": [
-      "Innovation drives economic growth.",
-      "We discussed innovation during dinner last night."
+      "My friend asked about the innovation and I didn't freeze.",
+      "I wrote the innovation in my own words for homework.",
+      "Before the test I need one clear innovation I can say out loud."
     ]
   },
   "algorithm": {
+    "simple": "It means step-by-step problem-solving procedure.",
     "examples": [
-      "Search engines use complex algorithms.",
-      "We discussed algorithm during dinner last night."
+      "On the playground I used the algorithm in a real sentence.",
+      "Start with the algorithm, then the details.",
+      "I told Mum the algorithm from class actually happened at home."
     ]
   },
   "software": {
+    "simple": "It means programs that run on computers.",
     "examples": [
-      "Software developers create applications.",
-      "We discussed software during dinner last night."
+      "What's the software we should remember from today?",
+      "My friend asked about the software and I didn't freeze.",
+      "I wrote the software in my own words for homework."
     ]
   },
   "hardware": {
+    "simple": "It means physical computer components.",
     "examples": [
-      "Upgrade your hardware for better performance.",
-      "That is a good example of hardware."
+      "That's a real hardware, not just a story from a book.",
+      "On the playground I used the hardware in a real sentence.",
+      "Start with the hardware, then the details."
     ]
   },
   "cybersecurity": {
+    "simple": "It means you protection of computer systems.",
     "examples": [
-      "Cybersecurity prevents data breaches.",
-      "We should cybersecurity the facts before arguing."
+      "Help me cybersecurity this so I can do it myself tomorrow.",
+      "After the match we should cybersecurity what went wrong.",
+      "Before I send that message I should cybersecurity if it sounds kind."
     ]
   },
   "encryption": {
+    "simple": "It means converting data into secret code.",
     "examples": [
-      "Encryption protects online transactions.",
-      "We discussed encryption during dinner last night."
+      "Before the test I need one clear encryption I can say out loud.",
+      "That's a real encryption, not just a story from a book.",
+      "On the playground I used the encryption in a real sentence."
     ]
   },
   "internet": {
+    "simple": "It means global computer network.",
     "examples": [
-      "The internet connects billions of people.",
-      "We discussed internet during dinner last night."
+      "My friend asked about the internet and I didn't freeze.",
+      "I wrote the internet in my own words for homework.",
+      "Before the test I need one clear internet I can say out loud."
     ]
   },
   "connectivity": {
+    "simple": "It means state of being connected.",
     "examples": [
-      "Rural areas need better connectivity.",
-      "We discussed connectivity during dinner last night."
+      "Start with the connectivity, then the details.",
+      "I told Mum the connectivity from class actually happened at home.",
+      "I explained the connectivity to my little brother at dinner."
     ]
   },
   "bandwidth": {
+    "simple": "It means data transfer capacity.",
     "examples": [
-      "Video calls require high bandwidth.",
-      "We discussed bandwidth during dinner last night."
+      "I wrote the bandwidth in my own words for homework.",
+      "Before the test I need one clear bandwidth I can say out loud.",
+      "That's a real bandwidth, not just a story from a book."
     ]
   },
   "platform": {
+    "simple": "It means foundation for applications.",
     "examples": [
-      "Social media platforms connect users.",
-      "We discussed platform during dinner last night."
+      "That's a real platform, not just a story from a book.",
+      "On the playground I used the platform in a real sentence.",
+      "Start with the platform, then the details."
     ]
   },
   "interface": {
+    "simple": "It means point of interaction between systems.",
     "examples": [
-      "The app has a user-friendly interface.",
-      "We discussed interface during dinner last night."
+      "I explained the interface to my little brother at dinner.",
+      "What's the interface we should remember from today?",
+      "My friend asked about the interface and I didn't freeze."
     ]
   },
   "application": {
+    "simple": "It means software program for a task.",
     "examples": [
-      "Download the application from the store.",
-      "That is a good example of application."
+      "On the playground I used the application in a real sentence.",
+      "Start with the application, then the details.",
+      "I told Mum the application from class actually happened at home."
     ]
   },
   "database": {
+    "simple": "It means you organized collection of data.",
     "examples": [
-      "Hospitals store records in databases.",
-      "Can we database the problem step by step?"
+      "Don't shout — let's database what happened first.",
+      "Let me database this homework before I guess.",
+      "Help me database this so I can do it myself tomorrow."
     ]
   },
   "network": {
+    "simple": "It means interconnected system.",
     "examples": [
-      "The neural network mimics the brain.",
-      "That is a good example of network."
+      "I wrote the network in my own words for homework.",
+      "Before the test I need one clear network I can say out loud.",
+      "That's a real network, not just a story from a book."
     ]
   },
   "virtual": {
+    "simple": "It means existing in effect, not physically.",
     "examples": [
-      "Virtual meetings save travel time.",
-      "You sounded very virtual when you spoke up."
+      "Stay virtual when the question feels tricky.",
+      "A virtual start is better than rushing dinner homework.",
+      "Today I felt virtual when I finally understood."
     ]
   },
   "reality": {
+    "simple": "Reality is the state of things as they exist.",
     "examples": [
-      "Virtual reality creates immersive experiences.",
-      "That is a good example of reality."
+      "That's a real reality, not just a story from a book.",
+      "On the playground I used the reality in a real sentence.",
+      "Start with the reality, then the details."
     ]
   },
   "nutrition": {
+    "simple": "It means you process of providing food for health.",
     "examples": [
-      "Good nutrition supports brain development.",
-      "I want to nutrition what happened and learn from it."
+      "If I lose my jumper I have to nutrition the last place I had it.",
+      "Don't shout — let's nutrition what happened first.",
+      "Let me nutrition this homework before I guess."
     ]
   },
   "metabolism": {
+    "simple": "It means chemical processes in the body.",
     "examples": [
-      "Exercise speeds up metabolism.",
-      "We discussed metabolism during dinner last night."
+      "That's a real metabolism, not just a story from a book.",
+      "On the playground I used the metabolism in a real sentence.",
+      "Start with the metabolism, then the details."
     ]
   },
   "immunity": {
+    "simple": "It means ability to resist disease.",
     "examples": [
-      "Vaccines strengthen immunity.",
-      "That is a good example of immunity."
+      "I explained the immunity to my little brother at dinner.",
+      "What's the immunity we should remember from today?",
+      "My friend asked about the immunity and I didn't freeze."
     ]
   },
   "vaccination": {
+    "simple": "It means injection to prevent disease.",
     "examples": [
-      "Vaccination eradicated smallpox.",
-      "We discussed vaccination during dinner last night."
+      "Before the test I need one clear vaccination I can say out loud.",
+      "That's a real vaccination, not just a story from a book.",
+      "On the playground I used the vaccination in a real sentence."
     ]
   },
   "hygiene": {
+    "simple": "It means you practices maintaining health.",
     "examples": [
-      "Good hygiene prevents infections.",
-      "We should hygiene the facts before arguing."
+      "Let me hygiene this homework before I guess.",
+      "Help me hygiene this so I can do it myself tomorrow.",
+      "After the match we should hygiene what went wrong."
     ]
   },
   "exercise": {
+    "simple": "It means physical activity for fitness.",
     "examples": [
-      "Regular exercise improves mental health.",
-      "That is a good example of exercise."
+      "Before the test I need one clear exercise I can say out loud.",
+      "That's a real exercise, not just a story from a book.",
+      "On the playground I used the exercise in a real sentence."
     ]
   },
   "wellness": {
+    "simple": "It means state of being in good health.",
     "examples": [
-      "Wellness programs benefit employees.",
-      "We discussed wellness during dinner last night."
+      "Before the test I need one clear wellness I can say out loud.",
+      "That's a real wellness, not just a story from a book.",
+      "On the playground I used the wellness in a real sentence."
     ]
   },
   "mental": {
+    "simple": "It means it is about the mind.",
     "examples": [
-      "Mental exercises keep the brain sharp.",
-      "You sounded very mental when you spoke up."
+      "I used a mental idea in class today.",
+      "At school I gave a mental example from real life.",
+      "We talked about mental stuff after the match."
     ]
   },
   "therapy": {
+    "simple": "It means treatment to relieve disorders.",
     "examples": [
-      "Therapy helps people overcome trauma.",
-      "We discussed therapy during dinner last night."
+      "That's a real therapy, not just a story from a book.",
+      "On the playground I used the therapy in a real sentence.",
+      "Start with the therapy, then the details."
     ]
   },
   "rehabilitation": {
+    "simple": "It means restoring to normal life.",
     "examples": [
-      "Rehabilitation follows serious injuries.",
-      "We discussed rehabilitation during dinner last night."
+      "I explained the rehabilitation to my little brother at dinner.",
+      "What's the rehabilitation we should remember from today?",
+      "My friend asked about the rehabilitation and I didn't freeze."
     ]
   },
   "anatomy": {
+    "simple": "It means study of body structure.",
     "examples": [
-      "Medical students study human anatomy.",
-      "We discussed anatomy during dinner last night."
+      "My friend asked about the anatomy and I didn't freeze.",
+      "I wrote the anatomy in my own words for homework.",
+      "Before the test I need one clear anatomy I can say out loud."
     ]
   },
   "physiology": {
+    "simple": "It means study of body functions.",
     "examples": [
-      "Physiology explains how organs work.",
-      "We discussed physiology during dinner last night."
+      "On the playground I used the physiology in a real sentence.",
+      "Start with the physiology, then the details.",
+      "I told Mum the physiology from class actually happened at home."
     ]
   },
   "diagnosis": {
+    "simple": "It means identification of a disease.",
     "examples": [
-      "Early diagnosis improves survival rates.",
-      "We discussed diagnosis during dinner last night."
+      "My friend asked about the diagnosis and I didn't freeze.",
+      "I wrote the diagnosis in my own words for homework.",
+      "Before the test I need one clear diagnosis I can say out loud."
     ]
   },
   "symptom": {
+    "simple": "Symptom is a physical or mental feature indicating illness.",
     "examples": [
-      "Fever is a common symptom of flu.",
-      "We discussed symptom during dinner last night."
+      "Before the test I need one clear symptom I can say out loud.",
+      "That's a real symptom, not just a story from a book.",
+      "On the playground I used the symptom in a real sentence."
     ]
   },
   "chronic": {
+    "simple": "It means lasting a long time.",
     "examples": [
-      "Diabetes is a chronic condition.",
-      "It was a chronic moment I will not forget."
+      "Before the test I need one clear chronic I can say out loud.",
+      "That's a real chronic, not just a story from a book.",
+      "On the playground I used the chronic in a real sentence."
     ]
   },
   "acute": {
+    "simple": "It means severe but short-lasting.",
     "examples": [
-      "Acute pain requires immediate attention.",
-      "That is a good example of acute."
+      "On the playground I used the acute in a real sentence.",
+      "Start with the acute, then the details.",
+      "I told Mum the acute from class actually happened at home."
     ]
   },
   "prevention": {
+    "simple": "It means action to stop something happening.",
     "examples": [
-      "Prevention is better than cure.",
-      "That is a good example of prevention."
+      "That's a real prevention, not just a story from a book.",
+      "On the playground I used the prevention in a real sentence.",
+      "Start with the prevention, then the details."
     ]
   },
   "treatment": {
+    "simple": "It means medical care for illness.",
     "examples": [
-      "The treatment was highly effective.",
-      "It was a treatment moment I will not forget."
+      "I told Mum the treatment from class actually happened at home.",
+      "I explained the treatment to my little brother at dinner.",
+      "What's the treatment we should remember from today?"
     ]
   },
   "recovery": {
+    "simple": "It means return to normal health.",
     "examples": [
-      "Full recovery took several weeks.",
-      "We discussed recovery during dinner last night."
+      "I wrote the recovery in my own words for homework.",
+      "Before the test I need one clear recovery I can say out loud.",
+      "That's a real recovery, not just a story from a book."
     ]
   },
   "longevity": {
+    "simple": "It means long duration of life.",
     "examples": [
-      "Healthy habits promote longevity.",
-      "We discussed longevity during dinner last night."
+      "What's the longevity we should remember from today?",
+      "My friend asked about the longevity and I didn't freeze.",
+      "I wrote the longevity in my own words for homework."
     ]
   },
   "abundant": {
+    "simple": "It means existing in large quantities.",
     "examples": [
-      "The region has abundant natural resources.",
-      "You sounded very abundant when you spoke up."
+      "An abundant start is better than rushing dinner homework.",
+      "Today I felt abundant when I finally understood.",
+      "That was an abundant way to finish the homework."
     ]
   },
   "adequate": {
+    "simple": "It means satisfactory or acceptable.",
     "examples": [
-      "The salary is adequate for living costs.",
-      "That is a good example of adequate."
+      "On the playground I used the adequate in a real sentence.",
+      "Start with the adequate, then the details.",
+      "I told Mum the adequate from class actually happened at home."
     ]
   },
   "apparent": {
+    "simple": "It means clearly visible or understood.",
     "examples": [
-      "It was apparent that she was nervous.",
-      "You sounded very apparent when you spoke up."
+      "What's the apparent we should remember from today?",
+      "My friend asked about the apparent and I didn't freeze.",
+      "I wrote the apparent in my own words for homework."
     ]
   },
   "approximate": {
+    "simple": "It means close but not exact.",
     "examples": [
-      "The approximate cost is five hundred dollars.",
-      "That is a good example of approximate."
+      "I explained the approximate to my little brother at dinner.",
+      "What's the approximate we should remember from today?",
+      "My friend asked about the approximate and I didn't freeze."
     ]
   },
   "arbitrary": {
+    "simple": "It means based on random choice.",
     "examples": [
-      "The rule seemed arbitrary and unfair.",
-      "That is a good example of arbitrary."
+      "You were arbitrary in that group chat with us.",
+      "Stay arbitrary when the question feels tricky.",
+      "An arbitrary start is better than rushing dinner homework."
     ]
   },
   "authentic": {
+    "simple": "It means genuine and real.",
     "examples": [
-      "The museum displays authentic artifacts.",
-      "You sounded very authentic when you spoke up."
+      "That's a real authentic, not just a story from a book.",
+      "On the playground I used the authentic in a real sentence.",
+      "Start with the authentic, then the details."
     ]
   },
   "available": {
+    "simple": "It means able to be used or obtained.",
     "examples": [
-      "Tickets are available online.",
-      "We discussed available during dinner last night."
+      "You were available in that group chat with us.",
+      "Stay available when the question feels tricky.",
+      "An available start is better than rushing dinner homework."
     ]
   },
   "beneficial": {
+    "simple": "It means producing good results.",
     "examples": [
-      "Exercise is beneficial for mental health.",
-      "It was a beneficial moment I will not forget."
+      "Don't guess — be beneficial about what really happened.",
+      "I need to be beneficial when I explain this to Mum.",
+      "You were beneficial in that group chat with us."
     ]
   },
   "capable": {
+    "simple": "It means having the ability to do something.",
     "examples": [
-      "She is capable of leading the team.",
-      "That is a good example of capable."
+      "We stayed capable even when the game was hard.",
+      "Don't guess — be capable about what really happened.",
+      "I need to be capable when I explain this to Mum."
     ]
   },
   "cease": {
+    "simple": "It means to stop doing something.",
     "examples": [
-      "The rain ceased by afternoon.",
-      "We should cease the facts before arguing."
+      "Let me cease this homework before I guess.",
+      "Help me cease this so I can do it myself tomorrow.",
+      "After the match we should cease what went wrong."
     ]
   },
   "circumstance": {
+    "simple": "Circumstance is a fact or condition.",
     "examples": [
       "Under the circumstances, we postponed the trip.",
-      "We discussed circumstance during dinner last night."
+      "My friend asked about the circumstance and I didn't freeze.",
+      "I wrote the circumstance in my own words for homework."
     ]
   },
   "commence": {
+    "simple": "It means to begin or start.",
     "examples": [
-      "The ceremony will commence at noon.",
-      "They need to commence the results properly."
+      "Help me commence this so I can do it myself tomorrow.",
+      "After the match we should commence what went wrong.",
+      "Before I send that message I should commence if it sounds kind."
     ]
   },
   "compensate": {
+    "simple": "It means to make up for something.",
     "examples": [
-      "Hard work compensates for lack of talent.",
-      "They need to compensate the results properly."
+      "Help me compensate this so I can do it myself tomorrow.",
+      "After the match we should compensate what went wrong.",
+      "Before I send that message I should compensate if it sounds kind."
     ]
   },
   "complement": {
+    "simple": "It means to complete or enhance.",
     "examples": [
-      "The wine complements the meal perfectly.",
-      "She asked me to complement the situation calmly."
+      "Don't shout — let's complement what happened first.",
+      "Let me complement this homework before I guess.",
+      "Help me complement this so I can do it myself tomorrow."
     ]
   },
   "component": {
+    "simple": "Component is a part of something larger.",
     "examples": [
-      "Each component must function correctly.",
-      "You sounded very component when you spoke up."
+      "On the playground I used the component in a real sentence.",
+      "Start with the component, then the details.",
+      "I told Mum the component from class actually happened at home."
     ]
   },
   "comprise": {
+    "simple": "It means to consist of.",
     "examples": [
-      "The committee comprises twelve members.",
-      "I want to comprise what happened and learn from it."
+      "Help me comprise this so I can do it myself tomorrow.",
+      "After the match we should comprise what went wrong.",
+      "Before I send that message I should comprise if it sounds kind."
     ]
   },
   "conceive": {
+    "simple": "It means to form an idea.",
     "examples": [
-      "Scientists conceive theories from observations.",
-      "He will conceive the topic in class tomorrow."
+      "Don't shout — let's conceive what happened first.",
+      "Let me conceive this homework before I guess.",
+      "Help me conceive this so I can do it myself tomorrow."
     ]
   },
   "concurrent": {
+    "simple": "It means happening at the same time.",
     "examples": [
-      "Two concurrent events caused confusion.",
-      "You sounded very concurrent when you spoke up."
+      "I told Mum the concurrent from class actually happened at home.",
+      "I explained the concurrent to my little brother at dinner.",
+      "What's the concurrent we should remember from today?"
     ]
   },
   "confine": {
+    "simple": "It means to keep within limits.",
     "examples": [
-      "Please confine your remarks to the topic.",
-      "He will confine the topic in class tomorrow."
+      "Let me confine this homework before I guess.",
+      "Help me confine this so I can do it myself tomorrow.",
+      "After the match we should confine what went wrong."
     ]
   },
   "conform": {
+    "simple": "It means to comply with rules.",
     "examples": [
-      "Students must conform to dress codes.",
-      "She asked me to conform the situation calmly."
+      "I need to conform where I left my charger.",
+      "If I lose my jumper I have to conform the last place I had it.",
+      "Don't shout — let's conform what happened first."
     ]
   },
   "consent": {
+    "simple": "It means permission for something.",
     "examples": [
-      "Parents must give consent for the trip.",
-      "It was a consent moment I will not forget."
+      "I told Mum the consent from class actually happened at home.",
+      "I explained the consent to my little brother at dinner.",
+      "What's the consent we should remember from today?"
     ]
   },
   "consequent": {
+    "simple": "It means you following as a result.",
     "examples": [
-      "The drought and consequent famine devastated the region.",
-      "You sounded very consequent when you spoke up."
+      "If I lose my jumper I have to consequent the last place I had it.",
+      "Don't shout — let's consequent what happened first.",
+      "Let me consequent this homework before I guess."
     ]
   },
   "considerable": {
+    "simple": "It means notably large in amount.",
     "examples": [
-      "She has considerable experience in teaching.",
-      "We discussed considerable during dinner last night."
+      "We stayed considerable even when the game was hard.",
+      "Don't guess — be considerable about what really happened.",
+      "I need to be considerable when I explain this to Mum."
     ]
   },
   "consist": {
+    "simple": "It means to be composed of.",
     "examples": [
-      "The team consists of ten players.",
-      "We should consist the facts before arguing."
+      "I need to consist where I left my charger.",
+      "If I lose my jumper I have to consist the last place I had it.",
+      "Don't shout — let's consist what happened first."
     ]
   },
   "constant": {
+    "simple": "It means continuously occurring.",
     "examples": [
-      "Constant practice improves performance.",
-      "It was a constant moment I will not forget."
+      "What's the constant we should remember from today?",
+      "My friend asked about the constant and I didn't freeze.",
+      "I wrote the constant in my own words for homework."
     ]
   },
   "constitute": {
+    "simple": "It means to form or make up.",
     "examples": [
-      "Women constitute half the population.",
-      "I want to constitute what happened and learn from it."
+      "I need to constitute where I left my charger.",
+      "If I lose my jumper I have to constitute the last place I had it.",
+      "Don't shout — let's constitute what happened first."
     ]
   },
   "constrain": {
+    "simple": "It means to restrict or limit.",
     "examples": [
       "Budget limits constrain our options.",
-      "They need to constrain the results properly."
+      "Let me constrain this homework before I guess.",
+      "Help me constrain this so I can do it myself tomorrow."
     ]
   },
   "construct": {
+    "simple": "It means to build or create.",
     "examples": [
-      "Engineers construct bridges and buildings.",
-      "They need to construct the results properly."
+      "Help me construct this so I can do it myself tomorrow.",
+      "After the match we should construct what went wrong.",
+      "Before I send that message I should construct if it sounds kind."
     ]
   },
   "consult": {
+    "simple": "It means to seek advice from.",
     "examples": [
-      "Consult a doctor before taking medicine.",
-      "He will consult the topic in class tomorrow."
+      "Help me consult this so I can do it myself tomorrow.",
+      "After the match we should consult what went wrong.",
+      "Before I send that message I should consult if it sounds kind."
     ]
   },
   "contemporary": {
+    "simple": "It means belonging to the present time.",
     "examples": [
-      "Contemporary art challenges traditions.",
-      "We discussed contemporary during dinner last night."
+      "That was a contemporary way to finish the homework.",
+      "My teacher said that was contemporary work.",
+      "We stayed contemporary even when the game was hard."
     ]
   },
   "contradict": {
+    "simple": "It means to assert the opposite.",
     "examples": [
-      "The witness contradicted his earlier statement.",
-      "They need to contradict the results properly."
+      "If I lose my jumper I have to contradict the last place I had it.",
+      "Don't shout — let's contradict what happened first.",
+      "Let me contradict this homework before I guess."
     ]
   },
   "contribute": {
+    "simple": "It means to give something to help.",
     "examples": [
-      "Everyone should contribute to society.",
-      "Let's contribute this carefully before we decide."
+      "Don't shout — let's contribute what happened first.",
+      "Let me contribute this homework before I guess.",
+      "Help me contribute this so I can do it myself tomorrow."
     ]
   },
   "controversy": {
+    "simple": "It means prolonged public disagreement.",
     "examples": [
-      "The decision sparked controversy.",
-      "That is a good example of controversy."
+      "On the playground I used the controversy in a real sentence.",
+      "Start with the controversy, then the details.",
+      "I told Mum the controversy from class actually happened at home."
     ]
   },
   "conventional": {
+    "simple": "It means based on accepted standards.",
     "examples": [
-      "She prefers conventional teaching methods.",
-      "It was a conventional moment I will not forget."
+      "That was a conventional way to finish the homework.",
+      "My teacher said that was conventional work.",
+      "We stayed conventional even when the game was hard."
     ]
   },
   "convert": {
+    "simple": "It means to change into something else.",
     "examples": [
-      "Solar panels convert sunlight to electricity.",
-      "Can we convert the problem step by step?"
+      "After the match we should convert what went wrong.",
+      "Before I send that message I should convert if it sounds kind.",
+      "Can we convert this so everyone at dinner understands?"
     ]
   },
   "convince": {
+    "simple": "It means to persuade someone.",
     "examples": [
-      "Facts convinced the jury of his guilt.",
-      "Can we convince the problem step by step?"
+      "In class I asked if we can convince the question together.",
+      "I need to convince where I left my charger.",
+      "If I lose my jumper I have to convince the last place I had it."
     ]
   },
   "cooperate": {
+    "simple": "It means to work together.",
     "examples": [
-      "Nations must cooperate on climate change.",
-      "I want to cooperate what happened and learn from it."
+      "Help me cooperate this so I can do it myself tomorrow.",
+      "After the match we should cooperate what went wrong.",
+      "Before I send that message I should cooperate if it sounds kind."
     ]
   },
   "coordinate": {
+    "simple": "It means to organize different elements.",
     "examples": [
       "She coordinates events for the school.",
-      "I want to coordinate what happened and learn from it."
+      "If I lose my jumper I have to coordinate the last place I had it.",
+      "Don't shout — let's coordinate what happened first."
     ]
   },
   "corporate": {
+    "simple": "It means it is about a large company.",
     "examples": [
-      "Corporate culture affects employee satisfaction.",
-      "We discussed corporate during dinner last night."
+      "We talked about corporate stuff after the match.",
+      "This corporate word showed up in my game chat.",
+      "I told my friend a corporate story from school."
     ]
   },
   "correspond": {
+    "simple": "It means to match or be similar.",
     "examples": [
       "Results correspond with our predictions.",
-      "They need to correspond the results properly."
+      "I need to correspond where I left my charger.",
+      "If I lose my jumper I have to correspond the last place I had it."
     ]
   },
   "criteria": {
+    "simple": "It means you standards for judgment.",
     "examples": [
-      "What criteria will you use to evaluate?",
-      "They need to criteria the results properly."
+      "In class I asked if we can criteria the question together.",
+      "I need to criteria where I left my charger.",
+      "If I lose my jumper I have to criteria the last place I had it."
     ]
   },
   "crucial": {
+    "simple": "It means extremely important.",
     "examples": [
-      "Timing is crucial in emergency medicine.",
-      "You sounded very crucial when you spoke up."
+      "We stayed crucial even when the game was hard.",
+      "Don't guess — be crucial about what really happened.",
+      "I need to be crucial when I explain this to Mum."
     ]
   },
   "cumulative": {
+    "simple": "It means increasing by addition.",
     "examples": [
-      "Cumulative effort leads to mastery.",
-      "You sounded very cumulative when you spoke up."
+      "Today I felt cumulative when I finally understood.",
+      "That was a cumulative way to finish the homework.",
+      "My teacher said that was cumulative work."
     ]
   },
   "decline": {
+    "simple": "It means to decrease or refuse.",
     "examples": [
-      "Sales declined during the recession.",
-      "She asked me to decline the situation calmly."
+      "After the match we should decline what went wrong.",
+      "Before I send that message I should decline if it sounds kind.",
+      "Can we decline this so everyone at dinner understands?"
     ]
   },
   "definite": {
+    "simple": "It means clearly stated or decided.",
     "examples": [
       "We need a definite answer by Friday.",
-      "That is a good example of definite."
+      "What's the definite we should remember from today?",
+      "My friend asked about the definite and I didn't freeze."
     ]
   },
   "demonstrate": {
+    "simple": "It means to show clearly.",
     "examples": [
-      "The experiment demonstrates the principle.",
-      "He will demonstrate the topic in class tomorrow."
+      "Help me demonstrate this so I can do it myself tomorrow.",
+      "After the match we should demonstrate what went wrong.",
+      "Before I send that message I should demonstrate if it sounds kind."
     ]
   },
   "denote": {
+    "simple": "It means to be a sign of.",
     "examples": [
-      "Red lights denote danger on roads.",
-      "Can we denote the problem step by step?"
+      "Let me denote this homework before I guess.",
+      "Help me denote this so I can do it myself tomorrow.",
+      "After the match we should denote what went wrong."
     ]
   },
   "depress": {
+    "simple": "It means to push down or sadden.",
     "examples": [
-      "Bad news can depress stock markets.",
-      "I tried to depress the mistake and fix it."
+      "Can we depress this so everyone at dinner understands?",
+      "In class I asked if we can depress the question together.",
+      "I need to depress where I left my charger."
     ]
   },
   "derive": {
+    "simple": "It means to obtain from a source.",
     "examples": [
-      "Many English words derive from Latin.",
-      "They need to derive the results properly."
+      "Before I send that message I should derive if it sounds kind.",
+      "Can we derive this so everyone at dinner understands?",
+      "In class I asked if we can derive the question together."
     ]
   },
   "despite": {
+    "simple": "It means without being affected by.",
     "examples": [
-      "She succeeded despite many obstacles.",
-      "That is a good example of despite."
+      "That's a real despite, not just a story from a book.",
+      "On the playground I used the despite in a real sentence.",
+      "Start with the despite, then the details."
     ]
   },
   "detect": {
+    "simple": "It means to discover or notice.",
     "examples": [
-      "Sensors detect movement in the room.",
-      "Can we detect the problem step by step?"
+      "Let me detect this homework before I guess.",
+      "Help me detect this so I can do it myself tomorrow.",
+      "After the match we should detect what went wrong."
     ]
   },
   "deviate": {
+    "simple": "It means to depart from a standard.",
     "examples": [
-      "Do not deviate from the approved plan.",
-      "She asked me to deviate the situation calmly."
+      "Before I send that message I should deviate if it sounds kind.",
+      "Can we deviate this so everyone at dinner understands?",
+      "In class I asked if we can deviate the question together."
     ]
   },
   "device": {
+    "simple": "Device is a tool or piece of equipment.",
     "examples": [
-      "Smartphones are versatile devices.",
-      "That is a good example of device."
+      "My friend asked about the device and I didn't freeze.",
+      "I wrote the device in my own words for homework.",
+      "Before the test I need one clear device I can say out loud."
     ]
   },
   "devote": {
+    "simple": "It means to give time and energy to.",
     "examples": [
-      "She devotes hours to practicing piano.",
-      "Can we devote the problem step by step?"
+      "If I lose my jumper I have to devote the last place I had it.",
+      "Don't shout — let's devote what happened first.",
+      "Let me devote this homework before I guess."
     ]
   },
   "differentiate": {
+    "simple": "It means to recognize differences.",
     "examples": [
-      "Can you differentiate between the twins?",
-      "I tried to differentiate the mistake and fix it."
+      "Let me differentiate this homework before I guess.",
+      "Help me differentiate this so I can do it myself tomorrow.",
+      "After the match we should differentiate what went wrong."
     ]
   },
   "dimension": {
+    "simple": "Dimension is a measurable extent.",
     "examples": [
-      "Time is the fourth dimension in physics.",
-      "That is a good example of dimension."
+      "That's a real dimension, not just a story from a book.",
+      "On the playground I used the dimension in a real sentence.",
+      "Start with the dimension, then the details."
     ]
   },
   "diminish": {
+    "simple": "It means to make or become less.",
     "examples": [
-      "The storm's power began to diminish.",
-      "We should diminish the facts before arguing."
+      "Don't shout — let's diminish what happened first.",
+      "Let me diminish this homework before I guess.",
+      "Help me diminish this so I can do it myself tomorrow."
     ]
   },
   "discrete": {
+    "simple": "It means individually separate.",
     "examples": [
-      "The data falls into discrete categories.",
-      "We discussed discrete during dinner last night."
+      "On the playground I used the discrete in a real sentence.",
+      "Start with the discrete, then the details.",
+      "I told Mum the discrete from class actually happened at home."
     ]
   },
   "discriminate": {
+    "simple": "It means to recognize a distinction.",
     "examples": [
       "We must not discriminate based on race.",
-      "He will discriminate the topic in class tomorrow."
+      "Help me discriminate this so I can do it myself tomorrow.",
+      "After the match we should discriminate what went wrong."
     ]
   },
   "displace": {
+    "simple": "It means to move from proper position.",
     "examples": [
-      "Floods displaced thousands of families.",
-      "We should displace the facts before arguing."
+      "I need to displace where I left my charger.",
+      "If I lose my jumper I have to displace the last place I had it.",
+      "Don't shout — let's displace what happened first."
     ]
   },
   "display": {
+    "simple": "It means to show or exhibit.",
     "examples": [
-      "Museums display artifacts from history.",
-      "I tried to display the mistake and fix it."
+      "Help me display this so I can do it myself tomorrow.",
+      "After the match we should display what went wrong.",
+      "Before I send that message I should display if it sounds kind."
     ]
   },
   "dispose": {
+    "simple": "It means to get rid of or arrange.",
     "examples": [
-      "Dispose of waste responsibly.",
-      "They need to dispose the results properly."
+      "Before I send that message I should dispose if it sounds kind.",
+      "Can we dispose this so everyone at dinner understands?",
+      "In class I asked if we can dispose the question together."
     ]
   },
   "distinct": {
+    "simple": "It means recognizably different.",
     "examples": [
-      "Each culture has distinct traditions.",
-      "That is a good example of distinct."
+      "I explained the distinct to my little brother at dinner.",
+      "What's the distinct we should remember from today?",
+      "My friend asked about the distinct and I didn't freeze."
     ]
   },
   "distort": {
+    "simple": "It means to twist out of shape.",
     "examples": [
-      "Mirrors can distort your reflection.",
-      "Can we distort the problem step by step?"
+      "I need to distort where I left my charger.",
+      "If I lose my jumper I have to distort the last place I had it.",
+      "Don't shout — let's distort what happened first."
     ]
   },
   "distribute": {
+    "simple": "It means to give shares of something.",
     "examples": [
-      "Charities distribute food to the needy.",
-      "We should distribute the facts before arguing."
+      "Before I send that message I should distribute if it sounds kind.",
+      "Can we distribute this so everyone at dinner understands?",
+      "In class I asked if we can distribute the question together."
     ]
   },
   "diverse": {
+    "simple": "It means you showing great variety.",
     "examples": [
-      "India has a diverse population.",
-      "I want to diverse what happened and learn from it."
+      "We stayed diverse even when the game was hard.",
+      "Don't guess — be diverse about what really happened.",
+      "I need to be diverse when I explain this to Mum."
     ]
   },
   "domestic": {
+    "simple": "It means it is about the home country.",
     "examples": [
-      "Domestic flights are cheaper than international.",
-      "It was a domestic moment I will not forget."
+      "My domestic homework actually helped at home.",
+      "Mum asked a domestic question at dinner.",
+      "That domestic example came up at dinner with Mum."
     ]
   },
   "dominate": {
+    "simple": "It means to have control over.",
     "examples": [
-      "Large companies dominate the market.",
-      "Can we dominate the problem step by step?"
+      "Help me dominate this so I can do it myself tomorrow.",
+      "After the match we should dominate what went wrong.",
+      "Before I send that message I should dominate if it sounds kind."
     ]
   },
   "duration": {
+    "simple": "Duration is the time something lasts.",
     "examples": [
-      "The duration of the movie is two hours.",
-      "That is a good example of duration."
+      "Before the test I need one clear duration I can say out loud.",
+      "That's a real duration, not just a story from a book.",
+      "On the playground I used the duration in a real sentence."
     ]
   },
   "dynamic": {
+    "simple": "It means characterized by constant change.",
     "examples": [
-      "The market is highly dynamic.",
-      "You sounded very dynamic when you spoke up."
+      "That was a dynamic way to finish the homework.",
+      "My teacher said that was dynamic work.",
+      "We stayed dynamic even when the game was hard."
     ]
   },
   "element": {
+    "simple": "Element is a basic component.",
     "examples": [
-      "Water contains hydrogen and oxygen elements.",
-      "It was a element moment I will not forget."
+      "I wrote the element in my own words for homework.",
+      "Before the test I need one clear element I can say out loud.",
+      "That's a real element, not just a story from a book."
     ]
   },
   "eliminate": {
+    "simple": "It means to completely remove.",
     "examples": [
-      "Vaccines help eliminate deadly diseases.",
-      "I tried to eliminate the mistake and fix it."
+      "Let me eliminate this homework before I guess.",
+      "Help me eliminate this so I can do it myself tomorrow.",
+      "After the match we should eliminate what went wrong."
     ]
   },
   "emerge": {
+    "simple": "It means to come into view.",
     "examples": [
-      "New leaders emerge during crises.",
-      "Can we emerge the problem step by step?"
+      "If I lose my jumper I have to emerge the last place I had it.",
+      "Don't shout — let's emerge what happened first.",
+      "Let me emerge this homework before I guess."
     ]
   },
   "emphasis": {
+    "simple": "It means special importance given to something.",
     "examples": [
       "The teacher placed emphasis on vocabulary.",
-      "That is a good example of emphasis."
+      "I wrote the emphasis in my own words for homework.",
+      "Before the test I need one clear emphasis I can say out loud."
     ]
   },
   "empirical": {
+    "simple": "It means based on observation or experience.",
     "examples": [
-      "Empirical evidence supports the theory.",
-      "It was a empirical moment I will not forget."
+      "An empirical start is better than rushing dinner homework.",
+      "Today I felt empirical when I finally understood.",
+      "That was an empirical way to finish the homework."
     ]
   },
   "enable": {
+    "simple": "It means to make possible.",
     "examples": [
-      "Technology enables remote learning.",
-      "Can we enable the problem step by step?"
+      "Before I send that message I should enable if it sounds kind.",
+      "Can we enable this so everyone at dinner understands?",
+      "In class I asked if we can enable the question together."
     ]
   },
   "encounter": {
+    "simple": "It means to meet unexpectedly.",
     "examples": [
-      "Travelers encounter diverse cultures.",
-      "Can we encounter the problem step by step?"
+      "I need to encounter where I left my charger.",
+      "If I lose my jumper I have to encounter the last place I had it.",
+      "Don't shout — let's encounter what happened first."
     ]
   },
   "enhance": {
+    "simple": "It means to improve quality.",
     "examples": [
-      "Reading enhances vocabulary and thinking.",
-      "She asked me to enhance the situation calmly."
+      "Can we enhance this so everyone at dinner understands?",
+      "In class I asked if we can enhance the question together.",
+      "I need to enhance where I left my charger."
     ]
   },
   "enormous": {
+    "simple": "It means very large in size.",
     "examples": [
-      "The elephant is an enormous animal.",
-      "It was a enormous moment I will not forget."
+      "My teacher said that was enormous work.",
+      "We stayed enormous even when the game was hard.",
+      "Don't guess — be enormous about what really happened."
     ]
   },
   "ensure": {
+    "simple": "It means to make certain.",
     "examples": [
-      "Wear a helmet to ensure safety.",
-      "She asked me to ensure the situation calmly."
+      "After the match we should ensure what went wrong.",
+      "Before I send that message I should ensure if it sounds kind.",
+      "Can we ensure this so everyone at dinner understands?"
     ]
   },
   "entity": {
+    "simple": "Entity is a thing with distinct existence.",
     "examples": [
-      "The company is a separate legal entity.",
-      "We discussed entity during dinner last night."
+      "I told Mum the entity from class actually happened at home.",
+      "I explained the entity to my little brother at dinner.",
+      "What's the entity we should remember from today?"
     ]
   },
   "equivalent": {
+    "simple": "It means equal in value or meaning.",
     "examples": [
-      "One dollar is equivalent to eighty rupees.",
-      "It was a equivalent moment I will not forget."
+      "I wrote the equivalent in my own words for homework.",
+      "Before the test I need one clear equivalent I can say out loud.",
+      "That's a real equivalent, not just a story from a book."
     ]
   },
   "erode": {
+    "simple": "It means to gradually wear away.",
     "examples": [
-      "Wind and rain erode rock formations.",
-      "Can we erode the problem step by step?"
+      "Help me erode this so I can do it myself tomorrow.",
+      "After the match we should erode what went wrong.",
+      "Before I send that message I should erode if it sounds kind."
     ]
   },
   "establish": {
+    "simple": "It means to set up on a firm basis.",
     "examples": [
       "The school was established in 1950.",
-      "We should establish the facts before arguing."
+      "If I lose my jumper I have to establish the last place I had it.",
+      "Don't shout — let's establish what happened first."
     ]
   },
   "estimate": {
+    "simple": "It means to roughly calculate.",
     "examples": [
-      "Engineers estimate construction costs.",
-      "I want to estimate what happened and learn from it."
+      "Before I send that message I should estimate if it sounds kind.",
+      "Can we estimate this so everyone at dinner understands?",
+      "In class I asked if we can estimate the question together."
     ]
   },
   "ethic": {
+    "simple": "It means moral principles.",
     "examples": [
-      "Medical ethics require patient confidentiality.",
-      "You sounded very ethic when you spoke up."
+      "That's a real ethic, not just a story from a book.",
+      "On the playground I used the ethic in a real sentence.",
+      "Start with the ethic, then the details."
     ]
   },
   "ethnic": {
+    "simple": "Ethnic is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "You sounded very ethnic when you spoke up."
+      "If I lose my jumper I have to ethnic the last place I had it.",
+      "Don't shout — let's ethnic what happened first.",
+      "Let me ethnic this homework before I guess."
     ]
   },
   "evident": {
+    "simple": "It means clearly seen or understood.",
     "examples": [
-      "It was evident that he had studied hard.",
-      "You sounded very evident when you spoke up."
+      "Before the test I need one clear evident I can say out loud.",
+      "That's a real evident, not just a story from a book.",
+      "On the playground I used the evident in a real sentence."
     ]
   },
   "evolve": {
+    "simple": "It means to develop gradually.",
     "examples": [
-      "Languages evolve over centuries.",
-      "Let's evolve this carefully before we decide."
+      "Let me evolve this homework before I guess.",
+      "Help me evolve this so I can do it myself tomorrow.",
+      "After the match we should evolve what went wrong."
     ]
   },
   "exceed": {
+    "simple": "It means to go beyond a limit.",
     "examples": [
-      "Sales exceeded expectations this quarter.",
-      "He will exceed the topic in class tomorrow."
+      "Don't shout — let's exceed what happened first.",
+      "Let me exceed this homework before I guess.",
+      "Help me exceed this so I can do it myself tomorrow."
     ]
   },
   "exclude": {
+    "simple": "It means to shut out or leave out.",
     "examples": [
-      "The price excludes taxes and fees.",
-      "I tried to exclude the mistake and fix it."
+      "If I lose my jumper I have to exclude the last place I had it.",
+      "Don't shout — let's exclude what happened first.",
+      "Let me exclude this homework before I guess."
     ]
   },
   "exhibit": {
+    "simple": "It means to display publicly.",
     "examples": [
-      "Galleries exhibit works by new artists.",
-      "We should exhibit the facts before arguing."
+      "If I lose my jumper I have to exhibit the last place I had it.",
+      "Don't shout — let's exhibit what happened first.",
+      "Let me exhibit this homework before I guess."
     ]
   },
   "expand": {
+    "simple": "It means to become larger.",
     "examples": [
-      "Businesses expand into new markets.",
-      "I tried to expand the mistake and fix it."
+      "In class I asked if we can expand the question together.",
+      "I need to expand where I left my charger.",
+      "If I lose my jumper I have to expand the last place I had it."
     ]
   },
   "expert": {
+    "simple": "Expert is a person with special skill.",
     "examples": [
-      "Consult an expert before making decisions.",
-      "That is a good example of expert."
+      "Start with the expert, then the details.",
+      "I told Mum the expert from class actually happened at home.",
+      "I explained the expert to my little brother at dinner."
     ]
   },
   "explicit": {
+    "simple": "It means stated clearly and directly.",
     "examples": [
-      "Give explicit instructions to avoid confusion.",
-      "That is a good example of explicit."
+      "On the playground I used the explicit in a real sentence.",
+      "Start with the explicit, then the details.",
+      "I told Mum the explicit from class actually happened at home."
     ]
   },
   "exploit": {
+    "simple": "It means to use for benefit.",
     "examples": [
-      "Companies exploit natural resources.",
-      "Can we exploit the problem step by step?"
+      "If I lose my jumper I have to exploit the last place I had it.",
+      "Don't shout — let's exploit what happened first.",
+      "Let me exploit this homework before I guess."
     ]
   },
   "export": {
+    "simple": "It means to send goods to another country.",
     "examples": [
-      "India exports software services globally.",
-      "He will export the topic in class tomorrow."
+      "Can we export this so everyone at dinner understands?",
+      "In class I asked if we can export the question together.",
+      "I need to export where I left my charger."
     ]
   },
   "expose": {
+    "simple": "It means to reveal or make visible.",
     "examples": [
-      "Journalists expose corruption in government.",
-      "He will expose the topic in class tomorrow."
+      "Let me expose this homework before I guess.",
+      "Help me expose this so I can do it myself tomorrow.",
+      "After the match we should expose what went wrong."
     ]
   },
   "external": {
+    "simple": "It means coming from outside.",
     "examples": [
-      "External factors affect business performance.",
-      "You sounded very external when you spoke up."
+      "I told Mum the external from class actually happened at home.",
+      "I explained the external to my little brother at dinner.",
+      "What's the external we should remember from today?"
     ]
   },
   "extract": {
+    "simple": "It means to remove or obtain from.",
     "examples": [
-      "Scientists extract DNA from cells.",
-      "We should extract the facts before arguing."
+      "In class I asked if we can extract the question together.",
+      "I need to extract where I left my charger.",
+      "If I lose my jumper I have to extract the last place I had it."
     ]
   },
   "facilitate": {
+    "simple": "It means to make easier.",
     "examples": [
-      "Technology facilitates communication.",
-      "He will facilitate the topic in class tomorrow."
+      "Help me facilitate this so I can do it myself tomorrow.",
+      "After the match we should facilitate what went wrong.",
+      "Before I send that message I should facilitate if it sounds kind."
     ]
   },
   "factor": {
+    "simple": "Factor is a circumstance contributing to a result.",
     "examples": [
-      "Weather is a factor in crop yields.",
-      "We discussed factor during dinner last night."
+      "My friend asked about the factor and I didn't freeze.",
+      "I wrote the factor in my own words for homework.",
+      "Before the test I need one clear factor I can say out loud."
     ]
   },
   "feature": {
+    "simple": "Feature is a distinctive attribute.",
     "examples": [
-      "The phone's best feature is its camera.",
-      "That is a good example of feature."
+      "Start with the feature, then the details.",
+      "I told Mum the feature from class actually happened at home.",
+      "I explained the feature to my little brother at dinner."
     ]
   },
   "federal": {
+    "simple": "It means it is about central government.",
     "examples": [
-      "Federal laws apply nationwide.",
-      "You sounded very federal when you spoke up."
+      "My federal homework actually helped at home.",
+      "Mum asked a federal question at dinner.",
+      "That federal example came up at dinner with Mum."
     ]
   },
   "finite": {
+    "simple": "It means having limits.",
     "examples": [
-      "Earth's resources are finite.",
-      "We discussed finite during dinner last night."
+      "Don't guess — be finite about what really happened.",
+      "I need to be finite when I explain this to Mum.",
+      "You were finite in that group chat with us."
     ]
   },
   "fluctuate": {
+    "simple": "It means to rise and fall irregularly.",
     "examples": [
-      "Stock prices fluctuate daily.",
-      "Let's fluctuate this carefully before we decide."
+      "Before I send that message I should fluctuate if it sounds kind.",
+      "Can we fluctuate this so everyone at dinner understands?",
+      "In class I asked if we can fluctuate the question together."
     ]
   },
   "focus": {
+    "simple": "It means to concentrate attention.",
     "examples": [
-      "Focus on your goals and work hard.",
-      "I want to focus what happened and learn from it."
+      "Don't shout — let's focus what happened first.",
+      "Let me focus this homework before I guess.",
+      "Help me focus this so I can do it myself tomorrow."
     ]
   },
   "format": {
+    "simple": "Format is the way something is arranged.",
     "examples": [
-      "Follow the required essay format.",
-      "We discussed format during dinner last night."
+      "What's the format we should remember from today?",
+      "My friend asked about the format and I didn't freeze.",
+      "I wrote the format in my own words for homework."
     ]
   },
   "formula": {
+    "simple": "Formula is a mathematical relationship.",
     "examples": [
-      "Einstein's formula changed physics.",
-      "That is a good example of formula."
+      "On the playground I used the formula in a real sentence.",
+      "Start with the formula, then the details.",
+      "I told Mum the formula from class actually happened at home."
     ]
   },
   "foundation": {
+    "simple": "Foundation is the basis on which something stands.",
     "examples": [
-      "Education is the foundation of success.",
-      "We discussed foundation during dinner last night."
+      "What's the foundation we should remember from today?",
+      "My friend asked about the foundation and I didn't freeze.",
+      "I wrote the foundation in my own words for homework."
     ]
   },
   "framework": {
+    "simple": "Framework is a basic structure.",
     "examples": [
-      "The law provides a framework for justice.",
-      "That is a good example of framework."
+      "I explained the framework to my little brother at dinner.",
+      "What's the framework we should remember from today?",
+      "My friend asked about the framework and I didn't freeze."
     ]
   },
   "function": {
+    "simple": "Function is the purpose for which something exists.",
     "examples": [
-      "The heart's function is to pump blood.",
-      "That is a good example of function."
+      "My friend asked about the function and I didn't freeze.",
+      "I wrote the function in my own words for homework.",
+      "Before the test I need one clear function I can say out loud."
     ]
   },
   "fundamental": {
+    "simple": "It means you forming a necessary base.",
     "examples": [
-      "Reading is a fundamental skill.",
-      "You sounded very fundamental when you spoke up."
+      "In class I asked if we can fundamental the question together.",
+      "I need to fundamental where I left my charger.",
+      "If I lose my jumper I have to fundamental the last place I had it."
     ]
   },
   "furthermore": {
+    "simple": "It means in addition; moreover.",
     "examples": [
-      "The plan is risky. Furthermore, it is expensive.",
-      "We discussed furthermore during dinner last night."
+      "Furthermore we finished the match, then we walked home.",
+      "At dinner I said furthermore so I could add what happened at school.",
+      "I used furthermore when I added one more idea in class."
     ]
   },
   "generate": {
+    "simple": "It means to produce or create.",
     "examples": [
-      "Wind turbines generate electricity.",
-      "Let's generate this carefully before we decide."
+      "Before I send that message I should generate if it sounds kind.",
+      "Can we generate this so everyone at dinner understands?",
+      "In class I asked if we can generate the question together."
     ]
   },
   "generation": {
+    "simple": "It means all people born around the same time.",
     "examples": [
-      "Each generation faces unique challenges.",
-      "That is a good example of generation."
+      "That's a real generation, not just a story from a book.",
+      "On the playground I used the generation in a real sentence.",
+      "Start with the generation, then the details."
     ]
   },
   "globe": {
+    "simple": "Globe is the Earth; world.",
     "examples": [
-      "Climate change affects the entire globe.",
-      "We discussed globe during dinner last night."
+      "On the playground I used the globe in a real sentence.",
+      "Start with the globe, then the details.",
+      "I told Mum the globe from class actually happened at home."
     ]
   },
   "grade": {
+    "simple": "Grade is a level of quality or rank.",
     "examples": [
       "She received the highest grade in class.",
-      "We discussed grade during dinner last night."
+      "I explained the grade to my little brother at dinner.",
+      "What's the grade we should remember from today?"
     ]
   },
   "grant": {
+    "simple": "It means to give or allow.",
     "examples": [
-      "Universities grant scholarships to talented students.",
-      "He will grant the topic in class tomorrow."
+      "Before I send that message I should grant if it sounds kind.",
+      "Can we grant this so everyone at dinner understands?",
+      "In class I asked if we can grant the question together."
     ]
   },
   "guarantee": {
+    "simple": "Guarantee is a promise that something will happen.",
     "examples": [
-      "The warranty guarantees free repairs.",
-      "That is a good example of guarantee."
+      "Before the test I need one clear guarantee I can say out loud.",
+      "That's a real guarantee, not just a story from a book.",
+      "On the playground I used the guarantee in a real sentence."
     ]
   },
   "hierarchy": {
+    "simple": "Hierarchy is a system of ranked levels.",
     "examples": [
-      "The army has a clear hierarchy.",
-      "We discussed hierarchy during dinner last night."
+      "Before the test I need one clear hierarchy I can say out loud.",
+      "That's a real hierarchy, not just a story from a book.",
+      "On the playground I used the hierarchy in a real sentence."
     ]
   },
   "highlight": {
+    "simple": "It means to emphasize or make prominent.",
     "examples": [
-      "The report highlights key findings.",
-      "He will highlight the topic in class tomorrow."
+      "Before I send that message I should highlight if it sounds kind.",
+      "Can we highlight this so everyone at dinner understands?",
+      "In class I asked if we can highlight the question together."
     ]
   },
   "identical": {
+    "simple": "It means exactly alike.",
     "examples": [
-      "The twins look identical.",
-      "You sounded very identical when you spoke up."
+      "An identical start is better than rushing dinner homework.",
+      "Today I felt identical when I finally understood.",
+      "That was an identical way to finish the homework."
     ]
   },
   "identify": {
+    "simple": "It means to recognize or establish identity.",
     "examples": [
-      "Can you identify the main theme?",
-      "He will identify the topic in class tomorrow."
+      "Help me identify this so I can do it myself tomorrow.",
+      "After the match we should identify what went wrong.",
+      "Before I send that message I should identify if it sounds kind."
     ]
   },
   "ideology": {
+    "simple": "Ideology is a system of ideas and ideals.",
     "examples": [
-      "Political ideology shapes government policy.",
-      "That is a good example of ideology."
+      "I wrote the ideology in my own words for homework.",
+      "Before the test I need one clear ideology I can say out loud.",
+      "That's a real ideology, not just a story from a book."
     ]
   },
   "ignorant": {
+    "simple": "It means lacking knowledge.",
     "examples": [
-      "It is ignorant to judge without understanding.",
-      "It was a ignorant moment I will not forget."
+      "Today I felt ignorant when I finally understood.",
+      "That was an ignorant way to finish the homework.",
+      "My teacher said that was ignorant work."
     ]
   },
   "illustrate": {
+    "simple": "It means to explain with examples.",
     "examples": [
-      "Charts illustrate data clearly.",
-      "Let's illustrate this carefully before we decide."
+      "Help me illustrate this so I can do it myself tomorrow.",
+      "After the match we should illustrate what went wrong.",
+      "Before I send that message I should illustrate if it sounds kind."
     ]
   },
   "immigrate": {
+    "simple": "It means to move to a new country.",
     "examples": [
-      "Many people immigrate for better opportunities.",
-      "They need to immigrate the results properly."
+      "Let me immigrate this homework before I guess.",
+      "Help me immigrate this so I can do it myself tomorrow.",
+      "After the match we should immigrate what went wrong."
     ]
   },
   "impact": {
+    "simple": "Impact is a strong effect on something.",
     "examples": [
-      "Education has a lasting impact on lives.",
-      "That is a good example of impact."
+      "On the playground I used the impact in a real sentence.",
+      "Start with the impact, then the details.",
+      "I told Mum the impact from class actually happened at home."
     ]
   },
   "implement": {
+    "simple": "It means to put into effect.",
     "examples": [
-      "Schools implement new teaching methods.",
-      "Can we implement the problem step by step?"
+      "I need to implement where I left my charger.",
+      "If I lose my jumper I have to implement the last place I had it.",
+      "Don't shout — let's implement what happened first."
     ]
   },
   "implicate": {
+    "simple": "It means to show involvement in a crime.",
     "examples": [
-      "Evidence implicated several officials.",
-      "I want to implicate what happened and learn from it."
+      "If I lose my jumper I have to implicate the last place I had it.",
+      "Don't shout — let's implicate what happened first.",
+      "Let me implicate this homework before I guess."
     ]
   },
   "implicit": {
+    "simple": "It means implied though not stated.",
     "examples": [
-      "There was an implicit agreement between them.",
-      "We discussed implicit during dinner last night."
+      "I wrote the implicit in my own words for homework.",
+      "Before the test I need one clear implicit I can say out loud.",
+      "That's a real implicit, not just a story from a book."
     ]
   },
   "imply": {
+    "simple": "It means to suggest without stating directly.",
     "examples": [
-      "His tone implied disappointment.",
-      "We should imply the facts before arguing."
+      "I need to imply where I left my charger.",
+      "If I lose my jumper I have to imply the last place I had it.",
+      "Don't shout — let's imply what happened first."
     ]
   },
   "impose": {
+    "simple": "It means to force something on others.",
     "examples": [
-      "Governments impose taxes on citizens.",
-      "Let's impose this carefully before we decide."
+      "Can we impose this so everyone at dinner understands?",
+      "In class I asked if we can impose the question together.",
+      "I need to impose where I left my charger."
     ]
   },
   "incentive": {
+    "simple": "It means something that motivates action.",
     "examples": [
-      "Bonuses provide incentive to work harder.",
-      "You sounded very incentive when you spoke up."
+      "An incentive start is better than rushing dinner homework.",
+      "Today I felt incentive when I finally understood.",
+      "That was an incentive way to finish the homework."
     ]
   },
   "incidence": {
+    "simple": "Incidence is the occurrence of something.",
     "examples": [
-      "The incidence of disease decreased.",
-      "That is a good example of incidence."
+      "That's a real incidence, not just a story from a book.",
+      "On the playground I used the incidence in a real sentence.",
+      "Start with the incidence, then the details."
     ]
   },
   "incline": {
+    "simple": "It means to tend toward a particular action.",
     "examples": [
       "I incline toward the first option.",
-      "I tried to incline the mistake and fix it."
+      "Can we incline this so everyone at dinner understands?",
+      "In class I asked if we can incline the question together."
     ]
   },
   "income": {
+    "simple": "It means money received regularly.",
     "examples": [
-      "Monthly income should exceed expenses.",
-      "We discussed income during dinner last night."
+      "I explained the income to my little brother at dinner.",
+      "What's the income we should remember from today?",
+      "My friend asked about the income and I didn't freeze."
     ]
   },
   "incorporate": {
+    "simple": "It means to include as part of a whole.",
     "examples": [
-      "Incorporate feedback into your revision.",
-      "I want to incorporate what happened and learn from it."
+      "Before I send that message I should incorporate if it sounds kind.",
+      "Can we incorporate this so everyone at dinner understands?",
+      "In class I asked if we can incorporate the question together."
     ]
   },
   "index": {
+    "simple": "Index is an alphabetical list of topics.",
     "examples": [
-      "Use the index to find information quickly.",
-      "That is a good example of index."
+      "On the playground I used the index in a real sentence.",
+      "Start with the index, then the details.",
+      "I told Mum the index from class actually happened at home."
     ]
   },
   "indicate": {
+    "simple": "It means to point out or show.",
     "examples": [
-      "Research indicates that sleep improves memory.",
-      "We should indicate the facts before arguing."
+      "Can we indicate this so everyone at dinner understands?",
+      "In class I asked if we can indicate the question together.",
+      "I need to indicate where I left my charger."
     ]
   },
   "individual": {
+    "simple": "Individual is a single person or thing.",
     "examples": [
-      "Respect every individual's rights.",
-      "You sounded very individual when you spoke up."
+      "I explained the individual to my little brother at dinner.",
+      "What's the individual we should remember from today?",
+      "My friend asked about the individual and I didn't freeze."
     ]
   },
   "induce": {
+    "simple": "It means to bring about or persuade.",
     "examples": [
-      "Medicine can induce sleep.",
-      "I want to induce what happened and learn from it."
+      "If I lose my jumper I have to induce the last place I had it.",
+      "Don't shout — let's induce what happened first.",
+      "Let me induce this homework before I guess."
     ]
   },
   "inevitable": {
+    "simple": "It means certain to happen.",
     "examples": [
-      "Change is inevitable in life.",
-      "We discussed inevitable during dinner last night."
+      "I need to be inevitable when I explain this to Mum.",
+      "You were inevitable in that group chat with us.",
+      "Stay inevitable when the question feels tricky."
     ]
   },
   "infer": {
+    "simple": "It means to deduce from evidence.",
     "examples": [
       "From her smile, I infer she passed the exam.",
-      "She asked me to infer the situation calmly."
+      "In class I asked if we can infer the question together.",
+      "I need to infer where I left my charger."
     ]
   },
   "infrastructure": {
+    "simple": "It means basic physical systems of a country.",
     "examples": [
-      "Roads and bridges are infrastructure.",
-      "We discussed infrastructure during dinner last night."
+      "I told Mum the infrastructure from class actually happened at home.",
+      "I explained the infrastructure to my little brother at dinner.",
+      "What's the infrastructure we should remember from today?"
     ]
   },
   "inherent": {
+    "simple": "It means existing as a natural part.",
     "examples": [
-      "Risk is inherent in all investments.",
-      "You sounded very inherent when you spoke up."
+      "Stay inherent when the question feels tricky.",
+      "An inherent start is better than rushing dinner homework.",
+      "Today I felt inherent when I finally understood."
     ]
   },
   "initial": {
+    "simple": "It means existing at the beginning.",
     "examples": [
       "My initial reaction was surprise.",
-      "It was a initial moment I will not forget."
+      "You were initial in that group chat with us.",
+      "Stay initial when the question feels tricky."
     ]
   },
   "initiate": {
+    "simple": "It means to cause something to begin.",
     "examples": [
-      "The coach initiated a new training program.",
-      "We should initiate the facts before arguing."
+      "Before I send that message I should initiate if it sounds kind.",
+      "Can we initiate this so everyone at dinner understands?",
+      "In class I asked if we can initiate the question together."
     ]
   },
   "injure": {
+    "simple": "It means to cause physical harm.",
     "examples": [
-      "Careless driving can injure pedestrians.",
-      "Can we injure the problem step by step?"
+      "Can we injure this so everyone at dinner understands?",
+      "In class I asked if we can injure the question together.",
+      "I need to injure where I left my charger."
     ]
   },
   "innovate": {
+    "simple": "It means to introduce new methods.",
     "examples": [
-      "Companies innovate to stay competitive.",
-      "I tried to innovate the mistake and fix it."
+      "In class I asked if we can innovate the question together.",
+      "I need to innovate where I left my charger.",
+      "If I lose my jumper I have to innovate the last place I had it."
     ]
   },
   "input": {
+    "simple": "It means what is put in or contributed.",
     "examples": [
-      "Your input improved the project.",
-      "That is a good example of input."
+      "On the playground I used the input in a real sentence.",
+      "Start with the input, then the details.",
+      "I told Mum the input from class actually happened at home."
     ]
   },
   "insert": {
+    "simple": "It means to put something into something else.",
     "examples": [
-      "Insert the key and turn it.",
-      "We should insert the facts before arguing."
+      "Don't shout — let's insert what happened first.",
+      "Let me insert this homework before I guess.",
+      "Help me insert this so I can do it myself tomorrow."
     ]
   },
   "insight": {
+    "simple": "It means deep understanding of something.",
     "examples": [
-      "The book offers insight into human nature.",
-      "That is a good example of insight."
+      "Start with the insight, then the details.",
+      "I told Mum the insight from class actually happened at home.",
+      "I explained the insight to my little brother at dinner."
     ]
   },
   "inspect": {
+    "simple": "It means to examine closely.",
     "examples": [
-      "Officials inspect food for safety.",
-      "He will inspect the topic in class tomorrow."
+      "Don't shout — let's inspect what happened first.",
+      "Let me inspect this homework before I guess.",
+      "Help me inspect this so I can do it myself tomorrow."
     ]
   },
   "instance": {
+    "simple": "Instance is an example or occurrence.",
     "examples": [
-      "This is an instance of excellent teamwork.",
-      "We discussed instance during dinner last night."
+      "What's the instance we should remember from today?",
+      "My friend asked about the instance and I didn't freeze.",
+      "I wrote the instance in my own words for homework."
     ]
   },
   "institute": {
+    "simple": "It means to establish or set up.",
     "examples": [
-      "The government instituted new regulations.",
-      "Let's institute this carefully before we decide."
+      "In class I asked if we can institute the question together.",
+      "I need to institute where I left my charger.",
+      "If I lose my jumper I have to institute the last place I had it."
     ]
   },
   "integrate": {
+    "simple": "It means to combine into a whole.",
     "examples": [
-      "Schools integrate technology into lessons.",
-      "We should integrate the facts before arguing."
+      "Help me integrate this so I can do it myself tomorrow.",
+      "After the match we should integrate what went wrong.",
+      "Before I send that message I should integrate if it sounds kind."
     ]
   },
   "intellect": {
+    "simple": "Intellect is the faculty of reasoning.",
     "examples": [
-      "Great intellect distinguishes brilliant minds.",
-      "That is a good example of intellect."
+      "That's a real intellect, not just a story from a book.",
+      "On the playground I used the intellect in a real sentence.",
+      "Start with the intellect, then the details."
     ]
   },
   "intense": {
+    "simple": "It means of extreme force or degree.",
     "examples": [
-      "The competition was intense.",
-      "That is a good example of intense."
+      "We stayed intense even when the game was hard.",
+      "Don't guess — be intense about what really happened.",
+      "I need to be intense when I explain this to Mum."
     ]
   },
   "interact": {
+    "simple": "It means to communicate or work together.",
     "examples": [
-      "Students interact during group projects.",
-      "She asked me to interact the situation calmly."
+      "Before I send that message I should interact if it sounds kind.",
+      "Can we interact this so everyone at dinner understands?",
+      "In class I asked if we can interact the question together."
     ]
   },
   "intermediate": {
+    "simple": "It means between two levels.",
     "examples": [
-      "This course is for intermediate learners.",
-      "We discussed intermediate during dinner last night."
+      "Before the test I need one clear intermediate I can say out loud.",
+      "That's a real intermediate, not just a story from a book.",
+      "On the playground I used the intermediate in a real sentence."
     ]
   },
   "internal": {
+    "simple": "It means situated within.",
     "examples": [
-      "Internal conflicts weakened the organization.",
-      "You sounded very internal when you spoke up."
+      "That was an internal way to finish the homework.",
+      "My teacher said that was internal work.",
+      "We stayed internal even when the game was hard."
     ]
   },
   "interval": {
+    "simple": "Interval is a period between events.",
     "examples": [
-      "Take breaks at regular intervals.",
-      "You sounded very interval when you spoke up."
+      "I wrote the interval in my own words for homework.",
+      "Before the test I need one clear interval I can say out loud.",
+      "That's a real interval, not just a story from a book."
     ]
   },
   "intervene": {
+    "simple": "It means to come between to alter a result.",
     "examples": [
-      "Teachers intervene in student conflicts.",
-      "I tried to intervene the mistake and fix it."
+      "I need to intervene where I left my charger.",
+      "If I lose my jumper I have to intervene the last place I had it.",
+      "Don't shout — let's intervene what happened first."
     ]
   },
   "intrinsic": {
+    "simple": "It means belonging naturally; essential.",
     "examples": [
-      "Curiosity is intrinsic to learning.",
-      "You sounded very intrinsic when you spoke up."
+      "I told Mum the intrinsic from class actually happened at home.",
+      "I explained the intrinsic to my little brother at dinner.",
+      "What's the intrinsic we should remember from today?"
     ]
   },
   "invest": {
+    "simple": "It means to put money into for profit.",
     "examples": [
-      "Invest in education for future returns.",
-      "Let's invest this carefully before we decide."
+      "Can we invest this so everyone at dinner understands?",
+      "In class I asked if we can invest the question together.",
+      "I need to invest where I left my charger."
     ]
   },
   "invoke": {
+    "simple": "It means to call upon for support.",
     "examples": [
-      "The lawyer invoked constitutional rights.",
-      "I want to invoke what happened and learn from it."
+      "In class I asked if we can invoke the question together.",
+      "I need to invoke where I left my charger.",
+      "If I lose my jumper I have to invoke the last place I had it."
     ]
   },
   "involve": {
+    "simple": "It means to include as a necessary part.",
     "examples": [
-      "Cooking involves patience and practice.",
-      "Let's involve this carefully before we decide."
+      "If I lose my jumper I have to involve the last place I had it.",
+      "Don't shout — let's involve what happened first.",
+      "Let me involve this homework before I guess."
     ]
   },
   "isolate": {
+    "simple": "It means to set apart from others.",
     "examples": [
-      "Scientists isolate variables in experiments.",
-      "Can we isolate the problem step by step?"
+      "If I lose my jumper I have to isolate the last place I had it.",
+      "Don't shout — let's isolate what happened first.",
+      "Let me isolate this homework before I guess."
     ]
   },
   "issue": {
+    "simple": "Issue is an important topic or problem.",
     "examples": [
-      "Climate change is a global issue.",
-      "We discussed issue during dinner last night."
+      "What's the issue we should remember from today?",
+      "My friend asked about the issue and I didn't freeze.",
+      "I wrote the issue in my own words for homework."
     ]
   },
   "item": {
+    "simple": "Item is an individual article or unit.",
     "examples": [
-      "Check each item on the shopping list.",
-      "We discussed item during dinner last night."
+      "On the playground I used the item in a real sentence.",
+      "Start with the item, then the details.",
+      "I told Mum the item from class actually happened at home."
     ]
   },
   "job": {
+    "simple": "Job is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "We discussed job during dinner last night."
+      "My friend asked about the job and I didn't freeze.",
+      "I wrote the job in my own words for homework.",
+      "Before the test I need one clear job I can say out loud."
     ]
   },
   "label": {
+    "simple": "Label is a name or description attached.",
     "examples": [
-      "Read the label before taking medicine.",
-      "That is a good example of label."
+      "On the playground I used the label in a real sentence.",
+      "Start with the label, then the details.",
+      "I told Mum the label from class actually happened at home."
     ]
   },
   "labor": {
+    "simple": "It means you work, especially hard physical work.",
     "examples": [
-      "Manual labor built the great pyramids.",
-      "I want to labor what happened and learn from it."
+      "Let me labor this homework before I guess.",
+      "Help me labor this so I can do it myself tomorrow.",
+      "After the match we should labor what went wrong."
     ]
   },
   "layer": {
+    "simple": "Layer is a sheet or thickness of material.",
     "examples": [
-      "The atmosphere has multiple layers.",
-      "We discussed layer during dinner last night."
+      "Start with the layer, then the details.",
+      "I told Mum the layer from class actually happened at home.",
+      "I explained the layer to my little brother at dinner."
     ]
   },
   "lecture": {
+    "simple": "Lecture is an educational talk.",
     "examples": [
-      "The professor gave a fascinating lecture.",
-      "That is a good example of lecture."
+      "What's the lecture we should remember from today?",
+      "My friend asked about the lecture and I didn't freeze.",
+      "I wrote the lecture in my own words for homework."
     ]
   },
   "legal": {
+    "simple": "It means permitted by law.",
     "examples": [
-      "Make sure your business is legal.",
-      "You sounded very legal when you spoke up."
+      "Start with the legal, then the details.",
+      "I told Mum the legal from class actually happened at home.",
+      "I explained the legal to my little brother at dinner."
     ]
   },
   "legislate": {
+    "simple": "It means to make or enact laws.",
     "examples": [
-      "Parliament legislates on important issues.",
-      "She asked me to legislate the situation calmly."
+      "Don't shout — let's legislate what happened first.",
+      "Let me legislate this homework before I guess.",
+      "Help me legislate this so I can do it myself tomorrow."
     ]
   },
   "levy": {
+    "simple": "It means to impose a tax or fine.",
     "examples": [
-      "The government levies taxes on income.",
-      "He will levy the topic in class tomorrow."
+      "Don't shout — let's levy what happened first.",
+      "Let me levy this homework before I guess.",
+      "Help me levy this so I can do it myself tomorrow."
     ]
   },
   "liberal": {
+    "simple": "It means open to new ideas.",
     "examples": [
-      "A liberal education includes arts and sciences.",
-      "You sounded very liberal when you spoke up."
+      "I told Mum the liberal from class actually happened at home.",
+      "I explained the liberal to my little brother at dinner.",
+      "What's the liberal we should remember from today?"
     ]
   },
   "license": {
+    "simple": "It means official permission to do something.",
     "examples": [
-      "You need a license to drive.",
-      "We discussed license during dinner last night."
+      "I explained the license to my little brother at dinner.",
+      "What's the license we should remember from today?",
+      "My friend asked about the license and I didn't freeze."
     ]
   },
   "likewise": {
+    "simple": "It means in the same way; also.",
     "examples": [
       "She excels in math. Likewise, her brother does too.",
-      "We discussed likewise during dinner last night."
+      "Likewise we finished the match, then we walked home.",
+      "At dinner I said likewise so I could add what happened at school."
     ]
   },
   "link": {
+    "simple": "Link is a connection between things.",
     "examples": [
-      "Scientists found a link between diet and health.",
-      "That is a good example of link."
+      "Start with the link, then the details.",
+      "I told Mum the link from class actually happened at home.",
+      "I explained the link to my little brother at dinner."
     ]
   },
   "locate": {
+    "simple": "It means to find the position of.",
     "examples": [
-      "GPS helps locate your exact position.",
-      "I tried to locate the mistake and fix it."
+      "Help me locate this so I can do it myself tomorrow.",
+      "After the match we should locate what went wrong.",
+      "Before I send that message I should locate if it sounds kind."
     ]
   },
   "logic": {
+    "simple": "It means reasoning conducted according to principles.",
     "examples": [
-      "Use logic to solve the puzzle.",
-      "It was a logic moment I will not forget."
+      "What's the logic we should remember from today?",
+      "My friend asked about the logic and I didn't freeze.",
+      "I wrote the logic in my own words for homework."
     ]
   },
   "maintain": {
+    "simple": "It means to keep in good condition.",
     "examples": [
-      "Maintain your health through exercise.",
-      "Can we maintain the problem step by step?"
+      "If I lose my jumper I have to maintain the last place I had it.",
+      "Don't shout — let's maintain what happened first.",
+      "Let me maintain this homework before I guess."
     ]
   },
   "major": {
+    "simple": "It means important or serious.",
     "examples": [
-      "Climate change is a major global challenge.",
-      "We discussed major during dinner last night."
+      "My friend asked about the major and I didn't freeze.",
+      "I wrote the major in my own words for homework.",
+      "Before the test I need one clear major I can say out loud."
     ]
   },
   "manifest": {
+    "simple": "It means to display or show clearly.",
     "examples": [
-      "Symptoms manifest within a few days.",
-      "They need to manifest the results properly."
+      "In class I asked if we can manifest the question together.",
+      "I need to manifest where I left my charger.",
+      "If I lose my jumper I have to manifest the last place I had it."
     ]
   },
   "manipulate": {
+    "simple": "It means to control cleverly.",
     "examples": [
-      "Advertisers manipulate consumer emotions.",
-      "I tried to manipulate the mistake and fix it."
+      "Before I send that message I should manipulate if it sounds kind.",
+      "Can we manipulate this so everyone at dinner understands?",
+      "In class I asked if we can manipulate the question together."
     ]
   },
   "manual": {
+    "simple": "It means done by hand; a handbook.",
     "examples": [
-      "Read the manual before operating the machine.",
-      "It was a manual moment I will not forget."
+      "I need to be manual when I explain this to Mum.",
+      "You were manual in that group chat with us.",
+      "Stay manual when the question feels tricky."
     ]
   },
   "margin": {
+    "simple": "Margin is the edge or border; profit.",
     "examples": [
-      "Write notes in the margin of the book.",
-      "That is a good example of margin."
+      "I explained the margin to my little brother at dinner.",
+      "What's the margin we should remember from today?",
+      "My friend asked about the margin and I didn't freeze."
     ]
   },
   "mature": {
+    "simple": "It means fully developed physically or mentally.",
     "examples": [
-      "Mature students take responsibility seriously.",
-      "That is a good example of mature."
+      "My friend asked about the mature and I didn't freeze.",
+      "I wrote the mature in my own words for homework.",
+      "Before the test I need one clear mature I can say out loud."
     ]
   },
   "maximum": {
+    "simple": "Maximum is the greatest possible amount.",
     "examples": [
-      "The maximum speed limit is sixty mph.",
-      "That is a good example of maximum."
+      "I wrote the maximum in my own words for homework.",
+      "Before the test I need one clear maximum I can say out loud.",
+      "That's a real maximum, not just a story from a book."
     ]
   },
   "mechanism": {
+    "simple": "Mechanism is a system or process.",
     "examples": [
-      "The immune system has defense mechanisms.",
-      "We discussed mechanism during dinner last night."
+      "On the playground I used the mechanism in a real sentence.",
+      "Start with the mechanism, then the details.",
+      "I told Mum the mechanism from class actually happened at home."
     ]
   },
   "media": {
+    "simple": "It means means of mass communication.",
     "examples": [
-      "Social media influences public opinion.",
-      "That is a good example of media."
+      "On the playground I used the media in a real sentence.",
+      "Start with the media, then the details.",
+      "I told Mum the media from class actually happened at home."
     ]
   },
   "mediate": {
+    "simple": "It means to intervene to resolve a dispute.",
     "examples": [
-      "A counselor mediates between conflicting parties.",
-      "Let's mediate this carefully before we decide."
+      "In class I asked if we can mediate the question together.",
+      "I need to mediate where I left my charger.",
+      "If I lose my jumper I have to mediate the last place I had it."
     ]
   },
   "medical": {
+    "simple": "It means it is about medicine.",
     "examples": [
-      "Seek medical attention for serious injuries.",
-      "You sounded very medical when you spoke up."
+      "I kept my medical notes so I can revise tonight.",
+      "I used a medical idea in class today.",
+      "At school I gave a medical example from real life."
     ]
   },
   "medium": {
+    "simple": "Medium is a means of communication.",
     "examples": [
-      "Television is a powerful medium.",
-      "We discussed medium during dinner last night."
+      "I explained the medium to my little brother at dinner.",
+      "What's the medium we should remember from today?",
+      "My friend asked about the medium and I didn't freeze."
     ]
   },
   "method": {
+    "simple": "Method is a particular way of doing something.",
     "examples": [
-      "The scientific method ensures reliable results.",
-      "We discussed method during dinner last night."
+      "On the playground I used the method in a real sentence.",
+      "Start with the method, then the details.",
+      "I told Mum the method from class actually happened at home."
     ]
   },
   "migrate": {
+    "simple": "It means to move from one region to another.",
     "examples": [
-      "Workers migrate to cities for jobs.",
-      "Can we migrate the problem step by step?"
+      "Can we migrate this so everyone at dinner understands?",
+      "In class I asked if we can migrate the question together.",
+      "I need to migrate where I left my charger."
     ]
   },
   "military": {
+    "simple": "It means it is about armed forces.",
     "examples": [
-      "Military service is mandatory in some countries.",
-      "We discussed military during dinner last night."
+      "I used a military idea in class today.",
+      "At school I gave a military example from real life.",
+      "We talked about military stuff after the match."
     ]
   },
   "minimal": {
+    "simple": "It means of minimum amount or degree.",
     "examples": [
-      "Make minimal changes to the original text.",
-      "You sounded very minimal when you spoke up."
+      "That was a minimal way to finish the homework.",
+      "My teacher said that was minimal work.",
+      "We stayed minimal even when the game was hard."
     ]
   },
   "minimum": {
+    "simple": "Minimum is the least possible amount.",
     "examples": [
-      "The minimum age for voting is eighteen.",
-      "That is a good example of minimum."
+      "I told Mum the minimum from class actually happened at home.",
+      "I explained the minimum to my little brother at dinner.",
+      "What's the minimum we should remember from today?"
     ]
   },
   "minor": {
+    "simple": "It means lesser in importance.",
     "examples": [
-      "It's a minor issue, not worth worrying about.",
-      "We discussed minor during dinner last night."
+      "My friend asked about the minor and I didn't freeze.",
+      "I wrote the minor in my own words for homework.",
+      "Before the test I need one clear minor I can say out loud."
     ]
   },
   "mode": {
+    "simple": "Mode is a way or manner of doing something.",
     "examples": [
       "Switch to silent mode during class.",
-      "We discussed mode during dinner last night."
+      "What's the mode we should remember from today?",
+      "My friend asked about the mode and I didn't freeze."
     ]
   },
   "modify": {
+    "simple": "It means to make partial changes to.",
     "examples": [
-      "Modify your diet for better health.",
-      "I tried to modify the mistake and fix it."
+      "Before I send that message I should modify if it sounds kind.",
+      "Can we modify this so everyone at dinner understands?",
+      "In class I asked if we can modify the question together."
     ]
   },
   "monitor": {
+    "simple": "It means to observe and check progress.",
     "examples": [
-      "Doctors monitor patients' vital signs.",
-      "I tried to monitor the mistake and fix it."
+      "Let me monitor this homework before I guess.",
+      "Help me monitor this so I can do it myself tomorrow.",
+      "After the match we should monitor what went wrong."
     ]
   },
   "motive": {
+    "simple": "Motive is a reason for doing something.",
     "examples": [
-      "Police investigate the motive for the crime.",
-      "It was a motive moment I will not forget."
+      "That's a real motive, not just a story from a book.",
+      "On the playground I used the motive in a real sentence.",
+      "Start with the motive, then the details."
     ]
   },
   "mutual": {
+    "simple": "It means experienced by two parties toward each other.",
     "examples": [
-      "Respect should be mutual in relationships.",
-      "It was a mutual moment I will not forget."
+      "You were mutual in that group chat with us.",
+      "Stay mutual when the question feels tricky.",
+      "A mutual start is better than rushing dinner homework."
     ]
   },
   "negate": {
+    "simple": "It means to nullify or make ineffective.",
     "examples": [
-      "One error can negate hours of work.",
-      "I tried to negate the mistake and fix it."
+      "After the match we should negate what went wrong.",
+      "Before I send that message I should negate if it sounds kind.",
+      "Can we negate this so everyone at dinner understands?"
     ]
   },
   "negative": {
+    "simple": "It means you expressing denial or refusal.",
     "examples": [
-      "Try to avoid negative self-talk.",
-      "You sounded very negative when you spoke up."
+      "If I lose my jumper I have to negative the last place I had it.",
+      "Don't shout — let's negative what happened first.",
+      "Let me negative this homework before I guess."
     ]
   },
   "neutral": {
+    "simple": "It means not supporting either side.",
     "examples": [
-      "Switzerland remained neutral during the war.",
-      "You sounded very neutral when you spoke up."
+      "I wrote the neutral in my own words for homework.",
+      "Before the test I need one clear neutral I can say out loud.",
+      "That's a real neutral, not just a story from a book."
     ]
   },
   "nevertheless": {
+    "simple": "It means in spite of that.",
     "examples": [
       "It was raining. Nevertheless, we went hiking.",
-      "That is a good example of nevertheless."
+      "My teacher liked that I said nevertheless instead of just and.",
+      "Nevertheless we finished the match, then we walked home."
     ]
   },
   "norm": {
+    "simple": "Norm is a standard or pattern.",
     "examples": [
-      "Working late has become the norm.",
-      "That is a good example of norm."
+      "That's a real norm, not just a story from a book.",
+      "On the playground I used the norm in a real sentence.",
+      "Start with the norm, then the details."
     ]
   },
   "normal": {
+    "simple": "It means conforming to a standard.",
     "examples": [
-      "It is normal to feel nervous before exams.",
-      "You sounded very normal when you spoke up."
+      "Start with the normal, then the details.",
+      "I told Mum the normal from class actually happened at home.",
+      "I explained the normal to my little brother at dinner."
     ]
   },
   "notion": {
+    "simple": "Notion is a conception or belief.",
     "examples": [
-      "The notion of equality is fundamental.",
-      "We discussed notion during dinner last night."
+      "I told Mum the notion from class actually happened at home.",
+      "I explained the notion to my little brother at dinner.",
+      "What's the notion we should remember from today?"
     ]
   },
   "notwithstanding": {
+    "simple": "It means in spite of.",
     "examples": [
-      "Notwithstanding the rain, the event was successful.",
-      "We discussed notwithstanding during dinner last night."
+      "Notwithstanding we finished the match, then we walked home.",
+      "At dinner I said notwithstanding so I could add what happened at school.",
+      "I used notwithstanding when I added one more idea in class."
     ]
   },
   "objective": {
+    "simple": "It means not influenced by personal feelings.",
     "examples": [
-      "Scientists strive for objective analysis.",
-      "You sounded very objective when you spoke up."
+      "We stayed objective even when the game was hard.",
+      "Don't guess — be objective about what really happened.",
+      "I need to be objective when I explain this to Mum."
     ]
   },
   "oblige": {
+    "simple": "It means to require or compel.",
     "examples": [
-      "The law obliges citizens to pay taxes.",
-      "She asked me to oblige the situation calmly."
+      "Help me oblige this so I can do it myself tomorrow.",
+      "After the match we should oblige what went wrong.",
+      "Before I send that message I should oblige if it sounds kind."
     ]
   },
   "obtain": {
+    "simple": "It means to get or acquire.",
     "examples": [
-      "Students obtain knowledge through study.",
-      "Let's obtain this carefully before we decide."
+      "After the match we should obtain what went wrong.",
+      "Before I send that message I should obtain if it sounds kind.",
+      "Can we obtain this so everyone at dinner understands?"
     ]
   },
   "obvious": {
+    "simple": "It means easily perceived or understood.",
     "examples": [
-      "The answer was obvious to everyone.",
-      "You sounded very obvious when you spoke up."
+      "My teacher said that was obvious work.",
+      "We stayed obvious even when the game was hard.",
+      "Don't guess — be obvious about what really happened."
     ]
   },
   "occupy": {
+    "simple": "It means to fill or take up space or time.",
     "examples": [
-      "Reading occupies most of my free time.",
-      "They need to occupy the results properly."
+      "Help me occupy this so I can do it myself tomorrow.",
+      "After the match we should occupy what went wrong.",
+      "Before I send that message I should occupy if it sounds kind."
     ]
   },
   "occur": {
+    "simple": "It means to happen or take place.",
     "examples": [
-      "Earthquakes occur along fault lines.",
-      "He will occur the topic in class tomorrow."
+      "Let me occur this homework before I guess.",
+      "Help me occur this so I can do it myself tomorrow.",
+      "After the match we should occur what went wrong."
     ]
   },
   "odd": {
+    "simple": "It means strange or unusual.",
     "examples": [
-      "It is odd that he did not call.",
-      "We discussed odd during dinner last night."
+      "On the playground I used the odd in a real sentence.",
+      "Start with the odd, then the details.",
+      "I told Mum the odd from class actually happened at home."
     ]
   },
   "offset": {
+    "simple": "It means to counterbalance.",
     "examples": [
-      "Plant trees to offset carbon emissions.",
-      "Can we offset the problem step by step?"
+      "Can we offset this so everyone at dinner understands?",
+      "In class I asked if we can offset the question together.",
+      "I need to offset where I left my charger."
     ]
   },
   "ongoing": {
+    "simple": "It means still in progress.",
     "examples": [
-      "The investigation is ongoing.",
-      "We discussed ongoing during dinner last night."
+      "Before the test I need one clear ongoing I can say out loud.",
+      "That's a real ongoing, not just a story from a book.",
+      "On the playground I used the ongoing in a real sentence."
     ]
   },
   "option": {
+    "simple": "Option is a thing that may be chosen.",
     "examples": [
-      "You have the option to retake the exam.",
-      "We discussed option during dinner last night."
+      "I wrote the option in my own words for homework.",
+      "Before the test I need one clear option I can say out loud.",
+      "That's a real option, not just a story from a book."
     ]
   },
   "orient": {
+    "simple": "It means to align or familiarize.",
     "examples": [
-      "Orient yourself to the campus on the first day.",
-      "Let's orient this carefully before we decide."
+      "Let me orient this homework before I guess.",
+      "Help me orient this so I can do it myself tomorrow.",
+      "After the match we should orient what went wrong."
     ]
   },
   "origin": {
+    "simple": "Origin is the point where something begins.",
     "examples": [
-      "The origin of the universe is debated.",
-      "That is a good example of origin."
+      "My friend asked about the origin and I didn't freeze.",
+      "I wrote the origin in my own words for homework.",
+      "Before the test I need one clear origin I can say out loud."
     ]
   },
   "outcome": {
+    "simple": "Outcome is the result of a process.",
     "examples": [
-      "Hard work leads to positive outcomes.",
-      "That is a good example of outcome."
+      "My friend asked about the outcome and I didn't freeze.",
+      "I wrote the outcome in my own words for homework.",
+      "Before the test I need one clear outcome I can say out loud."
     ]
   },
   "output": {
+    "simple": "Output is the amount produced.",
     "examples": [
-      "Factory output increased this quarter.",
-      "We discussed output during dinner last night."
+      "I wrote the output in my own words for homework.",
+      "Before the test I need one clear output I can say out loud.",
+      "That's a real output, not just a story from a book."
     ]
   },
   "overall": {
+    "simple": "It means taking everything into account.",
     "examples": [
-      "Overall, the project was a success.",
-      "We discussed overall during dinner last night."
+      "On the playground I used the overall in a real sentence.",
+      "Start with the overall, then the details.",
+      "I told Mum the overall from class actually happened at home."
     ]
   },
   "overlap": {
+    "simple": "It means to extend over and cover partly.",
     "examples": [
       "Our interests overlap in many areas.",
-      "They need to overlap the results properly."
+      "Let me overlap this homework before I guess.",
+      "Help me overlap this so I can do it myself tomorrow."
     ]
   },
   "overseas": {
+    "simple": "It means in or to a foreign country.",
     "examples": [
-      "She studied overseas for two years.",
-      "That is a good example of overseas."
+      "Before the test I need one clear overseas I can say out loud.",
+      "That's a real overseas, not just a story from a book.",
+      "On the playground I used the overseas in a real sentence."
     ]
   },
   "parallel": {
+    "simple": "It means side by side and equidistant.",
     "examples": [
-      "Draw parallel lines with a ruler.",
-      "We discussed parallel during dinner last night."
+      "I wrote the parallel in my own words for homework.",
+      "Before the test I need one clear parallel I can say out loud.",
+      "That's a real parallel, not just a story from a book."
     ]
   },
   "parameter": {
+    "simple": "Parameter is a limit or boundary.",
     "examples": [
-      "Set clear parameters for the project.",
-      "We discussed parameter during dinner last night."
+      "I wrote the parameter in my own words for homework.",
+      "Before the test I need one clear parameter I can say out loud.",
+      "That's a real parameter, not just a story from a book."
     ]
   },
   "participate": {
+    "simple": "It means to take part in an activity.",
     "examples": [
-      "All students must participate in sports.",
-      "She asked me to participate the situation calmly."
+      "If I lose my jumper I have to participate the last place I had it.",
+      "Don't shout — let's participate what happened first.",
+      "Let me participate this homework before I guess."
     ]
   },
   "particular": {
+    "simple": "It means specific; special.",
     "examples": [
-      "Pay particular attention to grammar.",
-      "We discussed particular during dinner last night."
+      "My friend asked about the particular and I didn't freeze.",
+      "I wrote the particular in my own words for homework.",
+      "Before the test I need one clear particular I can say out loud."
     ]
   },
   "passive": {
+    "simple": "It means you accepting without active response.",
     "examples": [
-      "Passive learning is less effective.",
-      "You sounded very passive when you spoke up."
+      "If I lose my jumper I have to passive the last place I had it.",
+      "Don't shout — let's passive what happened first.",
+      "Let me passive this homework before I guess."
     ]
   },
   "peak": {
+    "simple": "Peak is the highest point.",
     "examples": [
-      "Tourism reaches its peak in summer.",
-      "We discussed peak during dinner last night."
+      "I told Mum the peak from class actually happened at home.",
+      "I explained the peak to my little brother at dinner.",
+      "What's the peak we should remember from today?"
     ]
   },
   "perceive": {
+    "simple": "It means to become aware of through senses.",
     "examples": [
       "We perceive colors through our eyes.",
-      "We should perceive the facts before arguing."
+      "In class I asked if we can perceive the question together.",
+      "I need to perceive where I left my charger."
     ]
   },
   "percent": {
+    "simple": "It means one part in every hundred.",
     "examples": [
-      "Fifty percent of students passed.",
-      "You sounded very percent when you spoke up."
+      "Before the test I need one clear percent I can say out loud.",
+      "That's a real percent, not just a story from a book.",
+      "On the playground I used the percent in a real sentence."
     ]
   },
   "period": {
+    "simple": "Period is a length of time.",
     "examples": [
-      "The Victorian period was era of change.",
-      "We discussed period during dinner last night."
+      "Before the test I need one clear period I can say out loud.",
+      "That's a real period, not just a story from a book.",
+      "On the playground I used the period in a real sentence."
     ]
   },
   "persist": {
+    "simple": "It means to continue firmly despite difficulty.",
     "examples": [
-      "If symptoms persist, see a doctor.",
-      "He will persist the topic in class tomorrow."
+      "If I lose my jumper I have to persist the last place I had it.",
+      "Don't shout — let's persist what happened first.",
+      "Let me persist this homework before I guess."
     ]
   },
   "perspective": {
+    "simple": "Perspective is a particular way of viewing things.",
     "examples": [
-      "Travel broadens your perspective.",
-      "It was a perspective moment I will not forget."
+      "That's a real perspective, not just a story from a book.",
+      "On the playground I used the perspective in a real sentence.",
+      "Start with the perspective, then the details."
     ]
   },
   "phase": {
+    "simple": "Phase is a distinct period in development.",
     "examples": [
-      "The project is in its final phase.",
-      "We discussed phase during dinner last night."
+      "What's the phase we should remember from today?",
+      "My friend asked about the phase and I didn't freeze.",
+      "I wrote the phase in my own words for homework."
     ]
   },
   "philosophy": {
+    "simple": "Philosophy is the study of fundamental questions.",
     "examples": [
-      "Philosophy explores the meaning of life.",
-      "We discussed philosophy during dinner last night."
+      "I wrote the philosophy in my own words for homework.",
+      "Before the test I need one clear philosophy I can say out loud.",
+      "That's a real philosophy, not just a story from a book."
     ]
   },
   "physical": {
+    "simple": "It means it is about the body.",
     "examples": [
-      "Physical exercise strengthens muscles.",
-      "You sounded very physical when you spoke up."
+      "This physical word showed up in my game chat.",
+      "I told my friend a physical story from school.",
+      "My physical homework actually helped at home."
     ]
   },
   "pioneer": {
+    "simple": "Pioneer is a person who develops new ideas.",
     "examples": [
-      "Marie Curie was a pioneer in radioactivity.",
-      "That is a good example of pioneer."
+      "I explained the pioneer to my little brother at dinner.",
+      "What's the pioneer we should remember from today?",
+      "My friend asked about the pioneer and I didn't freeze."
     ]
   },
   "portion": {
+    "simple": "Portion is a part of a whole.",
     "examples": [
-      "Eat a healthy portion of vegetables.",
-      "We discussed portion during dinner last night."
+      "That's a real portion, not just a story from a book.",
+      "On the playground I used the portion in a real sentence.",
+      "Start with the portion, then the details."
     ]
   },
   "pose": {
+    "simple": "It means to present or constitute.",
     "examples": [
-      "Pollution poses a threat to health.",
-      "We should pose the facts before arguing."
+      "After the match we should pose what went wrong.",
+      "Before I send that message I should pose if it sounds kind.",
+      "Can we pose this so everyone at dinner understands?"
     ]
   },
   "positive": {
+    "simple": "It means constructive or optimistic.",
     "examples": [
-      "Maintain a positive attitude toward learning.",
-      "You sounded very positive when you spoke up."
+      "We stayed positive even when the game was hard.",
+      "Don't guess — be positive about what really happened.",
+      "I need to be positive when I explain this to Mum."
     ]
   },
   "potential": {
+    "simple": "It means having possibility; capability.",
     "examples": [
-      "She has the potential to become a leader.",
-      "It was a potential moment I will not forget."
+      "A potential start is better than rushing dinner homework.",
+      "Today I felt potential when I finally understood.",
+      "That was a potential way to finish the homework."
     ]
   },
   "practitioner": {
+    "simple": "Practitioner is a person actively engaged in a profession.",
     "examples": [
-      "Medical practitioners save lives daily.",
-      "That is a good example of practitioner."
+      "I told Mum the practitioner from class actually happened at home.",
+      "I explained the practitioner to my little brother at dinner.",
+      "What's the practitioner we should remember from today?"
     ]
   },
   "precede": {
+    "simple": "It means to come before in time.",
     "examples": [
-      "Breakfast precedes the morning classes.",
-      "She asked me to precede the situation calmly."
+      "Let me precede this homework before I guess.",
+      "Help me precede this so I can do it myself tomorrow.",
+      "After the match we should precede what went wrong."
     ]
   },
   "precise": {
+    "simple": "It means exact and accurate.",
     "examples": [
-      "Use precise measurements in experiments.",
-      "We discussed precise during dinner last night."
+      "Before the test I need one clear precise I can say out loud.",
+      "That's a real precise, not just a story from a book.",
+      "On the playground I used the precise in a real sentence."
     ]
   },
   "predict": {
+    "simple": "It means to say what will happen.",
     "examples": [
-      "Meteorologists predict weather patterns.",
-      "We should predict the facts before arguing."
+      "Don't shout — let's predict what happened first.",
+      "Let me predict this homework before I guess.",
+      "Help me predict this so I can do it myself tomorrow."
     ]
   },
   "predominant": {
+    "simple": "It means having superiority in power or influence.",
     "examples": [
-      "English is the predominant language online.",
-      "You sounded very predominant when you spoke up."
+      "Don't guess — be predominant about what really happened.",
+      "I need to be predominant when I explain this to Mum.",
+      "You were predominant in that group chat with us."
     ]
   },
   "preliminary": {
+    "simple": "It means preparing for the main event.",
     "examples": [
-      "Preliminary results look promising.",
-      "That is a good example of preliminary."
+      "Don't guess — be preliminary about what really happened.",
+      "I need to be preliminary when I explain this to Mum.",
+      "You were preliminary in that group chat with us."
     ]
   },
   "presume": {
+    "simple": "It means to suppose to be true without proof.",
     "examples": [
       "I presume you have read the chapter.",
-      "Let's presume this carefully before we decide."
+      "Can we presume this so everyone at dinner understands?",
+      "In class I asked if we can presume the question together."
     ]
   },
   "previous": {
+    "simple": "It means existing before in time.",
     "examples": [
-      "Review your previous mistakes to improve.",
-      "You sounded very previous when you spoke up."
+      "A previous start is better than rushing dinner homework.",
+      "Today I felt previous when I finally understood.",
+      "That was a previous way to finish the homework."
     ]
   },
   "primary": {
+    "simple": "It means of chief importance; first in order.",
     "examples": [
-      "The primary goal is student success.",
-      "That is a good example of primary."
+      "I need to be primary when I explain this to Mum.",
+      "You were primary in that group chat with us.",
+      "Stay primary when the question feels tricky."
     ]
   },
   "prime": {
+    "simple": "It means of the best possible quality.",
     "examples": [
-      "This is a prime example of good writing.",
-      "We discussed prime during dinner last night."
+      "You were prime in that group chat with us.",
+      "Stay prime when the question feels tricky.",
+      "A prime start is better than rushing dinner homework."
     ]
   },
   "principal": {
+    "simple": "It means first in order of importance.",
     "examples": [
-      "The principal reason for failure was lack of preparation.",
-      "It was a principal moment I will not forget."
+      "Before the test I need one clear principal I can say out loud.",
+      "That's a real principal, not just a story from a book.",
+      "On the playground I used the principal in a real sentence."
     ]
   },
   "principle": {
+    "simple": "Principle is a fundamental truth or proposition.",
     "examples": [
-      "Honesty is a basic moral principle.",
-      "That is a good example of principle."
+      "On the playground I used the principle in a real sentence.",
+      "Start with the principle, then the details.",
+      "I told Mum the principle from class actually happened at home."
     ]
   },
   "prior": {
+    "simple": "It means existing before in time.",
     "examples": [
-      "Prior experience is not required.",
-      "That is a good example of prior."
+      "We stayed prior even when the game was hard.",
+      "Don't guess — be prior about what really happened.",
+      "I need to be prior when I explain this to Mum."
     ]
   },
   "priority": {
+    "simple": "It means something regarded as more important.",
     "examples": [
-      "Education should be a top priority.",
-      "That is a good example of priority."
+      "Start with the priority, then the details.",
+      "I told Mum the priority from class actually happened at home.",
+      "I explained the priority to my little brother at dinner."
     ]
   },
   "proceed": {
+    "simple": "It means to continue or move forward.",
     "examples": [
-      "Proceed to the next chapter.",
-      "She asked me to proceed the situation calmly."
+      "In class I asked if we can proceed the question together.",
+      "I need to proceed where I left my charger.",
+      "If I lose my jumper I have to proceed the last place I had it."
     ]
   },
   "process": {
+    "simple": "Process is a series of actions toward a result.",
     "examples": [
-      "Learning is a lifelong process.",
-      "We discussed process during dinner last night."
+      "My friend asked about the process and I didn't freeze.",
+      "I wrote the process in my own words for homework.",
+      "Before the test I need one clear process I can say out loud."
     ]
   },
   "professional": {
+    "simple": "It means it is about a profession.",
     "examples": [
-      "Seek professional advice for legal matters.",
-      "You sounded very professional when you spoke up."
+      "I told my friend a professional story from school.",
+      "My professional homework actually helped at home.",
+      "Mum asked a professional question at dinner."
     ]
   },
   "profound": {
+    "simple": "It means very great or intense.",
     "examples": [
-      "The book had a profound impact on me.",
-      "We discussed profound during dinner last night."
+      "What's the profound we should remember from today?",
+      "My friend asked about the profound and I didn't freeze.",
+      "I wrote the profound in my own words for homework."
     ]
   },
   "prohibit": {
+    "simple": "It means to formally forbid.",
     "examples": [
       "Schools prohibit use of mobile phones in class.",
-      "They need to prohibit the results properly."
+      "After the match we should prohibit what went wrong.",
+      "Before I send that message I should prohibit if it sounds kind."
     ]
   },
   "project": {
+    "simple": "Project is a planned undertaking.",
     "examples": [
-      "The science project won first prize.",
-      "We discussed project during dinner last night."
+      "Start with the project, then the details.",
+      "I told Mum the project from class actually happened at home.",
+      "I explained the project to my little brother at dinner."
     ]
   },
   "promote": {
+    "simple": "It means to support or encourage.",
     "examples": [
-      "Schools promote reading through libraries.",
-      "I want to promote what happened and learn from it."
+      "Don't shout — let's promote what happened first.",
+      "Let me promote this homework before I guess.",
+      "Help me promote this so I can do it myself tomorrow."
     ]
   },
   "proportion": {
+    "simple": "Proportion is a part considered in relation to the whole.",
     "examples": [
-      "A large proportion of students passed.",
-      "That is a good example of proportion."
+      "My friend asked about the proportion and I didn't freeze.",
+      "I wrote the proportion in my own words for homework.",
+      "Before the test I need one clear proportion I can say out loud."
     ]
   },
   "prospect": {
+    "simple": "Prospect is the possibility of future success.",
     "examples": [
-      "Young graduates face bright prospects.",
-      "That is a good example of prospect."
+      "Start with the prospect, then the details.",
+      "I told Mum the prospect from class actually happened at home.",
+      "I explained the prospect to my little brother at dinner."
     ]
   },
   "protocol": {
+    "simple": "It means official procedure or system of rules.",
     "examples": [
-      "Follow safety protocol in the laboratory.",
-      "That is a good example of protocol."
+      "My friend asked about the protocol and I didn't freeze.",
+      "I wrote the protocol in my own words for homework.",
+      "Before the test I need one clear protocol I can say out loud."
     ]
   },
   "psychology": {
+    "simple": "Psychology is the study of mind and behavior.",
     "examples": [
-      "Psychology helps us understand human behavior.",
-      "We discussed psychology during dinner last night."
+      "I explained the psychology to my little brother at dinner.",
+      "What's the psychology we should remember from today?",
+      "My friend asked about the psychology and I didn't freeze."
     ]
   },
   "publication": {
+    "simple": "Publication is the preparation and issuing of a book.",
     "examples": [
-      "The publication date is next month.",
-      "That is a good example of publication."
+      "I explained the publication to my little brother at dinner.",
+      "What's the publication we should remember from today?",
+      "My friend asked about the publication and I didn't freeze."
     ]
   },
   "publish": {
+    "simple": "It means to prepare and issue for public sale.",
     "examples": [
-      "Authors publish books through publishers.",
-      "They need to publish the results properly."
+      "After the match we should publish what went wrong.",
+      "Before I send that message I should publish if it sounds kind.",
+      "Can we publish this so everyone at dinner understands?"
     ]
   },
   "purchase": {
+    "simple": "It means to acquire by paying for.",
     "examples": [
-      "Purchase tickets online in advance.",
-      "We should purchase the facts before arguing."
+      "Let me purchase this homework before I guess.",
+      "Help me purchase this so I can do it myself tomorrow.",
+      "After the match we should purchase what went wrong."
     ]
   },
   "pursue": {
+    "simple": "It means to follow in order to catch or achieve.",
     "examples": [
-      "Pursue your dreams with determination.",
-      "She asked me to pursue the situation calmly."
+      "Don't shout — let's pursue what happened first.",
+      "Let me pursue this homework before I guess.",
+      "Help me pursue this so I can do it myself tomorrow."
     ]
   },
   "qualify": {
+    "simple": "It means to meet the necessary standard.",
     "examples": [
-      "You must qualify for the scholarship.",
-      "Let's qualify this carefully before we decide."
+      "Don't shout — let's qualify what happened first.",
+      "Let me qualify this homework before I guess.",
+      "Help me qualify this so I can do it myself tomorrow."
     ]
   },
   "quality": {
+    "simple": "Quality is the standard of something.",
     "examples": [
-      "Quality education transforms lives.",
-      "We discussed quality during dinner last night."
+      "My friend asked about the quality and I didn't freeze.",
+      "I wrote the quality in my own words for homework.",
+      "Before the test I need one clear quality I can say out loud."
     ]
   },
   "quarter": {
+    "simple": "It means one of four equal parts.",
     "examples": [
-      "Sales rose in the first quarter.",
-      "That is a good example of quarter."
+      "Start with the quarter, then the details.",
+      "I told Mum the quarter from class actually happened at home.",
+      "I explained the quarter to my little brother at dinner."
     ]
   },
   "radical": {
+    "simple": "It means it is about fundamental change.",
     "examples": [
-      "The reform brought radical changes.",
-      "It was a radical moment I will not forget."
+      "I kept my radical notes so I can revise tonight.",
+      "I used a radical idea in class today.",
+      "At school I gave a radical example from real life."
     ]
   },
   "random": {
+    "simple": "It means made without method; chance.",
     "examples": [
-      "Questions are selected at random.",
-      "We discussed random during dinner last night."
+      "I wrote the random in my own words for homework.",
+      "Before the test I need one clear random I can say out loud.",
+      "That's a real random, not just a story from a book."
     ]
   },
   "range": {
+    "simple": "Range is the area of variation.",
     "examples": [
-      "The price range is fifty to one hundred dollars.",
-      "We discussed range during dinner last night."
+      "I told Mum the range from class actually happened at home.",
+      "I explained the range to my little brother at dinner.",
+      "What's the range we should remember from today?"
     ]
   },
   "ratio": {
+    "simple": "Ratio is the relationship between two amounts.",
     "examples": [
       "The student-teacher ratio is twenty to one.",
-      "We discussed ratio during dinner last night."
+      "My friend asked about the ratio and I didn't freeze.",
+      "I wrote the ratio in my own words for homework."
     ]
   },
   "react": {
+    "simple": "It means to respond to something.",
     "examples": [
-      "How did she react to the news?",
-      "They need to react the results properly."
+      "Can we react this so everyone at dinner understands?",
+      "In class I asked if we can react the question together.",
+      "I need to react where I left my charger."
     ]
   },
   "recover": {
+    "simple": "It means to return to normal health.",
     "examples": [
-      "Patients recover faster with good care.",
-      "He will recover the topic in class tomorrow."
+      "Can we recover this so everyone at dinner understands?",
+      "In class I asked if we can recover the question together.",
+      "I need to recover where I left my charger."
     ]
   },
   "refine": {
+    "simple": "It means to improve by making small changes.",
     "examples": [
-      "Refine your essay through revision.",
-      "Let's refine this carefully before we decide."
+      "Before I send that message I should refine if it sounds kind.",
+      "Can we refine this so everyone at dinner understands?",
+      "In class I asked if we can refine the question together."
     ]
   },
   "reflect": {
+    "simple": "It means to think deeply; to throw back light.",
     "examples": [
-      "Take time to reflect on your goals.",
-      "Let's reflect this carefully before we decide."
+      "I need to reflect where I left my charger.",
+      "If I lose my jumper I have to reflect the last place I had it.",
+      "Don't shout — let's reflect what happened first."
     ]
   },
   "reform": {
+    "simple": "It means to make changes for improvement.",
     "examples": [
-      "Governments reform education systems.",
-      "They need to reform the results properly."
+      "Let me reform this homework before I guess.",
+      "Help me reform this so I can do it myself tomorrow.",
+      "After the match we should reform what went wrong."
     ]
   },
   "regime": {
+    "simple": "Regime is a government, especially an authoritarian one.",
     "examples": [
-      "The regime controlled all media.",
-      "We discussed regime during dinner last night."
+      "That's a real regime, not just a story from a book.",
+      "On the playground I used the regime in a real sentence.",
+      "Start with the regime, then the details."
     ]
   },
   "region": {
+    "simple": "Region is an area or division.",
     "examples": [
-      "The Himalayan region is breathtaking.",
-      "That is a good example of region."
+      "I wrote the region in my own words for homework.",
+      "Before the test I need one clear region I can say out loud.",
+      "That's a real region, not just a story from a book."
     ]
   },
   "register": {
+    "simple": "It means to record officially.",
     "examples": [
-      "Register for courses before the deadline.",
-      "Can we register the problem step by step?"
+      "Don't shout — let's register what happened first.",
+      "Let me register this homework before I guess.",
+      "Help me register this so I can do it myself tomorrow."
     ]
   },
   "regulate": {
+    "simple": "It means to control by rules.",
     "examples": [
-      "Governments regulate food safety standards.",
-      "They need to regulate the results properly."
+      "Don't shout — let's regulate what happened first.",
+      "Let me regulate this homework before I guess.",
+      "Help me regulate this so I can do it myself tomorrow."
     ]
   },
   "reinforce": {
+    "simple": "It means to strengthen or support.",
     "examples": [
-      "Practice reinforces learning.",
-      "Can we reinforce the problem step by step?"
+      "Before I send that message I should reinforce if it sounds kind.",
+      "Can we reinforce this so everyone at dinner understands?",
+      "In class I asked if we can reinforce the question together."
     ]
   },
   "reject": {
+    "simple": "It means to refuse to accept.",
     "examples": [
-      "Universities reject weak applications.",
-      "They need to reject the results properly."
+      "In class I asked if we can reject the question together.",
+      "I need to reject where I left my charger.",
+      "If I lose my jumper I have to reject the last place I had it."
     ]
   },
   "relate": {
+    "simple": "It means to show connection between things.",
     "examples": [
-      "Students relate theory to real life.",
-      "We should relate the facts before arguing."
+      "In class I asked if we can relate the question together.",
+      "I need to relate where I left my charger.",
+      "If I lose my jumper I have to relate the last place I had it."
     ]
   },
   "relevant": {
+    "simple": "It means closely connected to the matter.",
     "examples": [
-      "Include only relevant information.",
-      "You sounded very relevant when you spoke up."
+      "That's a real relevant, not just a story from a book.",
+      "On the playground I used the relevant in a real sentence.",
+      "Start with the relevant, then the details."
     ]
   },
   "reluctant": {
+    "simple": "It means unwilling or hesitant.",
     "examples": [
-      "She was reluctant to ask for help.",
-      "It was a reluctant moment I will not forget."
+      "I explained the reluctant to my little brother at dinner.",
+      "What's the reluctant we should remember from today?",
+      "My friend asked about the reluctant and I didn't freeze."
     ]
   },
   "rely": {
+    "simple": "It means to depend on with confidence.",
     "examples": [
       "Children rely on parents for support.",
-      "I want to rely what happened and learn from it."
+      "Before I send that message I should rely if it sounds kind.",
+      "Can we rely this so everyone at dinner understands?"
     ]
   },
   "remove": {
+    "simple": "It means to take away or eliminate.",
     "examples": [
-      "Remove distractions while studying.",
-      "He will remove the topic in class tomorrow."
+      "Before I send that message I should remove if it sounds kind.",
+      "Can we remove this so everyone at dinner understands?",
+      "In class I asked if we can remove the question together."
     ]
   },
   "require": {
+    "simple": "It means to need for a purpose.",
     "examples": [
-      "This job requires excellent communication skills.",
-      "Let's require this carefully before we decide."
+      "I need to require where I left my charger.",
+      "If I lose my jumper I have to require the last place I had it.",
+      "Don't shout — let's require what happened first."
     ]
   },
   "resemble": {
+    "simple": "It means to look or be like.",
     "examples": [
-      "She resembles her mother closely.",
-      "Can we resemble the problem step by step?"
+      "Let me resemble this homework before I guess.",
+      "Help me resemble this so I can do it myself tomorrow.",
+      "After the match we should resemble what went wrong."
     ]
   },
   "resolve": {
+    "simple": "It means to find a solution to.",
     "examples": [
-      "Mediators resolve conflicts peacefully.",
-      "He will resolve the topic in class tomorrow."
+      "Before I send that message I should resolve if it sounds kind.",
+      "Can we resolve this so everyone at dinner understands?",
+      "In class I asked if we can resolve the question together."
     ]
   },
   "resource": {
+    "simple": "Resource is a stock or supply of materials.",
     "examples": [
-      "Libraries are valuable learning resources.",
-      "That is a good example of resource."
+      "Before the test I need one clear resource I can say out loud.",
+      "That's a real resource, not just a story from a book.",
+      "On the playground I used the resource in a real sentence."
     ]
   },
   "respond": {
+    "simple": "It means to react to something.",
     "examples": [
-      "How you respond to failure defines you.",
-      "Let's respond this carefully before we decide."
+      "Don't shout — let's respond what happened first.",
+      "Let me respond this homework before I guess.",
+      "Help me respond this so I can do it myself tomorrow."
     ]
   },
   "restore": {
+    "simple": "It means to bring back to original condition.",
     "examples": [
-      "Volunteers restore old buildings.",
-      "She asked me to restore the situation calmly."
+      "In class I asked if we can restore the question together.",
+      "I need to restore where I left my charger.",
+      "If I lose my jumper I have to restore the last place I had it."
     ]
   },
   "restrain": {
+    "simple": "It means to keep under control.",
     "examples": [
-      "Restrain your anger in difficult situations.",
-      "I want to restrain what happened and learn from it."
+      "After the match we should restrain what went wrong.",
+      "Before I send that message I should restrain if it sounds kind.",
+      "Can we restrain this so everyone at dinner understands?"
     ]
   },
   "restrict": {
+    "simple": "It means to limit or control.",
     "examples": [
-      "Doctors restrict sugar intake for diabetics.",
-      "He will restrict the topic in class tomorrow."
+      "I need to restrict where I left my charger.",
+      "If I lose my jumper I have to restrict the last place I had it.",
+      "Don't shout — let's restrict what happened first."
     ]
   },
   "retain": {
+    "simple": "It means to continue to have or keep.",
     "examples": [
-      "Good students retain information through review.",
-      "Let's retain this carefully before we decide."
+      "In class I asked if we can retain the question together.",
+      "I need to retain where I left my charger.",
+      "If I lose my jumper I have to retain the last place I had it."
     ]
   },
   "reveal": {
+    "simple": "It means to make known; to uncover.",
     "examples": [
-      "Tests reveal areas needing improvement.",
-      "Let's reveal this carefully before we decide."
+      "I need to reveal where I left my charger.",
+      "If I lose my jumper I have to reveal the last place I had it.",
+      "Don't shout — let's reveal what happened first."
     ]
   },
   "revenue": {
+    "simple": "It means income, especially of a company.",
     "examples": [
-      "Company revenue grew by twenty percent.",
-      "That is a good example of revenue."
+      "I told Mum the revenue from class actually happened at home.",
+      "I explained the revenue to my little brother at dinner.",
+      "What's the revenue we should remember from today?"
     ]
   },
   "reverse": {
+    "simple": "It means to move backward; opposite.",
     "examples": [
-      "Reverse the car carefully.",
-      "I tried to reverse the mistake and fix it."
+      "Can we reverse this so everyone at dinner understands?",
+      "In class I asked if we can reverse the question together.",
+      "I need to reverse where I left my charger."
     ]
   },
   "revise": {
+    "simple": "It means to re-examine and improve.",
     "examples": [
-      "Revise your notes before the exam.",
-      "I want to revise what happened and learn from it."
+      "Before I send that message I should revise if it sounds kind.",
+      "Can we revise this so everyone at dinner understands?",
+      "In class I asked if we can revise the question together."
     ]
   },
   "rigid": {
+    "simple": "It means unable to bend; inflexible.",
     "examples": [
-      "Rigid rules stifle creativity.",
-      "We discussed rigid during dinner last night."
+      "I wrote the rigid in my own words for homework.",
+      "Before the test I need one clear rigid I can say out loud.",
+      "That's a real rigid, not just a story from a book."
     ]
   },
   "role": {
+    "simple": "Role is the function assumed by a person.",
     "examples": [
-      "Teachers play a vital role in society.",
-      "That is a good example of role."
+      "I wrote the role in my own words for homework.",
+      "Before the test I need one clear role I can say out loud.",
+      "That's a real role, not just a story from a book."
     ]
   },
   "route": {
+    "simple": "Route is a way or course taken.",
     "examples": [
-      "The bus route passes through downtown.",
-      "We discussed route during dinner last night."
+      "Before the test I need one clear route I can say out loud.",
+      "That's a real route, not just a story from a book.",
+      "On the playground I used the route in a real sentence."
     ]
   },
   "scenario": {
+    "simple": "Scenario is a imagined sequence of events.",
     "examples": [
-      "Plan for the worst-case scenario.",
-      "That is a good example of scenario."
+      "I explained the scenario to my little brother at dinner.",
+      "What's the scenario we should remember from today?",
+      "My friend asked about the scenario and I didn't freeze."
     ]
   },
   "schedule": {
+    "simple": "Schedule is a plan for carrying out a process.",
     "examples": [
-      "Follow the study schedule daily.",
-      "We discussed schedule during dinner last night."
+      "Before the test I need one clear schedule I can say out loud.",
+      "That's a real schedule, not just a story from a book.",
+      "On the playground I used the schedule in a real sentence."
     ]
   },
   "scheme": {
+    "simple": "Scheme is a systematic plan or arrangement.",
     "examples": [
-      "The government launched a new education scheme.",
-      "We discussed scheme during dinner last night."
+      "I wrote the scheme in my own words for homework.",
+      "Before the test I need one clear scheme I can say out loud.",
+      "That's a real scheme, not just a story from a book."
     ]
   },
   "scope": {
+    "simple": "Scope is the extent of the area concerned.",
     "examples": [
-      "The scope of the project is enormous.",
-      "That is a good example of scope."
+      "Start with the scope, then the details.",
+      "I told Mum the scope from class actually happened at home.",
+      "I explained the scope to my little brother at dinner."
     ]
   },
   "section": {
+    "simple": "Section is a distinct part of something.",
     "examples": [
       "Read section three for homework.",
-      "We discussed section during dinner last night."
+      "Before the test I need one clear section I can say out loud.",
+      "That's a real section, not just a story from a book."
     ]
   },
   "sector": {
+    "simple": "Sector is an area of economic activity.",
     "examples": [
-      "The technology sector is growing rapidly.",
-      "That is a good example of sector."
+      "I explained the sector to my little brother at dinner.",
+      "What's the sector we should remember from today?",
+      "My friend asked about the sector and I didn't freeze."
     ]
   },
   "secure": {
+    "simple": "It means fixed firmly; safe from danger.",
     "examples": [
-      "Secure your belongings while traveling.",
-      "We discussed secure during dinner last night."
+      "I wrote the secure in my own words for homework.",
+      "Before the test I need one clear secure I can say out loud.",
+      "That's a real secure, not just a story from a book."
     ]
   },
   "seek": {
+    "simple": "It means to attempt to find or obtain.",
     "examples": [
-      "Seek knowledge throughout your life.",
-      "I want to seek what happened and learn from it."
+      "After the match we should seek what went wrong.",
+      "Before I send that message I should seek if it sounds kind.",
+      "Can we seek this so everyone at dinner understands?"
     ]
   },
   "segment": {
+    "simple": "It means each of the parts into which something is divided.",
     "examples": [
-      "The market is divided into segments.",
-      "You sounded very segment when you spoke up."
+      "On the playground I used the segment in a real sentence.",
+      "Start with the segment, then the details.",
+      "I told Mum the segment from class actually happened at home."
     ]
   },
   "select": {
+    "simple": "It means to carefully choose.",
     "examples": [
-      "Select the best answer from the options.",
-      "He will select the topic in class tomorrow."
+      "In class I asked if we can select the question together.",
+      "I need to select where I left my charger.",
+      "If I lose my jumper I have to select the last place I had it."
     ]
   },
   "sequence": {
+    "simple": "Sequence is a particular order of events.",
     "examples": [
-      "Follow the sequence of steps carefully.",
-      "We discussed sequence during dinner last night."
+      "That's a real sequence, not just a story from a book.",
+      "On the playground I used the sequence in a real sentence.",
+      "Start with the sequence, then the details."
     ]
   },
   "series": {
+    "simple": "Series is a number of related things in order.",
     "examples": [
-      "She wrote a series of popular novels.",
-      "We discussed series during dinner last night."
+      "That's a real series, not just a story from a book.",
+      "On the playground I used the series in a real sentence.",
+      "Start with the series, then the details."
     ]
   },
   "significant": {
+    "simple": "It means sufficiently great or important.",
     "examples": [
-      "There was a significant improvement in scores.",
-      "You sounded very significant when you spoke up."
+      "I told Mum the significant from class actually happened at home.",
+      "I explained the significant to my little brother at dinner.",
+      "What's the significant we should remember from today?"
     ]
   },
   "similar": {
+    "simple": "It means resembling without being identical.",
     "examples": [
-      "The two essays are similar in structure.",
-      "We discussed similar during dinner last night."
+      "My friend asked about the similar and I didn't freeze.",
+      "I wrote the similar in my own words for homework.",
+      "Before the test I need one clear similar I can say out loud."
     ]
   },
   "simulate": {
+    "simple": "It means to imitate the appearance or character of.",
     "examples": [
-      "Flight simulators train pilots safely.",
-      "He will simulate the topic in class tomorrow."
+      "Don't shout — let's simulate what happened first.",
+      "Let me simulate this homework before I guess.",
+      "Help me simulate this so I can do it myself tomorrow."
     ]
   },
   "sole": {
+    "simple": "It means one and only.",
     "examples": [
-      "She was the sole survivor of the accident.",
-      "We discussed sole during dinner last night."
+      "That's a real sole, not just a story from a book.",
+      "On the playground I used the sole in a real sentence.",
+      "Start with the sole, then the details."
     ]
   },
   "somewhat": {
+    "simple": "It means to a moderate extent.",
     "examples": [
-      "The results were somewhat disappointing.",
-      "I want to somewhat what happened and learn from it."
+      "Don't shout — let's somewhat what happened first.",
+      "Let me somewhat this homework before I guess.",
+      "Help me somewhat this so I can do it myself tomorrow."
     ]
   },
   "source": {
+    "simple": "Source is a place from which something originates.",
     "examples": [
-      "Cite your sources in research papers.",
-      "We discussed source during dinner last night."
+      "My friend asked about the source and I didn't freeze.",
+      "I wrote the source in my own words for homework.",
+      "Before the test I need one clear source I can say out loud."
     ]
   },
   "specific": {
+    "simple": "It means clearly defined or identified.",
     "examples": [
-      "Give specific examples in your essay.",
-      "It was a specific moment I will not forget."
+      "I told Mum the specific from class actually happened at home.",
+      "I explained the specific to my little brother at dinner.",
+      "What's the specific we should remember from today?"
     ]
   },
   "specify": {
+    "simple": "It means to identify clearly.",
     "examples": [
-      "Please specify your preferred time.",
-      "We should specify the facts before arguing."
+      "Help me specify this so I can do it myself tomorrow.",
+      "After the match we should specify what went wrong.",
+      "Before I send that message I should specify if it sounds kind."
     ]
   },
   "sphere": {
+    "simple": "Sphere is a round three-dimensional shape; domain.",
     "examples": [
       "Politics is outside my sphere of interest.",
-      "We discussed sphere during dinner last night."
+      "I wrote the sphere in my own words for homework.",
+      "Before the test I need one clear sphere I can say out loud."
     ]
   },
   "stability": {
+    "simple": "Stability is the state of being stable.",
     "examples": [
-      "Economic stability benefits everyone.",
-      "We discussed stability during dinner last night."
+      "Start with the stability, then the details.",
+      "I told Mum the stability from class actually happened at home.",
+      "I explained the stability to my little brother at dinner."
     ]
   },
   "statistic": {
+    "simple": "Statistic is a fact or piece of data from a study.",
     "examples": [
-      "Crime statistics show a downward trend.",
-      "It was a statistic moment I will not forget."
+      "Start with the statistic, then the details.",
+      "I told Mum the statistic from class actually happened at home.",
+      "I explained the statistic to my little brother at dinner."
     ]
   },
   "status": {
+    "simple": "Status is the relative social or professional position.",
     "examples": [
-      "Her status as a scholar is well known.",
-      "That is a good example of status."
+      "Before the test I need one clear status I can say out loud.",
+      "That's a real status, not just a story from a book.",
+      "On the playground I used the status in a real sentence."
     ]
   },
   "structure": {
+    "simple": "Structure is the arrangement of parts.",
     "examples": [
-      "Essay structure includes introduction, body, and conclusion.",
-      "We discussed structure during dinner last night."
+      "Before the test I need one clear structure I can say out loud.",
+      "That's a real structure, not just a story from a book.",
+      "On the playground I used the structure in a real sentence."
     ]
   },
   "style": {
+    "simple": "Style is a distinctive manner of doing something.",
     "examples": [
-      "Each writer has a unique style.",
-      "We discussed style during dinner last night."
+      "That's a real style, not just a story from a book.",
+      "On the playground I used the style in a real sentence.",
+      "Start with the style, then the details."
     ]
   },
   "submit": {
+    "simple": "It means to present for judgment or consideration.",
     "examples": [
-      "Submit your assignment before midnight.",
-      "I want to submit what happened and learn from it."
+      "Before I send that message I should submit if it sounds kind.",
+      "Can we submit this so everyone at dinner understands?",
+      "In class I asked if we can submit the question together."
     ]
   },
   "subsequent": {
+    "simple": "It means coming after in time.",
     "examples": [
-      "Subsequent chapters cover advanced topics.",
-      "You sounded very subsequent when you spoke up."
+      "On the playground I used the subsequent in a real sentence.",
+      "Start with the subsequent, then the details.",
+      "I told Mum the subsequent from class actually happened at home."
     ]
   },
   "substitute": {
+    "simple": "Substitute is a person or thing acting in place of another.",
     "examples": [
-      "Use honey as a substitute for sugar.",
-      "That is a good example of substitute."
+      "That's a real substitute, not just a story from a book.",
+      "On the playground I used the substitute in a real sentence.",
+      "Start with the substitute, then the details."
     ]
   },
   "successor": {
+    "simple": "Successor is a person who inherits a position.",
     "examples": [
-      "The successor continued the founder's vision.",
-      "That is a good example of successor."
+      "I explained the successor to my little brother at dinner.",
+      "What's the successor we should remember from today?",
+      "My friend asked about the successor and I didn't freeze."
     ]
   },
   "sufficient": {
+    "simple": "It means enough; adequate.",
     "examples": [
-      "Two hours is sufficient for the exam.",
-      "It was a sufficient moment I will not forget."
+      "I explained the sufficient to my little brother at dinner.",
+      "What's the sufficient we should remember from today?",
+      "My friend asked about the sufficient and I didn't freeze."
     ]
   },
   "superior": {
+    "simple": "It means higher in rank or quality.",
     "examples": [
-      "This product is superior to competitors.",
-      "We discussed superior during dinner last night."
+      "I wrote the superior in my own words for homework.",
+      "Before the test I need one clear superior I can say out loud.",
+      "That's a real superior, not just a story from a book."
     ]
   },
   "supplement": {
+    "simple": "It means something added to enhance.",
     "examples": [
-      "Take vitamins to supplement your diet.",
-      "You sounded very supplement when you spoke up."
+      "Start with the supplement, then the details.",
+      "I told Mum the supplement from class actually happened at home.",
+      "I explained the supplement to my little brother at dinner."
     ]
   },
   "survive": {
+    "simple": "It means to continue to live despite danger.",
     "examples": [
-      "Few species survive in extreme deserts.",
-      "I tried to survive the mistake and fix it."
+      "Can we survive this so everyone at dinner understands?",
+      "In class I asked if we can survive the question together.",
+      "I need to survive where I left my charger."
     ]
   },
   "suspend": {
+    "simple": "It means to temporarily prevent from continuing.",
     "examples": [
-      "Schools suspend classes during holidays.",
-      "He will suspend the topic in class tomorrow."
+      "Can we suspend this so everyone at dinner understands?",
+      "In class I asked if we can suspend the question together.",
+      "I need to suspend where I left my charger."
     ]
   },
   "sustain": {
+    "simple": "It means to strengthen or support; to keep going.",
     "examples": [
-      "Trees sustain life by producing oxygen.",
-      "Can we sustain the problem step by step?"
+      "Don't shout — let's sustain what happened first.",
+      "Let me sustain this homework before I guess.",
+      "Help me sustain this so I can do it myself tomorrow."
     ]
   },
   "symbol": {
+    "simple": "Symbol is a thing representing something else.",
     "examples": [
-      "The flag is a symbol of national pride.",
-      "That is a good example of symbol."
+      "On the playground I used the symbol in a real sentence.",
+      "Start with the symbol, then the details.",
+      "I told Mum the symbol from class actually happened at home."
     ]
   },
   "synthesis": {
+    "simple": "Synthesis is the combination of ideas to form a theory.",
     "examples": [
-      "The essay requires synthesis of multiple sources.",
-      "That is a good example of synthesis."
+      "I explained the synthesis to my little brother at dinner.",
+      "What's the synthesis we should remember from today?",
+      "My friend asked about the synthesis and I didn't freeze."
     ]
   },
   "target": {
+    "simple": "Target is a person or thing aimed at.",
     "examples": [
-      "Set clear targets for each study session.",
-      "We discussed target during dinner last night."
+      "On the playground I used the target in a real sentence.",
+      "Start with the target, then the details.",
+      "I told Mum the target from class actually happened at home."
     ]
   },
   "task": {
+    "simple": "Task is a piece of work to be done.",
     "examples": [
-      "Complete the task before the deadline.",
-      "We discussed task during dinner last night."
+      "That's a real task, not just a story from a book.",
+      "On the playground I used the task in a real sentence.",
+      "Start with the task, then the details."
     ]
   },
   "technical": {
+    "simple": "It means it is about a particular subject or activity.",
     "examples": [
-      "Technical skills are in high demand.",
-      "You sounded very technical when you spoke up."
+      "My technical homework actually helped at home.",
+      "Mum asked a technical question at dinner.",
+      "That technical example came up at dinner with Mum."
     ]
   },
   "technique": {
+    "simple": "Technique is a way of carrying out a particular task.",
     "examples": [
-      "Good technique improves athletic performance.",
-      "That is a good example of technique."
+      "I told Mum the technique from class actually happened at home.",
+      "I explained the technique to my little brother at dinner.",
+      "What's the technique we should remember from today?"
     ]
   },
   "temporary": {
+    "simple": "It means lasting for only a limited time.",
     "examples": [
-      "This is a temporary solution.",
-      "We discussed temporary during dinner last night."
+      "Stay temporary when the question feels tricky.",
+      "A temporary start is better than rushing dinner homework.",
+      "Today I felt temporary when I finally understood."
     ]
   },
   "tense": {
+    "simple": "It means stretched tight; a verb form showing time.",
     "examples": [
-      "Past tense describes completed actions.",
-      "We discussed tense during dinner last night."
+      "My friend asked about the tense and I didn't freeze.",
+      "I wrote the tense in my own words for homework.",
+      "Before the test I need one clear tense I can say out loud."
     ]
   },
   "terminate": {
+    "simple": "It means to bring to an end.",
     "examples": [
-      "The contract terminates next month.",
-      "We should terminate the facts before arguing."
+      "Before I send that message I should terminate if it sounds kind.",
+      "Can we terminate this so everyone at dinner understands?",
+      "In class I asked if we can terminate the question together."
     ]
   },
   "theme": {
+    "simple": "Theme is the subject of a talk or piece of writing.",
     "examples": [
-      "The theme of the novel is redemption.",
-      "We discussed theme during dinner last night."
+      "That's a real theme, not just a story from a book.",
+      "On the playground I used the theme in a real sentence.",
+      "Start with the theme, then the details."
     ]
   },
   "thereby": {
+    "simple": "It means by that means; as a result.",
     "examples": [
-      "She studied hard, thereby achieving top marks.",
-      "We discussed thereby during dinner last night."
+      "I wrote the thereby in my own words for homework.",
+      "Before the test I need one clear thereby I can say out loud.",
+      "That's a real thereby, not just a story from a book."
     ]
   },
   "thesis": {
+    "simple": "Thesis is a statement or theory put forward.",
     "examples": [
-      "Her thesis argues for environmental reform.",
-      "That is a good example of thesis."
+      "I explained the thesis to my little brother at dinner.",
+      "What's the thesis we should remember from today?",
+      "My friend asked about the thesis and I didn't freeze."
     ]
   },
   "topic": {
+    "simple": "Topic is a matter dealt with in a text or discourse.",
     "examples": [
-      "Choose an interesting topic for your essay.",
-      "You sounded very topic when you spoke up."
+      "My friend asked about the topic and I didn't freeze.",
+      "I wrote the topic in my own words for homework.",
+      "Before the test I need one clear topic I can say out loud."
     ]
   },
   "trace": {
+    "simple": "It means to find or discover by investigation.",
     "examples": [
-      "Historians trace events through documents.",
-      "Let's trace this carefully before we decide."
+      "If I lose my jumper I have to trace the last place I had it.",
+      "Don't shout — let's trace what happened first.",
+      "Let me trace this homework before I guess."
     ]
   },
   "transfer": {
+    "simple": "It means to move from one place to another.",
     "examples": [
-      "Students transfer between universities.",
-      "Can we transfer the problem step by step?"
+      "I need to transfer where I left my charger.",
+      "If I lose my jumper I have to transfer the last place I had it.",
+      "Don't shout — let's transfer what happened first."
     ]
   },
   "transform": {
+    "simple": "It means to make a marked change in form.",
     "examples": [
-      "Education transforms lives and communities.",
-      "He will transform the topic in class tomorrow."
+      "Can we transform this so everyone at dinner understands?",
+      "In class I asked if we can transform the question together.",
+      "I need to transform where I left my charger."
     ]
   },
   "transition": {
+    "simple": "Transition is the process of changing from one state to another.",
     "examples": [
       "The transition to high school can be challenging.",
-      "We discussed transition during dinner last night."
+      "Before the test I need one clear transition I can say out loud.",
+      "That's a real transition, not just a story from a book."
     ]
   },
   "transmit": {
+    "simple": "It means to cause to pass from one place to another.",
     "examples": [
-      "Radio waves transmit signals through air.",
-      "I want to transmit what happened and learn from it."
+      "In class I asked if we can transmit the question together.",
+      "I need to transmit where I left my charger.",
+      "If I lose my jumper I have to transmit the last place I had it."
     ]
   },
   "transport": {
+    "simple": "It means to take or carry from one place to another.",
     "examples": [
-      "Trucks transport goods across the country.",
-      "We should transport the facts before arguing."
+      "After the match we should transport what went wrong.",
+      "Before I send that message I should transport if it sounds kind.",
+      "Can we transport this so everyone at dinner understands?"
     ]
   },
   "trend": {
+    "simple": "Trend is a general direction in which something is developing.",
     "examples": [
-      "Online learning is a growing trend.",
-      "We discussed trend during dinner last night."
+      "Before the test I need one clear trend I can say out loud.",
+      "That's a real trend, not just a story from a book.",
+      "On the playground I used the trend in a real sentence."
     ]
   },
   "trigger": {
+    "simple": "It means to cause an event or situation to happen.",
     "examples": [
-      "Stress can trigger health problems.",
-      "I want to trigger what happened and learn from it."
+      "Before I send that message I should trigger if it sounds kind.",
+      "Can we trigger this so everyone at dinner understands?",
+      "In class I asked if we can trigger the question together."
     ]
   },
   "ultimate": {
+    "simple": "It means being the best or most extreme.",
     "examples": [
-      "Hard work is the ultimate key to success.",
-      "We discussed ultimate during dinner last night."
+      "What's the ultimate we should remember from today?",
+      "My friend asked about the ultimate and I didn't freeze.",
+      "I wrote the ultimate in my own words for homework."
     ]
   },
   "undergo": {
+    "simple": "It means to experience or be subjected to.",
     "examples": [
-      "Patients undergo surgery with anesthesia.",
-      "I want to undergo what happened and learn from it."
+      "I need to undergo where I left my charger.",
+      "If I lose my jumper I have to undergo the last place I had it.",
+      "Don't shout — let's undergo what happened first."
     ]
   },
   "underlie": {
+    "simple": "It means to lie beneath; to be the cause of.",
     "examples": [
-      "Fear underlies many aggressive behaviors.",
-      "I want to underlie what happened and learn from it."
+      "I need to underlie where I left my charger.",
+      "If I lose my jumper I have to underlie the last place I had it.",
+      "Don't shout — let's underlie what happened first."
     ]
   },
   "undertake": {
+    "simple": "It means to commit oneself to and begin.",
     "examples": [
-      "She undertook a challenging research project.",
-      "They need to undertake the results properly."
+      "If I lose my jumper I have to undertake the last place I had it.",
+      "Don't shout — let's undertake what happened first.",
+      "Let me undertake this homework before I guess."
     ]
   },
   "uniform": {
+    "simple": "It means not changing in form or quality.",
     "examples": [
-      "Soldiers wear uniform clothing.",
-      "That is a good example of uniform."
+      "I told Mum the uniform from class actually happened at home.",
+      "I explained the uniform to my little brother at dinner.",
+      "What's the uniform we should remember from today?"
     ]
   },
   "unify": {
+    "simple": "It means to make or become united.",
     "examples": [
-      "Sports unify people across cultures.",
-      "Can we unify the problem step by step?"
+      "Before I send that message I should unify if it sounds kind.",
+      "Can we unify this so everyone at dinner understands?",
+      "In class I asked if we can unify the question together."
     ]
   },
   "unique": {
+    "simple": "It means being the only one of its kind.",
     "examples": [
-      "Every person has unique talents.",
-      "We discussed unique during dinner last night."
+      "My friend asked about the unique and I didn't freeze.",
+      "I wrote the unique in my own words for homework.",
+      "Before the test I need one clear unique I can say out loud."
     ]
   },
   "utilize": {
+    "simple": "It means to make practical use of.",
     "examples": [
-      "Utilize library resources for research.",
-      "I tried to utilize the mistake and fix it."
+      "I need to utilize where I left my charger.",
+      "If I lose my jumper I have to utilize the last place I had it.",
+      "Don't shout — let's utilize what happened first."
     ]
   },
   "variable": {
+    "simple": "It means not consistent or having a fixed pattern.",
     "examples": [
-      "Weather is highly variable in spring.",
-      "That is a good example of variable."
+      "A variable start is better than rushing dinner homework.",
+      "Today I felt variable when I finally understood.",
+      "That was a variable way to finish the homework."
     ]
   },
   "variation": {
+    "simple": "Variation is a change or difference in condition.",
     "examples": [
-      "There is wide variation in test scores.",
-      "We discussed variation during dinner last night."
+      "I explained the variation to my little brother at dinner.",
+      "What's the variation we should remember from today?",
+      "My friend asked about the variation and I didn't freeze."
     ]
   },
   "vehicle": {
+    "simple": "Vehicle is a thing used for transporting people or goods.",
     "examples": [
-      "Electric vehicles reduce pollution.",
-      "That is a good example of vehicle."
+      "My friend asked about the vehicle and I didn't freeze.",
+      "I wrote the vehicle in my own words for homework.",
+      "Before the test I need one clear vehicle I can say out loud."
     ]
   },
   "version": {
+    "simple": "Version is a particular form of something.",
     "examples": [
-      "Download the latest version of the app.",
-      "That is a good example of version."
+      "I wrote the version in my own words for homework.",
+      "Before the test I need one clear version I can say out loud.",
+      "That's a real version, not just a story from a book."
     ]
   },
   "versus": {
+    "simple": "It means against; in contrast to.",
     "examples": [
-      "The debate was capitalism versus socialism.",
-      "That is a good example of versus."
+      "I explained the versus to my little brother at dinner.",
+      "What's the versus we should remember from today?",
+      "My friend asked about the versus and I didn't freeze."
     ]
   },
   "via": {
+    "simple": "It means by way of; through.",
     "examples": [
       "We traveled to Delhi via Mumbai.",
-      "That is a good example of via."
+      "I wrote the via in my own words for homework.",
+      "Before the test I need one clear via I can say out loud."
     ]
   },
   "viable": {
+    "simple": "It means capable of working successfully.",
     "examples": [
-      "Solar energy is a viable alternative.",
-      "We discussed viable during dinner last night."
+      "Don't guess — be viable about what really happened.",
+      "I need to be viable when I explain this to Mum.",
+      "You were viable in that group chat with us."
     ]
   },
   "victim": {
+    "simple": "Victim is a person harmed by an event or action.",
     "examples": [
-      "Support services help crime victims recover.",
-      "That is a good example of victim."
+      "Start with the victim, then the details.",
+      "I told Mum the victim from class actually happened at home.",
+      "I explained the victim to my little brother at dinner."
     ]
   },
   "violate": {
+    "simple": "It means to break or fail to comply with.",
     "examples": [
-      "Speeding violates traffic laws.",
-      "I tried to violate the mistake and fix it."
+      "Can we violate this so everyone at dinner understands?",
+      "In class I asked if we can violate the question together.",
+      "I need to violate where I left my charger."
     ]
   },
   "visible": {
+    "simple": "It means able to be seen.",
     "examples": [
-      "Stars are visible on clear nights.",
-      "That is a good example of visible."
+      "A visible start is better than rushing dinner homework.",
+      "Today I felt visible when I finally understood.",
+      "That was a visible way to finish the homework."
     ]
   },
   "visual": {
+    "simple": "It means it is about seeing.",
     "examples": [
-      "Visual aids help students understand concepts.",
-      "It was a visual moment I will not forget."
+      "We talked about visual stuff after the match.",
+      "This visual word showed up in my game chat.",
+      "I told my friend a visual story from school."
     ]
   },
   "vital": {
+    "simple": "It means absolutely necessary; essential.",
     "examples": [
-      "Water is vital for all living things.",
-      "It was a vital moment I will not forget."
+      "Start with the vital, then the details.",
+      "I told Mum the vital from class actually happened at home.",
+      "I explained the vital to my little brother at dinner."
     ]
   },
   "volume": {
+    "simple": "Volume is the amount of space occupied.",
     "examples": [
-      "Turn down the volume on the television.",
-      "That is a good example of volume."
+      "Before the test I need one clear volume I can say out loud.",
+      "That's a real volume, not just a story from a book.",
+      "On the playground I used the volume in a real sentence."
     ]
   },
   "voluntary": {
+    "simple": "It means done willingly without being forced.",
     "examples": [
-      "Volunteering is a voluntary act of service.",
-      "That is a good example of voluntary."
+      "That was a voluntary way to finish the homework.",
+      "My teacher said that was voluntary work.",
+      "We stayed voluntary even when the game was hard."
     ]
   },
   "whereas": {
+    "simple": "It means in contrast or comparison with the fact that.",
     "examples": [
-      "She loves reading, whereas he prefers sports.",
-      "We discussed whereas during dinner last night."
+      "Whereas we finished the match, then we walked home.",
+      "At dinner I said whereas so I could add what happened at school.",
+      "I used whereas when I added one more idea in class."
     ]
   },
   "widespread": {
+    "simple": "It means found or distributed over a large area.",
     "examples": [
-      "Smartphone use is widespread among youth.",
-      "That is a good example of widespread."
+      "I explained the widespread to my little brother at dinner.",
+      "What's the widespread we should remember from today?",
+      "My friend asked about the widespread and I didn't freeze."
     ]
   },
   "whereby": {
+    "simple": "It means by which; through which.",
     "examples": [
       "We need a system whereby students can track progress.",
-      "That is a good example of whereby."
+      "What's the whereby we should remember from today?",
+      "My friend asked about the whereby and I didn't freeze."
     ]
   },
   "abandon": {
+    "simple": "Abandon is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "We discussed abandon during dinner last night."
+      "In class I asked if we can abandon the question together.",
+      "I need to abandon where I left my charger.",
+      "If I lose my jumper I have to abandon the last place I had it."
     ]
   },
   "abolish": {
+    "simple": "Abolish is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "That is a good example of abolish."
+      "At school I gave an abolish example from real life.",
+      "We talked about abolish stuff after the match.",
+      "This abolish word showed up in my game chat."
     ]
   },
   "absorb": {
+    "simple": "Absorb is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "We discussed absorb during dinner last night."
+      "Before I send that message I should absorb if it sounds kind.",
+      "Can we absorb this so everyone at dinner understands?",
+      "In class I asked if we can absorb the question together."
     ]
   },
   "accelerate": {
+    "simple": "Accelerate is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "We discussed accelerate during dinner last night."
+      "After the match we should accelerate what went wrong.",
+      "Before I send that message I should accelerate if it sounds kind.",
+      "Can we accelerate this so everyone at dinner understands?"
     ]
   },
   "accommodate": {
+    "simple": "Accommodate is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "We discussed accommodate during dinner last night."
+      "Help me accommodate this so I can do it myself tomorrow.",
+      "After the match we should accommodate what went wrong.",
+      "Before I send that message I should accommodate if it sounds kind."
     ]
   },
   "accompany": {
+    "simple": "Accompany is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "We discussed accompany during dinner last night."
+      "Don't shout — let's accompany what happened first.",
+      "Let me accompany this homework before I guess.",
+      "Help me accompany this so I can do it myself tomorrow."
     ]
   },
   "accomplish": {
+    "simple": "Accomplish is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "We discussed accomplish during dinner last night."
+      "I told my friend a accomplish story from school.",
+      "My accomplish homework actually helped at home.",
+      "Mum asked a accomplish question at dinner."
     ]
   },
   "accord": {
+    "simple": "Accord is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "That is a good example of accord."
+      "Help me accord this so I can do it myself tomorrow.",
+      "After the match we should accord what went wrong.",
+      "Before I send that message I should accord if it sounds kind."
     ]
   },
   "accumulate": {
+    "simple": "Accumulate is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "That is a good example of accumulate."
+      "I need to accumulate where I left my charger.",
+      "If I lose my jumper I have to accumulate the last place I had it.",
+      "Don't shout — let's accumulate what happened first."
     ]
   },
   "acknowledge": {
+    "simple": "Acknowledge is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "That is a good example of acknowledge."
+      "After the match we should acknowledge what went wrong.",
+      "Before I send that message I should acknowledge if it sounds kind.",
+      "Can we acknowledge this so everyone at dinner understands?"
     ]
   },
   "acquire": {
+    "simple": "Acquire is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "That is a good example of acquire."
+      "Before I send that message I should acquire if it sounds kind.",
+      "Can we acquire this so everyone at dinner understands?",
+      "In class I asked if we can acquire the question together."
     ]
   },
   "adapt": {
+    "simple": "Adapt is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "That is a good example of adapt."
+      "I need to adapt where I left my charger.",
+      "If I lose my jumper I have to adapt the last place I had it.",
+      "Don't shout — let's adapt what happened first."
     ]
   },
   "adjacent": {
+    "simple": "Adjacent is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "It was a adjacent moment I will not forget."
+      "In class I asked if we can adjacent the question together.",
+      "I need to adjacent where I left my charger.",
+      "If I lose my jumper I have to adjacent the last place I had it."
     ]
   },
   "adjust": {
+    "simple": "Adjust is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "We discussed adjust during dinner last night."
+      "Before I send that message I should adjust if it sounds kind.",
+      "Can we adjust this so everyone at dinner understands?",
+      "In class I asked if we can adjust the question together."
     ]
   },
   "administer": {
+    "simple": "Administer is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "That is a good example of administer."
+      "Don't shout — let's administer what happened first.",
+      "Let me administer this homework before I guess.",
+      "Help me administer this so I can do it myself tomorrow."
     ]
   },
   "admit": {
+    "simple": "Admit is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "We discussed admit during dinner last night."
+      "Help me admit this so I can do it myself tomorrow.",
+      "After the match we should admit what went wrong.",
+      "Before I send that message I should admit if it sounds kind."
     ]
   },
   "adopt": {
+    "simple": "Adopt is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "That is a good example of adopt."
+      "Can we adopt this so everyone at dinner understands?",
+      "In class I asked if we can adopt the question together.",
+      "I need to adopt where I left my charger."
     ]
   },
   "advance": {
+    "simple": "Advance is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "That is a good example of advance."
+      "My friend asked about the advance and I didn't freeze.",
+      "I wrote the advance in my own words for homework.",
+      "Before the test I need one clear advance I can say out loud."
     ]
   },
   "adverse": {
+    "simple": "Adverse is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "That is a good example of adverse."
+      "I need to adverse where I left my charger.",
+      "If I lose my jumper I have to adverse the last place I had it.",
+      "Don't shout — let's adverse what happened first."
     ]
   },
   "affect": {
+    "simple": "Affect is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "We discussed affect during dinner last night."
+      "Help me affect this so I can do it myself tomorrow.",
+      "After the match we should affect what went wrong.",
+      "Before I send that message I should affect if it sounds kind."
     ]
   },
   "aggregate": {
+    "simple": "Aggregate is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "We discussed aggregate during dinner last night."
+      "If I lose my jumper I have to aggregate the last place I had it.",
+      "Don't shout — let's aggregate what happened first.",
+      "Let me aggregate this homework before I guess."
     ]
   },
   "aggressive": {
+    "simple": "Aggressive is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "It was a aggressive moment I will not forget."
+      "I kept my aggressive notes so I can revise tonight.",
+      "I used an aggressive idea in class today.",
+      "At school I gave an aggressive example from real life."
     ]
   },
   "allocate": {
+    "simple": "Allocate is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "We discussed allocate during dinner last night."
+      "Don't shout — let's allocate what happened first.",
+      "Let me allocate this homework before I guess.",
+      "Help me allocate this so I can do it myself tomorrow."
     ]
   },
   "alter": {
+    "simple": "Alter is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "That is a good example of alter."
+      "If I lose my jumper I have to alter the last place I had it.",
+      "Don't shout — let's alter what happened first.",
+      "Let me alter this homework before I guess."
     ]
   },
   "alternative": {
+    "simple": "Alternative is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "You sounded very alternative when you spoke up."
+      "We talked about alternative stuff after the match.",
+      "This alternative word showed up in my game chat.",
+      "I told my friend a alternative story from school."
     ]
   },
   "ambiguous": {
+    "simple": "Ambiguous is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "It was a ambiguous moment I will not forget."
+      "This ambiguous word showed up in my game chat.",
+      "I told my friend a ambiguous story from school.",
+      "My ambiguous homework actually helped at home."
     ]
   },
   "amend": {
+    "simple": "Amend is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "We discussed amend during dinner last night."
+      "In class I asked if we can amend the question together.",
+      "I need to amend where I left my charger.",
+      "If I lose my jumper I have to amend the last place I had it."
     ]
   },
   "analogy": {
+    "simple": "Analogy is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "We discussed analogy during dinner last night."
+      "After the match we should analogy what went wrong.",
+      "Before I send that message I should analogy if it sounds kind.",
+      "Can we analogy this so everyone at dinner understands?"
     ]
   },
   "anticipate": {
+    "simple": "Anticipate is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "That is a good example of anticipate."
+      "Before I send that message I should anticipate if it sounds kind.",
+      "Can we anticipate this so everyone at dinner understands?",
+      "In class I asked if we can anticipate the question together."
     ]
   },
   "anxiety": {
+    "simple": "Anxiety is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "That is a good example of anxiety."
+      "Let me anxiety this homework before I guess.",
+      "Help me anxiety this so I can do it myself tomorrow.",
+      "After the match we should anxiety what went wrong."
     ]
   },
   "appeal": {
+    "simple": "Appeal is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "You sounded very appeal when you spoke up."
+      "I need to appeal where I left my charger.",
+      "If I lose my jumper I have to appeal the last place I had it.",
+      "Don't shout — let's appeal what happened first."
     ]
   },
   "append": {
+    "simple": "Append is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "That is a good example of append."
+      "Can we append this so everyone at dinner understands?",
+      "In class I asked if we can append the question together.",
+      "I need to append where I left my charger."
     ]
   },
   "applicable": {
+    "simple": "Applicable is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "We discussed applicable during dinner last night."
+      "My applicable homework actually helped at home.",
+      "Mum asked a applicable question at dinner.",
+      "That applicable example came up at dinner with Mum."
     ]
   },
   "appreciate": {
+    "simple": "Appreciate is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "That is a good example of appreciate."
+      "I need to appreciate where I left my charger.",
+      "If I lose my jumper I have to appreciate the last place I had it.",
+      "Don't shout — let's appreciate what happened first."
     ]
   },
   "approach": {
+    "simple": "Approach is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "That is a good example of approach."
+      "Let me approach this homework before I guess.",
+      "Help me approach this so I can do it myself tomorrow.",
+      "After the match we should approach what went wrong."
     ]
   },
   "appropriate": {
+    "simple": "Appropriate is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "We discussed appropriate during dinner last night."
+      "If I lose my jumper I have to appropriate the last place I had it.",
+      "Don't shout — let's appropriate what happened first.",
+      "Let me appropriate this homework before I guess."
     ]
   },
   "arise": {
+    "simple": "Arise is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "That is a good example of arise."
+      "In class I asked if we can arise the question together.",
+      "I need to arise where I left my charger.",
+      "If I lose my jumper I have to arise the last place I had it."
     ]
   },
   "arouse": {
+    "simple": "Arouse is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "We discussed arouse during dinner last night."
+      "In class I asked if we can arouse the question together.",
+      "I need to arouse where I left my charger.",
+      "If I lose my jumper I have to arouse the last place I had it."
     ]
   },
   "assemble": {
+    "simple": "Assemble is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "That is a good example of assemble."
+      "After the match we should assemble what went wrong.",
+      "Before I send that message I should assemble if it sounds kind.",
+      "Can we assemble this so everyone at dinner understands?"
     ]
   },
   "assign": {
+    "simple": "Assign is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "We discussed assign during dinner last night."
+      "Let me assign this homework before I guess.",
+      "Help me assign this so I can do it myself tomorrow.",
+      "After the match we should assign what went wrong."
     ]
   },
   "assist": {
+    "simple": "Assist is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "We discussed assist during dinner last night."
+      "Let me assist this homework before I guess.",
+      "Help me assist this so I can do it myself tomorrow.",
+      "After the match we should assist what went wrong."
     ]
   },
   "assume": {
+    "simple": "Assume is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "That is a good example of assume."
+      "Let me assume this homework before I guess.",
+      "Help me assume this so I can do it myself tomorrow.",
+      "After the match we should assume what went wrong."
     ]
   },
   "assure": {
+    "simple": "Assure is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "We discussed assure during dinner last night."
+      "Can we assure this so everyone at dinner understands?",
+      "In class I asked if we can assure the question together.",
+      "I need to assure where I left my charger."
     ]
   },
   "attach": {
+    "simple": "Attach is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "We discussed attach during dinner last night."
+      "If I lose my jumper I have to attach the last place I had it.",
+      "Don't shout — let's attach what happened first.",
+      "Let me attach this homework before I guess."
     ]
   },
   "attain": {
+    "simple": "Attain is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "We discussed attain during dinner last night."
+      "Can we attain this so everyone at dinner understands?",
+      "In class I asked if we can attain the question together.",
+      "I need to attain where I left my charger."
     ]
   },
   "attribute": {
+    "simple": "Attribute is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "That is a good example of attribute."
+      "Before I send that message I should attribute if it sounds kind.",
+      "Can we attribute this so everyone at dinner understands?",
+      "In class I asked if we can attribute the question together."
     ]
   },
   "author": {
+    "simple": "Author is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "We discussed author during dinner last night."
+      "Can we author this so everyone at dinner understands?",
+      "In class I asked if we can author the question together.",
+      "I need to author where I left my charger."
     ]
   },
   "autonomous": {
+    "simple": "Autonomous is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "It was a autonomous moment I will not forget."
+      "This autonomous word showed up in my game chat.",
+      "I told my friend a autonomous story from school.",
+      "My autonomous homework actually helped at home."
     ]
   },
   "avert": {
+    "simple": "Avert is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "That is a good example of avert."
+      "I need to avert where I left my charger.",
+      "If I lose my jumper I have to avert the last place I had it.",
+      "Don't shout — let's avert what happened first."
     ]
   },
   "awkward": {
+    "simple": "Awkward is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "We discussed awkward during dinner last night."
+      "Don't shout — let's awkward what happened first.",
+      "Let me awkward this homework before I guess.",
+      "Help me awkward this so I can do it myself tomorrow."
     ]
   },
   "barrier": {
+    "simple": "Barrier is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "We discussed barrier during dinner last night."
+      "Let me barrier this homework before I guess.",
+      "Help me barrier this so I can do it myself tomorrow.",
+      "After the match we should barrier what went wrong."
     ]
   },
   "behalf": {
+    "simple": "Behalf is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "That is a good example of behalf."
+      "Don't shout — let's behalf what happened first.",
+      "Let me behalf this homework before I guess.",
+      "Help me behalf this so I can do it myself tomorrow."
     ]
   },
   "bias": {
+    "simple": "Bias is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "We discussed bias during dinner last night."
+      "Start with the bias, then the details.",
+      "I told Mum the bias from class actually happened at home.",
+      "I explained the bias to my little brother at dinner."
     ]
   },
   "bind": {
+    "simple": "Bind is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "We discussed bind during dinner last night."
+      "I explained the bind to my little brother at dinner.",
+      "What's the bind we should remember from today?",
+      "My friend asked about the bind and I didn't freeze."
     ]
   },
   "brief": {
+    "simple": "Brief is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "That is a good example of brief."
+      "After the match we should brief what went wrong.",
+      "Before I send that message I should brief if it sounds kind.",
+      "Can we brief this so everyone at dinner understands?"
     ]
   },
   "bulk": {
+    "simple": "Bulk is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "That is a good example of bulk."
+      "Before the test I need one clear bulk I can say out loud.",
+      "That's a real bulk, not just a story from a book.",
+      "On the playground I used the bulk in a real sentence."
     ]
   },
   "capacity": {
+    "simple": "Capacity is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "That is a good example of capacity."
+      "I told Mum the capacity from class actually happened at home.",
+      "I explained the capacity to my little brother at dinner.",
+      "What's the capacity we should remember from today?"
     ]
   },
   "chamber": {
+    "simple": "Chamber is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "That is a good example of chamber."
+      "Help me chamber this so I can do it myself tomorrow.",
+      "After the match we should chamber what went wrong.",
+      "Before I send that message I should chamber if it sounds kind."
     ]
   },
   "channel": {
+    "simple": "Channel is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "We discussed channel during dinner last night."
+      "I need to channel where I left my charger.",
+      "If I lose my jumper I have to channel the last place I had it.",
+      "Don't shout — let's channel what happened first."
     ]
   },
   "chapter": {
+    "simple": "Chapter is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "We discussed chapter during dinner last night."
+      "If I lose my jumper I have to chapter the last place I had it.",
+      "Don't shout — let's chapter what happened first.",
+      "Let me chapter this homework before I guess."
     ]
   },
   "chart": {
+    "simple": "Chart is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "That is a good example of chart."
+      "Help me chart this so I can do it myself tomorrow.",
+      "After the match we should chart what went wrong.",
+      "Before I send that message I should chart if it sounds kind."
     ]
   },
   "chemical": {
+    "simple": "Chemical is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "It was a chemical moment I will not forget."
+      "At school I gave a chemical example from real life.",
+      "We talked about chemical stuff after the match.",
+      "This chemical word showed up in my game chat."
     ]
   },
   "cite": {
+    "simple": "Cite is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "We discussed cite during dinner last night."
+      "Start with the cite, then the details.",
+      "I told Mum the cite from class actually happened at home.",
+      "I explained the cite to my little brother at dinner."
     ]
   },
   "civil": {
+    "simple": "Civil is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "We discussed civil during dinner last night."
+      "After the match we should civil what went wrong.",
+      "Before I send that message I should civil if it sounds kind.",
+      "Can we civil this so everyone at dinner understands?"
     ]
   },
   "classic": {
+    "simple": "Classic is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "It was a classic moment I will not forget."
+      "Before I send that message I should classic if it sounds kind.",
+      "Can we classic this so everyone at dinner understands?",
+      "In class I asked if we can classic the question together."
     ]
   },
   "clause": {
+    "simple": "Clause is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "We discussed clause during dinner last night."
+      "After the match we should clause what went wrong.",
+      "Before I send that message I should clause if it sounds kind.",
+      "Can we clause this so everyone at dinner understands?"
     ]
   },
   "coincide": {
+    "simple": "Coincide is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "That is a good example of coincide."
+      "Can we coincide this so everyone at dinner understands?",
+      "In class I asked if we can coincide the question together.",
+      "I need to coincide where I left my charger."
     ]
   },
   "collapse": {
+    "simple": "Collapse is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "We discussed collapse during dinner last night."
+      "Help me collapse this so I can do it myself tomorrow.",
+      "After the match we should collapse what went wrong.",
+      "Before I send that message I should collapse if it sounds kind."
     ]
   },
   "colleague": {
+    "simple": "Colleague is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "We discussed colleague during dinner last night."
+      "In class I asked if we can colleague the question together.",
+      "I need to colleague where I left my charger.",
+      "If I lose my jumper I have to colleague the last place I had it."
     ]
   },
   "comment": {
+    "simple": "Comment is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "You sounded very comment when you spoke up."
+      "On the playground I used the comment in a real sentence.",
+      "Start with the comment, then the details.",
+      "I told Mum the comment from class actually happened at home."
     ]
   },
   "commission": {
+    "simple": "Commission is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "We discussed commission during dinner last night."
+      "I explained the commission to my little brother at dinner.",
+      "What's the commission we should remember from today?",
+      "My friend asked about the commission and I didn't freeze."
     ]
   },
   "commit": {
+    "simple": "Commit is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "We discussed commit during dinner last night."
+      "In class I asked if we can commit the question together.",
+      "I need to commit where I left my charger.",
+      "If I lose my jumper I have to commit the last place I had it."
     ]
   },
   "commodity": {
+    "simple": "Commodity is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "We discussed commodity during dinner last night."
+      "Before the test I need one clear commodity I can say out loud.",
+      "That's a real commodity, not just a story from a book.",
+      "On the playground I used the commodity in a real sentence."
     ]
   },
   "community": {
+    "simple": "Community is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "We discussed community during dinner last night."
+      "I explained the community to my little brother at dinner.",
+      "What's the community we should remember from today?",
+      "My friend asked about the community and I didn't freeze."
     ]
   },
   "compatible": {
+    "simple": "Compatible is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "That is a good example of compatible."
+      "I used a compatible idea in class today.",
+      "At school I gave a compatible example from real life.",
+      "We talked about compatible stuff after the match."
     ]
   },
   "competent": {
+    "simple": "Competent is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "You sounded very competent when you spoke up."
+      "After the match we should competent what went wrong.",
+      "Before I send that message I should competent if it sounds kind.",
+      "Can we competent this so everyone at dinner understands?"
     ]
   },
   "compile": {
+    "simple": "Compile is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "We discussed compile during dinner last night."
+      "In class I asked if we can compile the question together.",
+      "I need to compile where I left my charger.",
+      "If I lose my jumper I have to compile the last place I had it."
     ]
   },
   "complex": {
+    "simple": "Complex is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "That is a good example of complex."
+      "After the match we should complex what went wrong.",
+      "Before I send that message I should complex if it sounds kind.",
+      "Can we complex this so everyone at dinner understands?"
     ]
   },
   "comply": {
+    "simple": "Comply is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "It was a comply moment I will not forget."
+      "Let me comply this homework before I guess.",
+      "Help me comply this so I can do it myself tomorrow.",
+      "After the match we should comply what went wrong."
     ]
   },
   "compose": {
+    "simple": "Compose is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "That is a good example of compose."
+      "Help me compose this so I can do it myself tomorrow.",
+      "After the match we should compose what went wrong.",
+      "Before I send that message I should compose if it sounds kind."
     ]
   },
   "compound": {
+    "simple": "Compound is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "We discussed compound during dinner last night."
+      "Can we compound this so everyone at dinner understands?",
+      "In class I asked if we can compound the question together.",
+      "I need to compound where I left my charger."
     ]
   },
   "compute": {
+    "simple": "Compute is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "We discussed compute during dinner last night."
+      "Before I send that message I should compute if it sounds kind.",
+      "Can we compute this so everyone at dinner understands?",
+      "In class I asked if we can compute the question together."
     ]
   },
   "concentrate": {
+    "simple": "Concentrate is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "That is a good example of concentrate."
+      "Let me concentrate this homework before I guess.",
+      "Help me concentrate this so I can do it myself tomorrow.",
+      "After the match we should concentrate what went wrong."
     ]
   },
   "concept": {
+    "simple": "Concept is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "That is a good example of concept."
+      "After the match we should concept what went wrong.",
+      "Before I send that message I should concept if it sounds kind.",
+      "Can we concept this so everyone at dinner understands?"
     ]
   },
   "conduct": {
+    "simple": "Conduct is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "That is a good example of conduct."
+      "If I lose my jumper I have to conduct the last place I had it.",
+      "Don't shout — let's conduct what happened first.",
+      "Let me conduct this homework before I guess."
     ]
   },
   "confer": {
+    "simple": "Confer is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "We discussed confer during dinner last night."
+      "Don't shout — let's confer what happened first.",
+      "Let me confer this homework before I guess.",
+      "Help me confer this so I can do it myself tomorrow."
     ]
   },
   "confirm": {
+    "simple": "Confirm is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "That is a good example of confirm."
+      "Before I send that message I should confirm if it sounds kind.",
+      "Can we confirm this so everyone at dinner understands?",
+      "In class I asked if we can confirm the question together."
     ]
   },
   "conflict": {
+    "simple": "Conflict is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "That is a good example of conflict."
+      "In class I asked if we can conflict the question together.",
+      "I need to conflict where I left my charger.",
+      "If I lose my jumper I have to conflict the last place I had it."
     ]
   },
   "confront": {
+    "simple": "Confront is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "We discussed confront during dinner last night."
+      "Let me confront this homework before I guess.",
+      "Help me confront this so I can do it myself tomorrow.",
+      "After the match we should confront what went wrong."
     ]
   },
   "confuse": {
+    "simple": "Confuse is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "We discussed confuse during dinner last night."
+      "Help me confuse this so I can do it myself tomorrow.",
+      "After the match we should confuse what went wrong.",
+      "Before I send that message I should confuse if it sounds kind."
     ]
   },
   "congress": {
+    "simple": "Congress is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "That is a good example of congress."
+      "In class I asked if we can congress the question together.",
+      "I need to congress where I left my charger.",
+      "If I lose my jumper I have to congress the last place I had it."
     ]
   },
   "conjunction": {
+    "simple": "Conjunction is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "That is a good example of conjunction."
+      "I wrote the conjunction in my own words for homework.",
+      "Before the test I need one clear conjunction I can say out loud.",
+      "That's a real conjunction, not just a story from a book."
     ]
   },
   "consistent": {
+    "simple": "Consistent is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "It was a consistent moment I will not forget."
+      "In class I asked if we can consistent the question together.",
+      "I need to consistent where I left my charger.",
+      "If I lose my jumper I have to consistent the last place I had it."
     ]
   },
   "consume": {
+    "simple": "Consume is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "That is a good example of consume."
+      "I need to consume where I left my charger.",
+      "If I lose my jumper I have to consume the last place I had it.",
+      "Don't shout — let's consume what happened first."
     ]
   },
   "contact": {
+    "simple": "Contact is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "That is a good example of contact."
+      "After the match we should contact what went wrong.",
+      "Before I send that message I should contact if it sounds kind.",
+      "Can we contact this so everyone at dinner understands?"
     ]
   },
   "context": {
+    "simple": "Context is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "We discussed context during dinner last night."
+      "Help me context this so I can do it myself tomorrow.",
+      "After the match we should context what went wrong.",
+      "Before I send that message I should context if it sounds kind."
     ]
   },
   "contract": {
+    "simple": "Contract is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "That is a good example of contract."
+      "Don't shout — let's contract what happened first.",
+      "Let me contract this homework before I guess.",
+      "Help me contract this so I can do it myself tomorrow."
     ]
   },
   "contrary": {
+    "simple": "Contrary is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "That is a good example of contrary."
+      "I kept my contrary notes so I can revise tonight.",
+      "I used a contrary idea in class today.",
+      "At school I gave a contrary example from real life."
     ]
   },
   "convene": {
+    "simple": "Convene is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "That is a good example of convene."
+      "Before I send that message I should convene if it sounds kind.",
+      "Can we convene this so everyone at dinner understands?",
+      "In class I asked if we can convene the question together."
     ]
   },
   "converse": {
+    "simple": "Converse is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "We discussed converse during dinner last night."
+      "Help me converse this so I can do it myself tomorrow.",
+      "After the match we should converse what went wrong.",
+      "Before I send that message I should converse if it sounds kind."
     ]
   },
   "couple": {
+    "simple": "Couple is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "That is a good example of couple."
+      "Before I send that message I should couple if it sounds kind.",
+      "Can we couple this so everyone at dinner understands?",
+      "In class I asked if we can couple the question together."
     ]
   },
   "create": {
+    "simple": "Create is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "That is a good example of create."
+      "After the match we should create what went wrong.",
+      "Before I send that message I should create if it sounds kind.",
+      "Can we create this so everyone at dinner understands?"
     ]
   },
   "credit": {
+    "simple": "Credit is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "We discussed credit during dinner last night."
+      "Can we credit this so everyone at dinner understands?",
+      "In class I asked if we can credit the question together.",
+      "I need to credit where I left my charger."
     ]
   },
   "currency": {
+    "simple": "Currency is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "We discussed currency during dinner last night."
+      "Before I send that message I should currency if it sounds kind.",
+      "Can we currency this so everyone at dinner understands?",
+      "In class I asked if we can currency the question together."
     ]
   },
   "cycle": {
+    "simple": "Cycle is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "That is a good example of cycle."
+      "Before I send that message I should cycle if it sounds kind.",
+      "Can we cycle this so everyone at dinner understands?",
+      "In class I asked if we can cycle the question together."
     ]
   },
   "decade": {
+    "simple": "Decade is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "That is a good example of decade."
+      "In class I asked if we can decade the question together.",
+      "I need to decade where I left my charger.",
+      "If I lose my jumper I have to decade the last place I had it."
     ]
   },
   "dedicate": {
+    "simple": "Dedicate is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "We discussed dedicate during dinner last night."
+      "After the match we should dedicate what went wrong.",
+      "Before I send that message I should dedicate if it sounds kind.",
+      "Can we dedicate this so everyone at dinner understands?"
     ]
   },
   "define": {
+    "simple": "Define is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "We discussed define during dinner last night."
+      "In class I asked if we can define the question together.",
+      "I need to define where I left my charger.",
+      "If I lose my jumper I have to define the last place I had it."
     ]
   },
   "deliberate": {
+    "simple": "Deliberate is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "We discussed deliberate during dinner last night."
+      "Let me deliberate this homework before I guess.",
+      "Help me deliberate this so I can do it myself tomorrow.",
+      "After the match we should deliberate what went wrong."
     ]
   },
   "deny": {
+    "simple": "Deny is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "That is a good example of deny."
+      "I told Mum the deny from class actually happened at home.",
+      "I explained the deny to my little brother at dinner.",
+      "What's the deny we should remember from today?"
     ]
   },
   "depict": {
+    "simple": "Depict is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "We discussed depict during dinner last night."
+      "Before I send that message I should depict if it sounds kind.",
+      "Can we depict this so everyone at dinner understands?",
+      "In class I asked if we can depict the question together."
     ]
   },
   "design": {
+    "simple": "Design is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "That is a good example of design."
+      "After the match we should design what went wrong.",
+      "Before I send that message I should design if it sounds kind.",
+      "Can we design this so everyone at dinner understands?"
     ]
   },
   "doctrine": {
+    "simple": "Doctrine is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "That is a good example of doctrine."
+      "Before I send that message I should doctrine if it sounds kind.",
+      "Can we doctrine this so everyone at dinner understands?",
+      "In class I asked if we can doctrine the question together."
     ]
   },
   "document": {
+    "simple": "Document is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "You sounded very document when you spoke up."
+      "What's the document we should remember from today?",
+      "My friend asked about the document and I didn't freeze.",
+      "I wrote the document in my own words for homework."
     ]
   },
   "draft": {
+    "simple": "Draft is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "We discussed draft during dinner last night."
+      "In class I asked if we can draft the question together.",
+      "I need to draft where I left my charger.",
+      "If I lose my jumper I have to draft the last place I had it."
     ]
   },
   "drama": {
+    "simple": "Drama is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "We discussed drama during dinner last night."
+      "In class I asked if we can drama the question together.",
+      "I need to drama where I left my charger.",
+      "If I lose my jumper I have to drama the last place I had it."
     ]
   },
   "edit": {
+    "simple": "Edit is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "That is a good example of edit."
+      "I explained the edit to my little brother at dinner.",
+      "What's the edit we should remember from today?",
+      "My friend asked about the edit and I didn't freeze."
     ]
   },
   "effect": {
+    "simple": "Effect is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "We discussed effect during dinner last night."
+      "Before I send that message I should effect if it sounds kind.",
+      "Can we effect this so everyone at dinner understands?",
+      "In class I asked if we can effect the question together."
     ]
   },
   "effective": {
+    "simple": "Effective is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "You sounded very effective when you spoke up."
+      "I used an effective idea in class today.",
+      "At school I gave an effective example from real life.",
+      "We talked about effective stuff after the match."
     ]
   },
   "efficient": {
+    "simple": "Efficient is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "You sounded very efficient when you spoke up."
+      "After the match we should efficient what went wrong.",
+      "Before I send that message I should efficient if it sounds kind.",
+      "Can we efficient this so everyone at dinner understands?"
     ]
   },
   "energy": {
+    "simple": "Energy is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "That is a good example of energy."
+      "Help me energy this so I can do it myself tomorrow.",
+      "After the match we should energy what went wrong.",
+      "Before I send that message I should energy if it sounds kind."
     ]
   },
   "enforce": {
+    "simple": "Enforce is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "That is a good example of enforce."
+      "Let me enforce this homework before I guess.",
+      "Help me enforce this so I can do it myself tomorrow.",
+      "After the match we should enforce what went wrong."
     ]
   },
   "equate": {
+    "simple": "Equate is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "We discussed equate during dinner last night."
+      "Let me equate this homework before I guess.",
+      "Help me equate this so I can do it myself tomorrow.",
+      "After the match we should equate what went wrong."
     ]
   },
   "equip": {
+    "simple": "Equip is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "That is a good example of equip."
+      "Help me equip this so I can do it myself tomorrow.",
+      "After the match we should equip what went wrong.",
+      "Before I send that message I should equip if it sounds kind."
     ]
   },
   "error": {
+    "simple": "Error is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "That is a good example of error."
+      "Can we error this so everyone at dinner understands?",
+      "In class I asked if we can error the question together.",
+      "I need to error where I left my charger."
     ]
   },
   "estate": {
+    "simple": "Estate is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "That is a good example of estate."
+      "In class I asked if we can estate the question together.",
+      "I need to estate where I left my charger.",
+      "If I lose my jumper I have to estate the last place I had it."
     ]
   },
   "eventual": {
+    "simple": "Eventual is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "It was a eventual moment I will not forget."
+      "At school I gave an eventual example from real life.",
+      "We talked about eventual stuff after the match.",
+      "This eventual word showed up in my game chat."
     ]
   },
   "evoke": {
+    "simple": "Evoke is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "That is a good example of evoke."
+      "After the match we should evoke what went wrong.",
+      "Before I send that message I should evoke if it sounds kind.",
+      "Can we evoke this so everyone at dinner understands?"
     ]
   },
   "execute": {
+    "simple": "Execute is a word you can use at school, at home, and with friends.",
     "examples": [
-      "Students learn to use \\",
-      "We discussed execute during dinner last night."
+      "If I lose my jumper I have to execute the last place I had it.",
+      "Don't shout — let's execute what happened first.",
+      "Let me execute this homework before I guess."
     ]
   }
 };

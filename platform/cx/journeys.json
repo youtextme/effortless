@@ -12,6 +12,7 @@
         { "id": "highlight-sync", "story": "highlight-tracks-spoken-word" },
         { "id": "no-hidden-headings", "story": "hidden-headings-not-spoken" },
         { "id": "word-sheet", "story": "word-sheet-uses-speech" },
+        { "id": "word-sheet-daily", "story": "word-sheet-daily-use" },
         { "id": "scroll-unlock", "story": "reading-unlocks-quiz-after-scroll" },
         { "id": "speech-stops-on-quiz", "story": "speech-stops-on-surface-change" },
         { "id": "quiz-pass", "story": "quiz-requires-comprehension-pass" },

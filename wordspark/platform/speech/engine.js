@@ -585,7 +585,12 @@ export async function speakWordSheet(panel, onEnd) {
     }
   }
 
-  const examples = panel.querySelector('.sheet-scenarios');
+  const meaning = panel.querySelector(speechPolicy.wordSheet.meaningSelector);
+  if (meaning && visiblePlainText(meaning) && gen === generation) {
+    await speakLiveRoot(meaning, gen);
+  }
+
+  const examples = panel.querySelector(speechPolicy.wordSheet.examplesSelector);
   if (examples && gen === generation) {
     await speakLiveRoot(examples, gen);
   }

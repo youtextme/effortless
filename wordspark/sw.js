@@ -1,4 +1,4 @@
-const CACHE_NAME = 'wordspark-v21'; // word-level Listen highlight
+const CACHE_NAME = 'wordspark-v22'; // tap word: say twice, simple meaning, three daily examples
 const ASSETS = [
   './',
   './index.html',

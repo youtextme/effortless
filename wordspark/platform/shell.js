@@ -305,6 +305,7 @@ function setupWordTaps() {
 function openWordSheet(data) {
   ctx.wordSheet.open(data, {
     word: $('#sheet-word'),
+    intro: $('#sheet-intro'),
     container: $('#sheet-scenarios'),
     sheet: $('#word-sheet'),
     passageNum: currentPassageNum,
@@ -315,6 +316,7 @@ function closeWordSheet() {
   ctx.wordSheet.close({
     sheet: $('#word-sheet'),
     word: $('#sheet-word'),
+    intro: $('#sheet-intro'),
     container: $('#sheet-scenarios'),
   });
 }

@@ -245,3 +245,15 @@ test('story:speech-stops-on-surface-change shell startQuiz stops speech before o
   assert.equal(coveringScoreFromFlags({ hidden: true, position: 'fixed', zIndex: '150' }), -1);
 });
 
+test('story:word-sheet-daily-use engine says the word twice then meaning then examples', () => {
+  const src = readFileSync(join(here, 'engine.js'), 'utf8');
+  const meaningAt = src.indexOf('speechPolicy.wordSheet.meaningSelector');
+  const examplesAt = src.indexOf('speechPolicy.wordSheet.examplesSelector');
+  assert.ok(meaningAt > 0, 'meaning selector must be read');
+  assert.ok(examplesAt > meaningAt, 'examples must be spoken after meaning');
+  assert.equal(speechPolicy.wordSheet.repeats, 2);
+  assert.equal(speechPolicy.wordSheet.meaningSelector, '.sheet-intro');
+  assert.equal(speechPolicy.wordSheet.examplesSelector, '.sheet-scenarios');
+  assert.match(speechPolicy.blockSelector, /sheet-intro/);
+});
+
