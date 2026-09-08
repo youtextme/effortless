@@ -50,7 +50,7 @@ export function installState({ standalone = false, canPrompt = false } = {}) {
       kind: 'installed',
       button: 'Installed',
       enabled: false,
-      copy: 'You are in the installed app. Your words, passages, and place in the story stay on this device, so you can pick up right where you left off.',
+      copy: 'WordSpark is installed on this device. No account — your words, passages, and place in the story stay only here, so you can pick up right where you left off.',
     };
   }
   if (canPrompt) {
@@ -58,14 +58,14 @@ export function installState({ standalone = false, canPrompt = false } = {}) {
       kind: 'prompt',
       button: 'Install app',
       enabled: true,
-      copy: 'Install WordSpark so it feels like an app on this phone, tablet, or laptop. Your memory stays on this device — come back and we start where you stopped.',
+      copy: 'Install WordSpark on this device. No sign-in — your reading progress stays only on this phone, tablet, or laptop.',
     };
   }
   return {
     kind: 'howto',
     button: 'How to install',
     enabled: true,
-    copy: 'Add WordSpark to your home screen so it opens like an app. On iPhone or iPad: tap Share, then Add to Home Screen. On a computer: use the browser menu → Install or Add to Home Screen. After that, your place is saved here.',
+    copy: 'Add WordSpark to your home screen so it opens like an app. No account needed — progress stays on this device only. iPhone/iPad: Share → Add to Home Screen. Computer: browser menu → Install.',
   };
 }
 

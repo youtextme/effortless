@@ -75,16 +75,21 @@ export function predictedCharIndex({
   hasBoundary = false,
   honorRate = false,
   observedCps = 0,
+  highlightLeadRatio = 0,
 } = {}) {
+  const lead = Number(highlightLeadRatio);
+  const safeLead = Number.isFinite(lead) && lead > 0 ? lead : 0;
+  const adjustedElapsed = Math.max(0, elapsedMs) * (1 + safeLead);
+  const adjustedSinceBoundary = Math.max(0, sinceBoundaryMs) * (1 + safeLead);
   const cps = effectiveCharsPerSecond({
     rate,
     charsPerSecondAtRate1,
     observedCps,
     honorRate,
   });
-  const clockChar = (Math.max(0, elapsedMs) / 1000) * cps;
+  const clockChar = (adjustedElapsed / 1000) * cps;
   if (hasBoundary && sinceBoundaryMs <= boundaryStaleMs) {
-    const fromBoundary = boundaryChar + (Math.max(0, sinceBoundaryMs) / 1000) * cps;
+    const fromBoundary = boundaryChar + (adjustedSinceBoundary / 1000) * cps;
     return clampChar(Math.max(fromBoundary, boundaryChar), textLength);
   }
   return clampChar(Math.max(clockChar, hasBoundary ? boundaryChar : 0), textLength);

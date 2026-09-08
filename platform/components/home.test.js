@@ -53,13 +53,15 @@ test('story:home-three-tabs component:home Words Passages Settings', () => {
 test('story:install-pwa-visible component:home install is always offered', () => {
   const html = readFileSync(join(here, '../../index.html'), 'utf8');
   assert.match(html, /id="btn-install"/);
+  assert.match(html, /id="btn-install-header"/);
+  assert.match(html, /id="btn-install-parent"/);
   assert.match(html, /id="install-copy"/);
   assert.doesNotMatch(html, /id="btn-install"[^>]*\bhidden\b/);
 
   const installed = installState({ standalone: true, canPrompt: true });
   assert.equal(installed.kind, 'installed');
   assert.equal(installed.enabled, false);
-  assert.match(installed.copy, /installed app/i);
+  assert.match(installed.copy, /installed on this device/i);
 
   const prompt = installState({ standalone: false, canPrompt: true });
   assert.equal(prompt.kind, 'prompt');
@@ -68,6 +70,8 @@ test('story:install-pwa-visible component:home install is always offered', () =>
   const howto = installState({ standalone: false, canPrompt: false });
   assert.equal(howto.kind, 'howto');
   assert.match(howto.copy, /Add to Home Screen/);
+  assert.match(prompt.copy, /this device/i);
+  assert.match(prompt.copy, /No sign-in/i);
 
   assert.equal(isStandaloneDisplay({
     matchMedia: () => ({ matches: true }),
@@ -80,5 +84,6 @@ test('story:install-pwa-visible component:home install is always offered', () =>
   const shell = readFileSync(join(here, '../shell.js'), 'utf8');
   assert.match(shell, /beforeinstallprompt/);
   assert.match(shell, /updateInstallUi/);
+  assert.match(shell, /btn-install-header/);
   assert.match(shell, /isStandaloneDisplay/);
 });

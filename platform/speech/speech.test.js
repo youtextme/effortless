@@ -12,6 +12,13 @@ import { scoreVoice, pickWarmMother, sessionProfile, documentLocale, listEnglish
 import { isSilentFromFlags, flagsFromElement, coveringScoreFromFlags } from './visible-text.js';
 import { speechPolicy } from './policy.js';
 import { getSpeechRate, getPaceId, setPaceId, PACE_RATES } from './pace.js';
+import {
+  refreshProfile,
+  isSessionVoiceLocked,
+  lockSpeechSession,
+  unlockSpeechSession,
+  computePreloadAhead,
+} from './engine.js';
 
 const here = dirname(fileURLToPath(import.meta.url));
 
@@ -112,6 +119,25 @@ test('story:one-rate-per-session sessionProfile uses parent home pace for title 
   assert.equal(profile.rate, getSpeechRate());
   assert.equal(profile.rate, PACE_RATES.home);
   assert.equal(profile.pitch, speechPolicy.pitch);
+});
+
+test('story:one-voice-per-session refreshProfile stays frozen while speech session is locked', () => {
+  unlockSpeechSession();
+  refreshProfile({ force: true });
+  const baseline = refreshProfile();
+  lockSpeechSession();
+  assert.equal(isSessionVoiceLocked(), true);
+  const frozen = refreshProfile();
+  assert.equal(frozen?.voice?.voiceURI, baseline?.voice?.voiceURI);
+  unlockSpeechSession();
+  assert.equal(isSessionVoiceLocked(), false);
+});
+
+test('speech preload prepares at least 15% of blocks ahead', () => {
+  assert.equal(computePreloadAhead(10), 2);
+  assert.equal(computePreloadAhead(4), 1);
+  assert.equal(computePreloadAhead(20), 3);
+  assert.equal(speechPolicy.preload.aheadRatio, 0.15);
 });
 
 test('robot voices lose to a warm English voice even if sticky', () => {

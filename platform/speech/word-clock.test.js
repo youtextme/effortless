@@ -112,3 +112,24 @@ test('observeCharsPerSecond learns from a finished utterance', () => {
   assert.ok(next > first);
   assert.equal(observeCharsPerSecond(10, 10, 12, 0.35), 12);
 });
+
+test('highlight lead ratio keeps the clock ahead of audio', () => {
+  const text = 'one two three four five six seven eight';
+  const base = predictedCharIndex({
+    elapsedMs: 1000,
+    charsPerSecondAtRate1: 16,
+    textLength: text.length,
+    hasBoundary: false,
+    highlightLeadRatio: 0,
+  });
+  const lead = predictedCharIndex({
+    elapsedMs: 1000,
+    charsPerSecondAtRate1: 16,
+    textLength: text.length,
+    hasBoundary: false,
+    highlightLeadRatio: speechPolicy.clock.highlightLeadRatio,
+  });
+  assert.ok(lead > base);
+  assert.equal(speechPolicy.clock.highlightLeadRatio, 0.15);
+  assert.equal(speechPolicy.preload.aheadRatio, 0.15);
+});

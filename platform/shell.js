@@ -101,6 +101,7 @@ export async function bootShell() {
   ctx.speech?.mountListenControl($('#btn-listen'));
 
   setupListeners();
+  updateInstallUi();
   const p = ctx.storage.loadProgress();
   if (!p.onboarded || !p.childName) showModal('name-modal');
   else restoreSession();
@@ -210,6 +211,8 @@ function setupListeners() {
     openPanel('panel-certificates', renderCerts);
   });
   $('#btn-install')?.addEventListener('click', () => handleInstall());
+  $('#btn-install-header')?.addEventListener('click', () => handleInstall());
+  $('#btn-install-parent')?.addEventListener('click', () => handleInstall());
 
   window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
@@ -710,12 +713,18 @@ function updateInstallUi() {
     canPrompt: Boolean(window._deferredPrompt),
   });
   const copy = $('#install-copy');
-  const btn = $('#btn-install');
   if (copy) copy.textContent = state.copy;
-  if (btn) {
+  for (const sel of ['#btn-install', '#btn-install-header', '#btn-install-parent']) {
+    const btn = $(sel);
+    if (!btn) continue;
     btn.hidden = false;
-    btn.textContent = state.button;
+    btn.textContent = sel === '#btn-install-header' && state.kind !== 'installed'
+      ? 'Install'
+      : state.button;
     btn.disabled = !state.enabled;
+    btn.setAttribute('aria-label', state.kind === 'installed'
+      ? 'WordSpark is installed on this device'
+      : 'Install WordSpark on this device');
   }
 }
 
