@@ -1,0 +1,24 @@
+{
+  "name": "@effortless/whatsapp-connector",
+  "version": "1.0.0",
+  "description": "Pluggable LLM → WhatsApp connector: define jobs, schedule, send via Baileys ($0)",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "whatsapp-connector": "./cli.js"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "link": "node cli.js link-whatsapp",
+    "doctor": "node cli.js doctor",
+    "test": "node --test tests/*.test.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@whiskeysockets/baileys": "^6.7.18",
+    "pino": "^9.6.0",
+    "qrcode-terminal": "^0.12.0"
+  }
+}
