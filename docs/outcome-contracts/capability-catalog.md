@@ -1,6 +1,6 @@
 # Outcome Contract — Passages as reusable capabilities
 
-**Status:** active  
+**Status:** proven  
 **Slug:** capability-catalog  
 **Date:** 2026-09-08
 
@@ -45,12 +45,73 @@ No math/diagram content UI. No cloud. Do not regress Listen fold, word-sheet, ki
 
 ## Definition of Done
 
-- [ ] Kernel `capabilities.js` + `CapabilityComponent`
-- [ ] Passages + words registered; shell lists via registry
-- [ ] Stub math registers in tests without shell fork
-- [ ] CX + NFR + CI
-- [ ] Evaluator command evidence
+- [x] Kernel `capabilities.js` + `CapabilityComponent`
+- [x] Passages + words registered; shell lists via registry
+- [x] Stub math registers in tests without shell fork
+- [x] CX + NFR + CI
+- [x] Evaluator command evidence
 
 ## Command evidence
 
-_(filled after Evaluator)_
+Copied from Evaluator (`docs/outcome-contracts/evidence-capability-catalog.md`).
+
+```
+$ cd /workspace && node --import ./platform/test/polyfill-storage.mjs -e "
+import { createCapabilityRegistry, createExerciseCapability, renderCatalogHtml } from './wordspark/platform/kernel/capabilities.js';
+import { defaultPacks } from './wordspark/platform/components/capability-packs.js';
+import { readFileSync } from 'node:fs';
+const reg = createCapabilityRegistry();
+for (const pack of defaultPacks(() => ({ completedPassages: [] }))) reg.register(pack);
+const math = createExerciseCapability({
+  id: 'math',
+  label: 'Math',
+  list: () => [{ id: 'n1', title: 'Number bonds to 10', done: false }],
+  open: (id) => ({ action: 'open-exercise', exerciseId: id }),
+});
+reg.register(math);
+const shell = readFileSync('./wordspark/platform/shell.js', 'utf8');
+const kernel = readFileSync('./wordspark/platform/kernel/capabilities.js', 'utf8');
+const html = renderCatalogHtml(reg.listItems('math'), math);
+console.log(JSON.stringify({
+  passages: reg.listItems('passages').length,
+  words: reg.listItems('words').length,
+  math: reg.listItems('math').length,
+  mathAction: reg.open('math', 'n1').action,
+  mathHomeTab: reg.catalogs().some(c => c.id === 'math'),
+  catalogHtmlHasVocab: html.includes('VOCABULARY'),
+  shellVocabMap: /VOCABULARY\\.map\\(\\(d\\) =>/.test(shell),
+  shellMathIf: /if \\(id === 'math'\\)/.test(shell),
+  shellRenderCatalog: shell.includes('renderCatalog('),
+  kernelMentionsVocab: kernel.includes('VOCABULARY'),
+}, null, 2));
+"
+exit:0
+```
+
+Kill-experiment stdout:
+
+```
+{
+  "passages": 100,
+  "words": 1000,
+  "math": 1,
+  "mathAction": "open-exercise",
+  "mathHomeTab": false,
+  "catalogHtmlHasVocab": false,
+  "shellVocabMap": false,
+  "shellMathIf": false,
+  "shellRenderCatalog": true,
+  "kernelMentionsVocab": false
+}
+```
+
+```
+$ cd /workspace && npm run ci
+exit:0
+# tests 88
+# pass 88
+# fail 0
+# CI OK
+```
+
+Evaluator: `docs/outcome-contracts/evidence-capability-catalog.md` — Status **proven**.
