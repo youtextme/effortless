@@ -24,6 +24,17 @@ Update every turn. Mid-task silence is forbidden — if blocked, set `Trust:RED`
 
 `💪 <nudge>` from `node ~/.agents/prompt-os/nudges/next.mjs` — no in-session repeats.
 
+## Penultimate block — Human Action Closure (every response)
+
+Immediately before 💪. **≤80 words.** Mandatory even for trivial Q&A.
+
+```markdown
+**Done:** <what you did or decided>
+**You:** <one imperative + link or command>
+```
+
+Never end without **You:**. Shipped slices → ready PR link + merge/review action. Gates → what you need from the human. Full spec: `PROMPT-ROUTER.md` Step 6.7.
+
 ## Outcome Frame (non-trivial, before product code)
 
 Show in chat before any implementation:
