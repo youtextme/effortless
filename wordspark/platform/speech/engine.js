@@ -37,6 +37,7 @@ const BLOCK_SELECTOR = speechPolicy.blockSelector;
 let generation = 0;
 let speaking = false;
 let profile = null;
+let sessionVoiceLocked = false;
 let voicesReady = false;
 let voicesPromise = null;
 let keepAliveTimer = null;
@@ -44,6 +45,7 @@ let highlightEl = null;
 let unlocked = false;
 let maxChars = speechPolicy.pack.initialMaxChars;
 let observedCps = 0;
+const blockPrep = new Map();
 
 function delay(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -77,7 +79,9 @@ function writeStickyUri(uri) {
   }
 }
 
-export function refreshProfile() {
+export function refreshProfile(options = {}) {
+  const { force = false } = options;
+  if (sessionVoiceLocked && !force) return profile;
   const locale = documentLocale();
   const english = listEnglishVoices(allVoices(), locale);
   const pool = english.length ? english : allVoices();
@@ -86,6 +90,31 @@ export function refreshProfile() {
   if (voice?.voiceURI) writeStickyUri(voice.voiceURI);
   voicesReady = Boolean(voice) || allVoices().length > 0;
   return profile;
+}
+
+export function isSessionVoiceLocked() {
+  return sessionVoiceLocked;
+}
+
+export function lockSpeechSession() {
+  lockSessionVoice();
+}
+
+export function unlockSpeechSession() {
+  unlockSessionVoice();
+}
+
+export function computePreloadAhead(totalBlocks) {
+  return preloadAheadCount(totalBlocks);
+}
+
+function lockSessionVoice() {
+  refreshProfile({ force: true });
+  sessionVoiceLocked = true;
+}
+
+function unlockSessionVoice() {
+  sessionVoiceLocked = false;
 }
 
 export function ensureVoicesReady() {
@@ -280,6 +309,7 @@ function paintSpokenWord(text, spans, lengths, rate, startedAt, boundaryChar, bo
     hasBoundary,
     honorRate: speechPolicy.clock.honorRate,
     observedCps,
+    highlightLeadRatio: speechPolicy.clock.highlightLeadRatio,
   });
   activateSpan(spans[indexAtChar(char, lengths)]);
 }
@@ -367,10 +397,18 @@ function collectBlocks(root) {
   return found.length ? found : [root];
 }
 
-async function speakBlock(block, gen) {
-  const units = collectSpeechUnits(block);
-  if (!units.length) return true;
+function preloadAheadCount(totalBlocks) {
+  const ratio = speechPolicy.preload.aheadRatio;
+  return Math.max(1, Math.ceil(totalBlocks * ratio));
+}
 
+function prepareBlock(block) {
+  if (blockPrep.has(block)) return blockPrep.get(block);
+  const units = collectSpeechUnits(block);
+  if (!units.length) {
+    blockPrep.set(block, null);
+    return null;
+  }
   const allTokens = units.flatMap((u) => u.tokens);
   const spans = wrapTokens(allTokens);
   let offset = 0;
@@ -379,9 +417,27 @@ async function speakBlock(block, gen) {
     offset += unit.tokens.length;
     return { text: unit.text, spans: slice };
   });
+  const prep = { block, queue: packByChars(pieces, maxChars), cap: maxChars };
+  blockPrep.set(block, prep);
+  return prep;
+}
 
-  let cap = maxChars;
-  let queue = packByChars(pieces, cap);
+function prepareBlocksAhead(blocks, startIndex, ahead) {
+  const end = Math.min(blocks.length, startIndex + ahead);
+  for (let i = startIndex; i < end; i++) {
+    prepareBlock(blocks[i]);
+  }
+}
+
+function clearBlockPrep() {
+  blockPrep.clear();
+}
+
+async function speakPreparedBlock(prep, gen) {
+  if (!prep) return true;
+  const { block } = prep;
+  let cap = prep.cap;
+  let queue = prep.queue;
 
   for (let i = 0; i < queue.length; i++) {
     if (gen !== generation) {
@@ -411,6 +467,8 @@ async function speakBlock(block, gen) {
         const remaining = queue.slice(i);
         const flat = remaining.flat();
         queue = packByChars(flat, cap);
+        prep.queue = queue;
+        prep.cap = cap;
         i = -1;
       }
     }
@@ -432,16 +490,24 @@ async function speakLiveRoot(root, gen, options = {}) {
     );
     blocks = sliceBlocksFromFold(blocks, (el) => el.getBoundingClientRect(), fold, speechPolicy.fold.topSlopPx);
   }
-  for (const block of blocks) {
+  const ahead = preloadAheadCount(blocks.length);
+  prepareBlocksAhead(blocks, 0, ahead);
+  if (speechPolicy.preload.settleMs > 0) {
+    await delay(speechPolicy.preload.settleMs);
+    if (gen !== generation) return false;
+  }
+  for (let bi = 0; bi < blocks.length; bi++) {
     if (gen !== generation) return false;
     if (shouldStopForSurfaceChange(root, findActiveSurface())) {
       stopSpeaking();
       return false;
     }
-    const ok = await speakBlock(block, gen);
+    prepareBlocksAhead(blocks, bi + 1, ahead);
+    const ok = await speakPreparedBlock(blockPrep.get(blocks[bi]), gen);
     if (!ok) return false;
     await new Promise((r) => scheduleTick(r));
   }
+  clearBlockPrep();
   return gen === generation;
 }
 
@@ -458,6 +524,7 @@ async function beginSession({ teleprompter }) {
     return { aborted: true, gen: generation };
   }
   stopSpeaking();
+  lockSessionVoice();
   const gen = generation;
   speaking = true;
   startKeepAlive();
@@ -475,6 +542,8 @@ function endSession(gen, onEnd, ok) {
   speaking = false;
   stopKeepAlive();
   setTeleprompter(false);
+  unlockSessionVoice();
+  clearBlockPrep();
   emitSpeechState();
   if (ok) onEnd?.();
   return ok;
@@ -525,6 +594,8 @@ export function stopSpeaking() {
   speaking = false;
   stopKeepAlive();
   setTeleprompter(false);
+  unlockSessionVoice();
+  clearBlockPrep();
   setSpeechMode('idle');
   unwrapRoot(document.body);
   highlightEl = null;
@@ -624,6 +695,7 @@ export function getActiveSurface() {
 if (typeof window !== 'undefined' && isTTSAvailable()) {
   ensureVoicesReady();
   window.addEventListener('voiceschanged', () => {
+    if (sessionVoiceLocked) return;
     voicesPromise = null;
     refreshProfile();
   });

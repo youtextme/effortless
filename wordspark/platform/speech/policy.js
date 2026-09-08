@@ -47,6 +47,14 @@ export const speechPolicy = Object.freeze({
     maxBoundaryStaleMs: 120,
     maxLagWords: 1,
     observeSmoothing: 0.35,
+    /** Run the highlight clock ahead of audio so words never lag behind voice. */
+    highlightLeadRatio: 0.15,
+  }),
+
+  /** Pre-wrap highlight DOM for this fraction of upcoming blocks before speaking. */
+  preload: Object.freeze({
+    aheadRatio: 0.15,
+    settleMs: 16,
   }),
 
   fold: Object.freeze({

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'wordspark-v28'; // capability catalog: 100 passages + 1000 words are registered packs; extra exercises list/open through the registry so shell never grows if (id === 'math'); network-first fetch so catalog renderer is not mixed with a stale shell.js
+const CACHE_NAME = 'wordspark-v29'; // one voice per listen session; 15% highlight preload + lead; install always visible
 const ASSETS = [
   './',
   './index.html',
