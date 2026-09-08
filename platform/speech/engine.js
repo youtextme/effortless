@@ -29,6 +29,8 @@ import {
   effectiveCharsPerSecond,
   observeCharsPerSecond,
 } from './word-clock.js';
+import { sliceBlocksFromFold, foldViewportFromWindow } from './fold.js';
+import { setSpeechMode } from './session.js';
 
 const BLOCK_SELECTOR = speechPolicy.blockSelector;
 
@@ -418,8 +420,18 @@ async function speakBlock(block, gen) {
   return gen === generation;
 }
 
-async function speakLiveRoot(root, gen) {
-  const blocks = collectBlocks(root);
+async function speakLiveRoot(root, gen, options = {}) {
+  let blocks = collectBlocks(root);
+  if (options.fromFold) {
+    const header = typeof document !== 'undefined'
+      ? document.querySelector(speechPolicy.fold.headerSelector)
+      : null;
+    const fold = foldViewportFromWindow(
+      typeof window !== 'undefined' ? window : { innerHeight: 0 },
+      header,
+    );
+    blocks = sliceBlocksFromFold(blocks, (el) => el.getBoundingClientRect(), fold, speechPolicy.fold.topSlopPx);
+  }
   for (const block of blocks) {
     if (gen !== generation) return false;
     if (shouldStopForSurfaceChange(root, findActiveSurface())) {
@@ -513,6 +525,7 @@ export function stopSpeaking() {
   speaking = false;
   stopKeepAlive();
   setTeleprompter(false);
+  setSpeechMode('idle');
   unwrapRoot(document.body);
   highlightEl = null;
   const s = synth();
@@ -520,7 +533,7 @@ export function stopSpeaking() {
   emitSpeechState();
 }
 
-export async function speakRoot(root, { onEnd, teleprompter = true } = {}) {
+export async function speakRoot(root, { onEnd, teleprompter = true, fromFold = false } = {}) {
   if (!isTTSAvailable() || !root) {
     onEnd?.();
     return false;
@@ -542,13 +555,14 @@ export async function speakRoot(root, { onEnd, teleprompter = true } = {}) {
     onEnd?.();
     return false;
   }
-  const ok = await speakLiveRoot(plan.root, gen);
+  setSpeechMode('surface');
+  const ok = await speakLiveRoot(plan.root, gen, { fromFold });
   return endSession(gen, onEnd, ok);
 }
 
 export async function speakActiveSurface(options = {}) {
   const root = findActiveSurface();
-  return speakRoot(root, options);
+  return speakRoot(root, { ...options, fromFold: options.fromFold !== false });
 }
 
 export async function speakWordSheet(panel, onEnd) {
@@ -573,6 +587,7 @@ export async function speakWordSheet(panel, onEnd) {
     onEnd?.();
     return false;
   }
+  setSpeechMode('word-sheet');
   const lead = panel.querySelector(speechPolicy.wordSheet.leadSelector);
 
   if (lead && visiblePlainText(lead) && gen === generation) {
@@ -585,7 +600,12 @@ export async function speakWordSheet(panel, onEnd) {
     }
   }
 
-  const examples = panel.querySelector('.sheet-scenarios');
+  const meaning = panel.querySelector(speechPolicy.wordSheet.meaningSelector);
+  if (meaning && visiblePlainText(meaning) && gen === generation) {
+    await speakLiveRoot(meaning, gen);
+  }
+
+  const examples = panel.querySelector(speechPolicy.wordSheet.examplesSelector);
   if (examples && gen === generation) {
     await speakLiveRoot(examples, gen);
   }

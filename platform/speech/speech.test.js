@@ -199,8 +199,7 @@ test('story:listen-on-every-surface index.html has a global listen dock and spee
     'screen-complete',
     'name-modal',
     'word-sheet',
-    'panel-passages',
-    'panel-words',
+    'screen-home',
     'panel-certificates',
   ];
   for (const id of surfaces) {
@@ -243,5 +242,27 @@ test('story:speech-stops-on-surface-change shell startQuiz stops speech before o
   const readingScore = coveringScoreFromFlags({ hidden: false, position: 'static', zIndex: 'auto' });
   assert.ok(quizScore > readingScore, 'quiz overlay must cover the passage for speech lifecycle');
   assert.equal(coveringScoreFromFlags({ hidden: true, position: 'fixed', zIndex: '150' }), -1);
+});
+
+test('story:word-sheet-daily-use engine says the word twice then meaning then examples', () => {
+  const src = readFileSync(join(here, 'engine.js'), 'utf8');
+  const meaningAt = src.indexOf('speechPolicy.wordSheet.meaningSelector');
+  const examplesAt = src.indexOf('speechPolicy.wordSheet.examplesSelector');
+  assert.ok(meaningAt > 0, 'meaning selector must be read');
+  assert.ok(examplesAt > meaningAt, 'examples must be spoken after meaning');
+  assert.equal(speechPolicy.wordSheet.repeats, 2);
+  assert.equal(speechPolicy.wordSheet.meaningSelector, '.sheet-intro');
+  assert.equal(speechPolicy.wordSheet.examplesSelector, '.sheet-scenarios');
+  assert.match(speechPolicy.blockSelector, /sheet-intro/);
+});
+
+test('story:listen-from-fold Listen slices blocks from the visible fold', () => {
+  const src = readFileSync(join(here, 'engine.js'), 'utf8');
+  assert.match(src, /sliceBlocksFromFold/);
+  assert.match(src, /fromFold/);
+  assert.equal(speechPolicy.fold.topSlopPx, 8);
+  const listen = readFileSync(join(here, 'listen-control.js'), 'utf8');
+  assert.match(listen, /planSpeechHandoff/);
+  assert.match(listen, /speak-surface-from-fold|fromFold: true/);
 });
 

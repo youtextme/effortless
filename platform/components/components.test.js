@@ -8,6 +8,8 @@ import { TtsComponent } from './tts.js';
 import { WordSheetComponent } from './word-sheet.js';
 import { QuizComponent } from './quiz.js';
 import { CertificateComponent } from './certificate.js';
+import { HomeComponent } from './home.js';
+import { CapabilityComponent } from './capability.js';
 import { highlightWordsOnce } from '../../js/passage-generator.js';
 import * as bus from '../kernel/bus.js';
 import { createPolicy } from '../kernel/policy.js';
@@ -17,6 +19,7 @@ import * as registry from '../kernel/registry.js';
 
 const ALL = [
   StorageComponent,
+  CapabilityComponent,
   PassageComponent,
   ReadingComponent,
   SpeechComponent,
@@ -24,6 +27,7 @@ const ALL = [
   WordSheetComponent,
   QuizComponent,
   CertificateComponent,
+  HomeComponent,
 ];
 
 test('every registered runtime component exposes id version health', () => {
@@ -36,7 +40,7 @@ test('every registered runtime component exposes id version health', () => {
   }
 });
 
-test('component:storage component:passage component:reading component:speech component:tts component:word-sheet component:quiz component:certificate init onto context', async () => {
+test('component:storage component:capability component:passage component:reading component:speech component:tts component:word-sheet component:quiz component:certificate component:home init onto context', async () => {
   registry.reset();
   const ctx = createContext({
     bus,
@@ -49,6 +53,8 @@ test('component:storage component:passage component:reading component:speech com
     if (c.init) await c.init(ctx);
   }
   assert.ok(ctx.storage);
+  assert.ok(ctx.capability);
+  assert.equal(typeof ctx.capability.listItems, 'function');
   assert.ok(ctx.passage);
   assert.ok(ctx.reading);
   assert.ok(ctx.speech);
@@ -56,6 +62,8 @@ test('component:storage component:passage component:reading component:speech com
   assert.ok(ctx.wordSheet);
   assert.ok(ctx.quiz);
   assert.ok(ctx.certificate);
+  assert.equal(typeof ctx.storage.getBootTarget, 'function');
+  assert.equal(typeof ctx.storage.saveResume, 'function');
   assert.equal(TtsComponent.health().ok, true);
   assert.equal(WordSheetComponent.health().ok, true);
 });
@@ -96,7 +104,8 @@ test('story:quiz-requires-comprehension-pass quiz coaches takeaways without a pa
     })),
   };
   const qs = ctx.quiz.generate(day);
-  assert.ok(qs.length > 0);
+  assert.ok(qs.length >= 7);
+  assert.equal(qs.filter((q) => q.kind === 'takeaway').length, 5);
   assert.ok(qs[0].thinkAloud);
   const first = ctx.quiz.coachMessage(qs[0], 1);
   const retry = ctx.quiz.coachMessage(qs[0], 2);

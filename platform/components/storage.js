@@ -2,7 +2,7 @@ import * as storageApi from '../../js/storage.js';
 
 export const StorageComponent = {
   id: 'storage',
-  version: '1.0.0',
+  version: '1.1.0',
   dependencies: [],
   init(ctx) {
     ctx.storage = storageApi;

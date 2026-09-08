@@ -49,8 +49,15 @@ export const speechPolicy = Object.freeze({
     observeSmoothing: 0.35,
   }),
 
+  fold: Object.freeze({
+    topSlopPx: 8,
+    headerSelector: '#reading-header',
+  }),
+
   wordSheet: Object.freeze({
     leadSelector: '.sheet-word',
+    meaningSelector: '.sheet-intro',
+    examplesSelector: '.sheet-scenarios',
     repeats: 2,
   }),
 
@@ -153,7 +160,7 @@ export const speechPolicy = Object.freeze({
   /** Visible blocks that form speech turns (DOM query, not hardcoded copy). */
   blockSelector: [
     'p', 'h1', 'h2', 'h3', 'h4', 'li',
-    '.example-line', '.sheet-word', '.passage-theme',
+    '.example-line', '.sheet-word', '.sheet-intro', '.passage-theme',
     '.quiz-question', '.quiz-counter', '.quiz-coach-text',
     '.complete-container h2', '.complete-container p',
     '.passage-item-title', '.word-text', '.word-meaning',
