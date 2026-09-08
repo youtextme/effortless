@@ -22,6 +22,7 @@ import { QuizComponent } from './components/quiz.js';
 import { CertificateComponent } from './components/certificate.js';
 import { HomeComponent } from './components/home.js';
 import { CapabilityComponent } from './components/capability.js';
+import { ItemComponent } from './components/item.js';
 import { getPaceId, setPaceId } from './speech/pace.js';
 
 const $ = (sel) => document.querySelector(sel);
@@ -45,6 +46,7 @@ let resumeTimer = null;
 const COMPONENTS = [
   StorageComponent,
   CapabilityComponent,
+  ItemComponent,
   PassageComponent,
   SpeechComponent,
   TtsComponent,
@@ -506,10 +508,12 @@ function renderQuestion() {
   $('#quiz-progress-bar').style.width = `${(quizIndex / quizQuestions.length) * 100}%`;
   $('#quiz-counter').textContent = `Question ${quizIndex + 1} of ${quizQuestions.length}`;
   $('#quiz-question').textContent = q.prompt;
-  $('#quiz-choices').innerHTML = q.choices
-    .map((c) => `<button class="quiz-choice" data-correct="${c.correct}">${c.text}</button>`)
-    .join('');
-  $$('.quiz-choice').forEach((btn) => btn.addEventListener('click', () => handleAnswer(btn)));
+  const mount = $('#quiz-choices');
+  const html = ctx.quiz.renderHtml?.(q) || ctx.item?.renderHtml?.(q) || '';
+  mount.innerHTML = html;
+  mount.querySelectorAll('[data-quiz-answer]').forEach((btn) => {
+    btn.addEventListener('click', () => handleAnswer(btn));
+  });
   persistResume({
     passage: currentPassageNum,
     surface: 'quiz',
@@ -521,6 +525,10 @@ function handleAnswer(btn) {
   if (btn.disabled) return;
   const correct = btn.dataset.correct === 'true';
   ctx.tts.stopSpeaking();
+  const slot = $('#quiz-blank-slot');
+  if (slot && btn.classList.contains('quiz-chip')) {
+    slot.textContent = btn.textContent;
+  }
 
   if (correct) {
     $$('.quiz-choice').forEach((b) => {

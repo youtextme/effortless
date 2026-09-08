@@ -50,6 +50,10 @@ test('story:quiz-takeaway-spread component:quiz five takeaways are spread and wo
     assert.notEqual(first, correct);
   }
 
+  const types = new Set(qs.map((q) => q.itemType));
+  assert.equal(types.has('choice'), true);
+  assert.equal(types.has('blank'), true);
+
   const again = generateQuestions(sample);
   assert.deepEqual(again.map((q) => q.prompt), qs.map((q) => q.prompt));
 });
@@ -83,4 +87,14 @@ test('story:quiz-requires-comprehension-pass quiz coaches takeaways without a pa
   const src = readFileSync(join(here, '../../js/questions.js'), 'utf8');
   assert.match(src, /PASS_THRESHOLD = 0/);
   assert.equal(QuizComponent.health().ok, true);
+});
+
+test('story:quiz-uses-item-types component:quiz mix includes choice and blank painted by the registry', () => {
+  const qs = generateQuestions(sample);
+  assert.ok(qs.some((q) => q.itemType === 'choice'));
+  assert.ok(qs.some((q) => q.itemType === 'blank'));
+  const shell = readFileSync(join(here, '../shell.js'), 'utf8');
+  assert.match(shell, /ctx.quiz.renderHtml/);
+  assert.match(shell, /data-quiz-answer/);
+  assert.equal(shell.includes('q.choices'), false);
 });
