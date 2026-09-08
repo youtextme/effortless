@@ -215,6 +215,16 @@ test('story:abort-does-not-restart component:speech canceled utterances are abor
   assert.equal(isAbortResult('network', speechPolicy.abortUtteranceErrors), false);
 });
 
+test('story:highlight-tracks-spoken-word Listen paints one word, not the whole paragraph', () => {
+  const css = readFileSync(join(here, '../../css/app.css'), 'utf8');
+  const engine = readFileSync(join(here, 'engine.js'), 'utf8');
+  assert.match(css, /\.speech-word-active\s*\{/);
+  assert.equal(css.includes('speech-chunk-active'), false);
+  assert.equal(engine.includes('markChunk'), false);
+  assert.equal(engine.includes('speech-chunk-active'), false);
+  assert.match(engine, /activateSpan\(spans\[indexAtChar/);
+});
+
 test('story:voices-ready-before-speak engine waits for voices and aborts stale sessions', () => {
   const src = readFileSync(join(here, 'engine.js'), 'utf8');
   assert.match(src, /await ensureVoicesReady\(\)/);
