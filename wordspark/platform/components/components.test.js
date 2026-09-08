@@ -58,7 +58,8 @@ test('component:storage component:passage component:reading component:speech com
   assert.ok(ctx.wordSheet);
   assert.ok(ctx.quiz);
   assert.ok(ctx.certificate);
-  assert.ok(ctx.home);
+  assert.equal(typeof ctx.storage.getBootTarget, 'function');
+  assert.equal(typeof ctx.storage.saveResume, 'function');
   assert.equal(TtsComponent.health().ok, true);
   assert.equal(WordSheetComponent.health().ok, true);
 });

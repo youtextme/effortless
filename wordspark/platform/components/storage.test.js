@@ -45,8 +45,9 @@ test('story:resume-where-left-off component:storage restores home quiz and readi
 
 test('story:resume-where-left-off shell restores the boot target', () => {
   const src = readFileSync(join(here, '../shell.js'), 'utf8');
-  assert.match(src, /function restoreSession/);
+  assert.match(src, /function persistResume/);
   assert.match(src, /getBootTarget/);
+  assert.match(src, /typeof ctx.storage.getBootTarget/);
   assert.match(src, /flushResume/);
   assert.match(src, /function openHome/);
   assert.match(src, /startQuiz\(\{ index:/);

@@ -1,6 +1,6 @@
 # Outcome Contract — Kid-think quiz, Home tabs, resume + PWA
 
-**Status:** active  
+**Status:** proven  
 **Slug:** home-quiz-resume  
 **Date:** 2026-09-08
 
@@ -48,12 +48,23 @@ Queued next (out of this slice): treat passages as one of many reusable capabili
 
 ## Definition of Done
 
-- [ ] 5 takeaway questions reinforce the day's idea; 2 word questions use kid meaning/examples; spread + friend hints
-- [ ] Home has Words, Passages, Settings
-- [ ] Resume restores reading/home/quiz; Install always on Settings
-- [ ] CX stories + NFRs + CI
-- [ ] Command evidence from Evaluator (not Builder)
+- [x] 5 takeaway questions reinforce the day's idea; 2 word questions use kid meaning/examples; spread + friend hints
+- [x] Home has Words, Passages, Settings
+- [x] Resume restores reading/home/quiz; Install always on Settings
+- [x] CX stories + NFRs + CI
+- [x] Command evidence from Evaluator (not Builder)
 
 ## Command evidence
 
-_(filled after Evaluator)_
+Evaluator (not Builder): `docs/outcome-contracts/evidence-home-quiz-resume.md` — Status proven.
+
+```
+$ npm run ci
+exit:0
+# tests 81
+# pass 81
+```
+
+Kill experiment (Evaluator): Day-1 generate `T W T T W T T`, takeaway span 6, `adultCorrect: []`, `exit:0`.
+
+Browser (Builder, after Evaluator): Home tabs Words / Passages / Settings; Install visible without `hidden`; quiz Q1 is a dinner scenario; first miss coach starts `Hey — picture dinner…`. SW fetch is network-first so resume helpers are not mixed with a stale `storage.js`.

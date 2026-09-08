@@ -185,7 +185,7 @@ function setupListeners() {
   $$('[data-home-tab]').forEach((btn) => {
     btn.addEventListener('click', () => {
       renderHomeTab(btn.dataset.homeTab);
-      ctx.storage.saveResume({
+      persistResume({
         surface: 'home',
         homeTab: btn.dataset.homeTab,
         passage: currentPassageNum,
@@ -229,8 +229,22 @@ function getPassageData(n) {
   return VOCABULARY.find((d) => d.day === n) || VOCABULARY[0];
 }
 
+function persistResume(partial) {
+  if (typeof ctx?.storage?.saveResume === 'function') {
+    ctx.storage.saveResume(partial);
+  }
+}
+
 function restoreSession() {
-  const target = ctx.storage.getBootTarget();
+  const target = typeof ctx.storage.getBootTarget === 'function'
+    ? ctx.storage.getBootTarget()
+    : {
+        surface: 'reading',
+        passage: ctx.storage.getActivePassage(),
+        scrollY: 0,
+        homeTab: 'passages',
+        quizIndex: 0,
+      };
   const passage = target.passage || ctx.storage.getActivePassage();
   if (target.surface === 'home') {
     loadPassage(passage, { scrollY: target.scrollY });
@@ -255,7 +269,7 @@ function scheduleResume(factory) {
   if (resumeTimer) return;
   resumeTimer = setTimeout(() => {
     resumeTimer = null;
-    ctx.storage.saveResume(factory());
+    persistResume(factory());
   }, 400);
 }
 
@@ -267,7 +281,7 @@ function flushResume() {
   }
   const surface = currentSurface();
   if (surface === 'quiz') {
-    ctx.storage.saveResume({
+    persistResume({
       passage: currentPassageNum,
       surface: 'quiz',
       quizIndex,
@@ -275,7 +289,7 @@ function flushResume() {
     return;
   }
   if (surface === 'home') {
-    ctx.storage.saveResume({
+    persistResume({
       passage: currentPassageNum,
       surface: 'home',
       homeTab: ctx.home.getTab(),
@@ -283,7 +297,7 @@ function flushResume() {
     });
     return;
   }
-  ctx.storage.saveResume({
+  persistResume({
     passage: currentPassageNum,
     scrollY: window.scrollY,
     surface: 'reading',
@@ -321,7 +335,7 @@ function loadPassage(n, options = {}) {
   window.scrollTo(0, scrollY);
   lastScrollY = scrollY;
   updateReadingHeader(scrollY);
-  ctx.storage.saveResume({
+  persistResume({
     passage: n,
     scrollY,
     surface: 'reading',
@@ -449,7 +463,7 @@ function startQuiz(options = {}) {
   quizScore = 0;
   quizMisses = 0;
   showOverlay('screen-quiz');
-  ctx.storage.saveResume({
+  persistResume({
     passage: currentPassageNum,
     surface: 'quiz',
     quizIndex,
@@ -485,7 +499,7 @@ function renderQuestion() {
     .map((c) => `<button class="quiz-choice" data-correct="${c.correct}">${c.text}</button>`)
     .join('');
   $$('.quiz-choice').forEach((btn) => btn.addEventListener('click', () => handleAnswer(btn)));
-  ctx.storage.saveResume({
+  persistResume({
     passage: currentPassageNum,
     surface: 'quiz',
     quizIndex,
@@ -597,7 +611,7 @@ function openHome(tab) {
   const next = ctx.home.setTab(tab || ctx.home.getTab());
   showOverlay('screen-home');
   renderHomeTab(next);
-  ctx.storage.saveResume({
+  persistResume({
     passage: currentPassageNum,
     surface: 'home',
     homeTab: next,
@@ -608,7 +622,7 @@ function openHome(tab) {
 function closeHome() {
   hideOverlay('screen-home');
   ctx.tts.stopSpeaking();
-  ctx.storage.saveResume({
+  persistResume({
     passage: currentPassageNum,
     surface: 'reading',
     scrollY: window.scrollY,
