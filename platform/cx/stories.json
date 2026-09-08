@@ -176,6 +176,22 @@
       "when": "the child looks for Install",
       "then": "Install is visible with Add to Home Screen copy, and installed mode reuses the same on-device memory",
       "nfr": ["pwa-install-visible"]
+    },
+    {
+      "id": "passages-are-capabilities",
+      "component": "capability",
+      "given": "the 100 passages and 1000 words are the first learning catalogs",
+      "when": "the capability component boots",
+      "then": "both catalogs register, list, and open through the shared registry",
+      "nfr": ["capability-catalog-no-shell-fork"]
+    },
+    {
+      "id": "extra-capability-registers-without-shell-fork",
+      "component": "capability",
+      "given": "a stub math exercise pack",
+      "when": "it registers beside passages",
+      "then": "list and catalog HTML work without a shell if on math and without mapping VOCABULARY in the shell",
+      "nfr": ["capability-catalog-no-shell-fork"]
     }
   ]
 }

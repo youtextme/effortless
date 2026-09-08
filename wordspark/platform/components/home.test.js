@@ -6,9 +6,11 @@ import { fileURLToPath } from 'node:url';
 import {
   HomeComponent,
   HOME_TABS,
+  catalogPanelHtml,
   installState,
   isStandaloneDisplay,
   normalizeTab,
+  tabsFromRegistry,
 } from './home.js';
 
 const here = dirname(fileURLToPath(import.meta.url));
@@ -18,6 +20,24 @@ test('story:home-three-tabs component:home Words Passages Settings', () => {
   assert.equal(HOME_TABS.length, 3);
   assert.deepEqual(HOME_TABS.map((t) => t.id), ['words', 'passages', 'settings']);
   assert.equal(normalizeTab('nope'), 'passages');
+  assert.equal(normalizeTab('words', [{ id: 'words' }]), 'words');
+  assert.equal(normalizeTab('nope', [{ id: 'words' }]), 'words');
+  assert.deepEqual(tabsFromRegistry(null).map((t) => t.id), ['words', 'passages', 'settings']);
+  assert.deepEqual(tabsFromRegistry({ catalogs: () => [] }).map((t) => t.id), ['words', 'passages', 'settings']);
+  assert.deepEqual(
+    tabsFromRegistry({
+      catalogs: () => [
+        { id: 'words', label: 'Words' },
+        { id: 'passages', label: 'Passages' },
+        { id: 'math', label: 'Math' },
+      ],
+    }).map((t) => t.id),
+    ['words', 'passages', 'math', 'settings'],
+  );
+  const mathPanel = catalogPanelHtml({ id: 'math', label: 'Math' });
+  assert.match(mathPanel.tab, /data-home-tab="math"/);
+  assert.match(mathPanel.panel, /data-catalog="math"/);
+  assert.deepEqual(catalogPanelHtml({}), { tab: '', panel: '' });
   assert.equal(HomeComponent.health().ok, true);
 
   const html = readFileSync(join(here, '../../index.html'), 'utf8');

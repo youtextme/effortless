@@ -21,6 +21,7 @@ import { WordSheetComponent } from './components/word-sheet.js';
 import { QuizComponent } from './components/quiz.js';
 import { CertificateComponent } from './components/certificate.js';
 import { HomeComponent } from './components/home.js';
+import { CapabilityComponent } from './components/capability.js';
 import { getPaceId, setPaceId } from './speech/pace.js';
 
 const $ = (sel) => document.querySelector(sel);
@@ -43,6 +44,7 @@ let resumeTimer = null;
 
 const COMPONENTS = [
   StorageComponent,
+  CapabilityComponent,
   PassageComponent,
   SpeechComponent,
   TtsComponent,
@@ -86,6 +88,12 @@ export async function bootShell() {
       ctx.emit('health.degraded', 'shell', { component: 'service-worker' });
     });
   }
+
+  ctx.capability?.registerAction?.('read-passage', (result) => {
+    closePanels();
+    closeHome();
+    loadPassage(result.day);
+  });
 
   if (ctx.speech?.ensureVoicesReady) await ctx.speech.ensureVoicesReady();
   else if (ctx.tts.ensureVoicesReady) await ctx.tts.ensureVoicesReady();
@@ -640,14 +648,56 @@ function renderHomeTab(tab) {
   $$('[data-home-panel]').forEach((panel) => {
     panel.hidden = panel.dataset.homePanel !== id;
   });
-  if (id === 'words') renderWordsList();
-  else if (id === 'passages') renderPassageList();
-  else if (id === 'settings') {
+  if (id === 'settings') {
     syncPaceControls();
     const name = ctx.storage.loadProgress().childName || '';
     const input = $('#settings-child-name');
     if (input && document.activeElement !== input) input.value = name;
     updateInstallUi();
+    return;
+  }
+  renderCatalog(id);
+}
+
+function renderCatalog(id) {
+  const cap = ctx.capability?.get?.(id);
+  const mount = document.querySelector(`[data-catalog="${id}"]`);
+  if (!cap || !mount) return;
+  mount.innerHTML = ctx.capability.renderCatalogHtml(ctx.capability.listItems(id), cap);
+  mount.querySelectorAll('[data-item]').forEach((el) => {
+    el.addEventListener('click', () => handleCatalogOpen(id, el.dataset.item));
+  });
+}
+
+function handleCatalogOpen(capabilityId, itemId) {
+  if (typeof ctx.capability?.open !== 'function') return;
+  const result = ctx.capability.open(capabilityId, itemId);
+  if (typeof ctx.capability.dispatch === 'function') {
+    const handled = ctx.capability.dispatch(result);
+    if (!handled) {
+      ctx.emit('capability.unhandled', 'capability', {
+        action: result?.action,
+        capabilityId,
+        itemId,
+      });
+    }
+    return;
+  }
+  switch (result?.action) {
+    case 'read-passage':
+      closePanels();
+      closeHome();
+      loadPassage(result.day);
+      return;
+    case 'none':
+    case 'unknown':
+    case 'unsupported':
+    case 'open-exercise':
+      return;
+    default: {
+      const action = result?.action;
+      ctx.emit('capability.unhandled', 'capability', { action, capabilityId, itemId });
+    }
   }
 }
 
@@ -678,40 +728,6 @@ function openPanel(id, fn) {
   fn();
 }
 function closePanels() { $$('.sub-panel').forEach((p) => { p.hidden = true; }); }
-
-function renderPassageList() {
-  const p = ctx.storage.loadProgress();
-  $('#passage-list').innerHTML = VOCABULARY.map((d) => {
-    const done = p.completedPassages.includes(d.day);
-    const title = getTopicTitle(d.day);
-    return `<div class="passage-item ${done ? 'done' : ''}" data-n="${d.day}">
-      <span class="passage-item-title">${title}</span><span>${done ? '✓' : ''}</span></div>`;
-  }).join('');
-  $$('.passage-item').forEach((el) => {
-    el.addEventListener('click', () => {
-      closePanels();
-      closeHome();
-      loadPassage(parseInt(el.dataset.n, 10));
-    });
-  });
-}
-
-function renderWordsList() {
-  const p = ctx.storage.loadProgress();
-  let idx = 0;
-  const rows = [];
-  for (const day of VOCABULARY) {
-    const learned = p.completedPassages.includes(day.day);
-    for (const w of day.words) {
-      idx++;
-      rows.push(`<div class="word-row ${learned ? 'learned' : 'upcoming'}">
-        <span class="word-index">${idx}</span>
-        <div class="word-info"><span class="word-text">${w.word}</span>
-        <span class="word-meaning">${w.meaning}</span></div></div>`);
-    }
-  }
-  $('#words-list').innerHTML = rows.join('');
-}
 
 async function renderCerts() {
   const p = ctx.storage.loadProgress();

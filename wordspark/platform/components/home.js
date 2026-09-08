@@ -1,7 +1,10 @@
 /**
  * Home — catalog + settings surface.
  * Tabs are reusable: catalogs (words, passages / later exercises) and config.
+ * New exercise packs opt into a tab with homeTab: true; Settings stays chrome.
  */
+
+import { escapeHtml, homeTabsFromCapabilities } from '../kernel/capabilities.js';
 
 export const HOME_TABS = Object.freeze([
   { id: 'words', label: 'Words', kind: 'catalog' },
@@ -9,10 +12,27 @@ export const HOME_TABS = Object.freeze([
   { id: 'settings', label: 'Settings', kind: 'config' },
 ]);
 
-const TAB_IDS = HOME_TABS.map((t) => t.id);
+export function normalizeTab(id, tabs = HOME_TABS) {
+  const ids = tabs.map((t) => t.id);
+  if (ids.includes(id)) return id;
+  return ids.includes('passages') ? 'passages' : ids[0];
+}
 
-export function normalizeTab(id) {
-  return TAB_IDS.includes(id) ? id : 'passages';
+export function tabsFromRegistry(registry) {
+  const tabs = homeTabsFromCapabilities(registry);
+  const catalogs = tabs.filter((t) => t.id !== 'settings');
+  if (!catalogs.length) return [...HOME_TABS];
+  return tabs;
+}
+
+export function catalogPanelHtml(cap) {
+  const id = escapeHtml(cap?.id || '');
+  const label = escapeHtml(cap?.label || cap?.id || '');
+  if (!id) return { tab: '', panel: '' };
+  return {
+    tab: `<button type="button" class="home-tab" role="tab" data-home-tab="${id}">${label}</button>`,
+    panel: `<div class="home-panel" role="tabpanel" data-home-panel="${id}" hidden><div class="catalog-list" data-catalog="${id}"></div></div>`,
+  };
 }
 
 export function isStandaloneDisplay({ matchMedia, standalone } = {}) {
@@ -51,19 +71,21 @@ export function installState({ standalone = false, canPrompt = false } = {}) {
 
 export const HomeComponent = {
   id: 'home',
-  version: '1.0.0',
-  dependencies: ['storage'],
+  version: '1.2.0',
+  dependencies: ['storage', 'capability'],
   init(ctx) {
-    let tab = 'passages';
+    const tabs = tabsFromRegistry(ctx.capability);
+    let tab = normalizeTab('passages', tabs);
     ctx.home = {
-      tabs: HOME_TABS,
-      defaultTab: 'passages',
+      tabs,
+      defaultTab: tab,
       getTab: () => tab,
       setTab(id) {
-        tab = normalizeTab(id);
+        tab = normalizeTab(id, tabs);
         return tab;
       },
-      normalizeTab,
+      normalizeTab: (id) => normalizeTab(id, tabs),
+      catalogPanelHtml,
       installState,
       isStandaloneDisplay,
     };

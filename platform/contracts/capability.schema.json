@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://youtextme.github.io/effortless/platform/contracts/capability.schema.json",
+  "title": "LearningCapability",
+  "type": "object",
+  "required": ["id", "kind", "label"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*$"
+    },
+    "kind": {
+      "type": "string",
+      "enum": ["catalog", "exercise", "config"]
+    },
+    "label": { "type": "string" },
+    "homeTab": { "type": "boolean" },
+    "row": {
+      "type": "string",
+      "enum": ["title", "word"]
+    }
+  },
+  "additionalProperties": true
+}

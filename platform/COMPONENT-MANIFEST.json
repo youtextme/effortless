@@ -3,7 +3,7 @@
   "kernel": {
     "id": "kernel",
     "version": "1.0.0",
-    "modules": ["registry", "bus", "health", "telemetry", "policy", "context"]
+    "modules": ["registry", "bus", "health", "telemetry", "policy", "context", "capabilities"]
   },
   "components": [
     {
@@ -63,16 +63,23 @@
       "events": { "emits": ["certificate.generated", "certificate.shared"], "listens": ["quiz.completed"] }
     },
     {
-      "id": "home",
+      "id": "capability",
       "version": "1.0.0",
       "dependencies": ["storage"],
+      "description": "Registry of reusable learning catalogs (passages, words, later math/diagrams)",
+      "events": { "emits": ["capability.unhandled", "capability.failed"], "listens": [] }
+    },
+    {
+      "id": "home",
+      "version": "1.2.0",
+      "dependencies": ["storage", "capability"],
       "description": "Home catalogs (words, passages) and settings (name, speech, PWA install)",
       "events": { "emits": ["home.opened", "home.tab"], "listens": [] }
     },
     {
       "id": "shell",
-      "version": "1.1.0",
-      "dependencies": ["storage", "reading", "word-sheet", "quiz", "certificate", "speech", "tts", "home"],
+      "version": "1.2.0",
+      "dependencies": ["storage", "reading", "word-sheet", "quiz", "certificate", "speech", "tts", "home", "capability"],
       "description": "App composition root and screen orchestration",
       "events": { "emits": ["app.ready", "app.error"], "listens": [] }
     }

@@ -27,7 +27,7 @@ export function evaluate({ root = defaultRoot, wordspark = defaultWordspark } = 
     }
   }
 
-  const kernelFiles = ['registry.js', 'bus.js', 'health.js', 'telemetry.js', 'policy.js', 'context.js'];
+  const kernelFiles = ['registry.js', 'bus.js', 'health.js', 'telemetry.js', 'policy.js', 'context.js', 'capabilities.js'];
   for (const f of kernelFiles) {
     const p = join(wordspark, 'platform', 'kernel', f);
     if (!existsSync(p)) errors.push(`Missing kernel module: ${p}`);
@@ -63,7 +63,7 @@ export function evaluate({ root = defaultRoot, wordspark = defaultWordspark } = 
     }
   }
 
-  for (const contract of ['component.schema.json', 'events.schema.json', 'cx-story.schema.json']) {
+  for (const contract of ['component.schema.json', 'events.schema.json', 'cx-story.schema.json', 'capability.schema.json']) {
     if (!existsSync(join(root, 'contracts', contract))) {
       errors.push(`Missing contract: ${contract}`);
     }

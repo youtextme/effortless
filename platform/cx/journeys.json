@@ -51,6 +51,15 @@
         { "id": "resume", "story": "resume-where-left-off" },
         { "id": "install", "story": "install-pwa-visible" }
       ]
+    },
+    {
+      "id": "builder-adds-an-exercise",
+      "actor": "builder",
+      "intent": "Plug in a new kid exercise the same way as the 100 passages, without rewriting Home listing",
+      "steps": [
+        { "id": "catalogs-register", "story": "passages-are-capabilities" },
+        { "id": "math-without-fork", "story": "extra-capability-registers-without-shell-fork" }
+      ]
     }
   ]
 }

@@ -19,6 +19,15 @@ GitHub Actions workflow **Platform CI** runs the same command on every PR. Pages
 
 `95%` is **coverage**, not “mostly passing tests”. **Every test must pass** (exit 0). Flaky tests are failures.
 
+## Add an exercise pack (math, diagrams, …)
+
+Do **not** fork Home listing in `shell.js`.
+
+1. `createExerciseCapability({ id, list, open })` in `capability-packs.js` (`homeTab: false` until content exists)
+2. Append to `defaultPacks()`
+3. Register a player via `ctx.capability.registerAction('open-exercise', handler)` — never `if (id === 'math')`
+4. CX story + journey step; SW asset if you added a file; `npm run ci`
+
 ## Add a feature (only supported path)
 
 ```bash

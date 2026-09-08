@@ -1,4 +1,4 @@
-const CACHE_NAME = 'wordspark-v27'; // kid-think quiz + Home tabs + resume/PWA; network-first fetch so resume helpers are not mixed with a stale storage.js
+const CACHE_NAME = 'wordspark-v28'; // capability catalog: 100 passages + 1000 words are registered packs; extra exercises list/open through the registry so shell never grows if (id === 'math'); network-first fetch so catalog renderer is not mixed with a stale shell.js
 const ASSETS = [
   './',
   './index.html',
@@ -11,6 +11,7 @@ const ASSETS = [
   './platform/kernel/telemetry.js',
   './platform/kernel/policy.js',
   './platform/kernel/context.js',
+  './platform/kernel/capabilities.js',
   './platform/components/storage.js',
   './platform/components/passage.js',
   './platform/components/reading.js',
@@ -20,6 +21,8 @@ const ASSETS = [
   './platform/components/quiz.js',
   './platform/components/certificate.js',
   './platform/components/home.js',
+  './platform/components/capability.js',
+  './platform/components/capability-packs.js',
   './platform/speech/policy.js',
   './platform/speech/sentences.js',
   './platform/speech/voice-picker.js',

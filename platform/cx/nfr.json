@@ -204,6 +204,25 @@
           "includes": ["id=\"btn-install\"", "id=\"install-copy\""]
         }
       ]
+    },
+    {
+      "id": "capability-catalog-no-shell-fork",
+      "kind": "reliability",
+      "statement": "Passages and words are registered catalog capabilities. A second exercise pack can list and render through the same API without a shell if on its id.",
+      "sourceEvidence": [
+        {
+          "file": "wordspark/platform/kernel/capabilities.js",
+          "includes": ["createCapabilityRegistry", "renderCatalogHtml", "registerAction", "createExerciseCapability"]
+        },
+        {
+          "file": "wordspark/platform/shell.js",
+          "includes": ["renderCatalog(", "capability.dispatch", "data-catalog"]
+        },
+        {
+          "file": "wordspark/platform/components/capability-packs.js",
+          "includes": ["createPassagesCapability", "createWordsCapability", "defaultPacks"]
+        }
+      ]
     }
   ]
 }

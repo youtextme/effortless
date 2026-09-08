@@ -4,6 +4,7 @@ Governance layer for effortless products. Runtime lives in `wordspark/platform/`
 
 - [Architecture](./ARCHITECTURE.md)
 - [ADR 001: Component model](./adr/001-platform-components.md)
+- [ADR 004: Capability catalog](./adr/004-capability-catalog.md)
 - [Component manifest](./COMPONENT-MANIFEST.json)
 
 ## Validate
@@ -21,3 +22,4 @@ node platform/scripts/validate-platform.mjs
 | `health` | Self-healing checks + recovery hooks |
 | `telemetry` | Self-learning local event ring (200 events) |
 | `policy` | Self-governing gates (PII, network, storage keys) |
+| `capabilities` | Catalogs of reusable exercises (passages, words, later math/diagrams) |
