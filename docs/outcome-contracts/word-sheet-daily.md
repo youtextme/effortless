@@ -1,6 +1,6 @@
 # Outcome Contract — Word-sheet daily speech
 
-**Status:** active  
+**Status:** proven  
 **Slug:** word-sheet-daily  
 **Date:** 2026-09-08
 
@@ -43,11 +43,19 @@ Do not change Listen passage highlight, parent pace, or quiz coaching. Web Speec
 
 ## Definition of Done
 
-- [ ] Word twice, then meaning, then 3 examples
-- [ ] Kid-relatable example generator + data file
-- [ ] Tests + live cache bump
-- [ ] Command evidence in this contract
+- [x] Word twice, then meaning, then 3 examples
+- [x] Kid-relatable example generator + data file
+- [x] Tests + live cache bump
+- [x] Command evidence in this contract
 
 ## Command evidence
 
-(filled after CI)
+Evaluator (not Builder): `docs/outcome-contracts/evidence-word-sheet-daily.md` — Status proven.
+
+```
+$ npm run ci
+exit:0
+# tests 65
+# pass 65
+# coverage lines 99.47 / branches 88.33 / funcs 98.67
+```

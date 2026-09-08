@@ -19,7 +19,7 @@ export const WORD_EXPLANATIONS = {
   "investigate": {
     "simple": "It means to look into something carefully.",
     "examples": [
-      "If I lose my jumper I have to investigate the last place I had it.",
+      "If something feels unfair I have to investigate it with my friend.",
       "Don't shout — let's investigate what happened first.",
       "Let me investigate this homework before I guess."
     ]
@@ -115,7 +115,7 @@ export const WORD_EXPLANATIONS = {
   "speculate": {
     "simple": "It means to form theories without firm evidence.",
     "examples": [
-      "If I lose my jumper I have to speculate the last place I had it.",
+      "If something feels unfair I have to speculate it with my friend.",
       "Don't shout — let's speculate what happened first.",
       "Let me speculate this homework before I guess."
     ]
@@ -140,8 +140,8 @@ export const WORD_EXPLANATIONS = {
     "simple": "It means to make sure something is true.",
     "examples": [
       "In class I asked if we can verify the question together.",
-      "I need to verify where I left my charger.",
-      "If I lose my jumper I have to verify the last place I had it."
+      "I need to verify this with Mum before I decide.",
+      "If something feels unfair I have to verify it with my friend."
     ]
   },
   "uncover": {
@@ -227,7 +227,7 @@ export const WORD_EXPLANATIONS = {
   "clarify": {
     "simple": "It means to make something clear.",
     "examples": [
-      "If I lose my jumper I have to clarify the last place I had it.",
+      "If something feels unfair I have to clarify it with my friend.",
       "Don't shout — let's clarify what happened first.",
       "Let me clarify this homework before I guess."
     ]
@@ -275,8 +275,8 @@ export const WORD_EXPLANATIONS = {
   "summarize": {
     "simple": "It means to give a brief account.",
     "examples": [
-      "I need to summarize where I left my charger.",
-      "If I lose my jumper I have to summarize the last place I had it.",
+      "I need to summarize this with Mum before I decide.",
+      "If something feels unfair I have to summarize it with my friend.",
       "Don't shout — let's summarize what happened first."
     ]
   },
@@ -284,15 +284,15 @@ export const WORD_EXPLANATIONS = {
     "simple": "It means to discuss opposing views.",
     "examples": [
       "In class I asked if we can debate the question together.",
-      "I need to debate where I left my charger.",
-      "If I lose my jumper I have to debate the last place I had it."
+      "I need to debate this with Mum before I decide.",
+      "If something feels unfair I have to debate it with my friend."
     ]
   },
   "negotiate": {
     "simple": "It means to discuss to reach agreement.",
     "examples": [
-      "I need to negotiate where I left my charger.",
-      "If I lose my jumper I have to negotiate the last place I had it.",
+      "I need to negotiate this with Mum before I decide.",
+      "If something feels unfair I have to negotiate it with my friend.",
       "Don't shout — let's negotiate what happened first."
     ]
   },
@@ -301,7 +301,7 @@ export const WORD_EXPLANATIONS = {
     "examples": [
       "Can we advocate this so everyone at dinner understands?",
       "In class I asked if we can advocate the question together.",
-      "I need to advocate where I left my charger."
+      "I need to advocate this with Mum before I decide."
     ]
   },
   "proclaim": {
@@ -316,8 +316,8 @@ export const WORD_EXPLANATIONS = {
     "simple": "It means to make a public statement.",
     "examples": [
       "In class I asked if we can announce the question together.",
-      "I need to announce where I left my charger.",
-      "If I lose my jumper I have to announce the last place I had it."
+      "I need to announce this with Mum before I decide.",
+      "If something feels unfair I have to announce it with my friend."
     ]
   },
   "evaluate": {
@@ -332,8 +332,8 @@ export const WORD_EXPLANATIONS = {
     "simple": "It means to evaluate or estimate.",
     "examples": [
       "In class I asked if we can assess the question together.",
-      "I need to assess where I left my charger.",
-      "If I lose my jumper I have to assess the last place I had it."
+      "I need to assess this with Mum before I decide.",
+      "If something feels unfair I have to assess it with my friend."
     ]
   },
   "compare": {
@@ -373,7 +373,7 @@ export const WORD_EXPLANATIONS = {
     "examples": [
       "Can we critique this so everyone at dinner understands?",
       "In class I asked if we can critique the question together.",
-      "I need to critique where I left my charger."
+      "I need to critique this with Mum before I decide."
     ]
   },
   "appraise": {
@@ -516,8 +516,8 @@ export const WORD_EXPLANATIONS = {
     "simple": "It means you process plants use to make food.",
     "examples": [
       "In class I asked if we can photosynthesis the question together.",
-      "I need to photosynthesis where I left my charger.",
-      "If I lose my jumper I have to photosynthesis the last place I had it."
+      "I need to photosynthesis this with Mum before I decide.",
+      "If something feels unfair I have to photosynthesis it with my friend."
     ]
   },
   "evolution": {
@@ -740,8 +740,8 @@ export const WORD_EXPLANATIONS = {
     "simple": "It means you shared cultural background.",
     "examples": [
       "In class I asked if we can ethnicity the question together.",
-      "I need to ethnicity where I left my charger.",
-      "If I lose my jumper I have to ethnicity the last place I had it."
+      "I need to ethnicity this with Mum before I decide.",
+      "If something feels unfair I have to ethnicity it with my friend."
     ]
   },
   "migration": {
@@ -779,8 +779,8 @@ export const WORD_EXPLANATIONS = {
   "tolerance": {
     "simple": "It means you acceptance of different views.",
     "examples": [
-      "I need to tolerance where I left my charger.",
-      "If I lose my jumper I have to tolerance the last place I had it.",
+      "I need to tolerance this with Mum before I decide.",
+      "If something feels unfair I have to tolerance it with my friend.",
       "Don't shout — let's tolerance what happened first."
     ]
   },
@@ -1189,7 +1189,7 @@ export const WORD_EXPLANATIONS = {
     "examples": [
       "Can we budget this so everyone at dinner understands?",
       "In class I asked if we can budget the question together.",
-      "I need to budget where I left my charger."
+      "I need to budget this with Mum before I decide."
     ]
   },
   "commerce": {
@@ -1300,8 +1300,8 @@ export const WORD_EXPLANATIONS = {
     "simple": "It means you use of machines instead of people.",
     "examples": [
       "In class I asked if we can automation the question together.",
-      "I need to automation where I left my charger.",
-      "If I lose my jumper I have to automation the last place I had it."
+      "I need to automation this with Mum before I decide.",
+      "If something feels unfair I have to automation it with my friend."
     ]
   },
   "innovation": {
@@ -1435,7 +1435,7 @@ export const WORD_EXPLANATIONS = {
   "nutrition": {
     "simple": "It means you process of providing food for health.",
     "examples": [
-      "If I lose my jumper I have to nutrition the last place I had it.",
+      "If something feels unfair I have to nutrition it with my friend.",
       "Don't shout — let's nutrition what happened first.",
       "Let me nutrition this homework before I guess."
     ]
@@ -1747,8 +1747,8 @@ export const WORD_EXPLANATIONS = {
   "conform": {
     "simple": "It means to comply with rules.",
     "examples": [
-      "I need to conform where I left my charger.",
-      "If I lose my jumper I have to conform the last place I had it.",
+      "I need to conform this with Mum before I decide.",
+      "If something feels unfair I have to conform it with my friend.",
       "Don't shout — let's conform what happened first."
     ]
   },
@@ -1763,7 +1763,7 @@ export const WORD_EXPLANATIONS = {
   "consequent": {
     "simple": "It means you following as a result.",
     "examples": [
-      "If I lose my jumper I have to consequent the last place I had it.",
+      "If something feels unfair I have to consequent it with my friend.",
       "Don't shout — let's consequent what happened first.",
       "Let me consequent this homework before I guess."
     ]
@@ -1779,8 +1779,8 @@ export const WORD_EXPLANATIONS = {
   "consist": {
     "simple": "It means to be composed of.",
     "examples": [
-      "I need to consist where I left my charger.",
-      "If I lose my jumper I have to consist the last place I had it.",
+      "I need to consist this with Mum before I decide.",
+      "If something feels unfair I have to consist it with my friend.",
       "Don't shout — let's consist what happened first."
     ]
   },
@@ -1795,8 +1795,8 @@ export const WORD_EXPLANATIONS = {
   "constitute": {
     "simple": "It means to form or make up.",
     "examples": [
-      "I need to constitute where I left my charger.",
-      "If I lose my jumper I have to constitute the last place I had it.",
+      "I need to constitute this with Mum before I decide.",
+      "If something feels unfair I have to constitute it with my friend.",
       "Don't shout — let's constitute what happened first."
     ]
   },
@@ -1835,7 +1835,7 @@ export const WORD_EXPLANATIONS = {
   "contradict": {
     "simple": "It means to assert the opposite.",
     "examples": [
-      "If I lose my jumper I have to contradict the last place I had it.",
+      "If something feels unfair I have to contradict it with my friend.",
       "Don't shout — let's contradict what happened first.",
       "Let me contradict this homework before I guess."
     ]
@@ -1876,8 +1876,8 @@ export const WORD_EXPLANATIONS = {
     "simple": "It means to persuade someone.",
     "examples": [
       "In class I asked if we can convince the question together.",
-      "I need to convince where I left my charger.",
-      "If I lose my jumper I have to convince the last place I had it."
+      "I need to convince this with Mum before I decide.",
+      "If something feels unfair I have to convince it with my friend."
     ]
   },
   "cooperate": {
@@ -1892,7 +1892,7 @@ export const WORD_EXPLANATIONS = {
     "simple": "It means to organize different elements.",
     "examples": [
       "She coordinates events for the school.",
-      "If I lose my jumper I have to coordinate the last place I had it.",
+      "If something feels unfair I have to coordinate it with my friend.",
       "Don't shout — let's coordinate what happened first."
     ]
   },
@@ -1908,16 +1908,16 @@ export const WORD_EXPLANATIONS = {
     "simple": "It means to match or be similar.",
     "examples": [
       "Results correspond with our predictions.",
-      "I need to correspond where I left my charger.",
-      "If I lose my jumper I have to correspond the last place I had it."
+      "I need to correspond this with Mum before I decide.",
+      "If something feels unfair I have to correspond it with my friend."
     ]
   },
   "criteria": {
     "simple": "It means you standards for judgment.",
     "examples": [
       "In class I asked if we can criteria the question together.",
-      "I need to criteria where I left my charger.",
-      "If I lose my jumper I have to criteria the last place I had it."
+      "I need to criteria this with Mum before I decide.",
+      "If something feels unfair I have to criteria it with my friend."
     ]
   },
   "crucial": {
@@ -1973,7 +1973,7 @@ export const WORD_EXPLANATIONS = {
     "examples": [
       "Can we depress this so everyone at dinner understands?",
       "In class I asked if we can depress the question together.",
-      "I need to depress where I left my charger."
+      "I need to depress this with Mum before I decide."
     ]
   },
   "derive": {
@@ -2019,7 +2019,7 @@ export const WORD_EXPLANATIONS = {
   "devote": {
     "simple": "It means to give time and energy to.",
     "examples": [
-      "If I lose my jumper I have to devote the last place I had it.",
+      "If something feels unfair I have to devote it with my friend.",
       "Don't shout — let's devote what happened first.",
       "Let me devote this homework before I guess."
     ]
@@ -2067,8 +2067,8 @@ export const WORD_EXPLANATIONS = {
   "displace": {
     "simple": "It means to move from proper position.",
     "examples": [
-      "I need to displace where I left my charger.",
-      "If I lose my jumper I have to displace the last place I had it.",
+      "I need to displace this with Mum before I decide.",
+      "If something feels unfair I have to displace it with my friend.",
       "Don't shout — let's displace what happened first."
     ]
   },
@@ -2099,8 +2099,8 @@ export const WORD_EXPLANATIONS = {
   "distort": {
     "simple": "It means to twist out of shape.",
     "examples": [
-      "I need to distort where I left my charger.",
-      "If I lose my jumper I have to distort the last place I had it.",
+      "I need to distort this with Mum before I decide.",
+      "If something feels unfair I have to distort it with my friend.",
       "Don't shout — let's distort what happened first."
     ]
   },
@@ -2171,7 +2171,7 @@ export const WORD_EXPLANATIONS = {
   "emerge": {
     "simple": "It means to come into view.",
     "examples": [
-      "If I lose my jumper I have to emerge the last place I had it.",
+      "If something feels unfair I have to emerge it with my friend.",
       "Don't shout — let's emerge what happened first.",
       "Let me emerge this homework before I guess."
     ]
@@ -2203,8 +2203,8 @@ export const WORD_EXPLANATIONS = {
   "encounter": {
     "simple": "It means to meet unexpectedly.",
     "examples": [
-      "I need to encounter where I left my charger.",
-      "If I lose my jumper I have to encounter the last place I had it.",
+      "I need to encounter this with Mum before I decide.",
+      "If something feels unfair I have to encounter it with my friend.",
       "Don't shout — let's encounter what happened first."
     ]
   },
@@ -2213,7 +2213,7 @@ export const WORD_EXPLANATIONS = {
     "examples": [
       "Can we enhance this so everyone at dinner understands?",
       "In class I asked if we can enhance the question together.",
-      "I need to enhance where I left my charger."
+      "I need to enhance this with Mum before I decide."
     ]
   },
   "enormous": {
@@ -2260,7 +2260,7 @@ export const WORD_EXPLANATIONS = {
     "simple": "It means to set up on a firm basis.",
     "examples": [
       "The school was established in 1950.",
-      "If I lose my jumper I have to establish the last place I had it.",
+      "If something feels unfair I have to establish it with my friend.",
       "Don't shout — let's establish what happened first."
     ]
   },
@@ -2283,7 +2283,7 @@ export const WORD_EXPLANATIONS = {
   "ethnic": {
     "simple": "Ethnic is a word you can use at school, at home, and with friends.",
     "examples": [
-      "If I lose my jumper I have to ethnic the last place I had it.",
+      "If something feels unfair I have to ethnic it with my friend.",
       "Don't shout — let's ethnic what happened first.",
       "Let me ethnic this homework before I guess."
     ]
@@ -2315,7 +2315,7 @@ export const WORD_EXPLANATIONS = {
   "exclude": {
     "simple": "It means to shut out or leave out.",
     "examples": [
-      "If I lose my jumper I have to exclude the last place I had it.",
+      "If something feels unfair I have to exclude it with my friend.",
       "Don't shout — let's exclude what happened first.",
       "Let me exclude this homework before I guess."
     ]
@@ -2323,7 +2323,7 @@ export const WORD_EXPLANATIONS = {
   "exhibit": {
     "simple": "It means to display publicly.",
     "examples": [
-      "If I lose my jumper I have to exhibit the last place I had it.",
+      "If something feels unfair I have to exhibit it with my friend.",
       "Don't shout — let's exhibit what happened first.",
       "Let me exhibit this homework before I guess."
     ]
@@ -2332,8 +2332,8 @@ export const WORD_EXPLANATIONS = {
     "simple": "It means to become larger.",
     "examples": [
       "In class I asked if we can expand the question together.",
-      "I need to expand where I left my charger.",
-      "If I lose my jumper I have to expand the last place I had it."
+      "I need to expand this with Mum before I decide.",
+      "If something feels unfair I have to expand it with my friend."
     ]
   },
   "expert": {
@@ -2355,7 +2355,7 @@ export const WORD_EXPLANATIONS = {
   "exploit": {
     "simple": "It means to use for benefit.",
     "examples": [
-      "If I lose my jumper I have to exploit the last place I had it.",
+      "If something feels unfair I have to exploit it with my friend.",
       "Don't shout — let's exploit what happened first.",
       "Let me exploit this homework before I guess."
     ]
@@ -2365,7 +2365,7 @@ export const WORD_EXPLANATIONS = {
     "examples": [
       "Can we export this so everyone at dinner understands?",
       "In class I asked if we can export the question together.",
-      "I need to export where I left my charger."
+      "I need to export this with Mum before I decide."
     ]
   },
   "expose": {
@@ -2388,8 +2388,8 @@ export const WORD_EXPLANATIONS = {
     "simple": "It means to remove or obtain from.",
     "examples": [
       "In class I asked if we can extract the question together.",
-      "I need to extract where I left my charger.",
-      "If I lose my jumper I have to extract the last place I had it."
+      "I need to extract this with Mum before I decide.",
+      "If something feels unfair I have to extract it with my friend."
     ]
   },
   "facilitate": {
@@ -2492,8 +2492,8 @@ export const WORD_EXPLANATIONS = {
     "simple": "It means you forming a necessary base.",
     "examples": [
       "In class I asked if we can fundamental the question together.",
-      "I need to fundamental where I left my charger.",
-      "If I lose my jumper I have to fundamental the last place I had it."
+      "I need to fundamental this with Mum before I decide.",
+      "If something feels unfair I have to fundamental it with my friend."
     ]
   },
   "furthermore": {
@@ -2627,15 +2627,15 @@ export const WORD_EXPLANATIONS = {
   "implement": {
     "simple": "It means to put into effect.",
     "examples": [
-      "I need to implement where I left my charger.",
-      "If I lose my jumper I have to implement the last place I had it.",
+      "I need to implement this with Mum before I decide.",
+      "If something feels unfair I have to implement it with my friend.",
       "Don't shout — let's implement what happened first."
     ]
   },
   "implicate": {
     "simple": "It means to show involvement in a crime.",
     "examples": [
-      "If I lose my jumper I have to implicate the last place I had it.",
+      "If something feels unfair I have to implicate it with my friend.",
       "Don't shout — let's implicate what happened first.",
       "Let me implicate this homework before I guess."
     ]
@@ -2651,8 +2651,8 @@ export const WORD_EXPLANATIONS = {
   "imply": {
     "simple": "It means to suggest without stating directly.",
     "examples": [
-      "I need to imply where I left my charger.",
-      "If I lose my jumper I have to imply the last place I had it.",
+      "I need to imply this with Mum before I decide.",
+      "If something feels unfair I have to imply it with my friend.",
       "Don't shout — let's imply what happened first."
     ]
   },
@@ -2661,7 +2661,7 @@ export const WORD_EXPLANATIONS = {
     "examples": [
       "Can we impose this so everyone at dinner understands?",
       "In class I asked if we can impose the question together.",
-      "I need to impose where I left my charger."
+      "I need to impose this with Mum before I decide."
     ]
   },
   "incentive": {
@@ -2717,7 +2717,7 @@ export const WORD_EXPLANATIONS = {
     "examples": [
       "Can we indicate this so everyone at dinner understands?",
       "In class I asked if we can indicate the question together.",
-      "I need to indicate where I left my charger."
+      "I need to indicate this with Mum before I decide."
     ]
   },
   "individual": {
@@ -2731,7 +2731,7 @@ export const WORD_EXPLANATIONS = {
   "induce": {
     "simple": "It means to bring about or persuade.",
     "examples": [
-      "If I lose my jumper I have to induce the last place I had it.",
+      "If something feels unfair I have to induce it with my friend.",
       "Don't shout — let's induce what happened first.",
       "Let me induce this homework before I guess."
     ]
@@ -2749,7 +2749,7 @@ export const WORD_EXPLANATIONS = {
     "examples": [
       "From her smile, I infer she passed the exam.",
       "In class I asked if we can infer the question together.",
-      "I need to infer where I left my charger."
+      "I need to infer this with Mum before I decide."
     ]
   },
   "infrastructure": {
@@ -2789,15 +2789,15 @@ export const WORD_EXPLANATIONS = {
     "examples": [
       "Can we injure this so everyone at dinner understands?",
       "In class I asked if we can injure the question together.",
-      "I need to injure where I left my charger."
+      "I need to injure this with Mum before I decide."
     ]
   },
   "innovate": {
     "simple": "It means to introduce new methods.",
     "examples": [
       "In class I asked if we can innovate the question together.",
-      "I need to innovate where I left my charger.",
-      "If I lose my jumper I have to innovate the last place I had it."
+      "I need to innovate this with Mum before I decide.",
+      "If something feels unfair I have to innovate it with my friend."
     ]
   },
   "input": {
@@ -2844,8 +2844,8 @@ export const WORD_EXPLANATIONS = {
     "simple": "It means to establish or set up.",
     "examples": [
       "In class I asked if we can institute the question together.",
-      "I need to institute where I left my charger.",
-      "If I lose my jumper I have to institute the last place I had it."
+      "I need to institute this with Mum before I decide.",
+      "If something feels unfair I have to institute it with my friend."
     ]
   },
   "integrate": {
@@ -2907,8 +2907,8 @@ export const WORD_EXPLANATIONS = {
   "intervene": {
     "simple": "It means to come between to alter a result.",
     "examples": [
-      "I need to intervene where I left my charger.",
-      "If I lose my jumper I have to intervene the last place I had it.",
+      "I need to intervene this with Mum before I decide.",
+      "If something feels unfair I have to intervene it with my friend.",
       "Don't shout — let's intervene what happened first."
     ]
   },
@@ -2925,21 +2925,21 @@ export const WORD_EXPLANATIONS = {
     "examples": [
       "Can we invest this so everyone at dinner understands?",
       "In class I asked if we can invest the question together.",
-      "I need to invest where I left my charger."
+      "I need to invest this with Mum before I decide."
     ]
   },
   "invoke": {
     "simple": "It means to call upon for support.",
     "examples": [
       "In class I asked if we can invoke the question together.",
-      "I need to invoke where I left my charger.",
-      "If I lose my jumper I have to invoke the last place I had it."
+      "I need to invoke this with Mum before I decide.",
+      "If something feels unfair I have to invoke it with my friend."
     ]
   },
   "involve": {
     "simple": "It means to include as a necessary part.",
     "examples": [
-      "If I lose my jumper I have to involve the last place I had it.",
+      "If something feels unfair I have to involve it with my friend.",
       "Don't shout — let's involve what happened first.",
       "Let me involve this homework before I guess."
     ]
@@ -2947,7 +2947,7 @@ export const WORD_EXPLANATIONS = {
   "isolate": {
     "simple": "It means to set apart from others.",
     "examples": [
-      "If I lose my jumper I have to isolate the last place I had it.",
+      "If something feels unfair I have to isolate it with my friend.",
       "Don't shout — let's isolate what happened first.",
       "Let me isolate this homework before I guess."
     ]
@@ -3083,7 +3083,7 @@ export const WORD_EXPLANATIONS = {
   "maintain": {
     "simple": "It means to keep in good condition.",
     "examples": [
-      "If I lose my jumper I have to maintain the last place I had it.",
+      "If something feels unfair I have to maintain it with my friend.",
       "Don't shout — let's maintain what happened first.",
       "Let me maintain this homework before I guess."
     ]
@@ -3100,8 +3100,8 @@ export const WORD_EXPLANATIONS = {
     "simple": "It means to display or show clearly.",
     "examples": [
       "In class I asked if we can manifest the question together.",
-      "I need to manifest where I left my charger.",
-      "If I lose my jumper I have to manifest the last place I had it."
+      "I need to manifest this with Mum before I decide.",
+      "If something feels unfair I have to manifest it with my friend."
     ]
   },
   "manipulate": {
@@ -3164,8 +3164,8 @@ export const WORD_EXPLANATIONS = {
     "simple": "It means to intervene to resolve a dispute.",
     "examples": [
       "In class I asked if we can mediate the question together.",
-      "I need to mediate where I left my charger.",
-      "If I lose my jumper I have to mediate the last place I had it."
+      "I need to mediate this with Mum before I decide.",
+      "If something feels unfair I have to mediate it with my friend."
     ]
   },
   "medical": {
@@ -3197,7 +3197,7 @@ export const WORD_EXPLANATIONS = {
     "examples": [
       "Can we migrate this so everyone at dinner understands?",
       "In class I asked if we can migrate the question together.",
-      "I need to migrate where I left my charger."
+      "I need to migrate this with Mum before I decide."
     ]
   },
   "military": {
@@ -3283,7 +3283,7 @@ export const WORD_EXPLANATIONS = {
   "negative": {
     "simple": "It means you expressing denial or refusal.",
     "examples": [
-      "If I lose my jumper I have to negative the last place I had it.",
+      "If something feels unfair I have to negative it with my friend.",
       "Don't shout — let's negative what happened first.",
       "Let me negative this homework before I guess."
     ]
@@ -3397,7 +3397,7 @@ export const WORD_EXPLANATIONS = {
     "examples": [
       "Can we offset this so everyone at dinner understands?",
       "In class I asked if we can offset the question together.",
-      "I need to offset where I left my charger."
+      "I need to offset this with Mum before I decide."
     ]
   },
   "ongoing": {
@@ -3491,7 +3491,7 @@ export const WORD_EXPLANATIONS = {
   "participate": {
     "simple": "It means to take part in an activity.",
     "examples": [
-      "If I lose my jumper I have to participate the last place I had it.",
+      "If something feels unfair I have to participate it with my friend.",
       "Don't shout — let's participate what happened first.",
       "Let me participate this homework before I guess."
     ]
@@ -3507,7 +3507,7 @@ export const WORD_EXPLANATIONS = {
   "passive": {
     "simple": "It means you accepting without active response.",
     "examples": [
-      "If I lose my jumper I have to passive the last place I had it.",
+      "If something feels unfair I have to passive it with my friend.",
       "Don't shout — let's passive what happened first.",
       "Let me passive this homework before I guess."
     ]
@@ -3525,7 +3525,7 @@ export const WORD_EXPLANATIONS = {
     "examples": [
       "We perceive colors through our eyes.",
       "In class I asked if we can perceive the question together.",
-      "I need to perceive where I left my charger."
+      "I need to perceive this with Mum before I decide."
     ]
   },
   "percent": {
@@ -3547,7 +3547,7 @@ export const WORD_EXPLANATIONS = {
   "persist": {
     "simple": "It means to continue firmly despite difficulty.",
     "examples": [
-      "If I lose my jumper I have to persist the last place I had it.",
+      "If something feels unfair I have to persist it with my friend.",
       "Don't shout — let's persist what happened first.",
       "Let me persist this homework before I guess."
     ]
@@ -3740,8 +3740,8 @@ export const WORD_EXPLANATIONS = {
     "simple": "It means to continue or move forward.",
     "examples": [
       "In class I asked if we can proceed the question together.",
-      "I need to proceed where I left my charger.",
-      "If I lose my jumper I have to proceed the last place I had it."
+      "I need to proceed this with Mum before I decide.",
+      "If something feels unfair I have to proceed it with my friend."
     ]
   },
   "process": {
@@ -3917,7 +3917,7 @@ export const WORD_EXPLANATIONS = {
     "examples": [
       "Can we react this so everyone at dinner understands?",
       "In class I asked if we can react the question together.",
-      "I need to react where I left my charger."
+      "I need to react this with Mum before I decide."
     ]
   },
   "recover": {
@@ -3925,7 +3925,7 @@ export const WORD_EXPLANATIONS = {
     "examples": [
       "Can we recover this so everyone at dinner understands?",
       "In class I asked if we can recover the question together.",
-      "I need to recover where I left my charger."
+      "I need to recover this with Mum before I decide."
     ]
   },
   "refine": {
@@ -3939,8 +3939,8 @@ export const WORD_EXPLANATIONS = {
   "reflect": {
     "simple": "It means to think deeply; to throw back light.",
     "examples": [
-      "I need to reflect where I left my charger.",
-      "If I lose my jumper I have to reflect the last place I had it.",
+      "I need to reflect this with Mum before I decide.",
+      "If something feels unfair I have to reflect it with my friend.",
       "Don't shout — let's reflect what happened first."
     ]
   },
@@ -3996,16 +3996,16 @@ export const WORD_EXPLANATIONS = {
     "simple": "It means to refuse to accept.",
     "examples": [
       "In class I asked if we can reject the question together.",
-      "I need to reject where I left my charger.",
-      "If I lose my jumper I have to reject the last place I had it."
+      "I need to reject this with Mum before I decide.",
+      "If something feels unfair I have to reject it with my friend."
     ]
   },
   "relate": {
     "simple": "It means to show connection between things.",
     "examples": [
       "In class I asked if we can relate the question together.",
-      "I need to relate where I left my charger.",
-      "If I lose my jumper I have to relate the last place I had it."
+      "I need to relate this with Mum before I decide.",
+      "If something feels unfair I have to relate it with my friend."
     ]
   },
   "relevant": {
@@ -4043,8 +4043,8 @@ export const WORD_EXPLANATIONS = {
   "require": {
     "simple": "It means to need for a purpose.",
     "examples": [
-      "I need to require where I left my charger.",
-      "If I lose my jumper I have to require the last place I had it.",
+      "I need to require this with Mum before I decide.",
+      "If something feels unfair I have to require it with my friend.",
       "Don't shout — let's require what happened first."
     ]
   },
@@ -4084,8 +4084,8 @@ export const WORD_EXPLANATIONS = {
     "simple": "It means to bring back to original condition.",
     "examples": [
       "In class I asked if we can restore the question together.",
-      "I need to restore where I left my charger.",
-      "If I lose my jumper I have to restore the last place I had it."
+      "I need to restore this with Mum before I decide.",
+      "If something feels unfair I have to restore it with my friend."
     ]
   },
   "restrain": {
@@ -4099,8 +4099,8 @@ export const WORD_EXPLANATIONS = {
   "restrict": {
     "simple": "It means to limit or control.",
     "examples": [
-      "I need to restrict where I left my charger.",
-      "If I lose my jumper I have to restrict the last place I had it.",
+      "I need to restrict this with Mum before I decide.",
+      "If something feels unfair I have to restrict it with my friend.",
       "Don't shout — let's restrict what happened first."
     ]
   },
@@ -4108,15 +4108,15 @@ export const WORD_EXPLANATIONS = {
     "simple": "It means to continue to have or keep.",
     "examples": [
       "In class I asked if we can retain the question together.",
-      "I need to retain where I left my charger.",
-      "If I lose my jumper I have to retain the last place I had it."
+      "I need to retain this with Mum before I decide.",
+      "If something feels unfair I have to retain it with my friend."
     ]
   },
   "reveal": {
     "simple": "It means to make known; to uncover.",
     "examples": [
-      "I need to reveal where I left my charger.",
-      "If I lose my jumper I have to reveal the last place I had it.",
+      "I need to reveal this with Mum before I decide.",
+      "If something feels unfair I have to reveal it with my friend.",
       "Don't shout — let's reveal what happened first."
     ]
   },
@@ -4133,7 +4133,7 @@ export const WORD_EXPLANATIONS = {
     "examples": [
       "Can we reverse this so everyone at dinner understands?",
       "In class I asked if we can reverse the question together.",
-      "I need to reverse where I left my charger."
+      "I need to reverse this with Mum before I decide."
     ]
   },
   "revise": {
@@ -4244,8 +4244,8 @@ export const WORD_EXPLANATIONS = {
     "simple": "It means to carefully choose.",
     "examples": [
       "In class I asked if we can select the question together.",
-      "I need to select where I left my charger.",
-      "If I lose my jumper I have to select the last place I had it."
+      "I need to select this with Mum before I decide.",
+      "If something feels unfair I have to select it with my friend."
     ]
   },
   "sequence": {
@@ -4437,7 +4437,7 @@ export const WORD_EXPLANATIONS = {
     "examples": [
       "Can we survive this so everyone at dinner understands?",
       "In class I asked if we can survive the question together.",
-      "I need to survive where I left my charger."
+      "I need to survive this with Mum before I decide."
     ]
   },
   "suspend": {
@@ -4445,7 +4445,7 @@ export const WORD_EXPLANATIONS = {
     "examples": [
       "Can we suspend this so everyone at dinner understands?",
       "In class I asked if we can suspend the question together.",
-      "I need to suspend where I left my charger."
+      "I need to suspend this with Mum before I decide."
     ]
   },
   "sustain": {
@@ -4563,7 +4563,7 @@ export const WORD_EXPLANATIONS = {
   "trace": {
     "simple": "It means to find or discover by investigation.",
     "examples": [
-      "If I lose my jumper I have to trace the last place I had it.",
+      "If something feels unfair I have to trace it with my friend.",
       "Don't shout — let's trace what happened first.",
       "Let me trace this homework before I guess."
     ]
@@ -4571,8 +4571,8 @@ export const WORD_EXPLANATIONS = {
   "transfer": {
     "simple": "It means to move from one place to another.",
     "examples": [
-      "I need to transfer where I left my charger.",
-      "If I lose my jumper I have to transfer the last place I had it.",
+      "I need to transfer this with Mum before I decide.",
+      "If something feels unfair I have to transfer it with my friend.",
       "Don't shout — let's transfer what happened first."
     ]
   },
@@ -4581,7 +4581,7 @@ export const WORD_EXPLANATIONS = {
     "examples": [
       "Can we transform this so everyone at dinner understands?",
       "In class I asked if we can transform the question together.",
-      "I need to transform where I left my charger."
+      "I need to transform this with Mum before I decide."
     ]
   },
   "transition": {
@@ -4596,8 +4596,8 @@ export const WORD_EXPLANATIONS = {
     "simple": "It means to cause to pass from one place to another.",
     "examples": [
       "In class I asked if we can transmit the question together.",
-      "I need to transmit where I left my charger.",
-      "If I lose my jumper I have to transmit the last place I had it."
+      "I need to transmit this with Mum before I decide.",
+      "If something feels unfair I have to transmit it with my friend."
     ]
   },
   "transport": {
@@ -4635,23 +4635,23 @@ export const WORD_EXPLANATIONS = {
   "undergo": {
     "simple": "It means to experience or be subjected to.",
     "examples": [
-      "I need to undergo where I left my charger.",
-      "If I lose my jumper I have to undergo the last place I had it.",
+      "I need to undergo this with Mum before I decide.",
+      "If something feels unfair I have to undergo it with my friend.",
       "Don't shout — let's undergo what happened first."
     ]
   },
   "underlie": {
     "simple": "It means to lie beneath; to be the cause of.",
     "examples": [
-      "I need to underlie where I left my charger.",
-      "If I lose my jumper I have to underlie the last place I had it.",
+      "I need to underlie this with Mum before I decide.",
+      "If something feels unfair I have to underlie it with my friend.",
       "Don't shout — let's underlie what happened first."
     ]
   },
   "undertake": {
     "simple": "It means to commit oneself to and begin.",
     "examples": [
-      "If I lose my jumper I have to undertake the last place I had it.",
+      "If something feels unfair I have to undertake it with my friend.",
       "Don't shout — let's undertake what happened first.",
       "Let me undertake this homework before I guess."
     ]
@@ -4683,8 +4683,8 @@ export const WORD_EXPLANATIONS = {
   "utilize": {
     "simple": "It means to make practical use of.",
     "examples": [
-      "I need to utilize where I left my charger.",
-      "If I lose my jumper I have to utilize the last place I had it.",
+      "I need to utilize this with Mum before I decide.",
+      "If something feels unfair I have to utilize it with my friend.",
       "Don't shout — let's utilize what happened first."
     ]
   },
@@ -4757,7 +4757,7 @@ export const WORD_EXPLANATIONS = {
     "examples": [
       "Can we violate this so everyone at dinner understands?",
       "In class I asked if we can violate the question together.",
-      "I need to violate where I left my charger."
+      "I need to violate this with Mum before I decide."
     ]
   },
   "visible": {
@@ -4828,8 +4828,8 @@ export const WORD_EXPLANATIONS = {
     "simple": "Abandon is a word you can use at school, at home, and with friends.",
     "examples": [
       "In class I asked if we can abandon the question together.",
-      "I need to abandon where I left my charger.",
-      "If I lose my jumper I have to abandon the last place I had it."
+      "I need to abandon this with Mum before I decide.",
+      "If something feels unfair I have to abandon it with my friend."
     ]
   },
   "abolish": {
@@ -4891,8 +4891,8 @@ export const WORD_EXPLANATIONS = {
   "accumulate": {
     "simple": "Accumulate is a word you can use at school, at home, and with friends.",
     "examples": [
-      "I need to accumulate where I left my charger.",
-      "If I lose my jumper I have to accumulate the last place I had it.",
+      "I need to accumulate this with Mum before I decide.",
+      "If something feels unfair I have to accumulate it with my friend.",
       "Don't shout — let's accumulate what happened first."
     ]
   },
@@ -4915,8 +4915,8 @@ export const WORD_EXPLANATIONS = {
   "adapt": {
     "simple": "Adapt is a word you can use at school, at home, and with friends.",
     "examples": [
-      "I need to adapt where I left my charger.",
-      "If I lose my jumper I have to adapt the last place I had it.",
+      "I need to adapt this with Mum before I decide.",
+      "If something feels unfair I have to adapt it with my friend.",
       "Don't shout — let's adapt what happened first."
     ]
   },
@@ -4924,8 +4924,8 @@ export const WORD_EXPLANATIONS = {
     "simple": "Adjacent is a word you can use at school, at home, and with friends.",
     "examples": [
       "In class I asked if we can adjacent the question together.",
-      "I need to adjacent where I left my charger.",
-      "If I lose my jumper I have to adjacent the last place I had it."
+      "I need to adjacent this with Mum before I decide.",
+      "If something feels unfair I have to adjacent it with my friend."
     ]
   },
   "adjust": {
@@ -4957,7 +4957,7 @@ export const WORD_EXPLANATIONS = {
     "examples": [
       "Can we adopt this so everyone at dinner understands?",
       "In class I asked if we can adopt the question together.",
-      "I need to adopt where I left my charger."
+      "I need to adopt this with Mum before I decide."
     ]
   },
   "advance": {
@@ -4971,8 +4971,8 @@ export const WORD_EXPLANATIONS = {
   "adverse": {
     "simple": "Adverse is a word you can use at school, at home, and with friends.",
     "examples": [
-      "I need to adverse where I left my charger.",
-      "If I lose my jumper I have to adverse the last place I had it.",
+      "I need to adverse this with Mum before I decide.",
+      "If something feels unfair I have to adverse it with my friend.",
       "Don't shout — let's adverse what happened first."
     ]
   },
@@ -4987,7 +4987,7 @@ export const WORD_EXPLANATIONS = {
   "aggregate": {
     "simple": "Aggregate is a word you can use at school, at home, and with friends.",
     "examples": [
-      "If I lose my jumper I have to aggregate the last place I had it.",
+      "If something feels unfair I have to aggregate it with my friend.",
       "Don't shout — let's aggregate what happened first.",
       "Let me aggregate this homework before I guess."
     ]
@@ -5011,7 +5011,7 @@ export const WORD_EXPLANATIONS = {
   "alter": {
     "simple": "Alter is a word you can use at school, at home, and with friends.",
     "examples": [
-      "If I lose my jumper I have to alter the last place I had it.",
+      "If something feels unfair I have to alter it with my friend.",
       "Don't shout — let's alter what happened first.",
       "Let me alter this homework before I guess."
     ]
@@ -5036,8 +5036,8 @@ export const WORD_EXPLANATIONS = {
     "simple": "Amend is a word you can use at school, at home, and with friends.",
     "examples": [
       "In class I asked if we can amend the question together.",
-      "I need to amend where I left my charger.",
-      "If I lose my jumper I have to amend the last place I had it."
+      "I need to amend this with Mum before I decide.",
+      "If something feels unfair I have to amend it with my friend."
     ]
   },
   "analogy": {
@@ -5067,8 +5067,8 @@ export const WORD_EXPLANATIONS = {
   "appeal": {
     "simple": "Appeal is a word you can use at school, at home, and with friends.",
     "examples": [
-      "I need to appeal where I left my charger.",
-      "If I lose my jumper I have to appeal the last place I had it.",
+      "I need to appeal this with Mum before I decide.",
+      "If something feels unfair I have to appeal it with my friend.",
       "Don't shout — let's appeal what happened first."
     ]
   },
@@ -5077,7 +5077,7 @@ export const WORD_EXPLANATIONS = {
     "examples": [
       "Can we append this so everyone at dinner understands?",
       "In class I asked if we can append the question together.",
-      "I need to append where I left my charger."
+      "I need to append this with Mum before I decide."
     ]
   },
   "applicable": {
@@ -5091,8 +5091,8 @@ export const WORD_EXPLANATIONS = {
   "appreciate": {
     "simple": "Appreciate is a word you can use at school, at home, and with friends.",
     "examples": [
-      "I need to appreciate where I left my charger.",
-      "If I lose my jumper I have to appreciate the last place I had it.",
+      "I need to appreciate this with Mum before I decide.",
+      "If something feels unfair I have to appreciate it with my friend.",
       "Don't shout — let's appreciate what happened first."
     ]
   },
@@ -5107,7 +5107,7 @@ export const WORD_EXPLANATIONS = {
   "appropriate": {
     "simple": "Appropriate is a word you can use at school, at home, and with friends.",
     "examples": [
-      "If I lose my jumper I have to appropriate the last place I had it.",
+      "If something feels unfair I have to appropriate it with my friend.",
       "Don't shout — let's appropriate what happened first.",
       "Let me appropriate this homework before I guess."
     ]
@@ -5116,16 +5116,16 @@ export const WORD_EXPLANATIONS = {
     "simple": "Arise is a word you can use at school, at home, and with friends.",
     "examples": [
       "In class I asked if we can arise the question together.",
-      "I need to arise where I left my charger.",
-      "If I lose my jumper I have to arise the last place I had it."
+      "I need to arise this with Mum before I decide.",
+      "If something feels unfair I have to arise it with my friend."
     ]
   },
   "arouse": {
     "simple": "Arouse is a word you can use at school, at home, and with friends.",
     "examples": [
       "In class I asked if we can arouse the question together.",
-      "I need to arouse where I left my charger.",
-      "If I lose my jumper I have to arouse the last place I had it."
+      "I need to arouse this with Mum before I decide.",
+      "If something feels unfair I have to arouse it with my friend."
     ]
   },
   "assemble": {
@@ -5165,13 +5165,13 @@ export const WORD_EXPLANATIONS = {
     "examples": [
       "Can we assure this so everyone at dinner understands?",
       "In class I asked if we can assure the question together.",
-      "I need to assure where I left my charger."
+      "I need to assure this with Mum before I decide."
     ]
   },
   "attach": {
     "simple": "Attach is a word you can use at school, at home, and with friends.",
     "examples": [
-      "If I lose my jumper I have to attach the last place I had it.",
+      "If something feels unfair I have to attach it with my friend.",
       "Don't shout — let's attach what happened first.",
       "Let me attach this homework before I guess."
     ]
@@ -5181,7 +5181,7 @@ export const WORD_EXPLANATIONS = {
     "examples": [
       "Can we attain this so everyone at dinner understands?",
       "In class I asked if we can attain the question together.",
-      "I need to attain where I left my charger."
+      "I need to attain this with Mum before I decide."
     ]
   },
   "attribute": {
@@ -5197,7 +5197,7 @@ export const WORD_EXPLANATIONS = {
     "examples": [
       "Can we author this so everyone at dinner understands?",
       "In class I asked if we can author the question together.",
-      "I need to author where I left my charger."
+      "I need to author this with Mum before I decide."
     ]
   },
   "autonomous": {
@@ -5211,8 +5211,8 @@ export const WORD_EXPLANATIONS = {
   "avert": {
     "simple": "Avert is a word you can use at school, at home, and with friends.",
     "examples": [
-      "I need to avert where I left my charger.",
-      "If I lose my jumper I have to avert the last place I had it.",
+      "I need to avert this with Mum before I decide.",
+      "If something feels unfair I have to avert it with my friend.",
       "Don't shout — let's avert what happened first."
     ]
   },
@@ -5291,15 +5291,15 @@ export const WORD_EXPLANATIONS = {
   "channel": {
     "simple": "Channel is a word you can use at school, at home, and with friends.",
     "examples": [
-      "I need to channel where I left my charger.",
-      "If I lose my jumper I have to channel the last place I had it.",
+      "I need to channel this with Mum before I decide.",
+      "If something feels unfair I have to channel it with my friend.",
       "Don't shout — let's channel what happened first."
     ]
   },
   "chapter": {
     "simple": "Chapter is a word you can use at school, at home, and with friends.",
     "examples": [
-      "If I lose my jumper I have to chapter the last place I had it.",
+      "If something feels unfair I have to chapter it with my friend.",
       "Don't shout — let's chapter what happened first.",
       "Let me chapter this homework before I guess."
     ]
@@ -5357,7 +5357,7 @@ export const WORD_EXPLANATIONS = {
     "examples": [
       "Can we coincide this so everyone at dinner understands?",
       "In class I asked if we can coincide the question together.",
-      "I need to coincide where I left my charger."
+      "I need to coincide this with Mum before I decide."
     ]
   },
   "collapse": {
@@ -5372,8 +5372,8 @@ export const WORD_EXPLANATIONS = {
     "simple": "Colleague is a word you can use at school, at home, and with friends.",
     "examples": [
       "In class I asked if we can colleague the question together.",
-      "I need to colleague where I left my charger.",
-      "If I lose my jumper I have to colleague the last place I had it."
+      "I need to colleague this with Mum before I decide.",
+      "If something feels unfair I have to colleague it with my friend."
     ]
   },
   "comment": {
@@ -5396,8 +5396,8 @@ export const WORD_EXPLANATIONS = {
     "simple": "Commit is a word you can use at school, at home, and with friends.",
     "examples": [
       "In class I asked if we can commit the question together.",
-      "I need to commit where I left my charger.",
-      "If I lose my jumper I have to commit the last place I had it."
+      "I need to commit this with Mum before I decide.",
+      "If something feels unfair I have to commit it with my friend."
     ]
   },
   "commodity": {
@@ -5436,8 +5436,8 @@ export const WORD_EXPLANATIONS = {
     "simple": "Compile is a word you can use at school, at home, and with friends.",
     "examples": [
       "In class I asked if we can compile the question together.",
-      "I need to compile where I left my charger.",
-      "If I lose my jumper I have to compile the last place I had it."
+      "I need to compile this with Mum before I decide.",
+      "If something feels unfair I have to compile it with my friend."
     ]
   },
   "complex": {
@@ -5469,7 +5469,7 @@ export const WORD_EXPLANATIONS = {
     "examples": [
       "Can we compound this so everyone at dinner understands?",
       "In class I asked if we can compound the question together.",
-      "I need to compound where I left my charger."
+      "I need to compound this with Mum before I decide."
     ]
   },
   "compute": {
@@ -5499,7 +5499,7 @@ export const WORD_EXPLANATIONS = {
   "conduct": {
     "simple": "Conduct is a word you can use at school, at home, and with friends.",
     "examples": [
-      "If I lose my jumper I have to conduct the last place I had it.",
+      "If something feels unfair I have to conduct it with my friend.",
       "Don't shout — let's conduct what happened first.",
       "Let me conduct this homework before I guess."
     ]
@@ -5524,8 +5524,8 @@ export const WORD_EXPLANATIONS = {
     "simple": "Conflict is a word you can use at school, at home, and with friends.",
     "examples": [
       "In class I asked if we can conflict the question together.",
-      "I need to conflict where I left my charger.",
-      "If I lose my jumper I have to conflict the last place I had it."
+      "I need to conflict this with Mum before I decide.",
+      "If something feels unfair I have to conflict it with my friend."
     ]
   },
   "confront": {
@@ -5548,8 +5548,8 @@ export const WORD_EXPLANATIONS = {
     "simple": "Congress is a word you can use at school, at home, and with friends.",
     "examples": [
       "In class I asked if we can congress the question together.",
-      "I need to congress where I left my charger.",
-      "If I lose my jumper I have to congress the last place I had it."
+      "I need to congress this with Mum before I decide.",
+      "If something feels unfair I have to congress it with my friend."
     ]
   },
   "conjunction": {
@@ -5564,15 +5564,15 @@ export const WORD_EXPLANATIONS = {
     "simple": "Consistent is a word you can use at school, at home, and with friends.",
     "examples": [
       "In class I asked if we can consistent the question together.",
-      "I need to consistent where I left my charger.",
-      "If I lose my jumper I have to consistent the last place I had it."
+      "I need to consistent this with Mum before I decide.",
+      "If something feels unfair I have to consistent it with my friend."
     ]
   },
   "consume": {
     "simple": "Consume is a word you can use at school, at home, and with friends.",
     "examples": [
-      "I need to consume where I left my charger.",
-      "If I lose my jumper I have to consume the last place I had it.",
+      "I need to consume this with Mum before I decide.",
+      "If something feels unfair I have to consume it with my friend.",
       "Don't shout — let's consume what happened first."
     ]
   },
@@ -5645,7 +5645,7 @@ export const WORD_EXPLANATIONS = {
     "examples": [
       "Can we credit this so everyone at dinner understands?",
       "In class I asked if we can credit the question together.",
-      "I need to credit where I left my charger."
+      "I need to credit this with Mum before I decide."
     ]
   },
   "currency": {
@@ -5668,8 +5668,8 @@ export const WORD_EXPLANATIONS = {
     "simple": "Decade is a word you can use at school, at home, and with friends.",
     "examples": [
       "In class I asked if we can decade the question together.",
-      "I need to decade where I left my charger.",
-      "If I lose my jumper I have to decade the last place I had it."
+      "I need to decade this with Mum before I decide.",
+      "If something feels unfair I have to decade it with my friend."
     ]
   },
   "dedicate": {
@@ -5684,8 +5684,8 @@ export const WORD_EXPLANATIONS = {
     "simple": "Define is a word you can use at school, at home, and with friends.",
     "examples": [
       "In class I asked if we can define the question together.",
-      "I need to define where I left my charger.",
-      "If I lose my jumper I have to define the last place I had it."
+      "I need to define this with Mum before I decide.",
+      "If something feels unfair I have to define it with my friend."
     ]
   },
   "deliberate": {
@@ -5740,16 +5740,16 @@ export const WORD_EXPLANATIONS = {
     "simple": "Draft is a word you can use at school, at home, and with friends.",
     "examples": [
       "In class I asked if we can draft the question together.",
-      "I need to draft where I left my charger.",
-      "If I lose my jumper I have to draft the last place I had it."
+      "I need to draft this with Mum before I decide.",
+      "If something feels unfair I have to draft it with my friend."
     ]
   },
   "drama": {
     "simple": "Drama is a word you can use at school, at home, and with friends.",
     "examples": [
       "In class I asked if we can drama the question together.",
-      "I need to drama where I left my charger.",
-      "If I lose my jumper I have to drama the last place I had it."
+      "I need to drama this with Mum before I decide.",
+      "If something feels unfair I have to drama it with my friend."
     ]
   },
   "edit": {
@@ -5821,15 +5821,15 @@ export const WORD_EXPLANATIONS = {
     "examples": [
       "Can we error this so everyone at dinner understands?",
       "In class I asked if we can error the question together.",
-      "I need to error where I left my charger."
+      "I need to error this with Mum before I decide."
     ]
   },
   "estate": {
     "simple": "Estate is a word you can use at school, at home, and with friends.",
     "examples": [
       "In class I asked if we can estate the question together.",
-      "I need to estate where I left my charger.",
-      "If I lose my jumper I have to estate the last place I had it."
+      "I need to estate this with Mum before I decide.",
+      "If something feels unfair I have to estate it with my friend."
     ]
   },
   "eventual": {
@@ -5851,7 +5851,7 @@ export const WORD_EXPLANATIONS = {
   "execute": {
     "simple": "Execute is a word you can use at school, at home, and with friends.",
     "examples": [
-      "If I lose my jumper I have to execute the last place I had it.",
+      "If something feels unfair I have to execute it with my friend.",
       "Don't shout — let's execute what happened first.",
       "Let me execute this homework before I guess."
     ]

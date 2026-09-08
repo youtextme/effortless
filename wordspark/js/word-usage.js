@@ -73,12 +73,12 @@ const VERB_LINES = [
   (w) => `Let me ${w} this homework before I guess.`,
   (w) => `After the match we should ${w} what went wrong.`,
   (w) => `Can we ${w} this so everyone at dinner understands?`,
-  (w) => `I need to ${w} where I left my charger.`,
+  (w) => `I need to ${w} this with Mum before I decide.`,
   (w) => `Don't shout — let's ${w} what happened first.`,
   (w) => `Help me ${w} this so I can do it myself tomorrow.`,
   (w) => `Before I send that message I should ${w} if it sounds kind.`,
   (w) => `In class I asked if we can ${w} the question together.`,
-  (w) => `If I lose my jumper I have to ${w} the last place I had it.`,
+  (w) => `If something feels unfair I have to ${w} it with my friend.`,
 ];
 
 const NOUN_LINES = [

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'wordspark-v22'; // tap word: say twice, simple meaning, three daily examples
+const CACHE_NAME = 'wordspark-v23'; // tap word: twice, meaning, three daily kid examples (relatable verbs)
 const ASSETS = [
   './',
   './index.html',
