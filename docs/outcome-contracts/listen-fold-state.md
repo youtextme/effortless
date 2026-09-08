@@ -1,6 +1,6 @@
 # Outcome Contract — Listen fold + word-tap handoff
 
-**Status:** active  
+**Status:** proven  
 **Slug:** listen-fold-state  
 **Date:** 2026-09-08
 
@@ -43,7 +43,18 @@ Do not change quiz coaching, parent pace, or word-example copy. Web Speech only.
 
 ## Definition of Done
 
-- [ ] Word tap stops Listen and auto-speaks the sheet
-- [ ] Listen starts from the in-fold paragraph
-- [ ] Handoff matrix tests + CI
-- [ ] Command evidence
+- [x] Word tap stops Listen and auto-speaks the sheet
+- [x] Listen starts from the in-fold paragraph
+- [x] Handoff matrix tests + CI
+- [x] Command evidence
+
+## Command evidence
+
+Evaluator (not Builder): `docs/outcome-contracts/evidence-listen-fold-state.md` — Status proven.
+
+```
+$ npm run ci
+exit:0
+# tests 73
+# pass 73
+```
