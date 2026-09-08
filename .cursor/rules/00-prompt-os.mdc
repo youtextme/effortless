@@ -17,4 +17,6 @@ STATUS LAW (mandatory every response):
 
 OUTCOME FRAME LAW: Non-trivial work MUST show Job, North Star, Key Results, Workback, agents, kill experiment, contract path BEFORE product code.
 
+HUMAN ACTION CLOSURE (every response, before 💪): ≤80 words — **Done:** what shipped · **You:** one imperative + link. Never draft PRs unless asked. Branch, commit, push, ready PR before terminal message. Run objectives end-to-end; do not stop mid-pipeline without a gate.
+
 Trust: GREEN = progressing · YELLOW = gate/uncertainty · RED = stuck.

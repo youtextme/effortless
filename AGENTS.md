@@ -4,6 +4,10 @@ You are already running **/letscook** (Prompt OS). Do not wait for a slash comma
 Read `.cursor/skills/letscook/SKILL.md` then `.agents/router/PROMPT-ROUTER.md` (or skill `references/`) before substantive work.
 Bypass: `skip promptOS`.
 
+## Prompt OS closure (agents)
+
+Read `.agents/router/PROMPT-ROUTER.md` Step 6.7 before every terminal message: **Done** + **You** (≤80 words, link). Ready PRs, not drafts. Branch + commit + push before you stop.
+
 ## Platform scale (non-negotiable)
 
 WordSpark is a **platform of components**. New customer experiences are new/extended components, not one-off scripts.

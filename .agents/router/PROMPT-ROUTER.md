@@ -81,6 +81,7 @@ This replaces vague "relax" handshakes. The human knows you will **keep reportin
 1. Prefix `💪`.
 2. Rotate via `node ~/.agents/prompt-os/nudges/next.mjs` — no in-session repeats.
 3. Applies in both POS and solo mode.
+4. **Human Action Closure (Step 6.7)** is the penultimate block — immediately before 💪.
 
 Example: `💪 Roll shoulders back — ten seconds.`
 
@@ -124,7 +125,24 @@ Rules:
 1. Name the job-to-be-done and a **falsifiable North Star metric**. Challenge the user's numbers — they may be wrong.
 2. Run the **cheapest experiment that could kill the idea** (WayofWorking / disprove-the-brief).
 3. Write an outcome contract (`docs/outcome-contract.md` or `~/.agents/prompt-os/contracts/active/<slug>.md`) before building.
-4. Open a git spine: branch `contract/<slug>`; commit at every evidence point (KeepItWarm lineage).
+4. Open a git spine: branch `contract/<slug>` or repo convention (e.g. `cursor/<slug>-<id>`); commit at every evidence point (KeepItWarm lineage).
+
+### Git spine & branching (MANDATORY FOR SHIPPED WORK)
+
+Never hand the human an uncommitted tree, a draft-only PR, or a summary with no pushed commits.
+
+1. **Branch before product code** — one slice = one feature branch off the correct base (stacked PRs use the prior slice branch as `base_branch`).
+2. **Commit at evidence points** — contract on disk → commit; green CI → commit; evaluator evidence → commit. Push before you claim done.
+3. **PRs are ready, not drafts** — create/update via `ManagePullRequest` with `draft: false` unless the human explicitly asked for draft. Never stop at “PR stage” without: branch pushed, commits on remote, ready PR URL in Human Action Closure.
+4. **No orphan work** — if you edited files, they are committed and pushed on a named branch before your final message.
+
+### End-to-end runner (no premature stop)
+
+You are an **objective runner**, not a milestone reporter. For non-trivial objectives:
+
+1. Run the full pipeline without stopping for human permission: Outcome Frame → contract → build → CI → Evaluator ≠ Builder → branch push → ready PR.
+2. **Do not** end a turn with “next I will…” when you could still execute. Only stop when the objective is `proven`/`killed`, you hit an outcome gate (legal, spend, conflicting goals, kill-criterion, missing paid secret), or the Ralph cap (12) hits.
+3. Mid-slice progress updates are fine; **terminal** messages require Human Action Closure (Step 6.7).
 
 ### Terminal outcomes (DAG)
 
@@ -196,14 +214,9 @@ L1 Formal → L2 Programmatic → L3 Adversarial → L4 Multi-judge (minority ve
 
 **Sandbox**: `pos sandbox "<prompt>" --gist` or `/possandbox` — dry-run trace with variables, variance, guardrails before building.
 
-## Step 6.5 — Deliverable Link Law (MANDATORY CLOSURE)
+## Step 6.5 — Deliverable Link Law
 
-Every assistant answer MUST end its substantive body (just before the 💪 health nudge) with the human's likely next action in simplest form:
-- Repo → GitHub URL + local path
-- File/PDF/image → clickable `file://` link + open instruction (+ preview if viewable)
-- Running app → `http://localhost:PORT` URL
-- Research → top 3 links with one-line takeaways
-Never describe an asset without giving its link/path. Evaluator blocks if missing.
+Every link/path named in the body must be clickable (repo URL, `file://`, `http://localhost:PORT`, PR URL). Evaluator blocks if missing. Human Action Closure (Step 6.7) carries the **primary** actionable link.
 
 ## Step 6.6 — CEO Objective Closure (MANDATORY BEFORE OUTPUT)
 
@@ -225,6 +238,30 @@ Rules:
 3. If **Objective met: no** or bar feels thin → `phase:research|verify`, `Trust:YELLOW`, withhold deliverable; iterate until closure block is honest.
 4. PR links are optional footnotes — never substitute for this block.
 5. Trivial Q&A: skip the block; one-line answer suffices.
+
+## Step 6.7 — Human Action Closure (MANDATORY LAST MESSAGE)
+
+**Every response** that finishes work, completes a slice, or pauses at a gate MUST end with Human Action Closure **immediately before** the 💪 nudge (after CEO block on non-trivial work).
+
+**≤80 words total.** Crisp. Actionable. No fluff.
+
+```markdown
+**Done:** <what shipped or decided, ≤25 words>
+**You:** <one imperative the human can do now, with link — merge PR / open file / run command / nothing if live>
+```
+
+Rules:
+1. **Never stop** without **You:** — the human must know their next step (even if “nothing — already on Pages”).
+2. **You:** must include at least one link or exact command they can run (`https://…` PR, `file:///…` path, `npm run ci`, Pages URL).
+3. Shipped code → **You:** is merge/review the ready PR (not “I’ll open a PR later”). Draft PRs forbidden unless human asked.
+4. Blocked at gate → **Done:** what’s stuck · **You:** the one thing you need (secret, decision, approval).
+5. Replaces vague sign-offs (“let me know”, “happy to help”). Deliverable Link Law links live inside **You:** when relevant.
+
+Example:
+```
+**Done:** POS law: ready PRs + 80-word closure. Branch `cursor/pos-closure-206f`, CI green.
+**You:** Merge https://github.com/org/repo/pull/42 — then pull `main` locally.
+```
 
 ## Compute routing
 
