@@ -257,6 +257,62 @@
           "includes": ["Use-It Law"]
         }
       ]
+    },
+    {
+      "id": "week-plan-no-guarantee",
+      "kind": "functional",
+      "statement": "The five-day plan must not claim a guaranteed 10% return. Visible copy states the annualized math and refuses the promise.",
+      "sourceEvidence": [
+        {
+          "file": "wordspark/platform/components/week-plan-playbook.js",
+          "includes": ["guarantee: false", "will not promise $100", "annualizedFromHolding"]
+        }
+      ]
+    },
+    {
+      "id": "week-plan-defined-risk-ticket",
+      "kind": "functional",
+      "statement": "The recommended IBKR ticket is a defined-risk SPY put credit with max loss equal to the $1000 sleeve, plus an SGOV park fallback if the credit is not offered.",
+      "sourceEvidence": [
+        {
+          "file": "wordspark/platform/components/week-plan-playbook.js",
+          "includes": ["maxLossUsd: 1000", "minCredit: 0.8", "SGOV", "spreadTicket", "parkTicket"]
+        }
+      ]
+    },
+    {
+      "id": "week-plan-local-alerts",
+      "kind": "reliability",
+      "statement": "Checkpoint alerts are baked into the playbook and fire on-device when the parent opens the app. No broker or market-data network.",
+      "sourceEvidence": [
+        {
+          "file": "wordspark/platform/components/week-plan-playbook.js",
+          "includes": ["fireDueNotifications", "checkpoints"]
+        },
+        {
+          "file": "wordspark/platform/components/week-plan.js",
+          "includes": ["STORAGE_KEY", "pulse"]
+        }
+      ]
+    },
+    {
+      "id": "week-plan-used-on-settings",
+      "kind": "functional",
+      "statement": "The week-plan pack is used from Settings this slice. It is not a Home catalog tab and the shell does not switch on week-plan.",
+      "sourceEvidence": [
+        {
+          "file": "wordspark/index.html",
+          "includes": ["id=\"btn-week-plan\"", "id=\"screen-week-plan\""]
+        },
+        {
+          "file": "wordspark/platform/components/week-plan.js",
+          "includes": ["open-week-plan", "homeTab: false"]
+        },
+        {
+          "file": "wordspark/platform/shell.js",
+          "includes": ["WeekPlanComponent"]
+        }
+      ]
     }
   ]
 }

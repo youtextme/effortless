@@ -216,6 +216,45 @@
       "when": "the child reaches the quiz",
       "then": "the mix includes both choose-one and fill-the-blank items painted by the registry",
       "nfr": ["use-it-this-slice"]
+    },
+    {
+      "id": "week-plan-health",
+      "component": "week-plan",
+      "given": "the week-plan component is registered",
+      "when": "health() runs",
+      "then": "it reports ok and refuses a guaranteed return"
+    },
+    {
+      "id": "week-plan-honest-math",
+      "component": "week-plan",
+      "given": "a parent wants $1000 to become $1100 in five days",
+      "when": "the plan overlay opens",
+      "then": "the math shows 10% in 5 sessions is extreme and the copy never guarantees $100",
+      "nfr": ["week-plan-no-guarantee"]
+    },
+    {
+      "id": "week-plan-today-ticket",
+      "component": "week-plan",
+      "given": "Sunday 13 Sep 2026 or a later day in the window",
+      "when": "the parent reads Today in IBKR",
+      "then": "they get a copyable defined-risk SPY put credit or the SGOV park ticket",
+      "nfr": ["week-plan-defined-risk-ticket"]
+    },
+    {
+      "id": "week-plan-local-alerts",
+      "component": "week-plan",
+      "given": "the parent turned alerts on",
+      "when": "a baked checkpoint time has passed and they open the plan",
+      "then": "due alerts fire on this device with no broker network",
+      "nfr": ["week-plan-local-alerts"]
+    },
+    {
+      "id": "week-plan-settings-use",
+      "component": "week-plan",
+      "given": "Home Settings is open",
+      "when": "the parent taps This week’s $1000",
+      "then": "the week-plan pack opens through open-week-plan without a shell if on its id",
+      "nfr": ["week-plan-used-on-settings"]
     }
   ]
 }

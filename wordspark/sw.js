@@ -1,4 +1,4 @@
-const CACHE_NAME = 'wordspark-v30'; // platform product team: question item registry (choice + blank) used in the live quiz mix
+const CACHE_NAME = 'wordspark-v32'; // week-plan: proposal + do-this-now first
 const ASSETS = [
   './',
   './index.html',
@@ -26,6 +26,8 @@ const ASSETS = [
   './platform/components/capability-packs.js',
   './platform/components/item.js',
   './platform/components/item-packs.js',
+  './platform/components/week-plan.js',
+  './platform/components/week-plan-playbook.js',
   './platform/speech/policy.js',
   './platform/speech/sentences.js',
   './platform/speech/voice-picker.js',

@@ -1,3 +1,9 @@
+## 2026-09-13 — Five-day IBKR coach (honest, not a guarantee)
+
+- **Trigger:** Human asked to turn $1000 into $1100 in 5 days without extreme risk.
+- **Change:** Killed the guarantee (10% in 5 sessions ≈ 12,000% annualized). Shipped `week-plan` on Settings with a defined-risk SPY put credit + SGOV park + local checkpoints.
+- **Promote:** pending 3 outcomes. Do not promise short-horizon returns; coach a bounded ticket.
+
 ## 2026-09-08 — Human Action Closure + ready PR law
 
 - **Trigger:** Human asked: never stop at PR/draft stage; always branch+commit; last ≤80 words = Done + You with link; run objectives end-to-end.

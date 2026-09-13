@@ -26,7 +26,7 @@ test('story:passages-are-capabilities component:capability 100 passages and 1000
   await StorageComponent.init(ctx);
   await CapabilityComponent.init(ctx);
   assert.equal(CapabilityComponent.id, 'capability');
-  assert.equal(defaultPacks().length, 2);
+  assert.equal(defaultPacks().length, 3);
   assert.equal(ctx.capability.listItems('passages').length, 100);
   assert.equal(ctx.capability.listItems('words').length, 1000);
   assert.equal(ctx.capability.open('passages', '2').action, 'read-passage');
