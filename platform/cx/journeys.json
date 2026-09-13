@@ -50,7 +50,19 @@
       "steps": [
         { "id": "home-tabs", "story": "home-three-tabs" },
         { "id": "resume", "story": "resume-where-left-off" },
-        { "id": "install", "story": "install-pwa-visible" }
+        { "id": "install", "story": "install-pwa-visible" },
+        { "id": "week-plan-settings", "story": "week-plan-settings-use" }
+      ]
+    },
+    {
+      "id": "parent-five-day-plan",
+      "actor": "parent",
+      "intent": "Act on one honest Interactive Brokers ticket for a $1000 sleeve this week, without a guaranteed 10%",
+      "steps": [
+        { "id": "honest-math", "story": "week-plan-honest-math" },
+        { "id": "today-ticket", "story": "week-plan-today-ticket" },
+        { "id": "local-alerts", "story": "week-plan-local-alerts" },
+        { "id": "health", "story": "week-plan-health" }
       ]
     },
     {

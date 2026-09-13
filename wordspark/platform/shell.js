@@ -23,6 +23,7 @@ import { CertificateComponent } from './components/certificate.js';
 import { HomeComponent } from './components/home.js';
 import { CapabilityComponent } from './components/capability.js';
 import { ItemComponent } from './components/item.js';
+import { WeekPlanComponent } from './components/week-plan.js';
 import { getPaceId, setPaceId } from './speech/pace.js';
 
 const $ = (sel) => document.querySelector(sel);
@@ -55,6 +56,7 @@ const COMPONENTS = [
   QuizComponent,
   CertificateComponent,
   HomeComponent,
+  WeekPlanComponent,
 ];
 
 export async function bootShell() {
