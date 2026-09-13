@@ -1,0 +1,32 @@
+{
+  "capturedAt": "2026-09-13T19:27:00Z",
+  "policy": {
+    "posted": 0,
+    "identified": 3,
+    "skipped": ["500 identical DMs", "Instagram DMs (MCP needsAuth + ToS)", "Reddit ads", "Gumroad Discover 30% fee", "hospital-cancer thread (exploitative)"],
+    "reasonNotPosted": "Spend/push lock 13 Sep 2026: no ads, no purchases, no broadcast. Unique drafts only, for humans already asking. No Reddit session to post without creating a spam account."
+  },
+  "drafts": [
+    {
+      "status": "draft-only",
+      "name": "Parent in r/kindergarten",
+      "ask": "How to get my child better at sight words",
+      "place": "https://www.reddit.com/r/kindergarten/comments/1hvoiky/how_to_get_my_child_better_at_sight_words/",
+      "hook": "One page after dinner. Sample first."
+    },
+    {
+      "status": "draft-only",
+      "name": "Homeschool poster",
+      "ask": "Free sight words workbook / Drive link",
+      "place": "https://www.reddit.com/r/Homeschooling/comments/1u41vbi/free_sight_words_workbook_for_kids_k1_looking_for/",
+      "hook": "If Drive is the pain, one PDF. Ten free pages."
+    },
+    {
+      "status": "draft-only",
+      "name": "Teacher in r/LessonSOS",
+      "ask": "FREE sight word fluency / CVC Drive",
+      "place": "https://www.reddit.com/r/LessonSOS/comments/ufgn2n/free_resource_to_help_build_sight_word_fluency/",
+      "hook": "Drive folder pain → one PDF sample."
+    }
+  ]
+}
