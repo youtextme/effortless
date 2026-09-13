@@ -1,6 +1,6 @@
 # Outcome contract — Five-day IBKR $1000 coach
 
-**Status:** active
+**Status:** proven
 **Slug:** five-day-ibkr
 **Branch:** `cursor/five-day-ibkr-plan-9d5f`
 **Date:** 2026-09-13
@@ -86,4 +86,18 @@ Riskiest assumption: “10% in 5 days without extreme risk.” Disproved by `ann
 
 ## Command evidence
 
-Filled after CI.
+```
+$ npm run ci
+exit:0
+# tests 108
+# pass 108
+# Platform validation OK — 13 components
+# Agent-guard OK — 19 test files
+# CX analyzer OK — 33 stories, 20 NFRs, 6 journeys
+# all files line 99.69 / branch 89.74 / funcs 98.46
+# CI OK
+```
+
+Browser (Evaluator remainder closed): Home → Settings → Open this week’s plan shows Sunday “build, do not send”, SPY 730/720 ticket, Park switches to BUY 10 SGOV. Three Home tabs remain Words | Passages | Settings.
+
+Independent grade: `docs/outcome-contracts/evidence-five-day-ibkr.md` — verdict proven.
