@@ -3,16 +3,16 @@
 **Contract:** [`docs/outcome-contracts/helio-city-evening-activity.md`](../outcome-contracts/helio-city-evening-activity.md)  
 **Playbook:** [`docs/research/helio-city-evening-activity.md`](../research/helio-city-evening-activity.md)  
 **Evaluator:** independent (not the Builder)  
-**Date:** 2026-09-13  
+**Date:** 2026-09-13 (KR2 re-grade same day)  
 **Status:** not yet
 
-Graded against the contract + playbook only. Plan was not rewritten. No product code edited.
+Graded against the contract + playbook only. Plan was not rewritten. No product code edited. KR2 re-grade used live Gmail `get_message` and Calendar `get_event` (Evaluator, not Builder).
 
-Live fetches this eval (13 Sep 2026): Aptner contacts, Namuwiki (via search dump), Woondoc, Songpa Gongdan, Finance Today, PMC6190726, ACSM/PMC8802999, ADA exercise page, purpleo licensing mirrors, SFRC/Seoul English pages, MOJ 1345.
+Live fetches this eval (13 Sep 2026): Aptner contacts, Namuwiki (via search dump), Woondoc, Songpa Gongdan, Finance Today, PMC6190726, ACSM/PMC8802999, ADA exercise page, purpleo licensing mirrors, SFRC/Seoul English pages, MOJ 1345. Re-grade: Gmail SENT ids + primary calendar event below.
 
-## Verdict: **not yet**
+## Verdict: **not yet** (KR2 now **pass**)
 
-Kill criteria are **not** hit. Contacts in the playbook are **not invented**. The recommended on-site path is justified vs commute classes. The slice is blocked by **KR2**: no Gmail message ids and no calendar event in the artifacts.
+Kill criteria are **not** hit. Contacts are **not invented**. All four Key Results now **pass**. Overall stays **not yet** because the North Star is **≥5 evenings actually happened** on-site — that window starts Mon 14 Sep 2026 18:30 KST and has not occurred. Command verification (files + sent mail + calendar) is met. Remaining: **human walk-in** at the Sports Zone desk (contract: first on-site evening within 48h of 14 Sep 2026). Do not stamp **proven** on scheduled intent.
 
 ## Outcome Frame (from contract)
 
@@ -25,11 +25,11 @@ Kill criteria are **not** hit. Contacts in the playbook are **not invented**. Th
 | KR | Result | Why |
 |----|--------|-----|
 | **KR1** One path beats commute on distance, cost, dropout — sourced contacts | **pass** | Walk vs fare is true; wiki fees ₩10–20k/facility/month vs class + transit; lock-in/dropout matches user constraints; desk phones match Aptner. |
-| **KR2** Inquiry email from `youtextme@gmail.com` to English desk + Aptner; 14-day calendar trial | **fail** | Scripts exist. Repo grep finds **no** message ids, **no** `.ics` / calendar receipt, **no** sent-mail artifact. |
+| **KR2** Inquiry email from `youtextme@gmail.com` to English desk + Aptner; 14-day calendar trial | **pass** | Live SENT mail to Aptner + SFRC (both desks) + 14-day `RRULE` on primary calendar. See receipts. |
 | **KR3** English constraint honest; on-site English instruction `[unverified]`, not a blocker | **pass** | Playbook does **not** claim English instructors on site. Visual sports + SFRC for first Korean calls. |
 | **KR4** Diabetes-safe timing; medical claims cited, not invented | **pass** (minor overclaim, see below) | Post-dinner 20 min walk cited; ADA hypo caveats cited; “not medical advice” present. |
 
-North Star proxy: playbook exists; **calendar block does not.** Human 48h on-site check is future-dated (Mon 14 Sep 2026) — not graded as done.
+North Star **proxy** (playbook + 18:30–20:30 Asia/Seoul calendar): **met**. North Star **metric** (≥5 evenings happened): **not met** — first block is still in the future. Human 48h on-site check is 14–16 Sep 2026.
 
 ---
 
@@ -121,16 +121,37 @@ No invented clinical trials.
 - English BJJ exists in Songdo and not Songpa (not re-verified this eval).
 - GX/Zumba timetable exists on-site tonight (playbook says ask).
 
-**Missing (KR2 / verification), not false**
+**KR2 receipts (re-grade 13 Sep 2026 ~13:34 UTC) — no longer missing**
 
-- Inquiry emails from `youtextme@gmail.com` → SFRC and Aptner (no message ids).
-- 14-day calendar trial 18:30–20:30 Asia/Seoul.
+Gmail `get_message` (label SENT, from `youtextme@gmail.com`):
+
+| To | id / thread | subject | date |
+|----|-------------|---------|------|
+| help@aptner.com | `1a09af53fb8256ad` | `[Helio City / 헬리오시티] English-speaking resident — evening gym/pool/table tennis/badminton/GX` | 2026-09-13T13:29:18Z |
+| help@sfrc.seoul.kr, hotline@sfrc.seoul.kr | `1a09af5415e1d347` | `English help please: call Helio City community gym/pool (Songpa) for evening drop-in` | 2026-09-13T13:29:19Z |
+| youtextme@gmail.com (action brief; not required by KR2) | `1a09af55cc342244` | `YOUR PLAN: Helio City 18:30 walk + play (do not commute to Zumba)` | 2026-09-13T13:29:26Z |
+
+Google Calendar `get_event` on primary `youtextme@gmail.com`:
+
+- id `v83t6fj98a6fe189he3qvotim4`, status **confirmed**, visibility **private**
+- summary: `Helio evening: walk + play (no Instagram)`
+- start `2026-09-14T15:00:00+05:30` `timeZone: Asia/Seoul` = **18:30 KST**; end `17:00+05:30` = **20:30 KST**
+- `RRULE:FREQ=DAILY;COUNT=14` (trial, not infinite membership)
+- location: `Helio City Sports Zone, 345 Songpa-daero, Songpa-gu, Seoul`
+- [htmlLink](https://www.google.com/calendar/event?eid=djgzdDZmajk4YTZmZTE4OWhlM3F2b3RpbTRfMjAyNjA5MTRUMDkzMDAwWiB5b3V0ZXh0bWVAbQ)
+
+Calendar description still says SFRC English **09:00–18:00** (same false hour as the playbook at re-grade time). Builder intends to fix the playbook to **10:00–18:00**. That is a leftover accuracy item, **not** a KR2 fail.
+
+**Still remaining (blocks proven, not KR2)**
+
+- Human walk-in / first on-site evening within 48h of Mon 14 Sep 2026.
+- North Star count: ≥5 of 14 evenings actually happen (zero daily commute spend).
 
 ---
 
 ## Recommended path vs commute classes (one paragraph)
 
-For a **household resident** who hates daily fares, hates 45-day lock-in, and does not need an English instructor every session, the playbook’s spine — post-dinner 20-minute walk, then table tennis / badminton / easy swim on the complex, month-to-month desk access — is **better than commuting to Zumba/BJJ/TKD**. Distance is walk vs transit; cash is wiki-level 단지 fees vs class + fare; dropout risk is play vs a paid streak; language is visual sport plus a Korean desk, which the contract already treats as acceptable. Commute classes only win if the user *requires* English-led instruction every night **and** refuses any Korean desk — that is a **pre-registered kill** of the GX/TKD class path, not a reason to buy a 45-day off-site membership. Helio GYM (B-dong) and Gongdan badminton remain the correct fallbacks if residency fails or courts are packed. **Do not execute KR1 as “proven life change” until KR2 receipts exist and the desk confirms hours/fees in person.**
+For a **household resident** who hates daily fares, hates 45-day lock-in, and does not need an English instructor every session, the playbook’s spine — post-dinner 20-minute walk, then table tennis / badminton / easy swim on the complex, month-to-month desk access — is **better than commuting to Zumba/BJJ/TKD**. Distance is walk vs transit; cash is wiki-level 단지 fees vs class + fare; dropout risk is play vs a paid streak; language is visual sport plus a Korean desk, which the contract already treats as acceptable. Commute classes only win if the user *requires* English-led instruction every night **and** refuses any Korean desk — that is a **pre-registered kill** of the GX/TKD class path, not a reason to buy a 45-day off-site membership. Helio GYM (B-dong) and Gongdan badminton remain the correct fallbacks if residency fails or courts are packed. **KR2 outreach+calendar is done. Do not stamp the North Star proven until the resident actually walks in and repeats ≥5 evenings.**
 
 ## Command evidence (Evaluator)
 
@@ -143,8 +164,10 @@ $ # Woondoc 15420: weekday 06:00–23:00, Sat/Sun 09:00–21:00, 휴무일 매�
 $ # Gongdan sports02: 문정로 176, 평일 2500, 월회원 43000, 4회 18:30–21:30
 $ # purpleo 2388: 헬리오 퍼스트 태권도, A동 3층 43,44,46, 전화 02-430-4562 (search dump)
 $ # purpleo 5824: 헬리오 GYM, B동 2층 92, 02-423-0731
-$ rg -n "youtextme@gmail.com|message.?id" docs/research docs/outcome-contracts
-# only the SFRC script line — no sent-mail ids
+$ # KR2 re-grade (Evaluator MCP, 2026-09-13)
+$ # Gmail get_message 1a09af53fb8256ad → SENT youtextme@gmail.com → help@aptner.com
+$ # Gmail get_message 1a09af5415e1d347 → SENT → help@sfrc.seoul.kr, hotline@sfrc.seoul.kr
+$ # Calendar get_event v83t6fj98a6fe189he3qvotim4 → confirmed, RRULE COUNT=14, 18:30–20:30 Asia/Seoul
 ```
 
-Builder: keep contract **Status: active**. Copy this file’s verdict after KR2 receipts (Gmail ids + calendar) land; then re-eval. Do not mark **proven** on playbook quality alone.
+Builder: keep contract **Status: active**. KR2 is **pass**. Do not mark **proven** until the human walk-in (and, for the North Star, ≥5 evenings). Fix SFRC weekday English hours in the playbook to **10:00–18:00** (still false at this re-grade).
