@@ -1,4 +1,4 @@
-const CACHE_NAME = 'wordspark-v31'; // five-day IBKR coach on Settings
+const CACHE_NAME = 'wordspark-v32'; // week-plan: proposal + do-this-now first
 const ASSETS = [
   './',
   './index.html',

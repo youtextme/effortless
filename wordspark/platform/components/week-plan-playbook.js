@@ -44,60 +44,95 @@ export const PLAYBOOK = Object.freeze({
   copy: {
     title: 'This week’s $1000',
     back: 'Back',
-    honest: 'Ten percent in five trading days is about 12,000% a year. A typical S&P week is under 2%. This screen will not promise $100. It gives one bounded Interactive Brokers ticket for this week only.',
-    math: '+10% in 5 sessions annualizes to more than 10,000%. About one S&P week in a thousand jumps 10%. Friday close: SPY $764.29, QQQ $714.88, SGOV $100.52. FOMC is Wednesday 16 Sep 2026 at 2:00 p.m. ET.',
-    notAdvice: 'You send every ticket in Interactive Brokers. This is a checklist on this device, not personalized advice and not a broker.',
-    todayLabel: 'Today in IBKR',
-    ticketLabel: 'Ticket to copy',
-    spreadCta: 'I will send the spread',
-    parkCta: 'Park in SGOV instead',
+    proposal: 'Proposal: try for about $100 this week by selling one SPY put spread in Interactive Brokers. Best case +$100. Worst case −$1000. This screen will not promise $100.',
+    doNowLabel: 'Do this now',
+    ticketLabel: 'Copy this into IBKR',
+    whyLabel: 'Why not a sure 10%',
+    honest: 'Ten percent in five trading days is about 12,000% a year. A typical S&P week is under 2%. This screen will not promise $100.',
+    math: 'Friday close: SPY $764.29. FOMC is Wednesday 16 Sep 2026 at 2:00 p.m. ET. If the spread will not pay $1.00 on Monday, do not chase — buy SGOV instead.',
+    notAdvice: 'You press Transmit in Interactive Brokers. This is a checklist on this device, not advice and not a broker.',
+    todayLabel: 'Today',
+    spreadCta: 'Use this ticket',
+    parkCta: 'Safer: buy SGOV instead',
     sentCta: 'I already sent it',
     alertsOn: 'Turn on alerts',
     alertsOff: 'Alerts on',
-    alertsHint: 'Alerts fire on this device when you open the app. There is no cloud babysitter.',
-    laneSpread: 'Spread lane — target about $100 credit. Max loss is the whole $1000 if SPY finishes at or below 720.',
-    lanePark: 'Park lane — about $0.50 in five days. This will not make $100. It is the don’t-lose path.',
-    noChase: 'If the 730/720 mid credit is under $0.80, do not tighten the strikes. Park.',
+    alertsHint: 'Alerts fire on this device when you open the app.',
+    laneSpread: 'This ticket: collect about $100 if SPY stays above 730 through Friday. You can lose the whole $1000 if SPY finishes at or below 720.',
+    lanePark: 'Safer ticket: buy 10 SGOV. About $0.50 in five days. This will not make $100.',
+    noChase: 'Monday rule: if the spread pays under $0.80, switch to SGOV. Do not pick closer strikes.',
     forbidden: 'Do not use 0DTE, naked puts, or 3× ETFs this week.',
+    laterLabel: 'Rest of the week',
     settingsLabel: 'This week’s $1000',
-    settingsHint: 'One Interactive Brokers ticket for 13–18 Sep 2026. Honest math. No guarantee.',
+    settingsHint: 'Today: copy one IBKR order. Do not send it until Monday 9:45 a.m. ET.',
   },
   days: [
     {
       id: 'sun',
       date: '2026-09-13',
       title: 'Sunday — build, do not send',
-      body: 'US stocks and equity options are closed. Open IBKR. Confirm about $1,100 USD settled. Enable US stocks and US equity options if you want the spread. Add SPY. Save the ticket below as a DAY limit. Do not transmit until Monday after 9:45 ET.',
+      body: 'Markets are closed. Open IBKR and save the ticket. Do not press Transmit until Monday after 9:45 a.m. ET.',
+      steps: [
+        'Open Interactive Brokers.',
+        'Confirm about $1,100 cash is settled.',
+        'Turn on US stocks and US stock options.',
+        'Add SPY to a watchlist.',
+        'Copy the ticket below. Save it as a DAY limit. Do not press Transmit.',
+      ],
     },
     {
       id: 'mon',
       date: '2026-09-14',
       title: 'Monday — send or park',
-      body: 'After 9:45 ET, check the SPY 18 Sep 730/720 put vertical. If you can sell it for a credit of $1.00 or more, send one spread. If the bid is under $0.80, buy 10 SGOV at 100.60 instead. Do not chase.',
+      body: 'After 9:45 a.m. ET, send the spread if it pays $1.00 or more. If it pays under $0.80, buy 10 SGOV instead.',
+      steps: [
+        'Open Interactive Brokers after 9:45 a.m. ET.',
+        'Look at SPY 18 Sep 730 put / 720 put as one spread.',
+        'If you are paid $1.00 or more, press Transmit on the ticket below.',
+        'If you are paid under $0.80, buy 10 SGOV at 100.60 instead. Do not change strikes.',
+      ],
     },
     {
       id: 'tue',
       date: '2026-09-15',
-      title: 'Tuesday — FOMC sitting starts',
-      body: 'Do not add size. If you sold the spread, leave it unless SPY last is under 740. If you parked, do nothing.',
+      title: 'Tuesday — leave it',
+      body: 'Do nothing unless SPY last is under 740. Then close the spread.',
+      steps: [
+        'Open IBKR and check SPY last.',
+        'If you sold the spread and SPY is under 740, buy it back.',
+        'If you bought SGOV, do nothing.',
+      ],
     },
     {
       id: 'wed',
       date: '2026-09-16',
       title: 'Wednesday — FOMC 2:00 p.m. ET',
-      body: 'At 1:50 p.m. ET, sit on your hands. Do not market-order around the statement. Exit the spread only if SPY last is under 740. Park stays put.',
+      body: 'At 1:50 p.m. ET do nothing. Close the spread only if SPY last is under 740.',
+      steps: [
+        'At 1:50 p.m. ET, sit on your hands.',
+        'Do not send new orders around the 2:00 p.m. statement.',
+        'Close the spread only if SPY last is under 740.',
+      ],
     },
     {
       id: 'thu',
       date: '2026-09-17',
-      title: 'Thursday — digest',
-      body: 'If the spread still has most of the credit left and SPY is above 735, you can buy it back. If you parked, still nothing.',
+      title: 'Thursday — optional close',
+      body: 'If SPY is above 735 you may buy the spread back. SGOV: do nothing.',
+      steps: [
+        'If the spread is still open and SPY is above 735, you may buy it back.',
+        'If you bought SGOV, do nothing.',
+      ],
     },
     {
       id: 'fri',
       date: '2026-09-18',
       title: 'Friday — finish',
-      body: 'By 3:45 p.m. ET close leftover risk. If SPY is above 735, buy back the spread or let it expire. If you bought SGOV, you may keep it — it was never a 5-day lottery.',
+      body: 'By 3:45 p.m. ET close leftover spread risk, or keep SGOV.',
+      steps: [
+        'If the spread is still open, buy it back or let it expire if SPY is above 735.',
+        'If you bought SGOV, you may keep it.',
+      ],
     },
   ],
   checkpoints: [
@@ -171,6 +206,7 @@ export function actionFor(ms, playbook = PLAYBOOK) {
       date,
       title: 'Window closed',
       body: 'This playbook ended 18 Sep 2026. Do not reuse the ticket.',
+      steps: ['Do not send this ticket. The 13–18 Sep 2026 window is over.'],
     };
   }
   return playbook.days.find((day) => day.date === date) || playbook.days[0];
@@ -222,23 +258,23 @@ export function renderPlanHtml(state = defaultState(), ms = Date.now(), playbook
   const ticket = ticketFor(lane, playbook);
   const laneCopy = lane === 'park' ? c.lanePark : c.laneSpread;
   const alertLabel = state.notify ? c.alertsOff : c.alertsOn;
-  const days = playbook.days.map((day) => {
-    const on = day.date === today.date ? ' is-today' : '';
-    return `<li class="week-plan-day${on}"><p class="week-plan-day-title">${escapeHtml(day.title)}</p><p>${escapeHtml(day.body)}</p></li>`;
-  }).join('');
+  const steps = Array.isArray(today.steps)
+    ? today.steps.map((step) => `<li>${escapeHtml(step)}</li>`).join('')
+    : `<li>${escapeHtml(today.body)}</li>`;
+  const later = playbook.days
+    .filter((day) => day.date !== today.date)
+    .map((day) => `<li class="week-plan-day"><p class="week-plan-day-title">${escapeHtml(day.title)}</p><p>${escapeHtml(day.body)}</p></li>`)
+    .join('');
   return `<article class="week-plan" data-week-plan="${playbook.id}" data-lane="${lane}" data-guarantee="${playbook.guarantee ? 'yes' : 'no'}">
   <header class="week-plan-head">
     <button type="button" class="icon-btn" data-week-plan-close aria-label="${escapeHtml(c.back)}">←</button>
     <h2>${escapeHtml(c.title)}</h2>
   </header>
-  <p class="week-plan-honest">${escapeHtml(c.honest)}</p>
-  <p class="week-plan-math">${escapeHtml(c.math)}</p>
-  <p class="week-plan-note">${escapeHtml(c.notAdvice)}</p>
-  <p class="week-plan-forbidden">${escapeHtml(c.forbidden)}</p>
+  <p class="week-plan-proposal">${escapeHtml(c.proposal)}</p>
   <section class="week-plan-today">
-    <h3>${escapeHtml(c.todayLabel)}</h3>
+    <h3>${escapeHtml(c.doNowLabel)}</h3>
     <p class="week-plan-today-title">${escapeHtml(today.title)}</p>
-    <p>${escapeHtml(today.body)}</p>
+    <ol class="week-plan-now">${steps}</ol>
   </section>
   <section class="week-plan-ticket">
     <h3>${escapeHtml(c.ticketLabel)}</h3>
@@ -251,11 +287,19 @@ export function renderPlanHtml(state = defaultState(), ms = Date.now(), playbook
       <button type="button" class="btn-text" data-week-plan-sent>${escapeHtml(c.sentCta)}</button>
     </div>
   </section>
+  <section class="week-plan-why">
+    <h3>${escapeHtml(c.whyLabel)}</h3>
+    <p class="week-plan-honest">${escapeHtml(c.honest)}</p>
+    <p class="week-plan-math">${escapeHtml(c.math)}</p>
+    <p class="week-plan-note">${escapeHtml(c.notAdvice)}</p>
+    <p class="week-plan-forbidden">${escapeHtml(c.forbidden)}</p>
+  </section>
   <section class="week-plan-alerts">
     <button type="button" class="parent-link" data-week-plan-alerts>${escapeHtml(alertLabel)}</button>
     <p>${escapeHtml(c.alertsHint)}</p>
   </section>
-  <ol class="week-plan-days">${days}</ol>
+  <h3 class="week-plan-later-label">${escapeHtml(c.laterLabel)}</h3>
+  <ol class="week-plan-days">${later}</ol>
 </article>`;
 }
 

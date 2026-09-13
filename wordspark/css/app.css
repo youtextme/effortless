@@ -925,6 +925,13 @@ body.teleprompter-active .btn-home {
   font-weight: 600;
 }
 
+.week-plan-proposal {
+  font-size: 1.15rem;
+  font-weight: 500;
+  line-height: 1.45;
+  margin-bottom: 1.35rem;
+}
+
 .week-plan-honest,
 .week-plan-math,
 .week-plan-note,
@@ -933,6 +940,21 @@ body.teleprompter-active .btn-home {
   line-height: 1.6;
   color: var(--text);
   margin-bottom: 0.85rem;
+}
+
+.week-plan-now {
+  margin: 0.65rem 0 0 1.15rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.week-plan-later-label,
+.week-plan-why h3 {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin: 1.5rem 0 0.45rem;
 }
 
 .week-plan-forbidden { color: var(--red); }

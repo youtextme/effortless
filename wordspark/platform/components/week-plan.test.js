@@ -45,6 +45,8 @@ test('story:week-plan-honest-math component:week-plan 10 percent in 5 days is ex
   assert.ok(annual > 100, `annualized ${annual} should exceed 10,000%`);
   assert.equal(tenPercentPrice(PLAYBOOK.asOf.spy), 840.72);
   const html = renderPlanHtml();
+  assert.match(html, /Proposal:/);
+  assert.match(html, /Do this now/);
   assert.match(html, /12,000%/);
   assert.match(html, /will not promise \$100/);
   assert.doesNotMatch(html, /guaranteed/i);
@@ -65,7 +67,7 @@ test('story:week-plan-today-ticket component:week-plan Sunday and Monday IBKR ti
   assert.equal(actionFor(Date.parse('2026-09-10T12:00:00-04:00')).id, 'sun');
   assert.equal(actionFor(Date.parse('2026-09-19T12:00:00-04:00')).id, 'done');
   assert.equal(annualizedFromHolding(-2, 5), 0);
-  assert.match(actionFor(sunday).body, /Do not transmit/);
+  assert.match(actionFor(sunday).body, /Do not press Transmit/);
   const spread = spreadTicket();
   assert.match(spread, /SELL 1 SPY 2026-09-18 730\/720 PUT VERTICAL/);
   assert.match(spread, /LMT credit 1\.00/);
@@ -74,6 +76,8 @@ test('story:week-plan-today-ticket component:week-plan Sunday and Monday IBKR ti
   assert.match(park, /BUY 10 SGOV/);
   const html = renderPlanHtml({ lane: 'spread' }, sunday);
   assert.match(html, /Sunday — build, do not send/);
+  assert.match(html, /Open Interactive Brokers/);
+  assert.match(html, /Copy this into IBKR/);
   assert.match(html, /0DTE/);
   const parkHtml = renderPlanHtml({ lane: 'park' }, monday);
   assert.match(parkHtml, /BUY 10 SGOV/);
