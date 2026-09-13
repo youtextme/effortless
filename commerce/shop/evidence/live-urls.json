@@ -1,0 +1,26 @@
+{
+  "capturedAt": "2026-09-13T19:27:00Z",
+  "spendLock": "no ads, no Discover boost, no test checkout, no paid tools",
+  "storefront": "https://textme.gumroad.com",
+  "payout": {
+    "holder": "MAHADEVAN GIRISH",
+    "bankCodeAccepted": "HVBKKRSEXXX",
+    "bankCodeRejected": "020",
+    "accountMasked": "******6668",
+    "currency": "KRW",
+    "schedule": "weekly",
+    "minimumUsd": 100,
+    "stripeKyc": "confirmed 2026-09-13, pending-verification banner gone",
+    "connectPayoutBanner": false
+  },
+  "skus": [
+    { "id": "sample", "url": "https://textme.gumroad.com/l/sight-words-sample", "price": 0, "gumroadId": "mvxcmq" },
+    { "id": "sight-words-220", "url": "https://textme.gumroad.com/l/sight-words-220", "price": 5.99, "gumroadId": "icgbqd" },
+    { "id": "alphabet-trace", "url": "https://textme.gumroad.com/l/alphabet-trace", "price": 3.99, "gumroadId": "zeoqy" },
+    { "id": "numbers-0-20", "url": "https://textme.gumroad.com/l/numbers-0-20", "price": 3.99, "gumroadId": "nzcdva" },
+    { "id": "cvc-short", "url": "https://textme.gumroad.com/l/cvc-short", "price": 4.99, "gumroadId": "suogib" },
+    { "id": "first-sentences", "url": "https://textme.gumroad.com/l/first-sentences", "price": 4.99, "gumroadId": "pkjji" },
+    { "id": "week-tracker", "url": "https://textme.gumroad.com/l/week-tracker", "price": 2.99, "gumroadId": "lkxlej" },
+    { "id": "after-dinner", "url": "https://textme.gumroad.com/l/after-dinner", "price": 19.97, "gumroadId": "wwhgpz", "bundleOf": 5 }
+  ]
+}

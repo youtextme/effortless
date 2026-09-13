@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>WordSpark print shop — one page tonight</title>
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      background: #faf7f2;
+      color: #1c1b19;
+      line-height: 1.45;
+    }
+    header, main, footer { max-width: 920px; margin: 0 auto; padding: 28px 20px; }
+    h1 { font-weight: 500; font-size: 2rem; margin: 0 0 8px; }
+    .kicker { font-family: Helvetica, Arial, sans-serif; letter-spacing: .12em; text-transform: uppercase; font-size: .72rem; color: #6b6560; }
+    .lead { font-size: 1.15rem; max-width: 38rem; }
+    fieldset { border: 1px solid #d9d2c8; padding: 16px; margin: 24px 0; background: #fff; }
+    legend { font-family: Helvetica, Arial, sans-serif; font-size: .85rem; padding: 0 6px; }
+    label { display: block; margin: 8px 0; cursor: pointer; }
+    button.primary {
+      font: inherit;
+      background: #1c1b19;
+      color: #faf7f2;
+      border: 0;
+      padding: 12px 18px;
+      cursor: pointer;
+    }
+    .hero, .card {
+      background: #fff;
+      border: 1px solid #d9d2c8;
+      padding: 18px;
+      margin: 12px 0;
+    }
+    .hero { border-width: 2px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
+    a { color: #1c1b19; }
+    .price { font-family: Helvetica, Arial, sans-serif; font-size: .9rem; color: #6b6560; }
+    table { width: 100%; border-collapse: collapse; background: #fff; }
+    th, td { text-align: left; padding: 8px; border-bottom: 1px solid #e8e2d8; font-size: .95rem; }
+    footer { color: #6b6560; font-size: .9rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <p class="kicker">WordSpark</p>
+    <h1>Print one page tonight.</h1>
+    <p class="lead">Teachers and parents already paid this week on Teachers Pay Teachers for sight-word packets. This shop is the quiet version: one PDF, no Google Drive, a free ten-page taste, then the week if you want it. Live catalog: <a href="https://textme.gumroad.com">textme.gumroad.com</a>.</p>
+  </header>
+  <main>
+    <fieldset>
+      <legend>Three taps. We pick a page. The shelf stays.</legend>
+      <p>Who is printing?</p>
+      <label><input type="radio" name="who" value="parent" checked /> Parent after dinner</label>
+      <label><input type="radio" name="who" value="teacher" /> Teacher / centers</label>
+      <label><input type="radio" name="who" value="homeschool" /> Homeschool</label>
+      <p>How many minutes tonight?</p>
+      <label><input type="radio" name="minutes" value="5" /> Five</label>
+      <label><input type="radio" name="minutes" value="15" checked /> Fifteen</label>
+      <label><input type="radio" name="minutes" value="30" /> The whole week at once</label>
+      <p>Child</p>
+      <label><input type="radio" name="grade" value="prek" /> Pre-K</label>
+      <label><input type="radio" name="grade" value="k" checked /> Kindergarten</label>
+      <label><input type="radio" name="grade" value="g1" /> Grade 1</label>
+      <p><button class="primary" type="button" id="go">Show my page</button></p>
+    </fieldset>
+    <section id="pick" hidden></section>
+    <h2>The shelf (eight things)</h2>
+    <p>If you came for sight words, stay for the week. The bundle is $19.97. Five separate $5.99 TPT packs would be $29.95.</p>
+    <div class="grid" id="shelf"></div>
+    <h2>Why this is the steal</h2>
+    <table>
+      <thead><tr><th></th><th>Live TPT this week</th><th>Here</th></tr></thead>
+      <tbody>
+        <tr><td>Price people paid</td><td>$11 Drive bundle · $5.99 color pack</td><td>$5.99 for all 220 Dolch, or $19.97 for the week</td></tr>
+        <tr><td>What you open</td><td>Google Drive tickets on the listing</td><td>One PDF. Print.</td></tr>
+        <tr><td>Taste first</td><td>Often a preview wall</td><td><a href="https://textme.gumroad.com/l/sight-words-sample">Ten free pages</a></td></tr>
+        <tr><td>If your list is odd</td><td>Buy another pack</td><td><a href="mailto:youtextme@gmail.com">youtextme@gmail.com</a> — 48 hours, original pages</td></tr>
+      </tbody>
+    </table>
+    <h2>Reviews</h2>
+    <p>We will not invent stars. Download the free sample. If the page is calm, say so on Gumroad. If it is not, email youtextme@gmail.com and say what to fix.</p>
+  </main>
+  <footer>
+    Classroom or home use. Do not resell the files. WordSpark is a print shop for one job on a page.
+  </footer>
+  <script>
+    const SKUS = [
+      { id: 'sample', title: 'Free 10-page taste', priceCents: 0, gumroad: 'https://textme.gumroad.com/l/sight-words-sample', job: 'See the page before you pay.', personas: ['parent', 'teacher', 'homeschool'], minutes: ['5'], grades: ['prek', 'k', 'g1'] },
+      { id: 'sight-words-220', title: '220 Sight Words', priceCents: 599, gumroad: 'https://textme.gumroad.com/l/sight-words-220', job: 'All Dolch 220. One word, one page.', personas: ['parent', 'teacher', 'homeschool'], minutes: ['5', '15'], grades: ['prek', 'k', 'g1'] },
+      { id: 'alphabet-trace', title: 'Alphabet Trace A–Z', priceCents: 399, gumroad: 'https://textme.gumroad.com/l/alphabet-trace', job: 'One letter a night. Trace, write, find, read.', personas: ['parent', 'homeschool'], minutes: ['5'], grades: ['prek', 'k'] },
+      { id: 'numbers-0-20', title: 'Numbers 0–20', priceCents: 399, gumroad: 'https://textme.gumroad.com/l/numbers-0-20', job: 'Trace the numeral, fill a ten-frame, write it.', personas: ['parent', 'teacher'], minutes: ['5', '15'], grades: ['prek', 'k'] },
+      { id: 'cvc-short', title: 'CVC Short Vowels', priceCents: 499, gumroad: 'https://textme.gumroad.com/l/cvc-short', job: 'Cat, hat, sat. Blend, write, read.', personas: ['teacher', 'homeschool'], minutes: ['15'], grades: ['k', 'g1'] },
+      { id: 'first-sentences', title: 'First Sentences', priceCents: 499, gumroad: 'https://textme.gumroad.com/l/first-sentences', job: 'One quiet sentence after dinner.', personas: ['parent', 'homeschool'], minutes: ['5', '15'], grades: ['k', 'g1'] },
+      { id: 'week-tracker', title: 'Four-week home tracker', priceCents: 299, gumroad: 'https://textme.gumroad.com/l/week-tracker', job: 'Check the box. See the week.', personas: ['parent', 'teacher'], minutes: ['5'], grades: ['prek', 'k', 'g1'] },
+      { id: 'after-dinner', title: 'After-dinner week (bundle)', priceCents: 1997, gumroad: 'https://textme.gumroad.com/l/after-dinner', job: 'Sight words + alphabet + numbers + CVC + sentences.', personas: ['parent', 'teacher', 'homeschool'], minutes: ['15', '30'], grades: ['prek', 'k', 'g1'] }
+    ];
+    const CUSTOM = 'Need a class list we did not print? Email youtextme@gmail.com. 48 hours. Original pages.';
+    function dollars(cents) { return cents === 0 ? 'Free' : '$' + (cents / 100).toFixed(2); }
+    function recommend(answers) {
+      const scored = SKUS.map((sku) => {
+        let score = 0;
+        if (sku.personas.includes(answers.who)) score += 3;
+        if (sku.minutes.includes(answers.minutes)) score += 2;
+        if (sku.grades.includes(answers.grade)) score += 2;
+        if (answers.minutes === '30' && sku.id === 'after-dinner') score += 5;
+        if (answers.minutes === '5' && sku.id === 'sample') score += 2;
+        if (answers.who === 'teacher' && sku.id === 'week-tracker') score += 1;
+        if (answers.grade === 'prek' && sku.id === 'alphabet-trace') score += 2;
+        if (answers.grade === 'g1' && sku.id === 'cvc-short') score += 2;
+        return { sku, score };
+      }).sort((a, b) => b.score - a.score);
+      return { hero: scored[0].sku, rest: scored.slice(1).map((r) => r.sku) };
+    }
+    function card(sku, featured) {
+      const el = document.createElement('article');
+      el.className = featured ? 'hero' : 'card';
+      el.innerHTML = '<p class="kicker">' + (featured ? 'For you tonight' : 'Also on the shelf') + '</p><h3>' + sku.title + '</h3><p>' + sku.job + '</p><p class="price">' + dollars(sku.priceCents) + '</p><p><a href="' + sku.gumroad + '">Open checkout</a></p>';
+      return el;
+    }
+    const shelf = document.getElementById('shelf');
+    SKUS.forEach((sku) => shelf.appendChild(card(sku, false)));
+    document.getElementById('go').addEventListener('click', () => {
+      const answers = {
+        who: document.querySelector('[name=who]:checked').value,
+        minutes: document.querySelector('[name=minutes]:checked').value,
+        grade: document.querySelector('[name=grade]:checked').value
+      };
+      const { hero, rest } = recommend(answers);
+      const pick = document.getElementById('pick');
+      pick.hidden = false;
+      pick.replaceChildren(card(hero, true));
+      rest.forEach((sku) => pick.appendChild(card(sku, false)));
+      const note = document.createElement('p');
+      note.textContent = CUSTOM;
+      pick.appendChild(note);
+      pick.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  </script>
+</body>
+</html>
