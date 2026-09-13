@@ -6,7 +6,8 @@
   },
   "testGlobs": [
     "wordspark/platform/**/*.test.js",
-    "platform/**/*.test.js"
+    "platform/**/*.test.js",
+    "commerce/**/*.test.js"
   ],
   "coverageInclude": [
     "wordspark/platform/kernel/**/*.js",
