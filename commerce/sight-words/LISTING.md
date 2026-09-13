@@ -11,7 +11,11 @@ Those are Teachers Pay Teachers **verified purchases**, not estimates. People pa
 
 Our offer: original 220-page PDF, one word per page, **$5.99** (45% under the $11 bundle; same cash price as the 10.9k-review color pack) plus a **free 10-page sample**.
 
-## Gumroad (you already have an account)
+## Gumroad — LIVE (13 Sep 2026)
+
+**Paid checkout:** https://textme.gumroad.com/l/sight-words-220 — **$5.99**, Pay button confirmed on `/checkout`.
+
+**Free sample:** https://textme.gumroad.com/l/sight-words-sample
 
 **Title:** 220 Sight Words Printable Pack — Trace, Write, Find, Read (Dolch Pre-K to Grade 3)
 
@@ -63,14 +67,10 @@ Classroom and home use. Do not resell the file.
 
 **Digital download:** yes. No physical shipping.
 
-## What you do in 20 minutes
+## Clock is running
 
-1. Open https://gumroad.com/login — complete 2FA from Gmail.
-2. Connect payouts (bank/PayPal) if not already.
-3. New product → upload the paid PDF → $5.99 → publish.
-4. Same day: TPT seller signup if you want the market that produced 8.7k purchases on one listing. Tax form required.
-5. Post the Gumroad or TPT link in 2 places you already have access to (a parent group, X, or a teacher forum that allows resources). Do not spam.
+Checkout went live **13 Sep 2026**. The 7-day $500 clock started then.
 
-The 7-day $500 clock **starts when checkout is live**, not when this PR merges.
+TPT is still the bigger market (seller tax ID remains a gate). Ads stay a spend gate until you say yes.
 
-**Do not buy ads until you say yes.** That is a spend gate.
+Post https://textme.gumroad.com/l/sight-words-220 in 2 places you already have (parent group, X, teacher forum that allows resources). Do not spam.

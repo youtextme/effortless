@@ -9,6 +9,8 @@
 
 No product code was edited. Graded against the contract and listed artifacts only.
 
+**Publisher receipt (later same day, not a cash grade):** Gumroad listing https://textme.gumroad.com/l/sight-words-220 is live at $5.99 with Pay on `/checkout`. Free sample: https://textme.gumroad.com/l/sight-words-sample. Screenshots: `gumroad-live-checkout.png`, `gumroad-checkout.png`. $500 still requires sales.
+
 ---
 
 ## 1. Verdict
@@ -17,7 +19,7 @@ No product code was edited. Graded against the contract and listed artifacts onl
 
 People are paying for sight-word printables on Teachers Pay Teachers this week. An original 220-word Dolch PDF plus listing kit exist in this repo and can be listed cheaper than the live $11 bundle (price-matched to the live $5.99 volume SKU).
 
-The **program** North Star (net cash ≥ $500 within 7 days of first live listing) is **not** proven. Contract `Status:` must stay `active` until a checkout URL exists and cash lands. See minority veto.
+The **program** North Star (net cash ≥ $500 within 7 days of first live listing) is **not** proven. Checkout is now live (publisher receipt 13 Sep 2026: https://textme.gumroad.com/l/sight-words-220). Contract `Status:` stays `active` until cash lands. See minority veto.
 
 Kill experiment for demand (**“no recent paid reviews → stop”**) **survived**. Legal kill (**never upload someone else’s PDF**) **survived** on the artifacts inspected.
 

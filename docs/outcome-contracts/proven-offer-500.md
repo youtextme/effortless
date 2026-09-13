@@ -2,7 +2,7 @@
 
 Status: active
 Owner: Prompt OS (Girish / youtextme)
-Window: 7 days from first live listing (clock does not start until a checkout URL exists)
+Window: 7 days from first live listing — clock started **13 Sep 2026** (https://textme.gumroad.com/l/sight-words-220)
 Branch: `cursor/proven-offer-500-c5af`
 
 ## Outcome Frame
@@ -12,8 +12,8 @@ Branch: `cursor/proven-offer-500-c5af`
   - KR1: Live competitor pages show **verified purchases this week** (not a blog guess).
   - KR2: An original 220-word Dolch printable PDF exists, generated from this repo, not copied from a seller.
   - KR3: Listing copy + price undercuts the live $11 TPT bundle and matches the live $5.99 volume SKU, with one-file PDF (no Google Drive maze).
-  - KR4: Human can publish in one sitting (Gumroad already exists). Checkout URL is the start of the 7-day clock.
-- **Workback:** evidence matrix → original pack → listing kit → human publishes → traffic in the market that already pays.
+  - KR4: Live Gumroad checkout: https://textme.gumroad.com/l/sight-words-220 ($5.99). Clock started **13 Sep 2026**.
+- **Workback:** evidence matrix → original pack → listing kit → **Gumroad live** → traffic in the market that already pays.
 - **Agents:** Researcher, Builder, Evaluator ≠ Builder.
 - **Kill experiment:** If live marketplaces show no recent paid reviews in this category, stop. **Survived:** TPT listing 3150071 has 8,784 verified reviews and 5-star reviews on 11 Sep 2026; listing 592311 has 10,920 reviews at $5.99, also 11 Sep 2026.
 - **Contract:** `docs/outcome-contracts/proven-offer-500.md`
@@ -48,7 +48,7 @@ Math (honest):
 ## Assumptions
 1. Adults will buy a quieter, complete 220-word PDF if it is cheaper than the $11 bundle and simpler than Google Drive.
 2. Dolch word lists may be used; **layout, sentences, and hunt rows are original**.
-3. Human can pass Gumroad 2FA and (for TPT) seller tax. **Money cannot land without payouts.**
+3. Gumroad 2FA + Korea payouts are connected. TPT still needs seller tax. **Cash still needs traffic.**
 4. We will not clone Simply Kinder’s books/slides/Drive files.
 
 ## Baseline (do nothing + 3 live ways)
@@ -79,8 +79,12 @@ Winner for week 1: **A** (price already converting at $5.99 on TPT).
 ## Command evidence
 - `node --test commerce/sight-words/scripts/build-pack.test.js` — exit:0, 5/5
 - `npm run ci` — exit:0, 108/108, governed line coverage 99.69%
-- Evaluator (≠ Builder): `commerce/sight-words/evidence/evaluator-proven-offer-500.md` — **slice proven**, program cash **not yet** (no checkout URL)
+- Evaluator (≠ Builder): `commerce/sight-words/evidence/evaluator-proven-offer-500.md` — **slice proven**, program cash **not yet** until sales land
+- Live checkout (Playwright 13 Sep 2026): https://textme.gumroad.com/l/sight-words-220 — `$5.99` + **I want this!** + `/checkout` **Pay** US$5.99. Evidence: `commerce/sight-words/evidence/gumroad-live-checkout.png`, `gumroad-checkout.png`
+- Free sample: https://textme.gumroad.com/l/sight-words-sample
 - PR: https://github.com/youtextme/effortless/pull/35
 
-## Human gate (not optional)
-Gumroad account exists (`noreply@gumroad.com` 2FA, Sep 2024). I cannot complete 2FA or attach a bank. **You publish. I built the file.**
+## Remaining gates (not product files)
+- **Cash $500:** listing is live; traffic is still required. Ads = spend gate.
+- **TPT:** seller tax ID still a marketplace gate.
+- Payouts: Korea Woori KRW connected on Gumroad (details not in git).
