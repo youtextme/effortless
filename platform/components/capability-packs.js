@@ -1,12 +1,14 @@
 /**
  * Capability packs — WordSpark's first catalogs. Later: math, diagrams, more.
  * Add a pack here; do not fork shell listing. Opt into Home with homeTab: true
- * only when the pack has real kid content.
+ * only when the pack has real kid content. week-plan is a parent exercise
+ * (homeTab: false) opened from Settings.
  */
 
 import { VOCABULARY } from '../../js/data/words.js';
 import { getTopicTitle } from '../../js/data/topics.js';
 import { createCatalogCapability } from '../kernel/capabilities.js';
+import { createWeekPlanCapability } from './week-plan.js';
 
 export function createPassagesCapability(getProgress) {
   return createCatalogCapability({
@@ -86,5 +88,6 @@ export function defaultPacks(getProgress) {
   return [
     createWordsCapability(getProgress),
     createPassagesCapability(getProgress),
+    createWeekPlanCapability(),
   ];
 }

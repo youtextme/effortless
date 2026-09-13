@@ -11,6 +11,7 @@ import { CertificateComponent } from './certificate.js';
 import { HomeComponent } from './home.js';
 import { CapabilityComponent } from './capability.js';
 import { ItemComponent } from './item.js';
+import { WeekPlanComponent } from './week-plan.js';
 import { highlightWordsOnce } from '../../js/passage-generator.js';
 import * as bus from '../kernel/bus.js';
 import { createPolicy } from '../kernel/policy.js';
@@ -30,6 +31,7 @@ const ALL = [
   QuizComponent,
   CertificateComponent,
   HomeComponent,
+  WeekPlanComponent,
 ];
 
 test('every registered runtime component exposes id version health', () => {
@@ -66,6 +68,7 @@ test('component:storage component:capability component:item component:passage co
   assert.ok(ctx.item);
   assert.equal(typeof ctx.item.renderHtml, 'function');
   assert.ok(ctx.certificate);
+  assert.ok(ctx.weekPlan);
   assert.equal(typeof ctx.storage.getBootTarget, 'function');
   assert.equal(typeof ctx.storage.saveResume, 'function');
   assert.equal(TtsComponent.health().ok, true);
