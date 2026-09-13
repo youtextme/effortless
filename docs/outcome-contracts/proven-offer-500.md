@@ -77,7 +77,10 @@ Winner for week 1: **A** (price already converting at $5.99 on TPT).
 - Evaluator ≠ Builder grades `commerce/sight-words/evidence/`
 
 ## Command evidence
-(filled after build)
+- `node --test commerce/sight-words/scripts/build-pack.test.js` — exit:0, 5/5
+- `npm run ci` — exit:0, 108/108, governed line coverage 99.69%
+- Evaluator (≠ Builder): `commerce/sight-words/evidence/evaluator-proven-offer-500.md` — **slice proven**, program cash **not yet** (no checkout URL)
+- PR: https://github.com/youtextme/effortless/pull/35
 
 ## Human gate (not optional)
 Gumroad account exists (`noreply@gumroad.com` 2FA, Sep 2024). I cannot complete 2FA or attach a bank. **You publish. I built the file.**
