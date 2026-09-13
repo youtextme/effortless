@@ -4,7 +4,9 @@ Walkable plan for a Helio City (헬리오시티) resident at **345 Songpa-daero,
 
 ## Decision (one sentence)
 
-Do **not** buy a 45-day Zumba / BJJ / taekwondo commute. Use the **on-site Sports Zone you already live in**, start every evening with a **20-minute walk**, then **play** (table tennis, badminton, or pool) for ~50 minutes, then shower/sauna and go home.
+Do **not** buy a 45-day Zumba / BJJ / taekwondo commute. If you are a **household resident**, use the **on-site Sports Zone**, start every evening with a **20-minute walk**, then **play** (table tennis, badminton, or pool) for ~50 minutes, then shower/sauna and go home.
+
+**If you are not a registered household resident:** Sports Zone will turn you away. Use commercial **Helio GYM, B-dong 2F #92, 02-423-0731**, or Songpa badminton gym (문정로 176, commute). Do not bluff the resident desk.
 
 That is the “hidden, efficient, drastic” move: Helio City is a private sports campus. Outside classes lose on travel money, language, and dropout.
 
@@ -12,7 +14,7 @@ That is the “hidden, efficient, drastic” move: Helio City is a private sport
 
 | Time | What | Why |
 |------|------|-----|
-| 18:30–18:50 | Walk the complex loop or toward Tancheon 유수지 | Post-dinner walk cuts glucose spike in T2D trials ([PMC6190726](https://pmc.ncbi.nlm.nih.gov/articles/PMC6190726/)); ADA/ACSM want sitting broken and ≥150 min/week ([ADA exercise](https://diabetes.org/health-wellness/fitness/blood-glucose-and-exercise), [ACSM 2022](https://pmc.ncbi.nlm.nih.gov/articles/PMC8802999/)) |
+| 18:30–18:50 | Walk the complex loop or toward Tancheon 유수지 | A 20-min moderate walk after dinner reduced the 2-hour post-meal glucose rise in a small T2D trial that **excluded insulin users** ([PMC6190726](https://pmc.ncbi.nlm.nih.gov/articles/PMC6190726/)). ADA/ACSM: break sitting; ≥150 min/week ([ADA exercise](https://diabetes.org/health-wellness/fitness/blood-glucose-and-exercise), [ACSM 2022](https://pmc.ncbi.nlm.nih.gov/articles/PMC8802999/)). |
 | 18:50–19:40 | **Play:** table tennis **or** badminton **or** easy swim | Fun = adherence. Visual sports need almost no English. |
 | 19:40–20:10 | Gym machines (optional) or GX if a class is on | Resistance 2–3×/week (ADA). Skip if tired. |
 | 20:10–20:30 | Shower / sauna / walk home | End the Instagram default. |
@@ -23,7 +25,7 @@ That is the “hidden, efficient, drastic” move: Helio City is a private sport
 
 ## On-site map (walk, no fare)
 
-Sources: [Aptner contacts](https://heliocity.aptner.com/v2/page/menu/10789), [Namuwiki Helio City](https://namu.wiki/w/%ED%97%AC%EB%A6%AC%EC%98%A4%EC%8B%9C%ED%8B%B0), licensing data for studios.
+Sources: [Aptner contacts](https://heliocity.aptner.com/v2/page/menu/10789), [Namuwiki Helio City](https://namu.wiki/w/%ED%97%AC%EB%A6%AC%EC%98%A4%EC%8B%9C%ED%8B%B0), [TKD license](https://fgy.purpleo.co.kr/view/2388), [Helio GYM license](https://ffc.purpleo.co.kr/view/5824). `help@aptner.com` is the **app vendor**, not the Sports Zone desk.
 
 | Place | Where | Phone | Use |
 |-------|-------|-------|-----|
@@ -40,7 +42,7 @@ Wiki-level fees: **about ₩10,000–20,000 per facility per month** for residen
 
 Hours (aggregator, confirm): weekdays **06:00–23:00**, weekends **09:00–21:00**, **Monday closed** ([Woondoc](https://www.woondoc.com/centerdetail/15420)).
 
-Resident-only. Bring ID / 입주민 카드. Face-scan access is used in this complex.
+Resident-only. Bring ID / 입주민 카드. Face-scan was reported in 2020 coverage `[unverified if still required]`.
 
 ## What to skip (and why)
 
@@ -57,7 +59,7 @@ Korean gyms enroll by **phone + visit**, not email. Use these English desks:
 
 | Who | When | Contact |
 |-----|------|---------|
-| Seoul Foreign Resident Center (English) | Mon–Fri 09:00–18:00, Sun 10:00–18:00 | **02-2229-4912** · [help@sfrc.seoul.kr](mailto:help@sfrc.seoul.kr) · [hotline@sfrc.seoul.kr](mailto:hotline@sfrc.seoul.kr) · [global.seoul.go.kr](https://global.seoul.go.kr/) |
+| Seoul Foreign Resident Center (English) | Mon–Fri **10:00–18:00**, Sun 10:00–18:00. They may or may not cold-call a private gym `[unverified]`. | **02-2229-4912** · [help@sfrc.seoul.kr](mailto:help@sfrc.seoul.kr) · [hotline@sfrc.seoul.kr](mailto:hotline@sfrc.seoul.kr) · [global.seoul.go.kr](https://global.seoul.go.kr/) |
 | HiKorea 1345 | Weekdays to 22:00, English | **1345** (not for gym booking, but for “how do I…”) |
 
 **Script for SFRC (read it):**

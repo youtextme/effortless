@@ -1,7 +1,17 @@
 # Outcome contract — Helio City evening activity
 
-**Status:** active
+**Status:** active (outreach slice complete; North Star waits on human walk-in)
 **Branch:** `cursor/helio-evening-activity-72c3`
+**Evaluator:** `not yet` — KR1–4 pass; ≥5 lived evenings not yet due.
+
+### Outreach receipts (13 Sep 2026)
+
+| What | Id |
+|------|----|
+| Gmail → help@aptner.com | `1a09af53fb8256ad` |
+| Gmail → help@sfrc.seoul.kr, hotline@sfrc.seoul.kr | `1a09af5415e1d347` |
+| Gmail self-brief | `1a09af55cc342244` |
+| Calendar 14× 18:30–20:30 Asia/Seoul | `v83t6fj98a6fe189he3qvotim4` · [event](https://www.google.com/calendar/event?eid=djgzdDZmajk4YTZmZTE4OWhlM3F2b3RpbTRfMjAyNjA5MTRUMDkzMDAwWiB5b3V0ZXh0bWVAbQ) |
 **Job:** Replace post-6pm Instagram sitting with a walkable, enjoyable 90–120 minute evening ritual at Helio City that a resident can start this week without a month-long class lock-in or daily transit fares.
 
 ## North Star
@@ -38,7 +48,7 @@
 
 ## PoC (cheapest kill)
 
-Walk to community desk **tomorrow after 18:30** (or Monday 09:00 English SFRC call). If they say “residents only and you are not registered,” kill this contract.
+Walk to community desk **Mon 14 Sep after 18:30** (or Monday **10:00** English SFRC call 02-2229-4912). If they say “residents only and you are not registered,” kill this contract.
 
 ## A/B inside the winner
 
